@@ -1,0 +1,924 @@
+
+const AWSDashboard = () => {
+  const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
+
+  // States for Date Range
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const handleDownload = (stationName) => {
+    // Basic Validation
+    if (endDate < startDate) {
+      alert("End date cannot be before start date!");
+      return;
+    }
+    
+    // Format dates for the filename or API request
+    const startStr = startDate.toISOString().split('T')[0];
+    const endStr = endDate.toISOString().split('T')[0];
+    
+    // In a real app, you would fetch data filtered by these dates here.
+    const downloadData = {
+      station: stationName,
+      period: { start: startStr, end: endStr },
+      data: PLOT_DATA // This would be your filtered result
+    };
+    
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(PLOT_DATA));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `${stationName}_data.json`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  return (
+    <div style={{ display: 'flex', height: '100vh', width: '90vw' }}>
+      
+      {/* Left Side: Map */}
+      <div style={{ flex: 1, borderRight: '2px solid #ccc' }}>
+        <MapContainer center={[-33, -71.13]} zoom={9.2} style={{ height: '100%', width: '100%' }}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          
+          {STATIONS.map(station => (
+            <Marker 
+              key={station.id} 
+              position={[station.lat, station.lng]}
+              eventHandlers={{ click: () => setSelectedStation(station) }}
+            >
+              <Popup>
+                <div style={{ padding: '1px' }}>
+                  <h3>{station.name}</h3>
+                  <p><strong>Temp:</strong> {station.temp}°C</p>
+                  <p><strong>Humidity:</strong> {station.humidity}%</p>
+                  {/*Maybe get rid of this button*/}
+                  <button 
+                    onClick={() => handleDownload(station.name)}
+                    style={{ cursor: 'pointer', backgroundColor: '#007bff', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px' }}
+                  >
+                    Download JSON
+                  </button>
+                {/* Date Selection Box */}
+        <div style={{ 
+          background: '#fff', 
+          padding: '15px', 
+          borderRadius: '8px', 
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          marginBottom: '20px' 
+        }}>
+          <h3>Select Data Period</h3>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '15px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px' }}>Start Date</label>
+              <DatePicker 
+                selected={startDate} 
+                onChange={(date) => setStartDate(date)} 
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                className="date-input"
+              />
+            </div>
+            <span>to</span>
+            <div>
+              <label style={{ display: 'block', fontSize: '12px' }}>End Date</label>
+              <DatePicker 
+                selected={endDate} 
+                onChange={(date) => setEndDate(date)} 
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+                className="date-input"
+              />
+            </div>
+          </div>
+
+          <button 
+            onClick={() => handleDownload(selectedStation.name)}
+            style={{ 
+              width: '100%', 
+              padding: '10px', 
+              backgroundColor: '#28a745', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: 'bold'
+            }}
+          >
+            Download Data for Selected Period
+          </button>
+        </div>
+                </div>
+              </Popup>
+              <MapTooltip>
+                <p>{station.name}</p>
+              </MapTooltip>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
+
+      {/* Right Side: Plots */}
+      <div style={{ flex: 1, padding: '20px', backgroundColor: '#f9f9f9', display: 'flex', flexDirection: 'column' }}>
+        <h2>Station Data: {selectedStation.name}</h2>
+        <div style={{ flex: 1, marginTop: '20px' }}>
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart data={PLOT_DATA}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
+          <p style={{ textAlign: 'center', color: '#666' }}>Temperature Trend Over 24h</p>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+export default AWSDashboard;
+
+
+/* ----------------------------------- */
+
+{/* RIGHT SIDE: DATA & CONTROLS CARD */}
+        <div className="card-frame plot-side">
+          <div className="card-header">Station Analytics: {selectedStation.name}</div>
+          
+          <div style={{ padding: '20px' }}>
+            {/* Date Range Selection Area */}
+            <section style={{ marginBottom: '25px', paddingBottom: '20px', borderBottom: '1px solid #eee' }}>
+              <h4 style={{ margin: '0 0 15px 0', color: '#555' }}>Data Export Configuration</h4>
+              <div style={{ display: 'flex', gap: '15px', alignItems: 'flex-end', marginBottom: '15px' }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ fontSize: '11px', fontWeight: 'bold', color: '#888', textTransform: 'uppercase' }}>Start Date</label>
+                  <DatePicker 
+                    selected={startDate} 
+                    onChange={(date) => setStartDate(date)} 
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    className="date-input"
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <label style={{ fontSize: '11px', fontWeight: 'bold', color: '#888', textTransform: 'uppercase' }}>End Date</label>
+                  <DatePicker 
+                    selected={endDate} 
+                    onChange={(date) => setEndDate(date)} 
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    className="date-input"
+                  />
+                </div>
+              </div>
+
+              <button 
+                onClick={() => handleDownload(selectedStation.name)}
+                className="download-btn"
+              >
+                📥 Download {selectedStation.name} Dataset
+              </button>
+            </section>
+
+            {/* Plot Area */}
+            <section style={{ height: '350px' }}>
+              <h4 style={{ margin: '0 0 10px 0', color: '#555' }}>Temperature Trend (24h)</h4>
+              <ResponsiveContainer width="100%" height="90%">
+                <LineChart data={PLOT_DATA}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+                  <XAxis dataKey="time" stroke="#999" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="#999" fontSize={12} tickLine={false} axisLine={false} />
+                  <ChartTooltip 
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }} 
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="value" 
+                    stroke="#3498db" 
+                    strokeWidth={3} 
+                    dot={{ r: 4, fill: '#3498db', strokeWidth: 2, stroke: '#fff' }} 
+                    activeDot={{ r: 7 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </section>
+          </div>
+        </div>
+        
+/ * ------------------------------------- */
+
+<iframe src="https://redmeteo.cl/compartir.php?codigo=RMCL0022" width="720" height="320"></iframe>
+
+
+/ * ------------ Working version (2 cards) ----------------------- */
+
+import React, { useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip as MapTooltip } from 'react-leaflet';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import 'leaflet/dist/leaflet.css';
+
+// Data for the 3 Weather Stations
+const STATIONS = [
+  { id: 1, name: "Pocuro-AWS", lat: -32.86967, lng: -70.61523, temp: 0, humidity: 0 },
+  { id: 2, name: "CienciasUV-AWS", lat: -33.02705, lng: -71.63875, temp: 0, humidity: 0 },
+  { id: 3, name: "LaReserva-AWS", lat: -33.04374, lng: -71.33615, temp: 0, humidity: 0 }
+];
+
+// Mock Time-Series Data for the Plot
+const PLOT_DATA = [
+  { time: '00:00', value: 20 }, { time: '04:00', value: 18 },
+  { time: '08:00', value: 22 }, { time: '12:00', value: 28 },
+  { time: '16:00', value: 26 }, { time: '20:00', value: 21 },
+];
+
+const AWSDashboard = () => {
+  const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const handleDownload = (stationName) => {
+    if (endDate < startDate) {
+      alert("End date cannot be before start date!");
+      return;
+    }
+    
+    const startStr = startDate.toISOString().split('T')[0];
+    const endStr = endDate.toISOString().split('T')[0];
+    
+    const downloadData = {
+      station: stationName,
+      period: { start: startStr, end: endStr },
+      data: PLOT_DATA 
+    };
+    
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(downloadData));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `${stationName}_${startStr}_to_${endStr}.json`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  return (
+    <div className="dashboard-container">
+      {/* --- TOP NAVBAR --- */}
+      <nav className="navbar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <div style={{ width: '30px', height: '30px', backgroundColor: '#3498db', borderRadius: '6px' }}></div>
+          <h2 style={{ margin: 0, fontSize: '1.2rem', letterSpacing: '1px' }}>METEO-HUB PRO</h2>
+        </div>
+        
+        {/* Status Indicator */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}>
+          <div style={{ 
+            width: '10px', height: '10px', backgroundColor: '#2ecc71', 
+            borderRadius: '50%', boxShadow: '0 0 8px #2ecc71' 
+          }}></div>
+          <span>3 Stations Online</span>
+          <span style={{ marginLeft: '20px', opacity: 0.7 }}>| User: Jorge</span>
+        </div>
+      </nav>
+
+      {/* --- MAIN CONTENT --- */}
+      <main className="top-section">
+        
+        {/* LEFT SIDE: MAP CARD */}
+        <div className="card-frame map-side">
+          <div className="card-header">Network Geospatial View</div>
+          <MapContainer center={[-33, -71.13]} zoom={9.2} style={{ height: '100%', width: '100%' }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            
+            {STATIONS.map(station => (
+              <Marker 
+                key={station.id} 
+                position={[station.lat, station.lng]}
+                eventHandlers={{ click: () => setSelectedStation(station) }}
+              >
+                <Popup>
+                  <div style={{ textAlign: 'center' }}>
+                    <strong style={{ fontSize: '1.1rem' }}>{station.name}</strong>
+                    <p style={{ margin: '5px 0' }}>{station.temp}°C | {station.humidity}% RH</p>
+                    <span style={{ fontSize: '10px', color: '#666' }}>Click "Download" in the right panel</span>
+                  </div>
+                </Popup>
+                <MapTooltip permanent direction="top" offset={[0, -10]}>
+                  <span style={{ fontWeight: 'bold' }}>{station.name}</span>
+                </MapTooltip>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
+
+        {/* RIGHT SIDE: DATA & CONTROLS CARD */}
+        <div className="card-frame plot-side">
+	  <div className="card-header">Station Analytics: {selectedStation.name}</div>
+	  
+	  <div style={{ padding: '2px', display: 'flex', flexDirection: 'column', gap: '20px', overflowY: 'auto' }}>
+	    
+	    {/* SECTION 1: STATION INFO (NEW) */}
+	    <section style={{ 
+	      display: 'grid', 
+	      gridTemplateColumns: '1fr 1fr', 
+	      gap: '10px', 
+	      padding: '10px', 
+	      backgroundColor: '#f8f9fa', 
+	      borderRadius: '8px',
+	      border: '1px solid #e9ecef' 
+	    }}>
+	      <div style={{ fontSize: '0.85rem' }}>
+		<span style={{ color: '#888', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>Station ID</span>
+		<div style={{ color: '#2c3e50', fontWeight: 'bold' }}>AWS-{selectedStation.id.toString().padStart(3, '0')}</div>
+	      </div>
+	      
+	      {/*Instead of coordinates, display available variables*/}
+	      <div style={{ fontSize: '0.85rem' }}>
+		<span style={{ color: '#888', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>Coordinates</span>
+		<div style={{ color: '#2c3e50' }}>{selectedStation.lat.toFixed(3)}, {selectedStation.lng.toFixed(3)}</div>
+	      </div>
+	      <div style={{ fontSize: '0.85rem' }}>
+		<span style={{ color: '#888', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>Last Signal</span>
+		<div style={{ color: '#27ae60' }}>Active (2 mins ago)</div>
+	      </div>
+	      
+	      {/* Fix this to display the brand of each aws */}
+	      <div style={{ fontSize: '0.85rem' }}>
+		<span style={{ color: '#888', fontWeight: 'bold', textTransform: 'uppercase', fontSize: '10px' }}>Brand - Model</span>
+		<div style={{ color: '#2c3e50' }}>DAVIS - Ventage PRO2 plus</div>
+	      </div>
+	    </section>
+
+	    {/* SECTION 2: DATA EXPORT CONFIG */}
+	    <section style={{ paddingBottom: '10px', borderBottom: '1px solid #eee' }}>
+	      <h3 style={{ margin: '0 0 12px 0', color: '#555', fontSize: '0.97rem' }}>Export Data Range</h3>
+	      <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end', marginBottom: '12px' }}>
+		<div style={{ flex: 1 }}>
+		  <DatePicker 
+		    selected={startDate} 
+		    onChange={(date) => setStartDate(date)} 
+		    selectsStart
+		    startDate={startDate}
+		    endDate={endDate}
+		    className="date-input"
+		  />
+		</div>
+		<div style={{ flex: 1 }}>
+		  <DatePicker 
+		    selected={endDate} 
+		    onChange={(date) => setEndDate(date)} 
+		    selectsEnd
+		    startDate={startDate}
+		    endDate={endDate}
+		    minDate={startDate}
+		    className="date-input"
+		  />
+		</div>
+	      </div>
+	      <button onClick={() => handleDownload(selectedStation.name)} className="download-btn">
+		📥 Download JSON Dataset
+	      </button>
+	    </section>
+
+	    {/* SECTION 3: PLOT AREA */}
+	    <section style={{ height: '300px', flexGrow: 1 }}>
+	      <h4 style={{ margin: '0 0 10px 0', color: '#555', fontSize: '0.9rem' }}>Temperature Trend (24h)</h4>
+	      <ResponsiveContainer width="100%" height="90%">
+		<LineChart data={PLOT_DATA}>
+		  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+		  <XAxis dataKey="time" stroke="#999" fontSize={11} tickLine={false} axisLine={false} />
+		  <YAxis stroke="#999" fontSize={11} tickLine={false} axisLine={false} />
+		  <ChartTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 5px 15px rgba(0,0,0,0.1)' }} />
+		  <Line 
+		    type="monotone" 
+		    dataKey="value" 
+		    stroke="#3498db" 
+		    strokeWidth={3} 
+		    dot={{ r: 3, fill: '#3498db', strokeWidth: 2, stroke: '#fff' }} 
+		    activeDot={{ r: 6 }}
+		  />
+		</LineChart>
+	      </ResponsiveContainer>
+	    </section>
+
+	  </div>
+	</div>   
+
+      </main>
+    </div>		/*dashboard container*/
+  );
+};
+
+export default AWSDashboard;
+
+/* -- And the css -- */
+
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 1920px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+
+/*From Gemini*/
+
+:root {
+  --primary-color: #2c3e50;
+  --accent-color: #3498db;
+  --border-thickness: 3px;
+  --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f7f6;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 130vh;    /* maybe 130*/
+}
+
+.navbar {
+  height: 60px;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.card-frame {
+  background: white;
+  border: var(--border-thickness) solid var(--primary-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-side { flex: 1.5; }
+.plot-side { flex: 1; padding: 10px; overflow-y: auto; }
+
+.navbar {
+  height: 60px;
+  background: #2c3e50;
+  color: white;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  padding: 15px;
+  gap: 20px;
+  background-color: #f8f9fa;
+  height: calc(100vh - 60px);
+}
+
+.card-frame {
+  background: white;
+  border: 3px solid #2c3e50; /* Thick professional border */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  background: #f1f3f5;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Datepicker custom styling */
+.date-input {
+  width: 90%;
+  padding:10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.download-btn {
+  width: 40%;
+  padding: 10px;
+  background: #27ae60;
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.1s, background 0.2s;
+}
+
+.download-btn:hover { background: #219150; }
+.download-btn:active { transform: scale(0.98); }
+
+
+/* Reset everything to hit the borders */
+/* Mind the names, they should be the same as the ones in awsDashboard.jsx */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal shaking */
+}
+
+.dashboard-container {
+  width: 99vw;      /* to prevent white margins*/
+  display: flex;
+  flex-direction: column;
+}
+
+/* The Wrapper for the top two cards */
+.top-section {
+  display: flex;
+  width: 100%;
+  height: 90vh; /* Takes most of the screen */
+  padding: 10px; /* Small gap between cards */
+  gap: 20px;
+}
+
+/* The Bottom Card Section */
+.bottom-section {
+  width: 100%;
+  min-height: 50vh; /* Half the screen height */
+  padding: 10px;
+}
+
+.full-width-card {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 12px;
+}
+
+
+/* 
+
+.main-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 200px;
+  overflow: hidden;
+}
+
+*/
+
+
+/* Boring Plot  */
+
+<section style={{ height: '300px' }}>
+                <h4 className="section-title">Temperature Trend</h4>
+                <ResponsiveContainer width="100%" height="90%">
+                  <LineChart data={PLOT_DATA}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eee" />
+                    <XAxis dataKey="time" fontSize={11} axisLine={false} />
+                    <YAxis fontSize={11} axisLine={false} />
+                    <ChartTooltip />
+                    <Line type="monotone" dataKey="value" stroke="#3498db" strokeWidth={3} dot={{ r: 3 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </section>
+              
+<h4 className="section-title">Line Chart Trend</h4>              
+              
+              
+              
+const PLOT_DATA = [
+  { time: '00:00', temp: 15.2, humidity: 82, windSpeed: 1.2, windDir: 180 },
+  { time: '01:00', temp: 14.8, humidity: 85, windSpeed: 1.0, windDir: 175 },
+  { time: '02:00', temp: 14.3, humidity: 88, windSpeed: 0.8, windDir: 170 },
+  { time: '03:00', temp: 13.9, humidity: 90, windSpeed: 0.5, windDir: 165 },
+  { time: '04:00', temp: 13.5, humidity: 92, windSpeed: 0.7, windDir: 160 },
+  { time: '05:00', temp: 13.2, humidity: 93, windSpeed: 1.1, windDir: 180 },
+  { time: '06:00', temp: 13.0, humidity: 94, windSpeed: 1.4, windDir: 190 },
+  { time: '07:00', temp: 13.4, humidity: 92, windSpeed: 2.1, windDir: 210 },
+  { time: '08:00', temp: 15.1, humidity: 85, windSpeed: 2.5, windDir: 220 },
+  { time: '09:00', temp: 17.5, humidity: 75, windSpeed: 3.2, windDir: 235 },
+  { time: '10:00', temp: 19.8, humidity: 65, windSpeed: 4.0, windDir: 250 },
+  { time: '11:00', temp: 22.3, humidity: 58, windSpeed: 4.8, windDir: 260 },
+  { time: '12:00', temp: 24.5, humidity: 52, windSpeed: 5.5, windDir: 270 },
+  { time: '13:00', temp: 26.1, humidity: 48, windSpeed: 6.2, windDir: 275 },
+  { time: '14:00', temp: 27.4, humidity: 45, windSpeed: 7.1, windDir: 280 },
+  { time: '15:00', temp: 28.0, humidity: 42, windSpeed: 7.5, windDir: 285 },
+  { time: '16:00', temp: 27.8, humidity: 44, windSpeed: 6.8, windDir: 280 },
+  { time: '17:00', temp: 26.5, humidity: 48, windSpeed: 6.0, windDir: 270 },
+  { time: '18:00', temp: 24.2, humidity: 55, windSpeed: 5.1, windDir: 250 },
+  { time: '19:00', temp: 21.8, humidity: 62, windSpeed: 4.2, windDir: 230 },
+  { time: '20:00', temp: 19.5, humidity: 68, windSpeed: 3.1, windDir: 210 },
+  { time: '21:00', temp: 18.2, humidity: 72, windSpeed: 2.4, windDir: 200 },
+  { time: '22:00', temp: 17.0, humidity: 76, windSpeed: 1.8, windDir: 190 },
+  { time: '23:00', temp: 16.1, humidity: 80, windSpeed: 1.5, windDir: 185 },
+];              
+
+
+/* From tutorial (main.jsx)
+
+/*import { createRoot} from 'react-dom/client'
+
+const myElement1 = <h1> I hate JSX! {3*5/0}</h1>;
+
+const myElement2 = (	
+  <ul>
+    <li>Apples</li>
+    <li>Kiwis</li>
+    <li>Cherries</li>
+  </ul>
+)
+
+//wrap headers and paragraphs in one element; div is a parent element
+const element = (
+  <div>
+    <h1>Header</h1>
+    <h2>littler header</h2>
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+    <h1>Header</h1>
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+  </div>
+)
+
+//u can also use a fragment <></>
+const element2 = (
+  <>
+    <h1>Using frament</h1>
+    <h2>littler header</h2>
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+    <h1>Header</h1>
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+  </>
+)
+
+//input
+const element3 = <input type='text' />;
+
+
+//use className instead of class
+const element4 = <h1 className="myclass">Hello World</h1>;
+
+//React components are like javascripts functions and return HTML
+function Car() {
+  return (
+    <>
+      <h2>My Car</h2>
+      <p>It is a Ford Mustang.</p>
+    </>
+  );
+}
+
+//Do some operations before returning HTML; react evaluates everything inside the {}
+//variables, functions, mathematical/logical operations
+function kwtohp(kw) {
+  return kw * 1.36
+}
+
+function Car2() {
+  const brand = 'Ford';
+  const model = 'Mustang';
+  const unit = 'horsepower';
+  return (
+    <>
+      <h2>My Car</h2>
+      <p>It is aaa {brand} {model}.</p>
+      <p>And it has {kwtohp(218)} {unit}</p>	 
+    </>
+  );
+}
+
+//Also access object properties
+function Car3() {
+  const myobj = {
+    name: "Fiat",
+    model: "500",
+    color: "white"
+  };
+  return (
+    <>
+      <h1>My car is a {myobj.color} {myobj.name} {myobj.model}</h1>
+    </>
+  );
+}
+
+//Use camelCase for event attributes
+function Car4() {
+  const myfunc = () => {
+    alert("You've clicked me! Thanks");
+  };
+  return (
+    <button onClick={myfunc}>Click me!</button>
+  );
+}
+
+
+createRoot(document.getElementById('root')).render(
+    //element4
+    <Car4 />
+)
+*/
+
+
+*/
+
+
+/* Misnamed? Availabilty controls
+
+import { useState } from 'react';
+import AvailabilityChart from './AvailabilityChart';
+import AvailabilityControls from './AvailabilityControls';
+import { STATIONS } from '../constants/stations';
+
+const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
+
+  const [selectedStation, setSelectedStation] = useState(initialStation);
+  const [selectedVar, setSelectedVar] = useState('temp');
+  const [chartType, setChartType] = useState('line');
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  // MOCK DATA (replace with real calculation later)
+  const data = Array.from({ length: 30 }, () => ({
+    value: Math.random() * 100
+  }));
+
+  return (
+    <div className="card-frame full-width-card availability-section">
+
+      <div className="card-header">
+        Data Availability Analysis
+      </div>
+
+      <div className="availability-content">
+
+        {/* LEFT: CHART */}
+        <div className="availability-chart">
+          <AvailabilityChart
+            data={data}
+            chartType={chartType}
+            selectedVar={selectedVar}
+          />
+        </div>
+
+        {/* RIGHT: CONTROLS */}
+        <AvailabilityControls
+          selectedStation={selectedStation}
+          setSelectedStation={setSelectedStation}
+          selectedVar={selectedVar}
+          setSelectedVar={setSelectedVar}
+          chartType={chartType}
+          setChartType={setChartType}
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
+
+      </div>
+    </div>
+  );
+};
+
+export default AvailabilityDashboard;
+
+*/
