@@ -1,8 +1,10 @@
+import logo from "/remci_logo.png"
+
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <div style={{ width: '30px', height: '30px', backgroundColor: '#3498db', borderRadius: '6px' }}></div>
+        <img src={logo} alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain' }}/>
         <h2>METEO-HUB PRO</h2>
       </div>
 

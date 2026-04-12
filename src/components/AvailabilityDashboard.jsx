@@ -7,8 +7,19 @@ import { VAR_LABELS } from '../constants/variables';
 const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   const [selectedStation, setSelectedStation] = useState(initialStation || STATIONS[0]);
-  const [selectedVar, setSelectedVar] = useState(['temp']);
+  const [selectedVars, setSelectedVars] = useState([
+  { var: 'temp', color: '#3498db', type: 'line' }]);
   const [chartType, setChartType] = useState('line');
+
+  // Add function
+  const addVariable = () => {
+  setSelectedVars(prev => [
+    ...prev,
+    { var: 'humidity', color: '#e74c3c', type: 'line' }]);};
+    
+  // Remove function
+  const removeVariable = (index) => {
+  setSelectedVars(prev => prev.filter((_, i) => i !== index));};  
 
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
@@ -107,15 +118,20 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
       data: bins.map(b => b.label)
     },
     yAxis: { type: 'value', max: 100 },
-    series: [{
-      name: selectedVar,
-      type: chartType,
-      data: data,
-      smooth: chartType === 'line'
-    }]
+    series: selectedVars.map((item, i) => ({
+      name: VAR_LABELS[item.var],
+      type: item.type,
+      data: data, // later we'll replace with real data per var
+      smooth: item.type === 'line',
+      itemStyle: { color: item.color },
+      lineStyle: {
+        color: item.color,
+        type: 'solid'
+      }
+   }))
   };
 
-}, [chartType, selectedVar, data, bins]);
+}, [chartType, selectedVars, data, bins]);
 
   return (
     <div className="card-frame availability-section">
@@ -152,20 +168,63 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
           </select>
 
           {/* Variable */}
-          <label>Variable</label>
-          <select
-            value={selectedVar}
-            onChange={(e) => setSelectedVar(e.target.value)}
-          >
-            {Object.keys(VAR_LABELS).map(v => (
-              <option key={v} value={v}>{VAR_LABELS[v]}</option>
-            ))}
-          </select>
+          <label>Variables</label>
 
-          {/* Dates */}
+{selectedVars.map((item, i) => (
+
+  <div key={i} className="var-row">
+
+    {/* VARIABLE SELECT */}
+    <select
+      value={item.var}
+      onChange={(e) => {
+        const newVars = [...selectedVars];
+        newVars[i].var = e.target.value;
+        setSelectedVars(newVars);
+      }}
+    >
+      {Object.keys(VAR_LABELS).map(v => (
+        <option key={v} value={v}>{VAR_LABELS[v]}</option>
+      ))}
+    </select>
+
+    {/* COLOR */}
+    <input
+      type="color"
+      value={item.color}
+      onChange={(e) => {
+        const newVars = [...selectedVars];
+        newVars[i].color = e.target.value;
+        setSelectedVars(newVars);
+      }}
+    />
+
+    {/* TYPE */}
+    <select
+      value={item.type}
+      onChange={(e) => {
+        const newVars = [...selectedVars];
+        newVars[i].type = e.target.value;
+        setSelectedVars(newVars);
+      }}
+    >
+      <option value="line">Line</option>
+      <option value="bar">Bar</option>
+    </select>
+
+    {/* REMOVE */}
+    <button onClick={() => removeVariable(i)}>✖</button>
+
+  </div>
+
+))}
+
+<button onClick={addVariable}>+ Add Variable</button>
+
+          {/* Dates  Note: onChangeRaw disables typing*/}
           <label>Date Range</label>
-          <DatePicker selected={startDate} onChange={setStartDate} />
-          <DatePicker selected={endDate} onChange={setEndDate} />
+          <DatePicker selected={startDate} onChange={setStartDate} onChangeRaw={(e) => e.preventDefault()} /> 
+          <DatePicker selected={endDate} onChange={setEndDate} onChangeRaw={(e) => e.preventDefault()}/>
 
           {/* Resolution */}
           <label>Resolution</label>

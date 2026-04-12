@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
+import test from "/images/pocuro1.jpg"        // This works
+import test2 from "/images/pocuro2.jpg"
+
 const IMAGE_DB = {
   "Pocuro-AWS": [
-    "/images/pocuro1.jpg",
-    "/images/pocuro2.jpg",
+    test,
+    test2,
     "/images/pocuro3.jpg"
   ],
   "CienciasUV-AWS": [
@@ -23,7 +26,7 @@ const StationGallery = ({ selectedStation }) => {
   const images = IMAGE_DB[selectedStation?.name] || [];
 
   const [index, setIndex] = useState(0);
-  const [isZoomed, setIsZoomed] = useState(false); // ✅ MOVED HERE
+  const [isZoomed, setIsZoomed] = useState(false); 
 
   const next = () => setIndex((index + 1) % images.length);
   const prev = () => setIndex((index - 1 + images.length) % images.length);
