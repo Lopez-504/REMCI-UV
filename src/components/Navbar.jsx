@@ -9,12 +9,8 @@ const Navbar = () => {
       </div>
 
       <div style={{ display: 'flex', gap: '10px' }}>
-        <div className="status-dot"></div>
-        <span>3 Stations Online</span>
-
-        <button onClick={() => window.open('/gallery', '_blank')}>
-          📷 View Live Camera
-        </button>
+        <div className="status-dot"> 3 </div>
+        <span>Stations Online</span>
 
         <span>| User: Jorge</span>
       </div>
@@ -23,3 +19,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+/* No longer need a live camera
+<button onClick={() => window.open('/gallery', '_blank')}>
+          📷 View Live Camera
+        </button>
+*/

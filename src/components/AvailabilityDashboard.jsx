@@ -21,6 +21,9 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
   const removeVariable = (index) => {
   setSelectedVars(prev => prev.filter((_, i) => i !== index));};  
 
+    // the remove function is only working on the buttons, 
+    //it's not actually removing anything from the plot
+
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() - 14);
@@ -115,11 +118,21 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
   },
     xAxis: {
       type: 'category',
-      data: bins.map(b => b.label)
+      data: bins.map(b => b.label),
+      name: "Time",
     },
-    yAxis: { type: 'value', max: 100 },
+    yAxis: { type: 'value', max: 100 ,
+      axisLabel: {
+      show: true,           
+      color: '#3f453f',        // Text color
+      fontSize: 18,         
+      rotate: 0,          
+      margin: 10           // Distance between the label and the axis line
+      },
+    },
     series: selectedVars.map((item, i) => ({
-      name: VAR_LABELS[item.var],
+      show: true,
+      name: VAR_LABELS[item.var],     //not showing
       type: item.type,
       data: data, // later we'll replace with real data per var
       smooth: item.type === 'line',
@@ -127,8 +140,30 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
       lineStyle: {
         color: item.color,
         type: 'solid'
-      }
-   }))
+      },
+   })),
+
+    toolbox: {
+        feature: {
+        dataZoom: {
+        yAxisIndex: 'none'
+        },
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      dataZoom: [
+    {
+      type: 'inside',
+      start: 0,
+      end: 20
+    },
+    {
+      start: 0,
+      end: 20
+    }
+  ],
+  
   };
 
 }, [chartType, selectedVars, data, bins]);
@@ -241,7 +276,18 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 	  </select>
 
           {/* Chart Type */}
-          <label>Chart Type</label>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AvailabilityDashboard;
+
+/* redundant
+
+<label>Chart Type</label>
           <div className="chart-type-buttons">
             {['line', 'bar', 'pie'].map(type => (
               <button
@@ -254,10 +300,15 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
             ))}
           </div>
 
-        </div>
-      </div>
-    </div>
-  );
-};
+*/
 
-export default AvailabilityDashboard;
+
+/* xaxis ticklabel 
+axisLabel: {
+      show: true,           
+      color: '#313731',        // Text color
+      fontSize: 14,         
+      rotate: 0,          
+      margin: 8           // Distance between the label and the axis line
+      },
+*/

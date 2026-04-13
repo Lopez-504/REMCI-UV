@@ -24,7 +24,7 @@ const AnalyticsPanel = ({
 
       <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '12px', overflowY: 'auto' }}>
 
-        {/* ✅ METADATA  */}
+        {/* METADATA  */}
         <section className="info-grid">
           <div className="info-item">
             <span>ID</span>
@@ -47,7 +47,7 @@ const AnalyticsPanel = ({
           </div>
         </section>
 
-        {/* ✅ EXPORT PANEL */}
+        {/* EXPORT PANEL */}
         <ExportPanel
           isOpen={isExportOpen}
           setIsOpen={setIsExportOpen}
@@ -61,10 +61,8 @@ const AnalyticsPanel = ({
           stationName={selectedStation.name}
         />
 
-        {/* ✅ CHART */}
-        <section style={{ flexGrow: 1, minHeight: '300px' }}>
-          <ChartPanel plotData={plotData} />
-        </section>
+        {/* CHART */}
+        
 
       </div>
     </div>
@@ -72,3 +70,12 @@ const AnalyticsPanel = ({
 };
 
 export default AnalyticsPanel;
+
+
+/*
+No longer need this chart
+
+<section style={{ flexGrow: 1, minHeight: '300px' }}>
+          <ChartPanel plotData={plotData} />
+        </section>
+*/

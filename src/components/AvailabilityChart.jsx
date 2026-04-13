@@ -29,6 +29,26 @@ const AvailabilityChart = ({
         type: 'category',
         data: data.map((_, i) => `Bin ${i+1}`)
       },
+      toolbox: {
+        feature: {
+        dataZoom: {
+        yAxisIndex: 'none'
+        },
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      dataZoom: [
+    {
+      type: 'inside',
+      start: 0,
+      end: 20
+    },
+    {
+      start: 0,
+      end: 20
+    }
+  ],
       yAxis: { type: 'value', max: 100 },
       series: [{
         name: selectedVar,

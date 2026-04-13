@@ -1,18 +1,26 @@
 import { useState } from 'react';
 import { RAW_WEATHER_DATA } from '../data/weatherData';
 
-
 import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
 import ForecastPanel from '../components/ForecastPanel';
 import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
+//import WeatherStation from '../components/StationModel'; 
 
 import { STATIONS } from '../constants/stations';
 
 const AWSDashboard = () => {
+
+  // Sidebar
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // States
+  const [darkMode, setDarkMode] = useState(false);
+  const [language, setLanguage] = useState('en');
 
   const [plotData] = useState(RAW_WEATHER_DATA);
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
@@ -94,6 +102,8 @@ const AWSDashboard = () => {
 };
 
   return (
+  <div className={darkMode ? 'app dark' : 'app'}>
+
     <div className="dashboard-container">
 
       <Navbar />
@@ -101,7 +111,7 @@ const AWSDashboard = () => {
       <main className="main-content">
 
         <div className="top-section">
-
+       
           {/* MAP */}
           <div className="card-frame map-side">
             <div className="card-header">Network Geospatial View</div>
@@ -141,12 +151,27 @@ const AWSDashboard = () => {
             selectedStation={selectedStation}
             setSelectedStation={setSelectedStation}
           />
-
   	  <StationGallery selectedStation={selectedStation} />
         </div>
+        
       </main>
     </div>
+  </div>  
   );
 };
 
 export default AWSDashboard;
+
+
+/* Causing some serious bugs
+
+<Sidebar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        language={language}
+        setLanguage={setLanguage}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
+
+*/

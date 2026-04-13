@@ -52,7 +52,17 @@ const AvailabilityControls = ({
       </div>
 
       {/* Chart type */}
-      <label>Chart Type</label>
+      
+
+    </div>
+  );
+};
+
+export default AvailabilityControls;
+
+
+/*
+<label>Chart Type</label>
       <div className="chart-type-buttons">
         {['line', 'bar', 'pie'].map(type => (
           <button
@@ -64,9 +74,4 @@ const AvailabilityControls = ({
           </button>
         ))}
       </div>
-
-    </div>
-  );
-};
-
-export default AvailabilityControls;
+*/
