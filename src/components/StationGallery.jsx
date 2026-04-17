@@ -1,23 +1,32 @@
 import { useState } from 'react';
 
-import test from "/images/pocuro1.jpg"        // This works
-import test2 from "/images/pocuro2.jpg"
+import pocuro1 from "/images/pocuro1.jpg"        // This works
+import pocuro2 from "/images/pocuro2.gif"
+import pocuro3 from "/images/pocuro3.jpg"
+
+import ciencias1 from "/images/2025-07-28-10-19-19.jpg"
+import ciencias2 from "/images/2025-07-28-10-49-19.jpg"
+import ciencias3 from "/images/2025-07-28-07-49-19.jpg"
+
+import reserva1 from "/images/instalacion.jpeg"
+import reserva2 from "/images/presentation.jpeg"
+import reserva3 from "/images/reserva1.jpg"
 
 const IMAGE_DB = {
   "Pocuro-AWS": [
-    test,
-    test2,
-    "/images/pocuro3.jpg"
+    pocuro1,
+    pocuro2,
+    pocuro3
   ],
   "CienciasUV-AWS": [
-    "/images/ciencias1.jpg",
-    "/images/ciencias2.jpg",
-    "/images/ciencias3.jpg"
+    ciencias1,
+    ciencias2,
+    ciencias3
   ],
   "LaReserva-AWS": [
-    "/images/reserva1.jpg",
-    "/images/reserva2.jpg",
-    "/images/reserva3.jpg"
+    reserva1,
+    reserva2,
+    reserva3
   ]
 };
 

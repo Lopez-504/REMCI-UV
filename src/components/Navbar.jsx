@@ -4,15 +4,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <img src={logo} alt="Logo" style={{ width: '50px', height: '50px', objectFit: 'contain' }}/>
-        <h2>METEO-HUB PRO</h2>
+        <img src={logo} alt="Logo" style={{ width: '70px', height: '70px', objectFit: 'contain' }}/>
+        <h2> METEO-HUB PRO ⛅ </h2>
       </div>
 
-      <div style={{ display: 'flex', gap: '10px' }}>
+      <div style={{ display: 'flex', gap: '10px' ,alignItems: 'center'}}>
+        <span>Stations Online: </span>
         <div className="status-dot"> 3 </div>
-        <span>Stations Online</span>
-
-        <span>| User: Jorge</span>
+        <span> | ☁️ User: Jorge</span>
       </div>
     </nav>
   );

@@ -29,9 +29,14 @@ body {
   top: 0;
   z-index: 1000;
 
-  height: 70px;
+  height: 80px;
   background: var(--primary-color);
   color: white;
+
+  background-image: url('/images/Rotating_earth.gif');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 
   display: flex;
   justify-content: space-between;
@@ -46,7 +51,7 @@ body {
   color: #239228; 
   padding: 3px 6px; 
   border-radius: 3px; 
-  font-size: 24px;   
+  font-size: 20px;   
   font-weight: bold;
   align-items: center;
 }
