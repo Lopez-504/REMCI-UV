@@ -10,6 +10,7 @@ import ForecastPanel from '../components/ForecastPanel';
 import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
 //import WeatherStation from '../components/StationModel'; 
+import MeteogramDashboard from '../components/Meteogram'
 
 import { STATIONS } from '../constants/stations';
 
@@ -25,7 +26,7 @@ const AWSDashboard = () => {
   const [plotData] = useState(RAW_WEATHER_DATA);
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
 
-  const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(true);
 
   const [exportVars, setExportVars] = useState({
     temp: true,
@@ -144,6 +145,9 @@ const AWSDashboard = () => {
         </div>
 	<div className="bottom-section">
        	  <ForecastPanel />
+        </div>
+        <div className="bottom-section">
+       	  <MeteogramDashboard />
         </div>
         <div className="dual-section">
 
