@@ -24,7 +24,7 @@ const MapView = ({ setSelectedStation }) => {
           center={[-33, -71.48]}
           zoom={9.1}
           style={{ height: '100%', width: '100%' }}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

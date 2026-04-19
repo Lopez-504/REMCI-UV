@@ -1,3 +1,61 @@
+{/* Old version */}
+      <main className="main-content">
+
+        <div className="top-section">
+       
+          {/* MAP */}
+          <div className="card-frame map-side">
+            <div className="card-header">Network Geospatial View</div>
+            <MapView setSelectedStation={setSelectedStation} />
+          </div>
+
+          {/* ANALYTICS PANEL */}
+          <AnalyticsPanel
+            selectedStation={selectedStation}
+            plotData={plotData}
+            isExportOpen={isExportOpen}
+            setIsExportOpen={setIsExportOpen}
+            exportVars={exportVars}
+            handleCheckboxChange={handleCheckboxChange}
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            handleDownload={handleDownload}
+          />
+
+        </div>
+
+        {/* BOTTOM SECTION */}
+        <div className="bottom-section">
+          <AvailabilityDashboard
+            selectedStation={selectedStation}
+            exportVars={exportVars}
+          />
+        </div>
+	<div className="bottom-section">
+       	  <ForecastPanel />
+        </div>
+        <div className="bottom-section">
+       	  <MeteogramDashboard />
+        </div>
+        <div className="dual-section">
+
+          <WindRosePanel
+            selectedStation={selectedStation}
+            setSelectedStation={setSelectedStation}
+          />
+  	  <StationGallery selectedStation={selectedStation} />
+        </div>
+        
+      </main>
+
+
+
+
+-------------------------------------------------------
+
+
 
 const AWSDashboard = () => {
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);

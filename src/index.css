@@ -14,6 +14,8 @@
 html, body, #root {
   height: 100%;
   margin: 0;
+  max-width: 100%;
+  padding: 0;
 }
 
 body {
@@ -26,7 +28,7 @@ body {
 
 .navbar {
   position: sticky;   
-  top: 0;
+  top: 0px;
   z-index: 1000;
 
   height: 80px;
@@ -56,6 +58,41 @@ body {
   align-items: center;
 }
 
+/*  Secondary NAVBAR  */
+
+.section-tabs {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #09baba;
+  border-bottom: 1px solid #d8dee6;
+  position: sticky;
+  top: 60px; /* same as navbar height */
+  z-index: 900;
+}
+
+.tab-btn {
+  background: white;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2c3e50;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: #fae30f;
+}
+
+.tab-btn.active {
+  background: #e97719;
+  color: white;
+  border-color: #131112;
+  border-radius: 10px;
+}
+
 /* ---------------- MAIN LAYOUT ---------------- */
 
 .dashboard-container {
@@ -69,6 +106,7 @@ body {
   flex-direction: column;
   gap: 10px;
   padding: 5px;       /* external-most borders */
+  width: 100%;
 }
 
 /* ---------------- TOP SECTION ---------------- */
@@ -117,11 +155,30 @@ body {
 }
 
 /* ---------------- BOTTOM SECTION ---------------- */
-
+/*
 .bottom-section {
   width: 100%;
   padding: 10px; 
   font-size: 16px;
+}*/
+
+/* ---------------- FULL SECTION ----------------- */
+
+.full-section {
+  width: 98.6vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  left: 0%;
+  right: 0%; 
+  padding: 0px; 
+
+}
+
+.full-section .card-frame {
+  width: 100%;
 }
 
 /* ---------- NEW: SIDE-BY-SIDE SECTION ---------- */
@@ -130,13 +187,14 @@ body {
   display: flex;
   gap: 20px;
   padding: 10px;
-  height: 420px; 
+  width: 100%;
+  height: 560px;
   align-items: stretch;
 }
 
-/* Make children behave properly */
 .dual-section > * {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   height: 100%;
 }
 
@@ -281,18 +339,33 @@ body {
   height: 100%;
 }
 
+.gallery-card {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+
 .gallery-container {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  min-width: 0;
   padding: 10px;
 }
 
 .image-wrapper {
+  position: relative;
   flex: 1;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   border-radius: 10px;
-  max-height: 270px; 
+  background: #111;
+  max-height: 390px; 
+  max-width: 100%;
 }
 
 .image-wrapper img {
@@ -300,6 +373,7 @@ body {
   height: 100%;
   object-fit: contain;
 }
+
 
 .image-wrapper img:hover {
   transform: scale(1.05);
@@ -551,3 +625,51 @@ body {
   object-fit: cover;
   display: block;
 }
+
+/*  About  */
+
+.about-card {
+  width: 99.3vw;        /* to have a margin on the right*/
+  position: relative;
+  left: 0%;
+  right: 0%; 
+  padding: 0px; 
+}
+
+.about-content {
+  padding: 20px;
+  line-height: 1.6;
+}
+
+
+/*  Footer  */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  background: #0ec4c4;
+  color: rgb(27, 25, 25);
+  flex-wrap: wrap;
+  gap: 20px;
+  position: sticky;
+}
+
+.footer a {
+  color: #0f17b5;
+  text-decoration: none;    /*underline, etc*/
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: small;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-right img {
+  height: 80px;
+  margin-left: 10px;
+  
+}
+

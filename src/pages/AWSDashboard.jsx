@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RAW_WEATHER_DATA } from '../data/weatherData';
 
+// --   Components  --  //
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import MapView from '../components/MapView';
@@ -11,13 +12,25 @@ import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
 //import WeatherStation from '../components/StationModel'; 
 import MeteogramDashboard from '../components/Meteogram'
+import SectionTabs from '../components/SectionTabs';
+import Footer from '../components/Footer';
 
+
+// --   Constants  --  //
 import { STATIONS } from '../constants/stations';
+
+// --   Links   -- //
+const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
+const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
+const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
 
 const AWSDashboard = () => {
 
   // Sidebar
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  //const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Section Tab
+  const [activeSection, setActiveSection] = useState('overview');
 
   // States
   const [darkMode, setDarkMode] = useState(false);
@@ -26,7 +39,7 @@ const AWSDashboard = () => {
   const [plotData] = useState(RAW_WEATHER_DATA);
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
 
-  const [isExportOpen, setIsExportOpen] = useState(true);
+  const [isExportOpen, setIsExportOpen] = useState(true);     // starts opened
 
   const [exportVars, setExportVars] = useState({
     temp: true,
@@ -48,7 +61,6 @@ const AWSDashboard = () => {
       [varName]: !prev[varName]
     }));
   };
-
 
   const handleDownload = (stationName) => {
 
@@ -102,6 +114,9 @@ const AWSDashboard = () => {
   URL.revokeObjectURL(url);
 };
 
+
+//   ---  Return  ---   //
+
   return (
   <div className={darkMode ? 'app dark' : 'app'}>
 
@@ -109,56 +124,89 @@ const AWSDashboard = () => {
 
       <Navbar />
 
+      <SectionTabs
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
+
+      {/* Main content */}
       <main className="main-content">
 
-        <div className="top-section">
-       
-          {/* MAP */}
-          <div className="card-frame map-side">
-            <div className="card-header">Network Geospatial View</div>
-            <MapView setSelectedStation={setSelectedStation} />
-          </div>
+  {activeSection === 'overview' && (
+    <>
+      <div className="top-section">
 
-          {/* ANALYTICS PANEL */}
-          <AnalyticsPanel
-            selectedStation={selectedStation}
-            plotData={plotData}
-            isExportOpen={isExportOpen}
-            setIsExportOpen={setIsExportOpen}
-            exportVars={exportVars}
-            handleCheckboxChange={handleCheckboxChange}
-            startDate={startDate}
-            endDate={endDate}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            handleDownload={handleDownload}
-          />
-
+        <div className="card-frame map-side">
+          <div className="card-header">Network Geospatial View</div>
+          <MapView setSelectedStation={setSelectedStation} />
         </div>
 
-        {/* BOTTOM SECTION */}
-        <div className="bottom-section">
-          <AvailabilityDashboard
-            selectedStation={selectedStation}
-            exportVars={exportVars}
-          />
-        </div>
-	<div className="bottom-section">
-       	  <ForecastPanel />
-        </div>
-        <div className="bottom-section">
-       	  <MeteogramDashboard />
-        </div>
-        <div className="dual-section">
+        <AnalyticsPanel
+          selectedStation={selectedStation}
+          plotData={plotData}
+          isExportOpen={isExportOpen}
+          setIsExportOpen={setIsExportOpen}
+          exportVars={exportVars}
+          handleCheckboxChange={handleCheckboxChange}
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          handleDownload={handleDownload}
+        />
+      </div>
+    </>
+  )}
 
-          <WindRosePanel
-            selectedStation={selectedStation}
-            setSelectedStation={setSelectedStation}
-          />
-  	  <StationGallery selectedStation={selectedStation} />
-        </div>
-        
+  {activeSection === 'stations' && (
+    <>
+      <div className="dual-section">
+        <WindRosePanel
+          selectedStation={selectedStation}
+          setSelectedStation={setSelectedStation}
+        />
+        <StationGallery selectedStation={selectedStation} />
+      </div>
+    </>
+  )}
+
+  {activeSection === 'data' && (
+    <>
+      <div className="full-section">
+        <AvailabilityDashboard
+          selectedStation={selectedStation}
+          exportVars={exportVars}
+        />
+      </div>
+
+      <div className="full-section">
+        <ForecastPanel />
+      </div>
+    </>
+  )}
+
+  {activeSection === 'about' && (
+    <div className="card-frame about-card">
+      <div className="card-header">About REMCI-UV</div>
+      <div className="about-content">
+        <h2>REMCI-UV</h2>
+        <p>
+          Red de Estaciones Meteorológicas Ciencias UV, realiza monitoreo para la 
+          comprensión de los impactos del cambio climático en la Región de Valparaíso.
+          Integrada por las estaciones <a href={ciencias_ln} target="_blank" rel="noreferrer">
+          Ciencias UV </a> (Facultad de Ciencias, Playa Ancha, Valparaíso), 
+          <a href={pocuro_ln} target="_blank" rel="noreferrer">
+          Pocuro UV </a> (Calle Larga, sector Pocuro) y <a href={lareserva_ln} target="_blank" rel="noreferrer">
+          La Reserva UV </a> (Villa Alemana).
+        </p>
+        <p>
+          More features coming soon...
+        </p>
+      </div>
+    </div>
+  )}
       </main>
+      <Footer/>
     </div>
   </div>  
   );
@@ -177,5 +225,11 @@ export default AWSDashboard;
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
+
+*/
+
+/*
+
+
 
 */
