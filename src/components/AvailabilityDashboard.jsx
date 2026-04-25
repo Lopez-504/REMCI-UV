@@ -209,6 +209,17 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   <div key={i} className="var-row">
 
+    {/* COLOR */}
+    <input
+      type="color"
+      value={item.color}
+      onChange={(e) => {
+        const newVars = [...selectedVars];
+        newVars[i].color = e.target.value;
+        setSelectedVars(newVars);
+      }}
+    />
+
     {/* VARIABLE SELECT */}
     <select
       value={item.var}
@@ -222,17 +233,6 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
         <option key={v} value={v}>{VAR_LABELS[v]}</option>
       ))}
     </select>
-
-    {/* COLOR */}
-    <input
-      type="color"
-      value={item.color}
-      onChange={(e) => {
-        const newVars = [...selectedVars];
-        newVars[i].color = e.target.value;
-        setSelectedVars(newVars);
-      }}
-    />
 
     {/* TYPE */}
     <select

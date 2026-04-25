@@ -14,7 +14,7 @@ import StationGallery from '../components/StationGallery';
 import MeteogramDashboard from '../components/Meteogram'
 import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
-
+import LightPollution from "../components/LightPollution";
 
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
@@ -24,13 +24,16 @@ const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-440
 const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
 const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
 
+// --  Pics  -- //
+import earth from "/images/stations_google_earth.png"
+
 const AWSDashboard = () => {
 
   // Sidebar
   //const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Section Tab
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('overview');   //starts at overview
 
   // States
   const [darkMode, setDarkMode] = useState(false);
@@ -185,6 +188,8 @@ const AWSDashboard = () => {
     </>
   )}
 
+  {activeSection === "light-poll" && <LightPollution />}
+
   {activeSection === 'about' && (
     <div className="card-frame about-card">
       <div className="card-header">About REMCI-UV</div>
@@ -203,7 +208,15 @@ const AWSDashboard = () => {
           More features coming soon...
         </p>
       </div>
+      <div className="mapview-bottom">
+        <img
+          src={earth}
+          alt="Satellite view of the three weather stations"
+          className="mapview-image"
+        />
+      </div>
     </div>
+    
   )}
       </main>
       <Footer/>

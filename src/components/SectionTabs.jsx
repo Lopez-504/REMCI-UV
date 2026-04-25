@@ -3,6 +3,7 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
     { key: 'overview', label: 'Overview' },
     { key: 'stations', label: 'Stations' },
     { key: 'data', label: 'Data' },
+    { key: 'light-poll', label: 'LightPollution' },
     { key: 'about', label: 'About REMCI-UV' }
   ];
 

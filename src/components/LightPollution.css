@@ -1,0 +1,277 @@
+.light-page {
+  width: 100%;
+  color: #f8fafc;
+  background: #090b16;
+  overflow: hidden;
+}
+
+.light-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px;
+  background-image: url("https://cieloschile.cl/wp-content/themes/cielos-de-chile/images/starry-sky-city.jpg");
+  background-size: cover;
+  background-position: center bottom;
+}
+
+.light-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(9, 11, 22, 0.25), #090b16),
+    radial-gradient(circle at center, rgba(50, 130, 255, 0.2), transparent 60%);
+}
+
+.light-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+  text-align: center;
+}
+
+.light-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.light-hero h1 {
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.9;
+  margin: 16px 0;
+}
+
+.light-hero p {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  color: #dbeafe;
+}
+
+.light-intro,
+.light-plot-section,
+.light-feature,
+.light-principles {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+.light-intro {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 56px;
+}
+
+.light-intro h2,
+.light-feature h2,
+.light-plot-text h2,
+.light-principles h2 {
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  margin: 0;
+}
+
+mark {
+  color: #38bdf8;
+  background: transparent;
+}
+
+.light-intro-text {
+  display: grid;
+  gap: 20px;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+}
+
+.light-plot-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.light-plot-text p {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  margin-top: 20px;
+}
+
+.light-chart-card {
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+.light-chart-card h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+.light-bars {
+  display: grid;
+  gap: 22px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 45px;
+  gap: 14px;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.bar-track {
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #38bdf8, #facc15);
+}
+
+.w95 {
+  width: 95%;
+}
+
+.w55 {
+  width: 55%;
+}
+
+.w20 {
+  width: 20%;
+}
+
+.chart-note {
+  margin-bottom: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.light-feature {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+}
+
+.light-feature.reverse {
+  flex-direction: row-reverse;
+}
+
+.light-feature-text {
+  flex: 1;
+}
+
+.light-feature-text p {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.light-feature-img {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 24px 80px rgba(56, 189, 248, 0.18);
+}
+
+.light-stat {
+  margin-top: 28px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.light-stat strong {
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: #38bdf8;
+  line-height: 1;
+}
+
+.light-stat span {
+  max-width: 360px;
+  color: #e0f2fe;
+  font-weight: 600;
+}
+
+.light-principles {
+  padding-bottom: 120px;
+}
+
+.light-principles-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+
+.light-principles-header p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+}
+
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.principle-card {
+  min-height: 150px;
+  padding: 24px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.principle-card span {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.principle-card p {
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .light-intro,
+  .light-plot-section,
+  .light-principles-header {
+    grid-template-columns: 1fr;
+  }
+
+  .light-feature,
+  .light-feature.reverse {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .light-feature-img {
+    width: min(78vw, 360px);
+    height: min(78vw, 360px);
+  }
+
+  .principle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+  }
+}

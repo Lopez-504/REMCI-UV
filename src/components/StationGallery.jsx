@@ -4,10 +4,11 @@ import pocuro1 from "/images/pocuro1.jpg"        // This works
 import pocuro2 from "/images/pocuro2.gif"
 import pocuro3 from "/images/pocuro3.jpg"
 
-import ciencias4 from "/images/2025-07-28-10-19-19.jpg"
+//import ciencias4 from "/images/2025-07-28-10-19-19.jpg"
 import ciencias2 from "/images/2025-07-28-10-49-19.jpg"
 import ciencias3 from "/images/2025-07-28-07-49-19.jpg"
 import ciencias1 from "/images/cameraciencias.gif"
+import ciencias4 from "/images/estacionUV.png"
 
 import reserva1 from "/images/instalacion.jpeg"
 import reserva2 from "/images/presentation.jpeg"
