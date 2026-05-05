@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+// constants
+import { STATIONS } from '../constants/stations';
+
 import pocuro1 from "/images/pocuro1.jpg"        // This works
 import pocuro2 from "/images/pocuro2.gif"
 import pocuro3 from "/images/pocuro3.jpg"
@@ -21,10 +24,10 @@ const IMAGE_DB = {
     pocuro3
   ],
   "CienciasUV-AWS": [
+    ciencias4,
     ciencias1,
     ciencias2,
-    ciencias3,
-    ciencias4
+    ciencias3
   ],
   "LaReserva-AWS": [
     reserva1,
@@ -33,7 +36,7 @@ const IMAGE_DB = {
   ]
 };
 
-const StationGallery = ({ selectedStation }) => {
+const StationGallery = ({ selectedStation,setSelectedStation }) => {
 
   const images = IMAGE_DB[selectedStation?.name] || [];
 
@@ -49,6 +52,22 @@ const StationGallery = ({ selectedStation }) => {
     <div className="card-frame gallery-card">
 
       <div className="card-header">Station Gallery</div>
+
+      <div className="splited-gallery">     
+        <label> Station: </label>
+              <select
+                value={selectedStation.id}
+                onChange={(e) =>
+                  setSelectedStation(
+                    STATIONS.find(s => s.id === Number(e.target.value))
+                  )
+                }
+              >
+                {STATIONS.map(st => (
+                  <option key={st.id} value={st.id}>{st.name}</option>
+                ))}
+              </select>
+      </div>
 
       <div className="gallery-container">
 

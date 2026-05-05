@@ -15,6 +15,7 @@ import MeteogramDashboard from '../components/Meteogram'
 import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
+import testSection from '../components/test';
 
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
@@ -33,7 +34,7 @@ const AWSDashboard = () => {
   //const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Section Tab
-  const [activeSection, setActiveSection] = useState('overview');   //starts at overview
+  const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview
 
   // States
   const [darkMode, setDarkMode] = useState(false);
@@ -124,7 +125,6 @@ const AWSDashboard = () => {
   <div className={darkMode ? 'app dark' : 'app'}>
 
     <div className="dashboard-container">
-
       <Navbar />
 
       <SectionTabs
@@ -135,15 +135,14 @@ const AWSDashboard = () => {
       {/* Main content */}
       <main className="main-content">
 
-  {activeSection === 'overview' && (
+  {activeSection === 'overview-main' && (
     <>
       <div className="top-section">
 
-        <div className="card-frame map-side">
+        <div className="card-frame map-side">     {/* inherits props from both sets of styles */}
           <div className="card-header">Network Geospatial View</div>
           <MapView setSelectedStation={setSelectedStation} />
         </div>
-
         <AnalyticsPanel
           selectedStation={selectedStation}
           plotData={plotData}
@@ -161,19 +160,26 @@ const AWSDashboard = () => {
     </>
   )}
 
-  {activeSection === 'stations' && (
+  {activeSection === 'stations-gallery' && (
+    <>
+      <div className="dual-section">
+        <StationGallery selectedStation={selectedStation} setSelectedStation={setSelectedStation}/>
+      </div>
+    </>
+  )}
+
+  {activeSection === 'stations-windrose' && (
     <>
       <div className="dual-section">
         <WindRosePanel
           selectedStation={selectedStation}
           setSelectedStation={setSelectedStation}
         />
-        <StationGallery selectedStation={selectedStation} />
       </div>
     </>
   )}
 
-  {activeSection === 'data' && (
+  {activeSection === 'data.availability' && (
     <>
       <div className="full-section">
         <AvailabilityDashboard
@@ -188,9 +194,9 @@ const AWSDashboard = () => {
     </>
   )}
 
-  {activeSection === "light-poll" && <LightPollution />}
+  {activeSection === "data-lightPoll" && <LightPollution />}
 
-  {activeSection === 'about' && (
+  {activeSection === 'about-project' && (
     <div className="card-frame about-card">
       <div className="card-header">About REMCI-UV</div>
       <div className="about-content">

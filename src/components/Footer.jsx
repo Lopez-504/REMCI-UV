@@ -1,5 +1,5 @@
 import remci_logo from "/remci_logo.png"
-import ifa_logo from "/logo-ifa.png"
+import ifa_logo from "/ifa2.png"
 import ceacc_logo from "/ceacc_logo.png"
 
 const Footer = () => {

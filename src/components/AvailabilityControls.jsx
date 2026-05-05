@@ -7,8 +7,6 @@ const AvailabilityControls = ({
   setSelectedStation,
   selectedVar,
   setSelectedVar,
-  chartType,
-  setChartType,
   startDate,
   endDate,
   setStartDate,
@@ -62,6 +60,9 @@ export default AvailabilityControls;
 
 
 /*
+chartType,
+  setChartType,
+
 <label>Chart Type</label>
       <div className="chart-type-buttons">
         {['line', 'bar', 'pie'].map(type => (

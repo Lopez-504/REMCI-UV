@@ -3,7 +3,7 @@ import ReactECharts from 'echarts-for-react';
 
 const ForecastPanel = () => {
 
-  // Mock forecast data (we’ll replace later)
+  // Mock forecast data 
   const forecast = useMemo(() => {
   const now = new Date();
 

@@ -9,6 +9,9 @@ import autumn from "/images/autumn.png"
 import spring from "/images/spring.png"
 
 
+// Links
+const simulations = "https://lopez-504.github.io/simulations/"
+
 const impactSections = [
   {
     title: "Astronomy",
@@ -92,9 +95,8 @@ export default function LightPollution() {
         </div>
 
         <div className="light-intro-text">
-
           <p>
-            
+            Check Illumina simulations in more detail <a href={simulations} target="_blank" rel="noreferrer">here</a>
           </p>
         </div>
         <img
@@ -111,6 +113,7 @@ export default function LightPollution() {
         <div style={{ whiteSpace: 'nowrap' }}>
           <img src={winter} style={{ display: 'inline-block', width: '50%' }} />
           <img src={spring} style={{ display: 'inline-block', width: '50%' }} />
+          <figcaption></figcaption>
         </div>     
       </section>
 
