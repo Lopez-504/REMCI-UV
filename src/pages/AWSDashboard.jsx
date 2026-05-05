@@ -3,48 +3,42 @@ import { RAW_WEATHER_DATA } from '../data/weatherData';
 
 // --   Components  --  //
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
 import ForecastPanel from '../components/ForecastPanel';
 import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
-//import WeatherStation from '../components/StationModel'; 
-import MeteogramDashboard from '../components/Meteogram'
 import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
-import testSection from '../components/test';
+
 
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
+
 
 // --   Links   -- //
 const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
 const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
 const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
 
-// --  Pics  -- //
+
+// --  Pictures  -- //
 import earth from "/images/stations_google_earth.png"
+
 
 const AWSDashboard = () => {
 
-  // Sidebar
-  //const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  // Section Tab
-  const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview
-
-  // States
-  const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('en');
-
+  // - States
   const [plotData] = useState(RAW_WEATHER_DATA);
+
+  // -- Section Tab
+  const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
 
+  // -- Exports
   const [isExportOpen, setIsExportOpen] = useState(true);     // starts opened
-
   const [exportVars, setExportVars] = useState({
     temp: true,
     humidity: false,
@@ -122,8 +116,6 @@ const AWSDashboard = () => {
 //   ---  Return  ---   //
 
   return (
-  <div className={darkMode ? 'app dark' : 'app'}>
-
     <div className="dashboard-container">
       <Navbar />
 
@@ -179,9 +171,19 @@ const AWSDashboard = () => {
     </>
   )}
 
-  {activeSection === 'data.availability' && (
+  {activeSection === 'data-availability' && (
     <>
       <div className="full-section">
+        <h2>Data Availability</h2>
+        <p>Below u can check the data that has been collected 
+          by each station. Note: consider migrating to Plotly</p>
+          <ul> U can:
+            <li>Add/remove variable from the plot</li>
+            <li>Select a color/kind for each variable</li>
+            <li>Pick date range</li>
+            <li>Select the time resolution</li>
+          </ul>
+          
         <AvailabilityDashboard
           selectedStation={selectedStation}
           exportVars={exportVars}
@@ -226,29 +228,9 @@ const AWSDashboard = () => {
   )}
       </main>
       <Footer/>
-    </div>
-  </div>  
+    </div> 
   );
 };
 
 export default AWSDashboard;
 
-
-/* Causing some serious bugs
-
-<Sidebar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-        language={language}
-        setLanguage={setLanguage}
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-      />
-
-*/
-
-/*
-
-
-
-*/

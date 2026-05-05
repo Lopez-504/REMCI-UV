@@ -177,6 +177,31 @@ body {
 
 }
 
+.full-section p {
+  color: black;
+  margin-top: -12px;
+}
+
+.full-section ul {
+  margin-top: -15px;
+  background-color: #819d96;
+  border-radius: 15px;
+  width: 30%;
+  margin-bottom: 2px;
+  border-width: 4px;
+  border-color: #000000;
+  border-style: dotted;
+}
+
+.full-section li {
+  background-color: #819d96;
+  border-radius: 10px;
+  width: 72%;
+  color: rgb(43, 21, 21);
+  font-weight: 700;
+  padding: 2px;
+}
+
 .full-section .card-frame {
   width: 100%;
 }
