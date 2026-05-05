@@ -177,6 +177,7 @@ body {
 
 }
 
+/* added these 3 on May 5 */
 .full-section p {
   color: black;
   margin-top: -12px;
@@ -603,7 +604,7 @@ body {
 }
 */
 
-/* ---------- DARK MODE ---------- */
+/* ---------- DARK MODE  (not working, not using)---------- */
 
 .app.dark {
   background: #1a1a1a;

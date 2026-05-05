@@ -1,0 +1,33 @@
+/* ---------------- NAVBAR ---------------- */
+
+.navbar {
+  position: sticky;   
+  top: 0px;
+  z-index: 1000;
+
+  height: 74px;
+  background: var(--primary-color);
+  color: white;
+
+  background-image: url('/images/Rotating_earth.gif');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.status-dot { 
+  background: #eef4ef;    /*#eef4ef*/ 
+  color: #239228;         /*#239228*/
+  padding: 3px 6px; 
+  border-radius: 3px; 
+  font-size: 20px;   
+  font-weight: bold;
+  align-items: center;
+}

@@ -1,0 +1,25 @@
+/* ---------------- CARDS ---------------- */
+
+.card-frame {
+  background: var(--card-bg);
+  border: 3px solid var(--primary-color);
+  border-radius: 12px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background: #f1f3f5;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 17px;
+}
+
+
+/* missing full-width-card */

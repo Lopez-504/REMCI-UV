@@ -1,5 +1,7 @@
 import { WiThermometer, WiHumidity, WiStrongWind, WiWindDeg, WiDaySunny } from "react-icons/wi";
 
+/* try ion-icons */
+
 const StationPopup = ({ station }) => {
   return (
     <div>
@@ -12,11 +14,3 @@ const StationPopup = ({ station }) => {
 export default StationPopup;
 
 
-/* 
-For now I need smaller popups
-
-<p><WiHumidity /> {station.humidity}%</p>
-      <p><WiStrongWind /> {station.windSpeed} m/s</p>
-      <p><WiWindDeg /> {station.windDir}°</p>
-      <p><WiDaySunny /> {station.solarRad} W/m²</p>
-*/

@@ -1,0 +1,75 @@
+/* ---------------- CARDS ---------------- */
+
+.card-frame {
+  background: var(--card-bg);
+  border: 3px solid var(--primary-color);
+  border-radius: 12px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background: #f1f3f5;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 17px;
+}
+
+/* Availability plot */
+
+.var-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+.var-row select {
+  flex: 1;
+}
+
+.var-row input[type="color"] {
+  width: 40px;
+  height: 30px;
+  border: none;
+}
+
+.var-row button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+/* - */
+
+.availability-section {
+  height: 510px;
+}
+
+.availability-content {
+  display: flex;
+  height: 100%;
+}
+
+.availability-chart {
+  flex: 3;
+}
+
+.availability-controls {
+  flex: 1;
+  padding: 15px;
+  border-left: 2px solid #ddd;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

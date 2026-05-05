@@ -12,16 +12,17 @@ const NAV_ITEMS = [
     label: 'Stations',
     options: [
       { key: 'stations-gallery', label: 'Gallery' },
-      { key: 'stations-windrose', label: 'Wind Rose' }
+      { key: 'stations-currentCond', label: 'Current conditions' }
     ]
   },
   {
     label: 'Data',
     options: [
       { key: 'data-availability', label: 'Availability' },
+      { key: 'data-download', label: 'Download' },
       { key: 'data-forecast', label: 'Forecast' },
-      { key: 'data-downloads', label: 'Downloads' },
-      { key: 'data-lightPoll', label: 'Light Pollution' }
+      { key: 'data-lightPoll', label: 'Light Pollution' },
+      { key: 'data-forestFires', label: 'Forest Fires ' }
     ]
   },
   {

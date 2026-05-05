@@ -1,13 +1,12 @@
-//import "./LightPollution.css";
-
-// Note: there's too much left padding
-
 import seasonalSet from "/images/seasonalSet.png"
 import winter from "/images/winter.png"
 import summer from "/images/summer.png"
 import autumn from "/images/autumn.png"
 import spring from "/images/spring.png"
 
+//import "./lightPollution.css";
+
+// Note: there's too much left padding
 
 // Links
 const simulations = "https://lopez-504.github.io/simulations/"

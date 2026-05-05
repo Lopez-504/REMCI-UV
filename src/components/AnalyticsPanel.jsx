@@ -1,9 +1,7 @@
-import ChartPanel from './ChartPanel';
 import ExportPanel from './ExportPanel';
 
 const AnalyticsPanel = ({
   selectedStation,
-  plotData,
   isExportOpen,
   setIsExportOpen,
   exportVars,
@@ -16,7 +14,7 @@ const AnalyticsPanel = ({
 }) => {
 
   return (
-    <div className="card-frame plot-side">
+    <div className="card-frame">
 
       <div className="card-header">
         Station Analytics: {selectedStation.name}
@@ -60,22 +58,9 @@ const AnalyticsPanel = ({
           handleDownload={handleDownload}
           stationName={selectedStation.name}
         />
-
-        {/* CHART */}
-        
-
       </div>
     </div>
   );
 };
 
 export default AnalyticsPanel;
-
-
-/*
-No longer need this chart
-
-<section style={{ flexGrow: 1, minHeight: '300px' }}>
-          <ChartPanel plotData={plotData} />
-        </section>
-*/

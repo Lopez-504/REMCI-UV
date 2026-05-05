@@ -1,0 +1,111 @@
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;       /* external-most borders */
+  width: 100%;
+}
+
+/* ---------------- TOP SECTION ---------------- */
+
+.top-section {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  height: 620px;   /* map and analytics panel */
+}
+
+/* ---------------- CARDS ---------------- */
+
+.card-frame {
+  background: var(--card-bg);
+  border: 3px solid var(--primary-color);
+  border-radius: 12px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background: #f1f3f5;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 17px;
+}
+
+.map-side {
+  flex: 1.5;
+  min-height: 100%;   /* 👈 IMPORTANT */
+}
+
+.full-section {
+  width: 98.6vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  left: 0%;
+  right: 0%; 
+  padding: 0px; 
+
+}
+
+/* added these 3 on May 5 */
+.full-section p {
+  color: black;
+  margin-top: -12px;
+}
+
+.full-section ul {
+  margin-top: -15px;
+  background-color: #819d96;
+  border-radius: 15px;
+  width: 30%;
+  margin-bottom: 2px;
+  border-width: 4px;
+  border-color: #000000;
+  border-style: dotted;
+}
+
+.full-section li {
+  background-color: #819d96;
+  border-radius: 10px;
+  width: 72%;
+  color: rgb(43, 21, 21);
+  font-weight: 700;
+  padding: 2px;
+}
+
+.full-section .card-frame {
+  width: 100%;
+}
+
+/* ---------- NEW: SIDE-BY-SIDE SECTION ---------- */
+
+.dual-section {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 560px;
+  align-items: stretch;
+}
+
+.dual-section > * {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+}
