@@ -1,10 +1,28 @@
-.splited-gallery select,        /*mising splitted-gallery alone?*/
-.splited-gallery input {
-  padding: 6px;
+.splited-gallery select{            /*mising splitted-gallery alone?*/
+  padding: 3px;
   border-radius: 8px;
   border: 1px solid #ddd;
   font-size: large;
-  background-color: #ffffff;
+  background-color: #37cd0555;
+  margin: 8px;
+}        
+
+
+.splited-gallery input {
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: large;
+  background-color: #ffffff89;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-select {
+  display: flex;
+  padding: 9px;
+  margin-left: 5px;
+  gap: 10px;
 }
 
 /* ---------------- CARDS ---------------- */
@@ -14,6 +32,7 @@
   border: 3px solid var(--primary-color);
   border-radius: 12px;
   overflow: hidden;
+  height: fit-content;
 
   display: flex;
   flex-direction: column;
@@ -22,7 +41,7 @@
 }
 
 .card-header {
-  background: #f1f3f5;
+  background: #011a32;
   padding: 10px 15px;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
@@ -37,21 +56,16 @@
   height: 100%;
 }
 
-.gallery-card {
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  overflow: hidden;
-}
-
 
 .gallery-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100%;               /*useless if height is set to a fixed value*/
   width: 100%;
   min-width: 0;
   padding: 10px;
+  margin: 0px;
+  height: 460px;
 }
 
 .image-wrapper {
@@ -61,8 +75,8 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 10px;
-  background: #111;
-  max-height: 390px; 
+  background: #111111e0;
+  max-height: 90%; 
   max-width: 100%;
 }
 
@@ -91,6 +105,9 @@
   padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
+  gap: 0px;
+  margin-left: 325px;
+  margin-right: 325px;
 }
 
 .gallery-controls button:hover {
@@ -108,14 +125,15 @@
 .dot {
   width: 8px;
   height: 8px;
-  background: #ccc;
+  background: #6c6bc3cb;
   border-radius: 50%;
   cursor: pointer;
 }
 
 .dot.active {
-  background: #3498db;
-  width: 20px;
+  background: #1297f0;
+  width: 10px;
+  height: 10px;
 }
 
 /* Zoom button */

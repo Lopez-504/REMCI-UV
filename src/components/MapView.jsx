@@ -4,13 +4,14 @@ import { STATIONS } from '../constants/stations';
 
 import earth from '/images/stations_google_earth.png'
 
+import './mapView.css'
+
 // put your image in public/images/
 const SATELLITE_OVERVIEW = earth;
 
 const MapView = ({ setSelectedStation }) => {
   return (
     <div className="mapview-split">
-
       <div className="mapview-top">
         <img
           src={SATELLITE_OVERVIEW}
@@ -18,7 +19,6 @@ const MapView = ({ setSelectedStation }) => {
           className="mapview-image"
         />
       </div>
-
       <div className="mapview-bottom">
         <MapContainer
           center={[-33, -71.48]}

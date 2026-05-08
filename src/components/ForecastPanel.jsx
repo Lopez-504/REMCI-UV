@@ -1,8 +1,13 @@
 import { useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
+import MeteogramOpenMeteo from './MeteogramOpenMeteo';
+
+import './forecastPanel.css'
+import Meteogram2 from './Meteogram2';
+
 
 const ForecastPanel = () => {
-
+/*
   // Mock forecast data 
   const forecast = useMemo(() => {
   const now = new Date();
@@ -146,16 +151,19 @@ const ForecastPanel = () => {
 ]
     };
 
-  }, [forecast]);
+  }, [forecast]);*/
 
   return (
-    <div className="card-frame full-width-card" style={{ height: '400px' }}>
-      <div className="card-header">Forecast: Wind Field</div>
-      <div style={{ height: '100%' }}>
-        <ReactECharts option={option} style={{ height: '100%' }} />
+      <div>
+        <div className="card-header">Forecast: Meteogram 3 locations</div>
+        <Meteogram2/>
+        <div className="card-header">Forecast: Meteogram single</div>
+        <MeteogramOpenMeteo/>
       </div>
-    </div>
-  );
+  )    
 };
 
 export default ForecastPanel;
+
+
+//<ReactECharts option={option} style={{ height: '100%' }} />

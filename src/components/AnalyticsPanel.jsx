@@ -1,4 +1,5 @@
 import ExportPanel from './ExportPanel';
+import './analyticsPanel.css'
 
 const AnalyticsPanel = ({
   selectedStation,
@@ -40,8 +41,8 @@ const AnalyticsPanel = ({
           </div>
 
           <div className="info-item">
-            <span>Model</span>
-            <div>DAVIS - Vantage PRO2</div>
+            <span>Brand/Model</span>
+            <div>{selectedStation.brand}</div>
           </div>
         </section>
 

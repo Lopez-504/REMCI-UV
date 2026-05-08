@@ -1,3 +1,16 @@
+.about-card {
+  width: 98.6vw;        /* to have a margin on the right*/
+  position: relative;
+  left: 0%;
+  right: 0%; 
+  padding: 0px; 
+}
+
+.about-content {
+  padding: 20px;
+  line-height: 1.6;
+}
+
 /* ---------------- CARDS ---------------- */
 
 .card-frame {
@@ -19,22 +32,4 @@
   border-bottom: 1px solid #ddd;
   text-align: center;
   font-size: 17px;
-}
-
-/* ---------------- INFO GRID ---------------- */
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-  gap: 10px;
-  text-align: center;
-  background: #f8f9fa;
-  padding: 4px;
-  border-radius: 15px;
-  
-}
-
-.info-item span {
-  font-weight: bold;
-  font-size: 15px;
 }

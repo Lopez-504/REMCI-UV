@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import './sectionTabs.css'
+
 const NAV_ITEMS = [
   {
     label: 'Overview',

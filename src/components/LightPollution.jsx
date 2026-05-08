@@ -4,7 +4,7 @@ import summer from "/images/summer.png"
 import autumn from "/images/autumn.png"
 import spring from "/images/spring.png"
 
-//import "./lightPollution.css";
+import "./lightPollution.css";
 
 // Note: there's too much left padding
 
@@ -101,17 +101,15 @@ export default function LightPollution() {
         <img
             src={seasonalSet}
             classname="light-feature-img"
-            height={"820px"}
-            width={"1230px"}/>
-            .                           {/*Fix this*/}
+            height={"500px"}
+            width={"770px"}/>
+                                       {/*Fix this*/}
         <div style={{ whiteSpace: 'nowrap' }}>
-          <img src={summer} style={{ display: 'inline-block', width: '50%' }} />
-          <img src={autumn} style={{ display: 'inline-block', width: '50%' }} />
-        </div>
-        <br></br>
-        <div style={{ whiteSpace: 'nowrap' }}>
-          <img src={winter} style={{ display: 'inline-block', width: '50%' }} />
-          <img src={spring} style={{ display: 'inline-block', width: '50%' }} />
+          <img src={summer} style={{ display: 'inline-block', width: '57%' }} />
+          <img src={autumn} style={{ display: 'inline-block', width: '57%' }} />
+          <br></br>
+          <img src={winter} style={{ display: 'inline-block', width: '57%' }} />
+          <img src={spring} style={{ display: 'inline-block', width: '57%' }} />
           <figcaption></figcaption>
         </div>     
       </section>

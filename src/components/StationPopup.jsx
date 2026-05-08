@@ -1,3 +1,7 @@
+import React from 'react';
+
+import './stationPopup.css'
+
 import { WiThermometer, WiHumidity, WiStrongWind, WiWindDeg, WiDaySunny } from "react-icons/wi";
 
 /* try ion-icons */

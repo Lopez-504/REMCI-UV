@@ -19,6 +19,8 @@
   border-bottom: 1px solid #ddd;
   text-align: center;
   font-size: 17px;
+  border-radius: 9px;
+  /*width: fit-content;*/
 }
 
 

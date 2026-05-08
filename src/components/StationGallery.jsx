@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+//css
+import './stationGallery.css'
+
 // constants
 import { STATIONS } from '../constants/stations';
 
@@ -51,11 +54,12 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
   return (
     <div className="card-frame gallery-card">
 
-      <div className="card-header">Station Gallery</div>
+      {/*<div className="card-header">Station Gallery</div>*/}
 
       <div className="splited-gallery">     
-        <label> Station: </label>
-              <select
+        <div className='title-select'>
+          <h3>Select station: </h3>
+          <select
                 value={selectedStation.id}
                 onChange={(e) =>
                   setSelectedStation(
@@ -66,9 +70,9 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
                 {STATIONS.map(st => (
                   <option key={st.id} value={st.id}>{st.name}</option>
                 ))}
-              </select>
+          </select>
+        </div>
       </div>
-
       <div className="gallery-container">
 
         {/* ZOOM MODAL */}

@@ -3,6 +3,9 @@ import ReactECharts from 'echarts-for-react';
 import DatePicker from 'react-datepicker';
 import { STATIONS } from '../constants/stations';
 
+//css
+import './windRosePanel.css'
+
 const WindRosePanel = ({ selectedStation, setSelectedStation }) => {
 
   const [startDate, setStartDate] = useState(() => {

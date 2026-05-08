@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import { STATIONS } from '../constants/stations';
 import { VAR_LABELS } from '../constants/variables';
 
+import './availabilityDashboard.css'
+
 const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   const [selectedStation, setSelectedStation] = useState(initialStation || STATIONS[0]);

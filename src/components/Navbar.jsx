@@ -1,5 +1,7 @@
 import logo from "/remci_logo.png"
 
+import './navbar.css'
+
 const Navbar = () => {
   return (
     <nav className="navbar">

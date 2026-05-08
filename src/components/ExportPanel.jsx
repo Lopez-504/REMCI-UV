@@ -2,6 +2,8 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { VAR_LABELS } from '../constants/variables';
 
+import './exportPanel.css'
+
 const ExportPanel = ({
   isOpen,
   setIsOpen,
@@ -19,6 +21,10 @@ const ExportPanel = ({
     <section style={{ borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
 
       {/* HEADER */}
+      <div>
+        <p><strong>Export Settings   </strong>
+        (Click map to change stations!)</p>
+      </div>
       <div
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -27,8 +33,7 @@ const ExportPanel = ({
           cursor: 'pointer'
         }}
       >
-        <h4 className="section-title">Export Settings</h4>
-        <span>{isOpen ? '▲ Close' : '▼ Expand'}</span>
+        <span>{isOpen ? '▲' : '▼'}</span>    {/*Close Expand*/}
       </div>
 
       {/* CONTENT */}
