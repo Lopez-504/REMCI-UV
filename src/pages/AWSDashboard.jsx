@@ -110,7 +110,7 @@ const AWSDashboard = () => {
 //   ---  Return  ---   //
 
   return (
-    <div className="dashboard-container">
+    <div id='#' className="dashboard-container">
      
      {/* Navbar */}
       <Navbar />
@@ -119,7 +119,7 @@ const AWSDashboard = () => {
         setActiveSection={setActiveSection}/>
 
       {/* Main content */}
-      <main className="main-content">
+      <main id='main' className="main-content">
 
 {/* Overview -> main */}
 
@@ -164,7 +164,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'stations-gallery' && (
           <>
-            <div className="dual-section">
+            <div id='gallery' className="dual-section">
               <StationGallery selectedStation={selectedStation} setSelectedStation={setSelectedStation}/>
             </div>
           </>
@@ -188,7 +188,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'data-availability' && (
           <>
-            <div className="full-section">
+            <div id='availability' className="full-section">
               <h2>Data Availability</h2>
               <p>Below u can check the data that has been collected by each station. 
                 Note: consider migrating to Plotly</p>
@@ -210,7 +210,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'data-download' && (
           <>
-            <div className="top-section">
+            <div id='downloads' className="top-section">
               <div className="card-frame map-side">    
                 <div className="card-header">Network Geospatial View</div>
                   <MapView setSelectedStation={setSelectedStation} />
