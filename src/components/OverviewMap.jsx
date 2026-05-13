@@ -3,8 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip, Circle } from 'react-l
 import 'leaflet/dist/leaflet.css';
 import './overviewMap.css';
 
-//import { STATIONS } from '../constants/stations'
-import { STATIONS } from '../constants/stations-ghp'
+import { STATIONS } from '../constants/stations'
+//import { STATIONS } from '../constants/stations-ghp'
 
 const OverviewMap = () => {
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
