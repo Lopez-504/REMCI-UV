@@ -56,3 +56,4 @@ export const STATIONS = [
 
 // BUG: locally the images paths need the REMCI-UV at the begining, but in GitHub we don't need it
 // Try to fix this in vite.config.js, here the base root is set to "/REMCI-UV"
+// I tried removing the REMCI-UV but it's not working
