@@ -5,42 +5,45 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.778);
 }
 
 .download-btn:hover {
-  background: #219150;
+  background: #27ae60;
+  box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.931);
 }
 
 /* ---------------- EXPORT PANEL ---------------- */
 
 .retractable-panel {
+  position: relative;
   margin-top: 10px;
   padding: 15px;
-  background: #f1f3f5;
+  background: #011326e9;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: rgb(210, 210, 210);
 }
 
 .checkbox-row {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: auto;                                 /*text cursor*/
+  color: rgb(255, 255, 255);
+}
+
+.checkbox-row input[type="checkbox"] {
+  opacity: 0.9;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 /* ---------------- DATE PICKER ---------------- */
 
-  
 
-.date-input {
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  text-align: center;
-}
 
 h4 {
   background-color: #956caf34;

@@ -1,18 +1,19 @@
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+
+// Static data
 import { VAR_LABELS } from '../constants/variables';
 
+//CSS
 import './exportPanel.css'
+import MyDateRangePicker from './DateRangePicker';
+
 
 const ExportPanel = ({
   isOpen,
   setIsOpen,
   exportVars,
   handleCheckboxChange,
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
   handleDownload,
   stationName
 }) => {
@@ -52,9 +53,8 @@ const ExportPanel = ({
           ))}
 
           {/* DATE PICKERS */}
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <DatePicker selected={startDate} onChange={setStartDate} className="date-input" />
-            <DatePicker selected={endDate} onChange={setEndDate} className="date-input" />
+          <div>
+            <MyDateRangePicker/>      
           </div>
 
           {/* DOWNLOAD BUTTON */}
@@ -74,3 +74,21 @@ const ExportPanel = ({
 };
 
 export default ExportPanel;
+
+
+
+
+/* Old date picker
+
+<div style={{ display: 'flex', gap: '10px' }}>
+  <DatePicker selected={startDate} onChange={setStartDate} className="date-input" />
+  <DatePicker selected={endDate} onChange={setEndDate} className="date-input" />
+</div>
+
+
+startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+
+*/

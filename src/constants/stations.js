@@ -1,5 +1,55 @@
 export const STATIONS = [
-  { id: 1, name: "Pocuro-AWS", lat: -32.86967, lng: -70.61523, brand: 'Hobo RX3000', temp: 18.5, humidity: 45 , windSpeed: 0.5, windDir: 216, solarRad: 1}, 
-  { id: 2, name: "CienciasUV-AWS", lat: -33.02705, lng: -71.63875, brand: 'Hobo RX3000', temp: 16.2, humidity: 62, windSpeed: 0.5, windDir: 216, solarRad: 1 },
-  { id: 3, name: "LaReserva-AWS", lat: -33.04374, lng: -71.33947, brand: 'Davis Vantage Pro2',temp: 17.8, humidity: 55, windSpeed: 0.5, windDir: 216, solarRad: 1 }
+  { id: 1, 
+    name: "Pocuro-AWS", 
+    color: '#8b0cc6',
+    lat: -32.86967, 
+    lng: -70.61523, 
+    brand: 'Hobo RX3000', 
+    status: 'ACTIVE',
+    images: [
+      "REMCI-UV/images/pocuro1.jpg",
+      "REMCI-UV/images/pocuro2.gif",
+      "REMCI-UV/images/pocuro3.jpg",
+    ],
+    temp: 18.5, 
+    humidity: 45, 
+    windSpeed: 0.5, 
+    windDir: 216, 
+    solarRad: 1}, 
+
+  { id: 2,
+    name: "CienciasUV-AWS",
+    color: '#33ff00',
+    lat: -33.02705, 
+    lng: -71.63875, 
+    brand: 'Hobo RX3000',
+    status: 'IDLE', 
+    images: [
+      "REMCI-UV/images/estacionUV.png",
+      "REMCI-UV/images/cameraciencias.gif",
+      "REMCI-UV/images/2025-07-28-07-49-19.jpg"
+    ],
+    temp: 16.2, 
+    humidity: 62, 
+    windSpeed: 0.5, 
+    windDir: 216, 
+    solarRad: 1 },
+
+  { id: 3, 
+    name: "LaReserva-AWS", 
+    color: '#fff700',
+    lat: -33.04374, 
+    lng: -71.33947, 
+    brand: 'Davis Vantage Pro2',
+    status: 'ACTIVE',
+    images: [
+      "REMCI-UV/images/reserva1.jpg",
+      "REMCI-UV/images/presentation.jpeg",
+      "REMCI-UV/images/instalacion.jpeg"
+    ],
+    temp: 17.8, 
+    humidity: 55, 
+    windSpeed: 0.5, 
+    windDir: 216, 
+    solarRad: 1 }
 ];

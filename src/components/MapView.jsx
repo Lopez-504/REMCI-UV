@@ -1,9 +1,9 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
-import StationPopup from './StationPopup';
 import { STATIONS } from '../constants/stations';
 
 import earth from '/images/stations_google_earth.png'
 
+//CSS
 import './mapView.css'
 
 // put your image in public/images/
@@ -21,12 +21,12 @@ const MapView = ({ setSelectedStation }) => {
       </div>
       <div className="mapview-bottom">
         <MapContainer
-          center={[-33, -71.48]}
-          zoom={9.1}
+          center={[-32.9, -70.97]}
+          zoom={9.2}
           style={{ height: '100%', width: '100%' }}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
         >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png" />
 
           {STATIONS.map((station) => (
             <Marker
@@ -35,8 +35,12 @@ const MapView = ({ setSelectedStation }) => {
               eventHandlers={{ click: () => setSelectedStation(station) }}
             >
               <Popup>
-                <StationPopup station={station} />
-              </Popup>
+                <strong>{station.name}</strong>
+                <br />
+                {station.brand}
+                <br />
+                Status: {station.status}
+                </Popup>
 
               <Tooltip permanent direction="top">
                 {station.name}
@@ -45,7 +49,6 @@ const MapView = ({ setSelectedStation }) => {
           ))}
         </MapContainer>
       </div>
-
     </div>
   );
 };

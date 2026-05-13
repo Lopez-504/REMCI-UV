@@ -3,6 +3,7 @@ import { RAW_WEATHER_DATA } from '../data/weatherData';
 
 // --   Components  --  //
 import Navbar from '../components/Navbar';
+import OverviewMap from '../components/OverviewMap';
 import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
@@ -16,7 +17,6 @@ import About from '../components/About';
 
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
-
 
 // --  css  -- //
 import './awsDashboard.css'
@@ -156,6 +156,7 @@ const AWSDashboard = () => {
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
               Eveniet excepturi eius at fuga asperiores!</p>
           </div>
+          <OverviewMap setSelectedStation={setSelectedStation} />
           </>
         )}
 

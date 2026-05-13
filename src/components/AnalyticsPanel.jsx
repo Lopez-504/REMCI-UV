@@ -1,4 +1,6 @@
 import ExportPanel from './ExportPanel';
+
+//CSS
 import './analyticsPanel.css'
 
 const AnalyticsPanel = ({
@@ -16,7 +18,6 @@ const AnalyticsPanel = ({
 
   return (
     <div className="card-frame">
-
       <div className="card-header">
         Station Analytics: {selectedStation.name}
       </div>
@@ -27,22 +28,28 @@ const AnalyticsPanel = ({
         <section className="info-grid">
           <div className="info-item">
             <span>ID</span>
-            <div>AWS-{selectedStation.id.toString().padStart(3, '0')}</div>
+            <div className='pill'>AWS-{selectedStation.id.toString().padStart(3, '0')}</div>
           </div>
 
           <div className="info-item">
             <span>Coords</span>
-            <div>{selectedStation.lat.toFixed(3)}, {selectedStation.lng.toFixed(3)}</div>
+            <div className='pill'>{selectedStation.lat.toFixed(3)}, {selectedStation.lng.toFixed(3)}</div>
           </div>
 
           <div className="info-item">
             <span>Status</span>
-            <div style={{ color: '#27ae60', fontWeight: 'bold' }}>Active</div>
+            <div className='pill' 
+                 style={{ color: selectedStation.status==='ACTIVE' ? '#1aff00' : '#d80e0e', 
+                          fontWeight: 'bold', 
+                          textTransform: 'uppercase' 
+                          }}>
+              {selectedStation.status}
+            </div>
           </div>
 
           <div className="info-item">
             <span>Brand/Model</span>
-            <div>{selectedStation.brand}</div>
+            <div className='pill'>{selectedStation.brand}</div>
           </div>
         </section>
 
