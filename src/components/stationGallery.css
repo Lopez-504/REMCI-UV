@@ -1,10 +1,12 @@
 .splited-gallery select{            /*mising splitted-gallery alone?*/
-  padding: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: large;
-  background-color: #37cd0555;
-  margin: 8px;
+  border: 1px solid #000000;
+  font-size: 17px;
+  background-color: #90b4a743;
+  margin: 9px;
+  box-shadow: 0 0 10px rgba(3, 50, 112, 0.357);
 }        
 
 
@@ -32,19 +34,18 @@
   border: 3px solid var(--primary-color);
   border-radius: 12px;
   overflow: hidden;
-  height: fit-content;
-
-  display: flex;
+  height: auto;                                   /* fit-content maybe */
+  display: grid;                                  
   flex-direction: column;
-
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  grid-template-rows: auto 1fr auto;
+  box-shadow: 0 0px 10px rgba(0,0,0,0.05);
 }
 
 .card-header {
   background: #011a32;
   padding: 10px 15px;
   font-weight: bold;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;         /* ?? */
   text-align: center;
   font-size: 17px;
 }
@@ -54,41 +55,46 @@
 .gallery-card {
   flex: 1;
   height: 100%;
+  background: linear-gradient(135deg, rgba(212, 212, 217, 0.311), rgba(167, 51, 165, 0.877)) !important;
 }
 
 
 .gallery-container {
   display: flex;
   flex-direction: column;
-  height: 100%;               /*useless if height is set to a fixed value*/
+  height: 570px;               /*useless if height is set to a fixed value*/
   width: 100%;
   min-width: 0;
   padding: 10px;
   margin: 0px;
-  height: 460px;
 }
 
 .image-wrapper {
   position: relative;       /* important */
   flex: 1;
   width: 100%;
-  min-width: 0;
   overflow: hidden;
   border-radius: 10px;
-  background: #111111e0;
-  max-height: 90%; 
+  /*background: #1111117f;*/
+  max-height: 100%; 
   max-width: 100%;
+  background-image: url('/images/leaves.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 10px;                                /* with respect to the content inside it */
 }
 
 .image-wrapper img {
-  width: 100%;
+  width: 100%;                   /*realtive to parent*/
   height: 100%;
   object-fit: contain;
+  transition: .4s ease-in-out;
 }
 
 
 .image-wrapper img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .gallery-controls {
@@ -108,6 +114,7 @@
   gap: 0px;
   margin-left: 32px;
   margin-right: 32px;
+  transition: 0.4s;
 }
 
 .gallery-controls button:hover {
@@ -128,12 +135,12 @@
   background: #6c6bc3cb;
   border-radius: 50%;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .dot.active {
-  background: #1297f0;
-  width: 10px;
-  height: 10px;
+  background: #0d80ce;
+  width: 12px;
 }
 
 /* Zoom button */
@@ -168,3 +175,6 @@
   max-height: 90%;
   border-radius: 10px;
 }
+
+
+/* Task: make the transitions smooth: image changes, zooms, button hovers, etc */

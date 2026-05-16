@@ -11,7 +11,7 @@
   height: 260px;
   width: 100%;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 14px;
   bottom: 0;
 }
 
@@ -22,6 +22,7 @@
   object-fit: cover;
   display: block;
   bottom: 0px;
+  top: 0px;
 }
 
 /* This is the important one */

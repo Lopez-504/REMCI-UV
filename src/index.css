@@ -22,4 +22,6 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg);
   overflow-x: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;  
 }

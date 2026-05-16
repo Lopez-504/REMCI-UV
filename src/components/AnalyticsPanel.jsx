@@ -21,6 +21,8 @@ const AnalyticsPanel = ({
       <div className="card-header">
         Station Analytics: {selectedStation.name}
       </div>
+      
+      <p>(Click map to change stations!)</p>
 
       <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '12px', overflowY: 'auto' }}>
 

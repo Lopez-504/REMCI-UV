@@ -85,7 +85,7 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
         {/* IMAGE */}
         <div className="image-wrapper">
 
-          <img src={images[index]} alt="station" />
+          <img src={images[index]} alt="image" />
 
           <button
             className="zoom-btn"

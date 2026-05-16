@@ -9,29 +9,28 @@ import './meteogramOpenMeteo.css'
 // 2) Wind speed / wind direction arrows / precipitation
 // 3) Pressure / relative humidity
 //
-// You can place this component anywhere in your Vite React app.
 // Example: <MeteogramOpenMeteo latitude={-33.06118} longitude={-71.396} />
 
 const LOCATIONS = [
   {
     id: "station-1",
-    name: "Station 1 — Coastal demo",
+    name: "Ciencias UV — Valparaíso",
     latitude: -33.02705,
-    longitude: -71.63875,
+    longitude: -71.63875,    
     timezone: "America/Santiago",
   },
   {
     id: "station-2",
-    name: "Station 2 — Valley demo",
-    latitude: -32.86967,
-    longitude: -70.61523,
+    name: "La Reserva — Villa Alemana",
+    latitude: -33.04374,
+    longitude: -71.33947,
     timezone: "America/Santiago",
   },
   {
     id: "station-3",
-    name: "Station 3 — Inland demo",
-    latitude: -33.04374,
-    longitude: -71.33947,
+    name: "Pocuro UV — Los Andes",
+    latitude: -32.86967,
+    longitude: -70.61523,
     timezone: "America/Santiago",
   },
 ];
@@ -293,11 +292,11 @@ function MeteogramOpenMeteo({ refreshMinutes = 2 }) {
     }
 
     function WindArrow({ cx, cy, dir }) {
-      const len = 22;
+      const len = 16;
       const angle = ((dir - 90) * Math.PI) / 180;
       const x2 = cx + len * Math.cos(angle);
       const y2 = cy + len * Math.sin(angle);
-      const head = 6;
+      const head = len * 3/7;
       const a1 = angle + Math.PI * 0.82;
       const a2 = angle - Math.PI * 0.82;
       return (
@@ -419,8 +418,8 @@ function MeteogramOpenMeteo({ refreshMinutes = 2 }) {
             if (!isFog) return null;
             return <rect key={`fog-${i}`} x={x(d.time) - barW / 2} y={zeroY} width={barW} height={row1Y + rowH - zeroY} fill={COLORS.fog} />;
           })}
-          <path d={linePath("temp", yTempMin, yTempMax, row1Y)} fill="none" stroke={COLORS.temp} strokeWidth="2.6" />
-          <path d={linePath("dew", yTempMin, yTempMax, row1Y)} fill="none" stroke={COLORS.dew} strokeWidth="2.6" />
+          <path d={linePath("temp", yTempMin, yTempMax, row1Y)} fill="none" stroke={COLORS.temp} strokeWidth="2.4" />
+          <path d={linePath("dew", yTempMin, yTempMax, row1Y)} fill="none" stroke={COLORS.dew} strokeWidth="2.4" />
           <AxisHours top={row1Y} />
 
           <text x={margin.left} y={row1Y - 14} fill={COLORS.temp} fontSize="18">Temperatura</text>

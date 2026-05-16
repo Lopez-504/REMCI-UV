@@ -8,6 +8,7 @@
   flex-wrap: wrap;
   gap: 20px;
   position: relative;
+  flex-grow: 1;                 /* ?*/
 }
 
 .footer a {
@@ -29,5 +30,19 @@
 }
 
 /*missin footer-left and center?? */
+
+.footer-left {
+  color: white;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.621);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.footer-center{
+  color: white;
+  box-shadow: 0 0 5px rgba(88, 138, 182, 0.621);
+  border-radius: 7px;
+  padding: 8px;
+}
 
 /* Add a liner gradient here to highlight the logos */

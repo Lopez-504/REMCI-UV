@@ -107,3 +107,9 @@
   min-width: 0;
   height: 100%;
 }
+
+
+.under-construction {
+  display: grid;
+  grid-template-rows: auto auto 1fr 9fr;        /*fix this*/
+}

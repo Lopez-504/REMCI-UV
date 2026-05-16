@@ -14,13 +14,20 @@
 }
 
 .tab-btn {
-  background: white;
-  border: 1px solid #cfd8e3;
+  background: rgba(255, 0, 0, 0);
+  border: 2.4px solid #b417d070;
   border-radius: 8px;
-  padding: 8px 14px;
+  padding: 5px 14px;
   cursor: pointer;
   font-weight: 600;
-  color: #2c3e50;
+  color: #d8d6d6;
+  transition: 0.3s ease-in-out;
+}
+
+.tab-btn:hover {
+  color: white;
+  background-color: rgba(195, 6, 186, 0.754);
+  transform: translateY(-3px);
 }
 
 .dropdown-menu {
@@ -49,10 +56,14 @@
 }
 
 .dropdown-item:hover {
-  background: #f1f5f9;
+  background: #038faf3e;
 }
 
 .dropdown-item.active {
   background: #3498db;
   color: white;
+}
+
+.dropdown-item.active:hover {
+  background: #0c72b5;  
 }

@@ -50,7 +50,10 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
             onClick={() =>
               setOpenMenu(openMenu === item.label ? null : item.label)
             }
-          >
+            onMouseOver={() =>
+              setOpenMenu(openMenu === item.label ? null : item.label)
+            }
+          >{/* took out onMouseOut */}
             {item.label} ▾
           </button>
 

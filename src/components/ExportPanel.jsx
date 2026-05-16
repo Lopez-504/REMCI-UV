@@ -23,19 +23,10 @@ const ExportPanel = ({
 
       {/* HEADER */}
       <div>
-        <p><strong>Export Settings   </strong>
-        (Click map to change stations!)</p>
+        <h2>Export Settings</h2>
       </div>
-      <div
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          cursor: 'pointer'
-        }}
-      >
-        <span>{isOpen ? '▲' : '▼'}</span>    {/*Close Expand*/}
-      </div>
+
+      {/* took out expand button*/}
 
       {/* CONTENT */}
       {isOpen && (
@@ -91,4 +82,18 @@ startDate,
   setStartDate,
   setEndDate,
 
+*/
+
+/*
+
+<div
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          cursor: 'pointer'
+        }}
+      >
+        <span>{isOpen ? '▲' : '▼'}</span>   
+      </div>
 */

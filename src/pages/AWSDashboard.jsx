@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RAW_WEATHER_DATA } from '../data/weatherData';
 
 // --   Components  --  //
@@ -10,6 +10,7 @@ import AvailabilityDashboard from '../components/AvailabilityDashboard';
 import ForecastPanel from '../components/ForecastPanel';
 import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
+import CurrentConditions from '../components/CurrentConditions';
 import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
@@ -18,17 +19,54 @@ import About from '../components/About';
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
 
-// --  css  -- //
+// --  CSS  -- //
 import './awsDashboard.css'
 
-// --  Page  -- //
+// -- links -- //
+const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
+const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
+const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
+
+
+// --  Component  -- //
 const AWSDashboard = () => {
 
-  //- States
+  //States
   const [plotData] = useState(RAW_WEATHER_DATA);
 
-  //-- Section Tab
-  const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview
+  //Section Tab
+  const getInitialSection = () => {
+    return window.location.hash.replace('#', '') || 'overview-main'
+  }
+
+  // hash fragments + active sections
+  const [activeSection, setActiveSection] = useState(getInitialSection)   
+  
+  // Sync URL with active-section changes
+  useEffect(() => {
+     window.location.hash = activeSection
+  }, [activeSection])
+
+  // Browser back and forth buttons
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '')
+
+      if (hash) {
+        setActiveSection(hash)
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+     }
+  }, [])
+
+  // ** hash fragment above **  ///
+
+  //const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview-main
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
 
   //- Exports
@@ -150,12 +188,6 @@ const AWSDashboard = () => {
 
         {activeSection === 'overview-map' && (
           <>
-          <div>
-            <h2>Site under construction: {activeSection}</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur 
-              adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
-              Eveniet excepturi eius at fuga asperiores!</p>
-          </div>
           <OverviewMap setSelectedStation={setSelectedStation} />
           </>
         )}
@@ -164,24 +196,16 @@ const AWSDashboard = () => {
 
         {activeSection === 'stations-gallery' && (
           <>
-            <div id='gallery' className="dual-section">
+            <div id='gallery'>
               <StationGallery selectedStation={selectedStation} setSelectedStation={setSelectedStation}/>
             </div>
           </>
         )}
 
 {/* Stations -> current conditions */}
-
+{/*After refactor, replace this section with: Current conditions (see components)*/}
         {activeSection === 'stations-currentCond' && (
-          <>
-            <div className="dual-section">
-              <h2>Note:</h2>
-              <p>After refactor, replace this section with: Current conditions (see components)</p>
-              <WindRosePanel
-                selectedStation={selectedStation}
-                setSelectedStation={setSelectedStation}/>
-            </div>
-          </>
+          <CurrentConditions/>
         )}
 
 {/* Data -> availability */}
@@ -239,16 +263,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'data-forecast' && (
           <>
-            <div>
-              <h2>Site under construction: {activeSection}</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur 
-              adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
-              Eveniet excepturi eius at fuga asperiores!</p>
-              <button>btn</button>
-            </div>
-            <div>
              <ForecastPanel />
-            </div>
           </>
         )}
 
@@ -274,7 +289,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'about-team' && (
           <>
-          <div>
+          <div className='under-construction'>
             <h2>Site under construction: {activeSection}</h2>
             <p>Lorem, ipsum dolor sit amet consectetur 
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
@@ -309,3 +324,34 @@ const AWSDashboard = () => {
 
 export default AWSDashboard;
 
+
+
+/*
+
+Current condition section:
+
+<>
+            <div className="dual-section">
+              <h2>Site under construction...</h2>
+              <ul>
+                <li>
+                  <a href={ciencias_ln} target="_blank" rel="noreferrer">
+                  Ciencias UV </a> (Facultad de Ciencias, Playa Ancha, Valparaíso) 
+                   
+                </li>
+                <li>
+                  <a href={pocuro_ln} target="_blank" rel="noreferrer">
+                  Pocuro UV </a> (Calle Larga, sector Pocuro)
+                </li>
+                <li>
+                  <a href={lareserva_ln} target="_blank" rel="noreferrer">
+                  La Reserva UV </a> (Villa Alemana)
+                </li>
+              </ul>
+              <WindRosePanel
+                selectedStation={selectedStation}
+                setSelectedStation={setSelectedStation}/>
+            </div>
+          </>
+
+*/
