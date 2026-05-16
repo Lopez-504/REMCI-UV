@@ -7,9 +7,9 @@ export const STATIONS = [
     brand: 'Hobo RX3000', 
     status: 'ACTIVE',
     images: [
-      "/images/pocuro1.jpg",
-      "/images/pocuro2.gif",
-      "/images/pocuro3.jpg",
+      "images/pocuro1.jpg",
+      "images/pocuro2.gif",
+      "images/pocuro3.jpg",
     ],
     temp: 18.5, 
     humidity: 45, 
@@ -25,9 +25,9 @@ export const STATIONS = [
     brand: 'Hobo RX3000',
     status: 'IDLE', 
     images: [
-      "/images/estacionUV.png",
-      "/images/cameraciencias.gif",
-      "/images/2025-07-28-07-49-19.jpg"
+      "images/estacionUV.png",
+      "images/cameraciencias.gif",
+      "images/2025-07-28-07-49-19.jpg"
     ],
     temp: 16.2, 
     humidity: 62, 
@@ -43,9 +43,9 @@ export const STATIONS = [
     brand: 'Davis Vantage Pro2',
     status: 'ACTIVE',
     images: [
-      "/images/reserva1.jpg",
-      "/images/presentation.jpeg",
-      "/images/instalacion.jpeg"
+      "images/reserva1.jpg",
+      "images/presentation.jpeg",
+      "images/instalacion.jpeg"
     ],
     temp: 17.8, 
     humidity: 55, 
