@@ -1,0 +1,24 @@
+.mantine-DatePickerInput-day[data-selected]{
+  background-color: #542dc8 !important;
+  border-radius: 5px;
+}
+
+.mantine-DatePickerInput-placeholder {        
+  font-size: 17px;                         /*not working*/
+}
+
+.mantine-DatePickerInput-root {
+  background: rgba(163, 9, 155, 0.177);
+  border-radius: 5px;
+}
+
+
+.mantine-DatePickerInput-day:hover {
+  transform: scale(1);                  /*too shaky*/
+  background: #542dc898 !important;
+  font-weight: bolder;
+  color: white;
+}
+
+
+/*doc here: https://mantine.dev/dates/date-picker-input/?t=styles-api*/

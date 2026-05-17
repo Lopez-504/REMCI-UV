@@ -16,19 +16,25 @@ function About() {
     <div className="card-frame about-card">
             <div className="card-header">About REMCI-UV</div>
               <div className="about-content">
-                <h2>REMCI-UV</h2>
                 <p>
-                  Red de Estaciones Meteorológicas Ciencias UV, realiza monitoreo para la 
+                  <strong>REMCI-UV</strong> (Red de Estaciones Meteorológicas Ciencias UV), realiza monitoreo para la 
                   comprensión de los impactos del cambio climático en la Región de Valparaíso.
-                  Integrada por las estaciones <a href={ciencias_ln} target="_blank" rel="noreferrer">
-                  Ciencias UV </a> (Facultad de Ciencias, Playa Ancha, Valparaíso), 
-                  <a href={pocuro_ln} target="_blank" rel="noreferrer">
-                  Pocuro UV </a> (Calle Larga, sector Pocuro) y <a href={lareserva_ln} target="_blank" rel="noreferrer">
+                  Integrada por las estaciones:
+                  <ol>
+                    <li>
+                      <a href={ciencias_ln} target="_blank" rel="noreferrer">
+                  Ciencias UV </a> (Facultad de Ciencias, Playa Ancha, Valparaíso)
+                    </li>  
+                    <li>
+                      <a href={pocuro_ln} target="_blank" rel="noreferrer">
+                  Pocuro UV </a> (Calle Larga, sector Pocuro)
+                    </li>
+                    <li>
+                      <a href={lareserva_ln} target="_blank" rel="noreferrer">
                   La Reserva UV </a> (Villa Alemana).
+                    </li>
+                  </ol>
                 </p>
-                <p>
-                  More features coming soon...
-                  </p>
               </div>
             <div className="mapview-bottom">
               <img

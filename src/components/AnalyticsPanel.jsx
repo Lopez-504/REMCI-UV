@@ -9,10 +9,8 @@ const AnalyticsPanel = ({
   setIsExportOpen,
   exportVars,
   handleCheckboxChange,
-  startDate,
-  endDate,
-  setStartDate,
-  setEndDate,
+  dateRange,
+  setDateRange,
   handleDownload
 }) => {
 
@@ -24,7 +22,7 @@ const AnalyticsPanel = ({
       
       <p>(Click map to change stations!)</p>
 
-      <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', gap: '12px', overflowY: 'auto' }}>
+      <div style={{ padding: '4px', display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'hidden' }}>
 
         {/* METADATA  */}
         <section className="info-grid">
@@ -61,10 +59,8 @@ const AnalyticsPanel = ({
           setIsOpen={setIsExportOpen}
           exportVars={exportVars}
           handleCheckboxChange={handleCheckboxChange}
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
+          dateRange={dateRange}                                   //new date system
+          setDateRange={setDateRange}                             //new date system
           handleDownload={handleDownload}
           stationName={selectedStation.name}
         />

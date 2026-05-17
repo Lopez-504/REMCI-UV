@@ -6,7 +6,7 @@ import { VAR_LABELS } from '../constants/variables';
 
 //CSS
 import './exportPanel.css'
-import MyDateRangePicker from './DateRangePicker';
+import DateRangePicker from './DateRangePicker';
 
 
 const ExportPanel = ({
@@ -14,6 +14,8 @@ const ExportPanel = ({
   setIsOpen,
   exportVars,
   handleCheckboxChange,
+  dateRange,
+  setDateRange,
   handleDownload,
   stationName
 }) => {
@@ -45,7 +47,10 @@ const ExportPanel = ({
 
           {/* DATE PICKERS */}
           <div>
-            <MyDateRangePicker/>      
+            <DateRangePicker
+              value={dateRange}
+              onChange={setDateRange}
+            />      
           </div>
 
           {/* DOWNLOAD BUTTON */}

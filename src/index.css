@@ -16,6 +16,7 @@ html, body, #root {
   margin: 0;
   max-width: 100%;
   padding: 0;
+  background: #d7d3d364;
 }
 
 body {

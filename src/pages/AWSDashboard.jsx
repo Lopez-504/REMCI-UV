@@ -8,8 +8,8 @@ import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
 import ForecastPanel from '../components/ForecastPanel';
-import WindRosePanel from '../components/WindRosePanel';
 import StationGallery from '../components/StationGallery';
+import Maintenance from '../components/Maintenance'
 import CurrentConditions from '../components/CurrentConditions';
 import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
@@ -18,6 +18,8 @@ import About from '../components/About';
 
 // --   Constants  --  //
 import { STATIONS } from '../constants/stations';
+import team from '../../public/images/construction.jpg'
+import cluodgif from '../../public/images/weatherconditions.gif'
 
 // --  CSS  -- //
 import './awsDashboard.css'
@@ -28,11 +30,11 @@ const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c
 const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
 
 
-// --  Component  -- //
+// --  Actual Component  -- //
 const AWSDashboard = () => {
 
   //States
-  const [plotData] = useState(RAW_WEATHER_DATA);
+  const [exportData] = useState(RAW_WEATHER_DATA);
 
   //Section Tab
   const getInitialSection = () => {
@@ -64,8 +66,6 @@ const AWSDashboard = () => {
      }
   }, [])
 
-  // ** hash fragment above **  ///
-
   //const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview-main
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
 
@@ -73,7 +73,7 @@ const AWSDashboard = () => {
   const [isExportOpen, setIsExportOpen] = useState(true);     // starts opened
   const [exportVars, setExportVars] = useState({
     temp: true,
-    humidity: false,
+    humidity: true,
     windSpeed: false,
     windDir: false,
     pressure: false,
@@ -82,8 +82,22 @@ const AWSDashboard = () => {
     cumulativeRainfall: false
     });
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  //Export dates   
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
+
+  //**for debug***
+  useEffect(() => {
+    if (!startDate || !endDate) return;
+    
+    //console.log(startDate instanceof Date);            // useful debug line
+
+    const startStr = startDate;               //no additional formatting needed
+    const endStr = endDate;
+
+    console.log(startStr,'to',endStr);
+  }, [dateRange]);
+
 
   const handleCheckboxChange = (varName) => {
     setExportVars(prev => ({
@@ -92,57 +106,59 @@ const AWSDashboard = () => {
     }));
   };
 
+  //Donwload
   const handleDownload = (stationName) => {
+    
+    // 1st: warning for date and number of variables 
+    if (endDate < startDate) {
+      alert("End date cannot be before start date!");
+      return;
+    }
 
-  if (endDate < startDate) {
-    alert("End date cannot be before start date!");
-    return;
-  }
+    //-- Filter variables
+    const selectedKeys = Object.keys(exportVars).filter(k => exportVars[k]);
 
-  //-- Filter variables
-  const selectedKeys = Object.keys(exportVars).filter(k => exportVars[k]);
+    if (selectedKeys.length === 0) {
+      alert("Select at least one variable!");
+      return;
+    }
 
-  if (selectedKeys.length === 0) {
-    alert("Select at least one variable!");
-    return;
-  }
+    // 2nd: Build filtered data
+    const filteredData = exportData.map(entry => {
+      const obj = { time: entry.time };
 
-  //-- Build filtered data
-  const filteredData = plotData.map(entry => {
-    const obj = { time: entry.time };
+      selectedKeys.forEach(key => {
+        if (entry[key] !== undefined) {
+          obj[key] = entry[key];
+        }
+      });
 
-    selectedKeys.forEach(key => {
-      if (entry[key] !== undefined) {
-        obj[key] = entry[key];
-      }
+      return obj;
     });
 
-    return obj;
-  });
+    // 3rd Convert to CSV
+    const headers = ["time", ...selectedKeys];
 
-  //-- Convert to CSV
-  const headers = ["time", ...selectedKeys];
+    const csvRows = [
+      headers.join(","), // header row
+      ...filteredData.map(row =>
+        headers.map(h => row[h] ?? "").join(",")
+      )
+    ];
 
-  const csvRows = [
-    headers.join(","), // header row
-    ...filteredData.map(row =>
-      headers.map(h => row[h] ?? "").join(",")
-    )
-  ];
+    const csvString = csvRows.join("\n");
 
-  const csvString = csvRows.join("\n");
+    // 4th Trigger download
+    const blob = new Blob([csvString], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
 
-  //-- Trigger download
-  const blob = new Blob([csvString], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${stationName}_data.csv`;
+    a.click();
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${stationName}_data.csv`;
-  a.click();
-
-  URL.revokeObjectURL(url);
-};
+    URL.revokeObjectURL(url);
+  };
 
 
 //   ---  Return  ---   //
@@ -170,15 +186,12 @@ const AWSDashboard = () => {
               </div>
               <AnalyticsPanel
                 selectedStation={selectedStation}
-                plotData={plotData}
                 isExportOpen={isExportOpen}
                 setIsExportOpen={setIsExportOpen}
                 exportVars={exportVars}
                 handleCheckboxChange={handleCheckboxChange}
-                startDate={startDate}
-                endDate={endDate}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
+                dateRange={dateRange}                                   //new date system
+                setDateRange={setDateRange}                             //new date system
                 handleDownload={handleDownload}/>
             </div>
           </>
@@ -203,9 +216,13 @@ const AWSDashboard = () => {
         )}
 
 {/* Stations -> current conditions */}
-{/*After refactor, replace this section with: Current conditions (see components)*/}
-        {activeSection === 'stations-currentCond' && (
+        {activeSection === 'stations-currentConditions' && (
           <CurrentConditions/>
+        )}
+
+{/* Stations -> Maintenance */}
+        {activeSection === 'stations-maintenance' && (
+          <Maintenance/>
         )}
 
 {/* Data -> availability */}
@@ -241,15 +258,13 @@ const AWSDashboard = () => {
               </div>
               <AnalyticsPanel
                 selectedStation={selectedStation}
-                plotData={plotData}
+                exportData={exportData}
                 isExportOpen={isExportOpen}
                 setIsExportOpen={setIsExportOpen}
                 exportVars={exportVars}
                 handleCheckboxChange={handleCheckboxChange}
-                startDate={startDate}
-                endDate={endDate}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
+                dateRange={dateRange}                                   //new date system
+                setDateRange={setDateRange}                             //new date system
                 handleDownload={handleDownload}/>
             </div>
           </>
@@ -257,7 +272,11 @@ const AWSDashboard = () => {
 
 {/* Data -> Light Pollution */}
 
-        {activeSection === "data-lightPoll" && <LightPollution />}
+        {activeSection === "data-lightPoll" && (
+          <> 
+            <LightPollution />
+          </>
+        )}    
 
 {/* Data -> forecast */}
 
@@ -283,7 +302,11 @@ const AWSDashboard = () => {
 
 {/* About -> project */}
 
-        {activeSection === 'about-project' && <About/>}
+        {activeSection === 'about-project' && (
+          <>
+            <About/>
+          </>
+        )}
 
 {/* About -> team */}
 
@@ -294,8 +317,7 @@ const AWSDashboard = () => {
             <p>Lorem, ipsum dolor sit amet consectetur 
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
               Eveniet excepturi eius at fuga asperiores!</p>
-            <button>btn</button>
-            <img></img>
+            <img src={team} alt="construction" width={'400px'}/>
           </div>
           </>
         )}
@@ -309,7 +331,7 @@ const AWSDashboard = () => {
             <p>Lorem, ipsum dolor sit amet consectetur 
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
               Eveniet excepturi eius at fuga asperiores!</p>
-            <button>btn</button>
+            <img src={team} alt="construction" width={'400px'}/>
           </div>
           </>
         )}        
@@ -327,6 +349,19 @@ export default AWSDashboard;
 
 
 /*
+
+Old date system:
+
+const [startDate, setStartDate] = useState(new Date());
+const [endDate, setEndDate] = useState(new Date());
+
+//analytics panel props
+startDate={startDate}
+endDate={endDate}
+setStartDate={setStartDate}
+setEndDate={setEndDate}
+
+---
 
 Current condition section:
 

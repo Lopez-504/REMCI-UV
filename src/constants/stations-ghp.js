@@ -7,7 +7,7 @@ export const STATIONS = [
     brand: 'Hobo RX3000', 
     status: 'ACTIVE',
     images: [
-      "images/pocuro1.jpg",
+      "images/pocuro1.jpg",                   /*Work on ghpages !!*/
       "images/pocuro2.gif",
       "images/pocuro3.jpg",
     ],

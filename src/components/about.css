@@ -9,6 +9,10 @@
 .about-content {
   padding: 20px;
   line-height: 1.6;
+  display: flex;
+  justify-content: center;      /* Centers horizontally */
+  align-items: center;          /* Centers vertically */
+  height: auto;
 }
 
 /* ---------------- CARDS ---------------- */
@@ -21,7 +25,7 @@
 
   display: flex;
   flex-direction: column;
-
+  
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
@@ -32,4 +36,32 @@
   border-bottom: 1px solid #ddd;
   text-align: center;
   font-size: 17px;
+}
+
+p {
+  /* 1. Limit line length for better scanning (approx. 45-75 characters) */
+  max-width: 65ch;
+  
+  /* 2. Increase spacing between lines to let the text breathe */
+  line-height: 1.6;
+  
+  /* 3. Soften the contrast (use #333 or similar instead of pure #000) */
+  color: #333;
+  
+  /* 4. Modern line wrapping to prevent "orphans" (single words on a new line) */
+  text-wrap: balance;
+  margin-bottom: 1.5rem;        /* space between paragraphs */
+  font-size: 1.125rem;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  transition: 0.2s ease-in-out;
+  font-size: 1.2rem;
+}
+
+a:hover {
+  transform: rotate(-1.5deg) scale(1.04);
+  font-weight: 600;
 }

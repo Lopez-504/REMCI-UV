@@ -82,125 +82,126 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   // SAFE MOCK DATA
   const data = useMemo(() => {
-  return bins.map(() => 100 - Math.random() * 20);}, [bins]);
+    return bins.map(() => 100 - Math.random() * 20);}, [bins]);
 
-  const options = useMemo(() => {
+    const options = useMemo(() => {
 
-  if (chartType === 'pie') {
-    return {
-      tooltip: { trigger: 'item' },
-      series: [{
-        type: 'pie',
-        radius: '60%',
-        data: data.map((d, i) => ({
-          value: d,
-          name: `Bin ${i+1}`
-        }))
-      }]
-    };
-  }
+      if (chartType === 'pie') {
+        return {
+          tooltip: { trigger: 'item' },
+          series: [{
+            type: 'pie',
+            radius: '60%',
+            data: data.map((d, i) => ({
+              value: d,
+              name: `Bin ${i+1}`
+            }))
+          }]
+        };
+      }
 
-  return {
-    tooltip: {
-      trigger: 'axis',
-      formatter: function (params) {
-        const i = params[0].dataIndex;
-        const bin = bins[i];
+      return {
 
-        const formatFull = (d) => d.toLocaleString();
+        tooltip: {
+          trigger: 'axis',
+          formatter: function (params) {
+            const i = params[0].dataIndex;
+            const bin = bins[i];
 
-        let text = `${formatFull(bin.start)} → ${formatFull(bin.end)}<br/>`;
+            const formatFull = (d) => d.toLocaleString();
 
-        params.forEach(p => {
-        text += `${p.marker} ${p.seriesName}: ${p.value.toFixed(1)}%<br/>`;
-      });
+            let text = `${formatFull(bin.start)} → ${formatFull(bin.end)}<br/>`;
 
-      return text;
-    }
-  },
-    xAxis: {
-      type: 'category',
-      data: bins.map(b => b.label),
-      name: "Time",
-    },
-    yAxis: { type: 'value', max: 100 ,
-      axisLabel: {
-      show: true,           
-      color: '#3f453f',        // Text color
-      fontSize: 18,         
-      rotate: 0,          
-      margin: 10           // Distance between the label and the axis line
-      },
-    },
-    series: selectedVars.map((item, i) => ({
-      show: true,
-      name: VAR_LABELS[item.var],     //not showing
-      type: item.type,
-      data: data, // later we'll replace with real data per var
-      smooth: item.type === 'line',
-      itemStyle: { color: item.color },
-      lineStyle: {
-        color: item.color,
-        type: 'solid'
-      },
-   })),
+            params.forEach(p => {
+            text += `${p.marker} ${p.seriesName}: ${p.value.toFixed(1)}%<br/>`;
+            });
 
-    toolbox: {
-        feature: {
-        dataZoom: {
-        yAxisIndex: 'none'
+            return text;
+          }
         },
-          restore: {},
-          saveAsImage: {}
-        }
-      },
-      dataZoom: [
-    {
-      type: 'inside',
-      start: 0,
-      end: 20
-    },
-    {
-      start: 0,
-      end: 20
-    }
-  ],
-  
-  };
 
-}, [chartType, selectedVars, data, bins]);
+        xAxis: {
+          type: 'category',
+          data: bins.map(b => b.label),
+          name: "Time",
+        },
 
-  return (
-    <div className="card-frame availability-section">
+        yAxis: { type: 'value', max: 100 ,
+          axisLabel: {
+            show: true,           
+            color: '#3f453f',        // Text color
+            fontSize: 18,         
+            rotate: 0,          
+            margin: 10           // Distance between the label and the axis line
+          },
+        },
 
-      <div className="card-header">
-        Data Availability: <span class="highlight">{selectedStation.name}</span>
-      </div>
+        series: selectedVars.map((item, i) => ({
+          show: true,
+          name: VAR_LABELS[item.var],     //not showing
+          type: item.type,
+          data: data, // later we'll replace with real data per var
+          smooth: item.type === 'line',
+          itemStyle: { color: item.color },
+          lineStyle: {
+            color: item.color,
+            type: 'solid'
+          },
+        })),
 
-      <div className="availability-content">
+        toolbox: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+          
+        dataZoom: [
+          {
+            type: 'inside',
+            start: 0,
+            end: 20
+          },
+          {
+            start: 0,
+            end: 20
+          }
+        ],
+      };
 
-        {/* LEFT: CHART */}
-        <div className="availability-chart">
-          <ReactECharts option={options} style={{ height: '100%' }} />
+    }, [chartType, selectedVars, data, bins]);
+
+    // Actual component
+    return (
+      <div className="card-frame availability-section">
+        <div className="card-header">
+          Data Availability: <span class="highlight">{selectedStation.name}</span>
         </div>
 
-        {/* RIGHT: CONTROLS */}
-        <div className="availability-controls">
+        <div className="availability-content">
+
+          {/* LEFT: CHART */}
+          <div className="availability-chart">
+            <ReactECharts option={options} style={{ height: '100%' }} />
+          </div>
+
+          {/* RIGHT: CONTROLS */}
+          <div className="availability-controls">
 
           {/*<h4>Controls</h4>*/}
-
-          {/* Station */}
+          
           <label>Station</label>
           <select
             value={selectedStation.id}
-            onChange={(e) =>
-              setSelectedStation(
-                STATIONS.find(s => s.id === Number(e.target.value))
-              )
-            }
+            onChange={(e) => setSelectedStation(
+              STATIONS.find(s => s.id === Number(e.target.value))
+            )}
           >
-            {STATIONS.map(st => (
-              <option key={st.id} value={st.id}>{st.name}</option>
+          {STATIONS.map(st => (
+            <option key={st.id} value={st.id}>{st.name}</option>
             ))}
           </select>
 
@@ -286,6 +287,10 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 };
 
 export default AvailabilityDashboard;
+
+
+/* write css for the buttons */
+
 
 /* redundant
 

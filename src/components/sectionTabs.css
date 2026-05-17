@@ -1,11 +1,12 @@
-.section-tabs {           /* repeated! */
+.section-tabs {         
   display: flex;
-  gap: 10px;
+  gap: 12px;
   padding: 10px 15px;
   background: #0f2133;
   border-bottom: 1px solid #d8dee6;
   position: sticky;
-  top: 60px;
+  top: 0px;                               /*60px*/
+  transition: top 0.3s ease-in-out;
   z-index: 900;
 }
 
@@ -28,6 +29,11 @@
   color: white;
   background-color: rgba(195, 6, 186, 0.754);
   transform: translateY(-3px);
+}
+
+.tab-btn.active {                            /* not available yet */                   
+  color: white;
+  background-color: rgba(195, 6, 186, 0.754);
 }
 
 .dropdown-menu {

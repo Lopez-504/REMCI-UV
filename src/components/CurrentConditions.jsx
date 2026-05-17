@@ -22,11 +22,15 @@ import {
   Gauge,
   Sun,
   Droplets,
+  Cloud,
 } from 'lucide-react'
 
+//CSS
 import './currentConditions.css'
 
+//STATIC
 import { STATIONS } from '../constants/stations.js'
+import cloudgif from '../../public/images/weatherconditions2.gif'
 
 const TIME_RANGES = [
   { label: 'Last 24 Hours', value: 1 },
@@ -112,8 +116,10 @@ export default function CurrentConditions() {
     const totalRain = weatherData.reduce((acc, d) => acc + d.rain, 0)
 
     return {
-      maxTemp: Math.max(...tempValues).toFixed(1),
+      maxTemp: Math.max(...tempValues).toFixed(1),                  //stats
       minTemp: Math.min(...tempValues).toFixed(1),
+      minHumidity: Math.min(...humidityValues).toFixed(1),
+      maxHumidity: Math.max(...humidityValues).toFixed(1),
       avgHumidity: (
         humidityValues.reduce((a, b) => a + b, 0) /
         humidityValues.length
@@ -122,6 +128,7 @@ export default function CurrentConditions() {
         pressureValues.reduce((a, b) => a + b, 0) /
         pressureValues.length
       ).toFixed(1),
+      minWind: Math.min(...windValues).toFixed(1),
       maxWind: Math.max(...windValues).toFixed(1),
       totalRain: totalRain.toFixed(1),
       maxRadiation: Math.max(...radiationValues).toFixed(0),
@@ -152,6 +159,7 @@ export default function CurrentConditions() {
           ))}
         </select>
 
+{/* Time range */}
         <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
           {TIME_RANGES.map((range) => (
             <option key={range.value} value={range.value}>
@@ -159,21 +167,29 @@ export default function CurrentConditions() {
             </option>
           ))}
         </select>
+        <img src={cloudgif} alt="cloud"  />
       </div>
 
       {/* GRID */}
       <div className="dashboard-grid">
-        {/* TEMPERATURE */}
+
+        {/* TEMPERATURE */}                  
         <StatCard title="Temperature">
-          <div className="big-number">
-            {stats?.maxTemp} °C
-            <span>MAX</span>
-          </div>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div className="big-number">
+              {stats?.minTemp} °C
+              <span>min</span>
+            </div>
+            <div className="big-number">
+              {stats?.maxTemp} °C
+              <span>max</span>
+            </div>
+          </div> 
 
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={weatherData}>
               <defs>
-                <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="tempGradient" x1="0" y1="0.3" x2="0" y2="1">
                   <stop offset="5%" stopColor="#ff5f5f" stopOpacity={0.8} />
                   <stop offset="95%" stopColor="#ff5f5f" stopOpacity={0} />
                 </linearGradient>
@@ -184,17 +200,28 @@ export default function CurrentConditions() {
               <XAxis
                 dataKey="time"
                 tickFormatter={(v) => v.slice(5, 16)}
-                hide
+                tick={false}
+                axisLine={false}
+                label={days + ' days'}
+              />
+{/*dx dy for further adjustment */}
+              <YAxis  
+                label={{ value: 'Temperature [°C]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-20, 
+                         dy: -10
+                }}
               />
 
-              <YAxis />
-
-              <Tooltip />
+              <Tooltip
+                position={{ y: 180 }}
+              />
 
               <Area
                 type="monotone"
                 dataKey="temperature"
-                stroke="#ff5f5f"
+                stroke="#fd4848"
                 fillOpacity={1}
                 fill="url(#tempGradient)"
               />
@@ -207,7 +234,7 @@ export default function CurrentConditions() {
           <div className="gauge-container">
             <ResponsiveContainer width="100%" height={250}>
               <RadialBarChart
-                innerRadius="70%"
+                innerRadius="60%"
                 outerRadius="100%"
                 data={[
                   {
@@ -215,12 +242,12 @@ export default function CurrentConditions() {
                     value: Number(stats?.avgHumidity || 0),
                   },
                 ]}
-                startAngle={180}
-                endAngle={0}
+                startAngle={180}      
+                endAngle={0}               
               >
                 <RadialBar
                   dataKey="value"
-                  cornerRadius={10}
+                  cornerRadius={18}
                   fill="#1d7cff"
                 />
               </RadialBarChart>
@@ -228,82 +255,142 @@ export default function CurrentConditions() {
 
             <div className="gauge-value">
               {stats?.avgHumidity} %
-            </div>
+              <span>Avg</span>
+            </div>                               
           </div>
         </StatCard>
 
         {/* WIND */}
         <StatCard title="Wind Speed">
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div className="big-number">
+              {stats?.maxWind} m/s
+              <span>MAX</span>
+            </div>
+          </div>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={weatherData}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
 
-              <XAxis hide dataKey="time" />
+              <XAxis 
+                dataKey="time"
+                tick={false}
+                axisLine={false}
+                label={{
+                  value: days + ' days',
+                  dy: 10
+                }}
+                
+              />
 
-              <YAxis />
+              <YAxis 
+                label={{ value: 'Wind speed [m/s]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-20, 
+                         dy: -10
+                }}
+              />
 
-              <Tooltip />
+              <Tooltip
+                position={{ y: 180 }}
+              />
 
               <Line
                 type="monotone"
                 dataKey="wind"
-                stroke="#82ca9d"
-                strokeWidth={3}
+                stroke="#41ca76"
+                strokeWidth={2}
                 dot={false}
               />
             </LineChart>
           </ResponsiveContainer>
         </StatCard>
 
+        {/* SOLAR RADIATION */}
+        <StatCard title="Solar Radiation">
+          <div className="big-number">
+            {stats?.maxRadiation} W/m²
+            <span>MAX</span>
+          </div>
+
+          <ResponsiveContainer width="100%" height={260}>
+            <AreaChart data={weatherData}>
+              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+
+              <XAxis 
+                dataKey="time"
+                tick={false}
+                axisLine={false}
+                label={days + ' days'}
+              />
+
+              <YAxis
+                label={{ value: 'Solar radiation [W/m²]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-28, 
+                         dy: -10
+                }}
+              />
+
+              <Tooltip 
+                position={{ y: 180 }}
+              />
+
+              <Area
+                type="monotone"
+                dataKey="radiation"
+                stroke="#fcb000"
+                fill="#f9b20855"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </StatCard>  
+
         {/* PRESSURE */}
         <StatCard title="Pressure">
           <div className="big-number">
-            {stats?.avgPressure}
-            <span>mbar</span>
+            {stats?.avgPressure} hPa
+            <span>Avg</span>
           </div>
 
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={weatherData}>
+              <defs>
+                <linearGradient id="pressureGradient" x1="0" y1="0.3" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#9c5fff55" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#9c5fff55" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
 
-              <XAxis hide dataKey="time" />
+              <XAxis
+                dataKey="time"
+                tick={false}
+                axisLine={false}
+                label={days + ' days'}
+              />
 
-              <YAxis />
+              <YAxis 
+                label={{ value: 'Pressure [hPa]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-29, 
+                         dy: -10
+                }}
+              />
 
-              <Tooltip />
+              <Tooltip
+                position={{ y: 60 }}
+              />
 
               <Area
                 type="monotone"
                 dataKey="pressure"
                 stroke="#9c5fff"
-                fill="#9c5fff55"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </StatCard>
-
-        {/* SOLAR RADIATION */}
-        <StatCard title="Solar Radiation">
-          <div className="big-number">
-            {stats?.maxRadiation}
-            <span>W/m²</span>
-          </div>
-
-          <ResponsiveContainer width="100%" height={220}>
-            <AreaChart data={weatherData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-
-              <XAxis hide dataKey="time" />
-
-              <YAxis />
-
-              <Tooltip />
-
-              <Area
-                type="monotone"
-                dataKey="radiation"
-                stroke="#f9b208"
-                fill="#f9b20855"
+                fill="url(#pressureGradient)" 
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -312,19 +399,33 @@ export default function CurrentConditions() {
         {/* PRECIPITATION */}
         <StatCard title="Accumulated Rain">
           <div className="big-number">
-            {stats?.totalRain}
-            <span>mm</span>
+            {stats?.totalRain} mm
+            <span>total</span>
           </div>
 
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={260}>
             <BarChart data={weatherData}>
               <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
 
-              <XAxis hide dataKey="time" />
+              <XAxis 
+                dataKey="time"
+                tick={false}
+                axisLine={true}
+                label={days + ' days'}
+              />
 
-              <YAxis />
+              <YAxis 
+                label={{ value: 'Accumulated rain [mm]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-29, 
+                         dy: -10
+                }}
+              />
 
-              <Tooltip />
+              <Tooltip 
+                position={{ y: 134 }}
+              />
 
               <Bar dataKey="rain" fill="#4da6ff" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -359,7 +460,7 @@ export default function CurrentConditions() {
               icon={<Gauge size={18} />}
               label="Pressure"
               value={stats?.avgPressure}
-              unit="mbar"
+              unit="hPa"
             />
 
             <SummaryItem
@@ -381,3 +482,22 @@ export default function CurrentConditions() {
     </div>
   )
 }
+
+/* recchart examples: https://recharts.github.io/en-US/examples/PopulationPyramid/ */
+/* https://recharts.github.io/en-US/examples/ComposedChartWithAxisLabels/*/
+/* https://recharts.github.io/en-US/examples/BarChartWithMultiXAxis/ */
+/* https://recharts.github.io/en-US/api/Tooltip/ */
+
+
+/* TASK: refactor this, quite repetitive */
+
+/* TASK: format dates: import { format } from 'date-fns';
+
+const formatXAxis = (tickItem) => {
+  // Multiply by 1000 if your timestamps are in seconds
+  return format(new Date(tickItem * 1000), 'MMM dd'); 
+}; */
+
+
+
+/* pressure fill: "#9c5fff55" */

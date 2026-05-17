@@ -4,17 +4,14 @@
   position: sticky;   
   top: 0px;
   z-index: 1000;
-
   height: 74px;
   background: var(--primary-color);
   color: rgb(255, 255, 255);
-
-  background-image: url('/images/Rotating_earth.gif');
+  background: url('/images/Rotating_earth.gif'),linear-gradient(90deg, rgb(0, 0, 63), rgb(184, 1, 181));
+  /*background-image: ;*/
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background: linear-gradient(90deg, rgb(0, 0, 63), rgb(184, 1, 181));
-
   display: flex;
   justify-content: space-between;
   align-items: center;
