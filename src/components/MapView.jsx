@@ -1,13 +1,29 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
-import { STATIONS } from '../constants/stations';
 
+//STATIC
+import { STATIONS } from '../constants/stations';
 import earth from '/images/stations_google_earth.png'
 
 //CSS
 import './mapView.css'
 
-// put your image in public/images/
 const SATELLITE_OVERVIEW = earth;
+
+//debugging leaflet markers
+import L from 'leaflet';
+
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
+
 
 const MapView = ({ setSelectedStation }) => {
   return (
