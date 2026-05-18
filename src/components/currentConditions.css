@@ -11,32 +11,46 @@ body {
   width: 100%;
   min-height: 100vh;
   padding: 1rem;
+  height: auto 1fr auto;
 }
 
 /* CONTROLS */
 
 .dashboard-controls {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .dashboard-controls select {
-  padding: 0.7rem 1rem;
   border-radius: 10px;
-  border: 2px solid #0001037a;                    /*border-image: linear-gradient(to right, rgb(0, 98, 2), rgb(0, 171, 117)) 1;*/
-  border-width: 2px;
-  background: #5864e455;
-  font-size: 0.95rem;
-  min-width: 220px;
+  border: transparent;        /*border-image: linear-gradient(to right, rgb(0, 98, 2), rgb(0, 171, 117)) 1;*/
+  background: transparent;
+  font-size: 1.25rem;
+  min-width: 140px;
+  color: white;
+  font-weight: 420;
+}
+
+/* Opt-in to full styling for both the button and the dropdown picker */
+.dashboard-controls select, ::picker(select) {
+  appearance: base-select;
+}
+
+/* style the dropdown list (picker) like a regular div */
+::picker(select) {
+  background-color: #e8e8e8ed;
+  border: 2px solid #333;
+  padding: 10px;
+  border-radius: 14px;
+  top: -230px;
 }
 
 /* GRID */
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
   gap: 1rem;
 }
 
@@ -51,7 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 340px;
-  border-image: url('../../public/images/leaves.png') 1;            /*not working*/
+  /*border-image: url('../../public/images/leaves.png') 1;*/            /*not working*/
   border-width: 5px;
 }
 
@@ -62,6 +76,7 @@ body {
   font-size: 0.95rem;
   font-weight: 600;
   transition: 0.3s ease-in-out;
+  z-index: 1;
 }
 
 .card-header:hover {
@@ -71,8 +86,20 @@ body {
 }
 
 .card-body {
-  padding: 0.7rem;
+  padding: 1.1rem;
   flex: 1;
+}
+
+.weather-card:first-child .card-body {          
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.232);
+  display: flex;
+  background-image: url('/images/weatherconditions.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(0px);
 }
 
 /* BIG NUMBERS */
@@ -106,7 +133,7 @@ body {
   align-items: center;
   padding: 0.75rem;
   border-radius: 10px;
-  background: #ffffffae;
+  background: #ffffffa7;          /*ffffffae*/
 }
 
 .summary-left {
@@ -164,6 +191,20 @@ body {
 }
 
 
+/*
+//control card
+.weather-card:first-child {
+  background: rgba(190, 192, 209, 0.244);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.232);
+  display: flex;
+  background-image: url('/images/weatherconditions.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+} 
 
 .dashboard-controls img {
   position: relative;
@@ -172,3 +213,5 @@ body {
   border-radius: 6px;
   left: 20px;
 }
+
+*/

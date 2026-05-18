@@ -23,6 +23,7 @@ import cluodgif from '../../public/images/weatherconditions.gif'
 
 // --  CSS  -- //
 import './awsDashboard.css'
+import AvailabilityPrologue from '../components/AvailabilityPrologue';
 
 // -- links -- //
 const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
@@ -229,21 +230,11 @@ const AWSDashboard = () => {
 
         {activeSection === 'data-availability' && (
           <>
-            <div id='availability' className="full-section">
-              <h2>Data Availability</h2>
-              <p>Below u can check the data that has been collected by each station. 
-                Note: consider migrating to Plotly</p>
-              <ul> U can:
-                <li>Add/remove variable from the plot</li>
-                <li>Select a color/kind for each variable</li>
-                <li>Pick date range</li>
-                <li>Select the time resolution</li>
-              </ul>
-          
-              <AvailabilityDashboard
+            {/*<AvailabilityPrologue/>*/}
+            <AvailabilityDashboard
                 selectedStation={selectedStation}
-                exportVars={exportVars}/>
-            </div>
+                exportVars={exportVars}
+            />
           </>
         )}
 

@@ -61,7 +61,7 @@ a {
   font-size: 1.2rem;
 }
 
-a:hover {
+.about-content a:hover {
   transform: rotate(-1.5deg) scale(1.04);
   font-weight: 600;
 }

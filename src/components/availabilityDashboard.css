@@ -4,11 +4,10 @@
   background: var(--card-bg);
   border: 3px solid var(--primary-color);
   border-radius: 12px;
-  overflow: hidden;
-
+  overflow-y: hidden;
+  scroll-behavior: none;
   display: flex;
   flex-direction: column;
-
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
@@ -40,19 +39,41 @@
   border: none;
 }
 
-.var-row button {
+/* Add and remove buttons */
+.var-row .remove-btn {
   background: #e74c3c;
   color: white;
   border: none;
   cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
+  padding: 4px 5px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.remove-btn:hover {
+  transform: scale(1.09);
+}
+
+.add-btn {
+  background: #2aba02c5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.add-btn:hover {
+  transform: scale(1.03);
 }
 
 /* - */
 
 .availability-section {
-  height: 510px;
+  background: var(--card-bg);
+  display: flex;
+  height: auto !important;
 }
 
 .availability-content {
@@ -68,8 +89,53 @@
   flex: 1;
   padding: 15px;
   border-left: 2px solid #ddd;
-
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.availability-controls h4:first-child {
+  flex: 1;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Select */
+.availability-controls select {
+  border-radius: 6px;
+  border: 1.5px solid black;        /*border-image: linear-gradient(to right, rgb(0, 98, 2), rgb(0, 171, 117)) 1;*/
+  background: transparent;
+  font-size: 0.86rem;
+  width: fit-content;
+  color: rgb(0, 0, 0);
+  font-weight: 420;
+}
+
+/* Opt-in to full styling for both the button and the dropdown picker */
+.availability-controls select, ::picker(select) {
+  appearance: base-select;
+}
+
+/* style the dropdown list (picker) like a regular div */
+::picker(select) {
+  background-color: #e8e8e8f4;
+  border: 2px solid #333;
+  padding: 0px;
+  border-radius: 8px;
+}
+
+.availability-controls h4 {
+  margin-top: 0px;
+  margin-bottom: -2px;
+}
+
+.availability-controls label {
+  font-size: 1.07rem;
+  font-weight: 500;
+  border-radius: 2px;
+  background-color: #3333330e;
+  width: fit-content;
 }

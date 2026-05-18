@@ -45,7 +45,6 @@ const StatCard = ({ title, children }) => {
   return (
     <div className="weather-card">
       <div className="card-header">{title}</div>
-
       <div className="card-body">{children}</div>
     </div>
   )
@@ -141,37 +140,39 @@ export default function CurrentConditions() {
 
   return (
     <div className="dashboard-wrapper">
-      {/* TOP CONTROLS */}
-      <div className="dashboard-controls">
-        <select
-          value={selectedStation.id}
-          onChange={(e) => {
-            const station = STATIONS.find(
-              (s) => s.id === Number(e.target.value)
-            )
-            setSelectedStation(station)
-          }}
-        >
-          {STATIONS.map((station) => (
-            <option key={station.id} value={station.id}>
-              {station.name}
-            </option>
-          ))}
-        </select>
-
-{/* Time range */}
-        <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
-          {TIME_RANGES.map((range) => (
-            <option key={range.value} value={range.value}>
-              {range.label}
-            </option>
-          ))}
-        </select>
-        <img src={cloudgif} alt="cloud"  />
-      </div>
-
       {/* GRID */}
       <div className="dashboard-grid">
+
+        {/* Testing controls StatCard */}
+        <StatCard title='Controls'>
+          <div className="dashboard-controls">
+            <select
+              value={selectedStation.id}
+              onChange={(e) => {
+                const station = STATIONS.find(
+                  (s) => s.id === Number(e.target.value)      
+                )
+                setSelectedStation(station)
+              }}
+            >
+            <option value="" disabled>Select station</option>
+            {STATIONS.map((station) => (
+              <option key={station.id} value={station.id}>
+                {station.name}
+              </option>
+            ))}
+            </select> 
+
+            <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+            <option value="" disabled>Date range</option>
+            {TIME_RANGES.map((range) => (
+              <option key={range.value} value={range.value}>
+                {range.label}
+              </option>
+            ))}
+            </select>
+          </div>
+        </StatCard>
 
         {/* TEMPERATURE */}                  
         <StatCard title="Temperature">
@@ -195,7 +196,13 @@ export default function CurrentConditions() {
                 </linearGradient>
               </defs>
 
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#0000001c'
+                strokeWidth={1} 
+              />
 
               <XAxis
                 dataKey="time"
@@ -213,11 +220,9 @@ export default function CurrentConditions() {
                          dy: -10
                 }}
               />
-
               <Tooltip
-                position={{ y: 180 }}
+                position={{ y: 140 }}
               />
-
               <Area
                 type="monotone"
                 dataKey="temperature"
@@ -265,12 +270,18 @@ export default function CurrentConditions() {
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div className="big-number">
               {stats?.maxWind} m/s
-              <span>MAX</span>
+              <span>max</span>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={weatherData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#00000016'
+                strokeWidth={1} 
+              />
 
               <XAxis 
                 dataKey="time"
@@ -311,12 +322,12 @@ export default function CurrentConditions() {
         <StatCard title="Solar Radiation">
           <div className="big-number">
             {stats?.maxRadiation} W/m²
-            <span>MAX</span>
+            <span>max</span>
           </div>
 
           <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={weatherData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <CartesianGrid strokeDasharray="3 3" opacity={1} vertical={false} />
 
               <XAxis 
                 dataKey="time"
@@ -364,7 +375,13 @@ export default function CurrentConditions() {
                 </linearGradient>
               </defs>
               
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#00000025'
+                strokeWidth={1} 
+              />
 
               <XAxis
                 dataKey="time"
@@ -380,6 +397,11 @@ export default function CurrentConditions() {
                          dx:-29, 
                          dy: -10
                 }}
+                //tickCount={3}
+                domain={[
+  stats?.avgPressure ? Number(stats.avgPressure) - 25 : 'dataMin', 
+  stats?.avgPressure ? Number(stats.avgPressure) + 25 : 'dataMax'
+]}
               />
 
               <Tooltip
@@ -405,7 +427,13 @@ export default function CurrentConditions() {
 
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={weatherData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#00000022'
+                strokeWidth={1} 
+              />    
 
               <XAxis 
                 dataKey="time"
@@ -436,42 +464,42 @@ export default function CurrentConditions() {
         <StatCard title="Summary">
           <div className="summary-list">
             <SummaryItem
-              icon={<Thermometer size={18} />}
+              icon={<Thermometer size={20} />}
               label="Max Temperature"
               value={stats?.maxTemp}
               unit="°C"
             />
 
             <SummaryItem
-              icon={<Droplets size={18} />}
+              icon={<Droplets size={20} />}
               label="Humidity"
               value={stats?.avgHumidity}
               unit="%"
             />
 
             <SummaryItem
-              icon={<Wind size={18} />}
+              icon={<Wind size={20} />}
               label="Max Wind"
               value={stats?.maxWind}
               unit="m/s"
             />
 
             <SummaryItem
-              icon={<Gauge size={18} />}
+              icon={<Gauge size={20} />}
               label="Pressure"
               value={stats?.avgPressure}
               unit="hPa"
             />
 
             <SummaryItem
-              icon={<Sun size={18} />}
+              icon={<Sun size={20} />}
               label="Radiation"
               value={stats?.maxRadiation}
               unit="W/m²"
             />
 
             <SummaryItem
-              icon={<CloudRain size={18} />}
+              icon={<CloudRain size={20} />}
               label="Accumulated Rain"
               value={stats?.totalRain}
               unit="mm"
@@ -483,11 +511,15 @@ export default function CurrentConditions() {
   )
 }
 
+
+
 /* recchart examples: https://recharts.github.io/en-US/examples/PopulationPyramid/ */
 /* https://recharts.github.io/en-US/examples/ComposedChartWithAxisLabels/*/
 /* https://recharts.github.io/en-US/examples/BarChartWithMultiXAxis/ */
 /* https://recharts.github.io/en-US/api/Tooltip/ */
 
+//NOTE: strokeDasharray="5 3"  -> 5px dashes 3px gaps 
+//NOTE: strokeDasharray="0"  -> solid line
 
 /* TASK: refactor this, quite repetitive */
 
@@ -498,6 +530,37 @@ const formatXAxis = (tickItem) => {
   return format(new Date(tickItem * 1000), 'MMM dd'); 
 }; */
 
-
-
 /* pressure fill: "#9c5fff55" */
+
+
+{/* TOP CONTROLS */}
+      {/*
+      <div className="dashboard-controls">
+        <select
+          value={selectedStation.id}
+          onChange={(e) => {
+            const station = STATIONS.find(
+              (s) => s.id === Number(e.target.value)      TESTING!!
+            )
+            setSelectedStation(station)
+          }}
+        >
+          {STATIONS.map((station) => (
+            <option key={station.id} value={station.id}>
+              {station.name}
+            </option>
+          ))}
+        </select> */}
+
+{/* Time range */}
+{/*        <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+          {TIME_RANGES.map((range) => (
+            <option key={range.value} value={range.value}>
+              {range.label}
+            </option>
+          ))}
+        </select>
+        <img src={cloudgif} alt="cloud"  />
+      </div>
+*/}
+

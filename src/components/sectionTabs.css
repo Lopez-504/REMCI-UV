@@ -41,7 +41,7 @@
   top: 42px;
   left: 0;
   min-width: 170px;
-  background: white;
+  background: rgba(255, 255, 255, 0.901);
   border: 1px solid #d8dee6;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);

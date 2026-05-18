@@ -120,3 +120,8 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
 };
 
 export default StationGallery;
+
+
+/* TASK: when we change the station, make the image index go back to number 1
+         this is done in overview-map, see that component and copy logic here (keep the zoom feature)
+*/
