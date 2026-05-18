@@ -146,6 +146,7 @@ export default function CurrentConditions() {
         {/* Testing controls StatCard */}
         <StatCard title='Controls'>
           <div className="dashboard-controls">
+            <div className="select-wrapper">            {/*testing*/}
             <select
               value={selectedStation.id}
               onChange={(e) => {
@@ -162,7 +163,9 @@ export default function CurrentConditions() {
               </option>
             ))}
             </select> 
+            </div>
 
+            <div className="select-wrapper">  
             <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
             <option value="" disabled>Date range</option>
             {TIME_RANGES.map((range) => (
@@ -171,6 +174,7 @@ export default function CurrentConditions() {
               </option>
             ))}
             </select>
+            </div>
           </div>
         </StatCard>
 

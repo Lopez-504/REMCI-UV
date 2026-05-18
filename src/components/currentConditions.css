@@ -32,19 +32,68 @@ body {
   font-weight: 420;
 }
 
-/* Opt-in to full styling for both the button and the dropdown picker */
-.dashboard-controls select, ::picker(select) {
-  appearance: base-select;
-}
 
-/* style the dropdown list (picker) like a regular div */
+/* Opt-in to full styling for both the button and the dropdown picker     
+.dashboard-controls select, ::picker(select) {            Experimental, don't use in production !!!
+  appearance: base-select;
+}*/
+
+/* style the dropdown list (picker) like a regular div 
 ::picker(select) {
   background-color: #e8e8e8ed;
   border: 2px solid #333;
   padding: 10px;
   border-radius: 14px;
   top: -230px;
+}*/
+
+/* safer alternatives */
+
+.dashboard-controls select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #e8e8e8ed;
+  border: 2px solid #333;
+  padding: 10px 1px 10px 10px;
+  border-radius: 14px;
+
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  height: 60px !important;
+  outline: none;
 }
+
+/* optional hover */
+.dashboard-controls select:hover {
+  background-color: #f5f5f5;
+}
+
+/* optional focus */
+.dashboard-controls select:focus {
+  border-color: #0077ff;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  color: #1f1d1de2;
+  position: absolute;
+  right: 12px;
+  top: 12%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.7rem;
+}
+
+/* END of safer anternatives */
+
 
 /* GRID */
 
