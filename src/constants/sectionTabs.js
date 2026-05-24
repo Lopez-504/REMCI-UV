@@ -20,6 +20,7 @@ export const NAV_ITEMS = [
       { key: 'data-availability', label: 'Availability' },
       { key: 'data-download', label: 'Download' },
       { key: 'data-forecast', label: 'Forecast' },
+      { key: 'data-historic', label: 'Historic' },
       { key: 'data-lightPoll', label: 'Light Pollution' },
       { key: 'data-forestFires', label: 'Forest Fires ' }
     ]

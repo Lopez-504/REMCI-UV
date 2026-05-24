@@ -1,12 +1,21 @@
 import logo from "/remci_logo.png"
 
+//STATIC
+import { NAV_ITEMS } from '../constants/sectionTabs'
+
+//CSS
 import './navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ setActiveSection }) => {
   return (
-    <nav className="navbar">
+    <nav>
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <img src={logo} alt="Logo" style={{ width: '70px', height: '70px', objectFit: 'contain' }}/>
+        <img 
+          src={logo} alt="Logo" 
+          onClick={() => {
+                    setActiveSection(NAV_ITEMS[0].options[0].key);
+          }}
+          style={{ width: '70px', height: '70px', objectFit: 'contain' }}/>
         <h1> METEO-HUB PRO   ⛅ </h1>
       </div>
 

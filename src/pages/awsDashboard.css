@@ -1,3 +1,6 @@
+/*
+Note: all these classes supersede the ones defined in the child component's css
+*/
 
 .dashboard-container {
   display: flex;
@@ -17,9 +20,9 @@
 
 .top-section {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   width: 100%;
-  height: 720px;   /* map and analytics panel */
+  height: 720px;        /* map and analytics panel */
 }
 
 /* ---------------- CARDS ---------------- */
@@ -45,8 +48,8 @@
 }
 
 .map-side {
-  flex: 1.5;
-  min-height: 100%;   /* 👈 IMPORTANT */
+  flex: 1;    
+  min-height: 100%;   /* IMPORTANT */
 }
 
 .full-section {
@@ -102,7 +105,7 @@
   align-items: stretch;
 }
 
-.dual-section > * {
+.dual-section > * {                               /* ?? */
   flex: 1 1 0;
   min-width: 0;
   height: 100%;
@@ -111,5 +114,11 @@
 
 .under-construction {
   display: grid;
-  grid-template-rows: auto auto 1fr 9fr;        /*fix this*/
+  grid-template-rows: 1fr 2fr auto;        /* lear this property*/
+  
 }
+
+/*
+Represents a fraction of the free space in the grid container. 
+For example, 1fr 2fr makes the second row twice as large as the first
+*/

@@ -11,7 +11,6 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
     <div className="section-tabs">
       {NAV_ITEMS.map((item) => (
         <div className="tab-dropdown" key={item.label}>
-
           <button
             className="tab-btn"
             onClick={() =>

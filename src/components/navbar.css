@@ -4,7 +4,7 @@ nav {
   position: sticky;   
   top: 0px;
   z-index: 1000;
-  height: 74px;
+  height: 75px;
   background: var(--primary-color);
   color: rgb(255, 255, 255);
   background: url('/images/Rotating_earth.gif'),linear-gradient(90deg, rgb(0, 0, 63), rgb(184, 1, 181));
@@ -16,6 +16,15 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
+}
+
+nav img {
+  transition: 0.3s ease-in-out;
+}
+
+nav img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .status-dot { 
@@ -55,6 +64,6 @@ nav {
   }
 }
 
-.navbar span {
+nav span {
   font-size: 20px;
 }

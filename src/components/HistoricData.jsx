@@ -1,0 +1,486 @@
+import { useEffect, useMemo, useState, useRef } from 'react';
+import ReactECharts from 'echarts-for-react';
+
+import {
+  MultiSelect,
+  Button,
+  Group,
+  Loader,
+  Alert,
+  Card,
+  Text,
+} from '@mantine/core';
+
+import { DatePickerInput } from '@mantine/dates';
+
+//CSS
+import '@mantine/dates/styles.css';
+import './historicData.css';
+
+//METEOGRAM color for a clear background
+const COLORS = {
+  temp: "#ff6b3a",
+  dew: "#7d2cff",
+  wind: "#ff1010",
+  precip: "#1e63ff",
+  pressure: "#001eff",
+  humidity: "#008000",
+  fog: "rgba(54, 80, 96, 0.72)",
+  night: "rgba(92, 155, 194, 0.42)",
+  grid: "rgba(150,150,150,0.45)",
+  axis: "#222",
+};
+
+const VARIABLE_OPTIONS = [
+  {
+    value: 'temperature_2m',
+    label: 'Temp °C',                    //'Temperature (°C)'
+    color: '#ed4242e6',
+    type: 'line',
+  },
+  {
+    value: 'relative_humidity_2m',
+    label: 'Rel. Humidity %',   //'Relative Humidity (%)'
+    color: '#3498dbeb',
+    type: 'line',
+  },
+  {
+    value: 'dew_point_2m',
+    label: 'Dew Point °C',   //'Dew Point (°C)'
+    color: '#cb77ecc7',
+    type: 'line',
+  },
+  {
+    value: 'surface_pressure',
+    label: 'Surf. Pressure hPa',   //'Surface Pressure (hPa)'
+    color: '#2ecc70e6',
+    type: 'line',
+  },
+  {
+    value: 'wind_speed_10m',
+    label: 'Wind Speed km/h',    //'Wind Speed (km/h)'
+    color: '#ffffffe1',
+    type: 'line',
+  },
+  {
+    value: 'wind_direction_10m',
+    label: 'Wind Dir °',  //'Wind Direction (°)'
+    color: '#1abc9c',
+    type: 'line',
+  },
+  {
+    value: 'precipitation',
+    label: 'Prec mm',  //'Precipitation (mm)'
+    color: '#00cecbed',
+    type: 'bar',
+  },
+  {
+    value: 'shortwave_radiation',
+    label: 'SolarRad W/m²',  //'Solar Radiation (W/m²)'
+    color: '#f1c40fe0',
+    type: 'line',
+  },
+  {
+    value: 'cloud_cover',
+    label: 'CloudCover %',   //'Cloud Cover (%)'
+    color: '#95a5a6d1',
+    type: 'line',
+  },
+];
+
+//Actual component
+const HistoricData = () => {
+
+  // UV coordinates
+  const latitude = -33.02705;
+  const longitude = -71.63875;
+
+  // STATES
+  const [selectedVariables, setSelectedVariables] = useState([
+    'temperature_2m',
+    'relative_humidity_2m',
+    'precipitation',
+  ]);
+
+  const [dateRange, setDateRange] = useState([
+    (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0],
+    (new Date(new Date().setDate(new Date().getDate() - 2))).toISOString().split('T')[0],
+  ]);
+
+  const [weatherData, setWeatherData] = useState([]);
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState(null);
+
+  // FORMAT DATE
+  function formatDate(date) {
+    //return date.toISOString().split('T')[0];   //not necessary for mantine-dates
+    console.log(date)
+    return date;
+  }
+
+  // FETCH FUNCTION
+  async function fetchHistoricData() {
+
+    if (!dateRange[0] || !dateRange[1]) return;
+
+    setStatus('loading');
+    setError(null);
+
+    try {
+
+      const params = new URLSearchParams({
+        latitude: String(latitude),
+        longitude: String(longitude),
+        timezone: 'auto',
+        start_date: formatDate(dateRange[0]),
+        end_date: formatDate(dateRange[1]),
+        wind_speed_unit: 'kmh',
+        precipitation_unit: 'mm',
+        hourly: selectedVariables.join(','),
+      });
+
+      const url = `https://archive-api.open-meteo.com/v1/archive?${params.toString()}`;
+      console.log(url);
+
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const json = await res.json();
+
+      if (!json.hourly || !json.hourly.time) {
+        throw new Error('Invalid Open-Meteo response');
+      }
+
+      const rows = json.hourly.time.map((time, i) => {
+        const row = {
+          time,
+        };
+        selectedVariables.forEach((variable) => {
+          row[variable] = json.hourly[variable]?.[i];
+        });
+        return row;
+      });
+
+      setWeatherData(rows);
+      setStatus('ok');
+
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+      setStatus('error');
+
+    }
+  }
+
+  // AUTO FETCH
+  useEffect(() => {
+    fetchHistoricData();
+  }, []);
+
+  // Custom export for better quality
+  const chartRef = useRef(null);
+
+  function exportHighRes() {
+    const echartsInstance = chartRef.current.getEchartsInstance();
+    const url = echartsInstance.getDataURL({
+      type: 'png',
+      pixelRatio: 5,                  //quality
+      excludeComponents: ['toolbox'],
+      backgroundColor: '#100132',
+    });
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'meteo-chart.png';
+    link.click();
+  }
+
+  // ECHART OPTIONS
+  const options = useMemo(() => {
+
+    return {
+      backgroundColor: '#100132',
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+        },
+        backgroundColor: '#edeadef4',
+        textStyle: {
+          fontSize: 19,        
+          color: '#4e4949',    
+          fontFamily: 'Arial'  
+        }
+      },
+      legend: {
+        top: 10,
+        textStyle: {
+          color: '#ffffff',
+          fontSize: 20,
+        },
+        padding: [12, 0,0,0],
+        itemGap: 30,
+      },
+      toolbox: {
+        feature: {
+          dataZoom: {
+            yAxisIndex: 'none',
+          },
+          restore: {},
+          saveAsImage: {},
+          magicType: {
+            type: ['line', 'bar'],
+          },
+        },
+      },
+      dataZoom: [
+        {
+          type: 'inside',
+          start: 0,
+          end: 100,
+        },
+        {
+          start: 0,
+          end: 100,
+        },
+      ],
+      grid: {
+        left: '5%',
+        right: '5%',
+        bottom: '12%',
+        top: '15%',
+        containLabel: true,
+      },
+      xAxis: {
+        type: 'category',
+        data: weatherData.map((row) =>
+          new Date(row.time).toLocaleString(undefined, {
+            day: '2-digit',
+            month: 'short',
+            hour: '2-digit',
+            year: 'numeric',
+          })
+        ),
+        axisLabel: {
+          color: '#ffffff',
+          fontSize: 15,
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#ffffff4c',
+            width: 2,
+          },
+        },
+      },
+
+      // MULTI Y-AXES
+      yAxis: selectedVariables.map((variable, index) => {
+
+        const metadata = VARIABLE_OPTIONS.find(
+          (item) => item.value === variable
+        );
+
+        // CUSTOM LIMITS
+        let min = null;
+        let max = null;
+
+        switch (variable) {
+          case 'temperature_2m':
+            min = -10;
+            max = 36;
+            break;
+          case 'dew_point_2m':      //same for both temperature
+            min = -10;
+            max = 36;
+            break;  
+          case 'relative_humidity_2m':
+            min = 0;
+            max = 100;
+            break;
+          case 'surface_pressure':
+            min = 950;
+            max = 1050;
+            break;
+          case 'wind_speed_10m':
+            min = 0;
+            max = 120;
+            break;
+          case 'precipitation':
+            min = 'dataMin'          //0;
+            max = 'dataMax'          //20;
+            break;
+          case 'shortwave_radiation':
+            min = 0;
+            max = 1400;
+            break;
+          default:
+            min = 'dataMin';
+            max = 'dataMax';
+        }
+        return {
+          type: 'value',
+          name: metadata?.label,
+          nameTextStyle: {
+            fontSize: 18,
+            padding: [34, 0, 12, 0],
+          },
+          nameLocation: 'center', 
+          min,
+          max,
+          position: index % 2 === 0 ? 'left' : 'right',    //sweet sintax
+          offset: Math.floor(index / 2) * 70,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: metadata?.color,
+            },
+          },
+          axisLabel: {
+            color: metadata?.color,
+            fontSize: 18,
+          },
+          splitLine: {
+            show: index === 0,
+            lineStyle: {
+              color: 'rgba(255, 255, 255, 0.21)',
+            },
+          },
+        };
+      }),
+
+      // SERIES
+      series: selectedVariables.map((variable, index) => {
+        const metadata = VARIABLE_OPTIONS.find(
+          (item) => item.value === variable
+        );
+
+        return {
+          name: metadata?.label,
+          type: metadata?.type || 'line',
+          yAxisIndex: index,
+          data: weatherData.map((row) => row[variable]),
+          smooth: true,
+          showSymbol: false,
+          itemStyle: {
+            color: metadata?.color,
+          },
+          lineStyle: {
+            color: metadata?.color,
+            width: 2.2,
+          },
+        };
+      }),
+    };
+
+  }, [weatherData, selectedVariables]);
+
+  // COMPONENT
+  return (
+    <div className="historic-dashboard-container">
+      <Card
+        shadow="xl"
+        radius="xl"
+        padding="lg"
+        className="historic-dashboard-card"
+      >
+        {/* HEADER */}
+        <div className="dashboard-header">
+          <Text 
+            size="xl" 
+            fw={700} 
+            variant="gradient"
+            gradient={{ from: '#1b3f02', to: '#d50505', deg: 90 }}    //not working because of css clash
+          >
+            Historic Meteorological Data 
+          </Text>
+          <Text size="sm" c="dimmed">
+            Open-Meteo Archive API
+          </Text>
+        </div>
+
+        {/* CONTROLS */}
+        <div className="historic-dashboard-controls">
+          <MultiSelect
+            label="Variables"
+            placeholder="Select variables"
+            data={VARIABLE_OPTIONS}
+            value={selectedVariables}
+            onChange={setSelectedVariables}
+            searchable
+            clearable
+          />
+          <DatePickerInput
+            type="range"
+            label="Date Range"
+            placeholder="Pick dates"
+            value={dateRange}
+            onChange={setDateRange}
+            maxDate={new Date()}
+          />
+          <Group justify="flex-end">
+            <Button
+              radius="md"
+              onClick={fetchHistoricData}
+              disabled={!selectedVariables.length}
+              icon={<ion-icon name="rainy-outline"></ion-icon>}
+            >
+              Plot Data
+            </Button>
+            <Button onClick={exportHighRes} color="#0ba51a">
+              Export chart
+            </Button>
+          </Group>
+        </div>
+
+        {/* LOADING */}
+        {status === 'loading' && (
+          <div className="loading-container">
+            <Loader 
+              size="lg"
+              icon={<ion-icon name="rainy-outline"></ion-icon>} 
+            />
+          </div>
+        )}
+        {/* ERROR */}
+        {status === 'error' && (
+          <Alert
+            icon={<ion-icon name="alert-circle-outline"></ion-icon>}
+            title="Error"
+            color="red"
+            radius="md"
+          >
+            {error}
+          </Alert>
+        )}
+
+        {/* CHART */}
+        {status === 'ok' && (
+          <div className="chart-container">
+            <ReactECharts
+              ref={chartRef}
+              option={options}
+              style={{
+                height: '600px',
+                width: '100%',
+              }}
+              notMerge={true}        //IDK what this does
+              lazyUpdate={true}
+            />
+          </div>
+        )}
+      </Card>
+    </div>
+  );
+};
+
+export default HistoricData;
+
+
+/*
+TASK: add select button to choose location 
+TASK: select different quality for the save plot option:
+https://echarts.apache.org/en/api.html#echartsInstance.getDataURL
+See: https://chatgpt.com/share/6a12c0d8-a750-83e9-bc41-458a7e4fd4b8
+*/
+

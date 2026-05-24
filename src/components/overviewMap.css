@@ -1,10 +1,10 @@
 .overview-map-gallery {
   width: min(1400px, 95%);
-  height: 560px;
   margin: 30px auto;
   display: flex;
   gap: 20px;
   align-items: stretch;
+  min-height: 69vh;
 }
 
 .omg-map-card,

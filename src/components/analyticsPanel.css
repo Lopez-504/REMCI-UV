@@ -1,28 +1,18 @@
-/* ---------------- CARDS ---------------- */
 
-.card-frame {
-  background: black;                            /*border: 3px solid var(--primary-color);*/                                     
+.analytics-card-frame {
+  background: var(--card-bg);           
+  border: 2px solid rgba(0, 7, 39, 0.696);                                     
   border-radius: 12px;
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   margin-bottom: 0px;
-  padding: 2px;
+  padding: 0px;
+  width: auto;
 }
 
-.card-header {
-  background: #b6b8ba68;
-  padding: 10px 15px;
-  font-weight: bold;
-  box-shadow: 0px 0 12px rgba(59, 57, 57, 0.818);
-  text-align: center;
-  font-size: 17px;
-  z-index: 100;
-  margin-bottom: 6px;
-}
-
-/* ---------------- INFO GRID ---------------- */
+/* .card-header */        /* parent class */ 
 
 .info-grid {
   display: grid;
@@ -30,7 +20,7 @@
   gap: 10px;
   text-align: center;
   background: #011326e9;
-  padding: 4px;
+  padding: 6px;
   border-radius: 15px;
   font-size: 18px;
   color: white;
@@ -48,7 +38,8 @@
   background: transparent;
 }
 
-p {
+.card-frame p {
   margin: 0;
-  font-size: 18px;
+  font-size: 22px;
+  margin-bottom: 4px;
 }

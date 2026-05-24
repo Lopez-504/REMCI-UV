@@ -8,7 +8,7 @@
 }
 
 .mantine-DatePickerInput-root {
-  background: rgba(163, 9, 155, 0.177);
+  background: rgba(158, 157, 157, 0);       /*transparent for now*/
   border-radius: 5px;
 }
 

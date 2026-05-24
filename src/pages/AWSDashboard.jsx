@@ -1,29 +1,30 @@
 import { useState, useEffect } from 'react';
-import { RAW_WEATHER_DATA } from '../data/weatherData';
 
 // --   Components  --  //
 import Navbar from '../components/Navbar';
+import SectionTabs from '../components/SectionTabs';
 import OverviewMap from '../components/OverviewMap';
 import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
+import AvailabilityPrologue from '../components/AvailabilityPrologue';
 import ForecastPanel from '../components/ForecastPanel';
 import StationGallery from '../components/StationGallery';
 import Maintenance from '../components/Maintenance'
 import CurrentConditions from '../components/CurrentConditions';
-import SectionTabs from '../components/SectionTabs';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
 import About from '../components/About';
 
 // --   Constants  --  //
+import { RAW_WEATHER_DATA } from '../data/weatherData';
 import { STATIONS } from '../constants/stations';
 import team from '../../public/images/construction.jpg'
 import cluodgif from '../../public/images/weatherconditions.gif'
 
 // --  CSS  -- //
 import './awsDashboard.css'
-import AvailabilityPrologue from '../components/AvailabilityPrologue';
+import HistoricData from '../components/HistoricData';
 
 // -- links -- //
 const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
@@ -168,10 +169,13 @@ const AWSDashboard = () => {
     <div id='#' className="dashboard-container">
      
      {/* Navbar */}
-      <Navbar />
+      <Navbar 
+        setActiveSection={setActiveSection}
+      />        
       <SectionTabs
         activeSection={activeSection}
-        setActiveSection={setActiveSection}/>
+        setActiveSection={setActiveSection}
+      />
 
       {/* Main content */}
       <main id='main' className="main-content">
@@ -277,6 +281,14 @@ const AWSDashboard = () => {
           </>
         )}
 
+{/* Data -> historic */}
+
+        {activeSection === 'data-historic' && (
+          <>
+             <HistoricData />
+          </>
+        )}
+
 {/* Data -> Forest Fires */}
 
         {activeSection === 'data-forestFires' && (
@@ -317,7 +329,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'about-links' && (
           <>
-          <div>
+          <div className='under-construction'>
             <h2>Site under construction: {activeSection}</h2>
             <p>Lorem, ipsum dolor sit amet consectetur 
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
@@ -330,7 +342,9 @@ const AWSDashboard = () => {
 {/* Close main and Footer */}
 
         </main>
-      <Footer/>
+      <Footer
+        setActiveSection={setActiveSection}
+      />
     </div> 
   );
 };

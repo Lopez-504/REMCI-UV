@@ -15,7 +15,7 @@ const AnalyticsPanel = ({
 }) => {
 
   return (
-    <div className="card-frame">
+    <div className="analytics-card-frame">
       <div className="card-header">
         Station Analytics: {selectedStation.name}
       </div>

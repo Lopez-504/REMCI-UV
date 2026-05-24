@@ -26,14 +26,14 @@
 }
 
 .footer-right img {
-  height: 69px;
+  height: 75px;
   margin-left: 30px;
   transition: 0.3s ease-in-out;
 }
 
 .footer-right img:hover {
-  transform: scale(1.2);
-  cursor: grab;
+  transform: scale(1.17);
+  cursor: pointer;
 }
 
 .footer .footer-left {
@@ -82,7 +82,12 @@
 }
 
 .footer-center:hover {
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
-/* Add a liner gradient here to highlight the logos */
+.footer-center img {
+  height: 50px;
+  transition: 0.3s ease-in-out;
+  margin-left: 16px;
+  margin-right: 16px;
+}

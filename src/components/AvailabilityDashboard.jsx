@@ -9,7 +9,6 @@ import { VAR_LABELS } from '../constants/variables';
 //CSS
 import './availabilityDashboard.css'
 
-
 // Actual Component 
 const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
@@ -30,7 +29,7 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
-    d.setDate(d.getDate() - 14);
+    d.setDate(d.getDate() - 21);
     return d;
   });
   
@@ -79,7 +78,6 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
     return result;
 
   }, [startDate, endDate, frequency]);
-
 
   // SAFE MOCK DATA
   const data = useMemo(() => {
@@ -155,15 +153,15 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
           } 
         }
       },
-      dataZoom: [
+      dataZoom: [       
         {
           type: 'inside',
           start: 0,
-          end: 20
+          end: 100                    // no initial zoom
         },
         {
           start: 0,
-          end: 20
+          end: 100
         }
       ],
       brush: {
@@ -180,7 +178,7 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
   // Actual component
   return (
-    <div className="card-frame availability-section">
+    <div className="availability-card-frame">
       <div className="card-header">
         Data Availability: <span class="highlight">{selectedStation.name}</span>
       </div>

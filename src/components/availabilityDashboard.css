@@ -1,14 +1,24 @@
 /* ---------------- CARDS ---------------- */
 
-.card-frame {
+/*
+.availability-section {           
   background: var(--card-bg);
-  border: 3px solid var(--primary-color);
+  display: flex;
+  height: auto !important;
+}
+*/
+
+.availability-card-frame {
+  background: var(--card-bg);
+  border: 3px solid var(--primary-color);           
   border-radius: 12px;
   overflow-y: hidden;
   scroll-behavior: none;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  height: auto;
+  min-height: 75vh;
 }
 
 .card-header {
@@ -70,12 +80,6 @@
 
 /* - */
 
-.availability-section {
-  background: var(--card-bg);
-  display: flex;
-  height: auto !important;
-}
-
 .availability-content {
   display: flex;
   height: 100%;
@@ -83,6 +87,7 @@
 
 .availability-chart {
   flex: 3;
+  min-height: 65vh;
 }
 
 .availability-controls {
@@ -101,6 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 7vh;
 }
 
 /* Select */
