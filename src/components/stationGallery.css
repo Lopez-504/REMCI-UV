@@ -1,24 +1,27 @@
+.station-gallery {
+  width: min(1400px, 95%);
+  margin: 30px auto;
+  display: flex;
+  gap: 5px;
+  min-height: 69vh;
+}
+
+#gallery {                    /* from awsDashboard id */
+  background: #D3D3D3;
+  align-items: center;
+  justify-content: center;
+}
+
 .splited-gallery select{            /*mising splitted-gallery alone?*/
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 8px;
   border: 1px solid #000000;
   font-size: 17px;
-  background-color: #90b4a743;
+  background-color: #ffffffd8;
   margin: 9px;
-  box-shadow: 0 0 10px rgba(3, 50, 112, 0.357);
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.357);
 }        
-
-
-.splited-gallery input {
-  padding: 5px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: large;
-  background-color: #ffffff89;
-  align-items: center;
-  justify-content: center;
-}
 
 .title-select {
   display: flex;
@@ -29,17 +32,7 @@
 
 /* ---------------- CARDS ---------------- */
 
-.card-frame {
-  background: var(--card-bg);
-  border: 3px solid var(--primary-color);
-  border-radius: 12px;
-  overflow: hidden;
-  height: auto;                                   /* fit-content maybe */
-  display: grid;                                  
-  flex-direction: column;
-  grid-template-rows: auto 1fr auto;
-  box-shadow: 0 0px 10px rgba(0,0,0,0.05);
-}
+/* .card-frame    at parent component*/
 
 .card-header {
   background: #011a32;
@@ -55,8 +48,11 @@
 .gallery-card {
   flex: 1;
   height: 100%;
-  background: linear-gradient(90deg, rgba(2, 2, 94, 0.129), rgba(140, 0, 138, 0.795)) !important;
+  background: #808080 !important;
+  width: 60%;
+  border-radius: 30px;
 }
+/*linear-gradient(90deg, rgba(2, 2, 94, 0.129), rgba(140, 0, 138, 0.795)) !important*/
 
 
 .gallery-container {
@@ -79,7 +75,7 @@
   /*background: #1111117f;*/
   max-height: 100%; 
   max-width: 100%;
-  background-image: url('/images/leaves.png');
+  /*background-image: url('/images/leaves.png');*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -100,13 +96,14 @@
 
 .gallery-controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
   align-items: center;
   padding: 10px 5px;
 }
 
 .gallery-controls span {
-  font-size: 20px;
+  font-size: 19px;
 }
 
 .gallery-controls button {
@@ -124,6 +121,7 @@
 
 .gallery-controls button:hover {
   background: #25ba0b;
+  transform: scale(1.06);
 }
 
 /* dots */
@@ -144,7 +142,7 @@
 }
 
 .dot.active {
-  background: #0b4192;
+  background: #1a5ef1d7;
   width: 18px;
   border-radius: 6px;
 }
@@ -154,12 +152,14 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(52, 0, 49, 0.6);
+  font-size: 30px;
+  background: rgba(0, 0, 0, 0.849);
   color: white;
   border: none;
-  padding: 14px 20px;
+  padding: 12px 18px;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
   animation: pulse 1.5s infinite;
 }
 
@@ -174,6 +174,10 @@
   100% {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
+}
+
+.zoom-btn:hover {
+  transform: scale(1.1);
 }
 
 /* Modal */

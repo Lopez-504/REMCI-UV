@@ -19,7 +19,7 @@
 
 .historic-dashboard-controls {
   display: grid;
-  grid-template-columns: 2fr 1.5fr auto;
+  grid-template-columns: 0.5fr 1.5fr auto auto;
   gap: 1rem;
   align-items: end;
   margin-bottom: 2rem;

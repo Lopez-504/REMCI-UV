@@ -206,7 +206,7 @@ const AWSDashboard = () => {
 
         {activeSection === 'overview-map' && (
           <>
-          <OverviewMap setSelectedStation={setSelectedStation} />
+          <OverviewMap />
           </>
         )}
 
@@ -215,7 +215,7 @@ const AWSDashboard = () => {
         {activeSection === 'stations-gallery' && (
           <>
             <div id='gallery'>
-              <StationGallery selectedStation={selectedStation} setSelectedStation={setSelectedStation}/>
+              <StationGallery />
             </div>
           </>
         )}

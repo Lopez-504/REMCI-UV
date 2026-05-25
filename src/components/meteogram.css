@@ -28,6 +28,10 @@
   color: #475569;
 }
 
+.meteogram-status span {
+  font-size: 15px;
+}
+
 .status-ok,
 .status-fallback {
   padding: 0px 3px;
@@ -97,11 +101,11 @@
   min-height: unset;
 }
 
-.meteogram-svg {          /* key class */
+.meteogram-svg {          /* key class for width */
   display: block;
   width: 100%;
   height: auto;
-  max-width: 1200px;                                             /* not working */
+  max-width: 1380px;                                             /* not working */
   font-family: Arial, Helvetica, sans-serif;
   background: white;
   margin-left: 120px;
@@ -115,12 +119,14 @@
   min-width: 230px;
   font-size: 0.8rem;
   color: #475569;
+  text-align: left;
 }
 
 .station-selector span {
   font-weight: 700;
+  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 .station-selector select {
@@ -131,8 +137,10 @@
   background: #ffffff;
   color: #0f172a;
   font-weight: 600;
+  font-size: 17px;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  text-align: left;
 }
 
 .station-selector select:focus {

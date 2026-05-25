@@ -1,9 +1,11 @@
 export const STATIONS = [
-  { id: 1, 
-    name: "Pocuro-AWS", 
+  { id: '3', 
+    name: "Pocuro UV",
+    loc: 'Los Andes', 
     color: '#8b0cc6',
     lat: -32.86967, 
     lng: -70.61523, 
+    timezone: 'America/Santiago',
     brand: 'Hobo RX3000', 
     status: 'ACTIVE',
     images: [
@@ -17,11 +19,13 @@ export const STATIONS = [
     windDir: 216, 
     solarRad: 1}, 
 
-  { id: 2,
-    name: "CienciasUV-AWS",
+  { id: '1',
+    name: "Ciencias UV",
+    loc: 'Valparaíso',
     color: '#33ff00',
     lat: -33.02705, 
     lng: -71.63875, 
+    timezone: 'America/Santiago',
     brand: 'Hobo RX3000',
     status: 'IDLE', 
     images: [
@@ -35,11 +39,13 @@ export const STATIONS = [
     windDir: 216, 
     solarRad: 1 },
 
-  { id: 3, 
-    name: "LaReserva-AWS", 
+  { id: '2', 
+    name: "La Reserva",
+    loc: 'Villa Alemana', 
     color: '#fff700',
     lat: -33.04374, 
     lng: -71.33947, 
+    timezone: 'America/Santiago',
     brand: 'Davis Vantage Pro2',
     status: 'ACTIVE',
     images: [
@@ -56,3 +62,4 @@ export const STATIONS = [
 
 // BUG: locally the images paths need the REMCI-UV at the begining, but in GitHub we don't need it
 // Try to fix this in vite.config.js, here the base root is set to "/REMCI-UV"
+// NOTE: for consistency, keep the ids as strings

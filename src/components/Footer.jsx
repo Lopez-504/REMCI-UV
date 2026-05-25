@@ -32,8 +32,8 @@ const Footer = ({ setActiveSection }) => {
           src={remci_logo} 
           onClick={ () => { setActiveSection(NAV_ITEMS[0].options[0].key); }}
           alt="REMCI logo"/>
-        <a href="https://ifa.uv.cl/"><img src={ifa_logo} alt="IFA"/></a>
-        <a href="https://ceaas.uv.cl/es-co/"><img src={ceacc_logo} alt="CEACC"/></a>
+        <a href="https://ifa.uv.cl/" target="_blank" rel="noopener noreferrer"><img src={ifa_logo} alt="IFA"/></a>
+        <a href="https://ceaas.uv.cl/es-co/" target="_blank" rel="noopener noreferrer"><img src={ceacc_logo} alt="CEACC"/></a>
       </div>
 
     </footer>

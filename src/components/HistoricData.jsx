@@ -3,6 +3,7 @@ import ReactECharts from 'echarts-for-react';
 
 import {
   MultiSelect,
+  Select,
   Button,
   Group,
   Loader,
@@ -17,7 +18,11 @@ import { DatePickerInput } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import './historicData.css';
 
-//METEOGRAM color for a clear background
+//STATIC
+import { STATIONS } from '../constants/stations';
+import { VARIABLE_OPTIONS } from '../constants/variables-options'
+
+//METEOGRAM color for a clear background (not used here)
 const COLORS = {
   temp: "#ff6b3a",
   dew: "#7d2cff",
@@ -31,74 +36,15 @@ const COLORS = {
   axis: "#222",
 };
 
-const VARIABLE_OPTIONS = [
-  {
-    value: 'temperature_2m',
-    label: 'Temp °C',                    //'Temperature (°C)'
-    color: '#ed4242e6',
-    type: 'line',
-  },
-  {
-    value: 'relative_humidity_2m',
-    label: 'Rel. Humidity %',   //'Relative Humidity (%)'
-    color: '#3498dbeb',
-    type: 'line',
-  },
-  {
-    value: 'dew_point_2m',
-    label: 'Dew Point °C',   //'Dew Point (°C)'
-    color: '#cb77ecc7',
-    type: 'line',
-  },
-  {
-    value: 'surface_pressure',
-    label: 'Surf. Pressure hPa',   //'Surface Pressure (hPa)'
-    color: '#2ecc70e6',
-    type: 'line',
-  },
-  {
-    value: 'wind_speed_10m',
-    label: 'Wind Speed km/h',    //'Wind Speed (km/h)'
-    color: '#ffffffe1',
-    type: 'line',
-  },
-  {
-    value: 'wind_direction_10m',
-    label: 'Wind Dir °',  //'Wind Direction (°)'
-    color: '#1abc9c',
-    type: 'line',
-  },
-  {
-    value: 'precipitation',
-    label: 'Prec mm',  //'Precipitation (mm)'
-    color: '#00cecbed',
-    type: 'bar',
-  },
-  {
-    value: 'shortwave_radiation',
-    label: 'SolarRad W/m²',  //'Solar Radiation (W/m²)'
-    color: '#f1c40fe0',
-    type: 'line',
-  },
-  {
-    value: 'cloud_cover',
-    label: 'CloudCover %',   //'Cloud Cover (%)'
-    color: '#95a5a6d1',
-    type: 'line',
-  },
-];
-
 //Actual component
 const HistoricData = () => {
 
-  // UV coordinates
-  const latitude = -33.02705;
-  const longitude = -71.63875;
-
   // STATES
+  const [selectedStation, setSelectedStation] = useState(STATIONS[1]);
   const [selectedVariables, setSelectedVariables] = useState([
     'temperature_2m',
     'relative_humidity_2m',
+    'shortwave_radiation',
     'precipitation',
   ]);
 
@@ -129,9 +75,9 @@ const HistoricData = () => {
     try {
 
       const params = new URLSearchParams({
-        latitude: String(latitude),
-        longitude: String(longitude),
-        timezone: 'auto',
+        latitude: String(selectedStation.lat),
+        longitude: String(selectedStation.lng),
+        timezone: String(selectedStation.timezone),     /*TESTING*/
         start_date: formatDate(dateRange[0]),
         end_date: formatDate(dateRange[1]),
         wind_speed_unit: 'kmh',
@@ -177,7 +123,7 @@ const HistoricData = () => {
   // AUTO FETCH
   useEffect(() => {
     fetchHistoricData();
-  }, []);
+  }, [selectedStation]);
 
   // Custom export for better quality
   const chartRef = useRef(null);
@@ -237,6 +183,9 @@ const HistoricData = () => {
       dataZoom: [
         {
           type: 'inside',
+          cursorGrab: 'grab',                       //not working
+          cursorGrabbing: 'grabbing',
+          zoomOnMouseWheel: 'ctrl',
           start: 0,
           end: 100,
         },
@@ -245,6 +194,9 @@ const HistoricData = () => {
           end: 100,
         },
       ],
+      title: {
+        label: ''         //Work on this
+      },
       grid: {
         left: '5%',
         right: '5%',
@@ -307,12 +259,12 @@ const HistoricData = () => {
             max = 120;
             break;
           case 'precipitation':
-            min = 'dataMin'          //0;
+            min = 'dataMin'          //0;     
             max = 'dataMax'          //20;
             break;
           case 'shortwave_radiation':
-            min = 0;
-            max = 1400;
+            min = 0;  
+            max = 1400;             //a high max pushed this line down, which is good for visuals
             break;
           default:
             min = 'dataMin';
@@ -401,6 +353,21 @@ const HistoricData = () => {
 
         {/* CONTROLS */}
         <div className="historic-dashboard-controls">
+          <Select
+            label="Station"
+            placeholder="Select station"
+            data={STATIONS.map((station) => ({
+              value: String(station.id),
+              label: station.name,
+            }))}
+            value={String(selectedStation.id)}
+            onChange={(value) => {
+              const station = STATIONS.find(
+                (s) => s.id === value             //string
+              );
+              setSelectedStation(station);
+            }}
+          />
           <MultiSelect
             label="Variables"
             placeholder="Select variables"
@@ -478,9 +445,12 @@ export default HistoricData;
 
 
 /*
-TASK: add select button to choose location 
+TASK: add a dunamic y_lim to the precipitation axis
 TASK: select different quality for the save plot option:
 https://echarts.apache.org/en/api.html#echartsInstance.getDataURL
 See: https://chatgpt.com/share/6a12c0d8-a750-83e9-bc41-458a7e4fd4b8
+
+TASK: add title to chart to indicate station and location
+TASK: evaluate if it's better to automatically update chart (just add dependencies: [selectedStation, selectedVariables, dateRange])
 */
 

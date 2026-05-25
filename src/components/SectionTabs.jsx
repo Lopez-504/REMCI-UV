@@ -8,18 +8,21 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
   const [openMenu, setOpenMenu] = useState(null);
 
   return (
-    <div className="section-tabs">
+    <div className="section-tabs" onMouseLeave={() => setOpenMenu(null)}>
       {NAV_ITEMS.map((item) => (
         <div className="tab-dropdown" key={item.label}>
           <button
-            className="tab-btn"
-            onClick={() =>
+            className={
+              item.options.some(
+                option => option.key === activeSection
+              )
+                ? 'tab-btn active'
+                : 'tab-btn'
+            }
+            onMouseEnter={() =>
               setOpenMenu(openMenu === item.label ? null : item.label)
             }
-            onMouseOver={() =>
-              setOpenMenu(openMenu === item.label ? null : item.label)
-            }
-          >{/* took out onMouseOut */}
+          >{/* took out onMouseOut, onClick and onMouseLeave */}
             {item.label} ▾
           </button>
 
@@ -51,3 +54,9 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
 };
 
 export default SectionTabs;
+
+/*
+onClick={() =>
+              setOpenMenu(openMenu === item.label ? null : item.label)
+            }
+*/

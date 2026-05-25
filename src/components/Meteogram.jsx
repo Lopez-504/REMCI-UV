@@ -1,39 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+//CSS
 import './meteogram.css'
 
-// Meteogram.jsx
+//STATIC
+import { STATIONS } from "../constants/stations";
+
 // Self-contained SVG meteogram for React.
 // It fetches hourly Open-Meteo data and draws:
 // 1) Temperature / dew point / fog bars
 // 2) Wind speed / wind direction arrows / precipitation
 // 3) Pressure / relative humidity
-//
-// Example: <Meteogram latitude={-33.06118} longitude={-71.396} />
-
-const LOCATIONS = [
-  {
-    id: "station-1",
-    name: "Ciencias UV — Valparaíso",
-    latitude: -33.02705,
-    longitude: -71.63875,    
-    timezone: "America/Santiago",
-  },
-  {
-    id: "station-2",
-    name: "La Reserva — Villa Alemana",
-    latitude: -33.04374,
-    longitude: -71.33947,
-    timezone: "America/Santiago",
-  },
-  {
-    id: "station-3",
-    name: "Pocuro UV — Los Andes",
-    latitude: -32.86967,
-    longitude: -70.61523,
-    timezone: "America/Santiago",
-  },
-];
 
 const COLORS = {
   temp: "#ff6b3a",
@@ -43,9 +20,9 @@ const COLORS = {
   pressure: "#001eff",
   humidity: "#008000",
   fog: "rgba(54, 80, 96, 0.72)",
-  night: "rgba(92, 155, 194, 0.42)",
-  grid: "rgba(150,150,150,0.45)",
-  axis: "#222",
+  night: "rgba(11, 148, 233, 0.42)",
+  grid: "rgba(150, 150, 150, 0.46)",
+  axis: "#131212",
 };
 
 const FONTS = {
@@ -72,7 +49,7 @@ function formatDateLabel(date) {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
   const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  return `${d}-${m}-${y}`;            
 }
 
 function formatHour(date) {
@@ -144,14 +121,14 @@ function getSegmentsByDay(data) {
 }
 
 function Meteogram({ refreshMinutes = 2 }) {
-  const [selectedLocationId, setSelectedLocationId] = useState(LOCATIONS[0].id);
+  const [selectedLocationId, setSelectedLocationId] = useState(STATIONS[0].id);
 
   const selectedLocation = useMemo(
-    () => LOCATIONS.find((loc) => loc.id === selectedLocationId) ?? LOCATIONS[0],
+    () => STATIONS.find((loc) => loc.id === selectedLocationId) ?? STATIONS[0],
     [selectedLocationId]
   );
 
-  const { latitude, longitude, timezone } = selectedLocation;
+  const { lat, lng, timezone, loc } = selectedLocation;
   const [rows, setRows] = useState([]);
   const [lastAttempt, setLastAttempt] = useState(null);
   const [lastSuccess, setLastSuccess] = useState(null);
@@ -162,11 +139,11 @@ function Meteogram({ refreshMinutes = 2 }) {
     setStatus("loading");
 
     const params = new URLSearchParams({
-      latitude: String(latitude),
-      longitude: String(longitude),
+      latitude: String(lat),
+      longitude: String(lng),
       timezone,
       past_days: "1",
-      forecast_days: "4",
+      forecast_days: "5",
       wind_speed_unit: "kmh",
       precipitation_unit: "mm",
       hourly:
@@ -193,12 +170,12 @@ function Meteogram({ refreshMinutes = 2 }) {
     fetchMeteogram();
     const id = setInterval(fetchMeteogram, refreshMinutes * 60_000);
     return () => clearInterval(id);
-  }, [latitude, longitude, timezone, refreshMinutes]);
+  }, [lat, lng, timezone, loc, refreshMinutes]);
 
   const plot = useMemo(() => {
     if (!rows.length) return null;
 
-    const width = 1200;
+    const width = 1400;
     const height = 750;
     const margin = { left: 72, right: 104, top: 40, bottom: 0 };
     const gap = 64;
@@ -392,7 +369,7 @@ function Meteogram({ refreshMinutes = 2 }) {
         <div>
           <h2>Meteogram</h2>
           <p>
-            Open-Meteo hourly data · {selectedLocation.name} · lat {latitude}, lon {longitude}
+            Open-Meteo hourly data · {selectedLocation.name} - {loc} · lat {lat}, lon {lng}
           </p>
         </div>
 
@@ -400,9 +377,9 @@ function Meteogram({ refreshMinutes = 2 }) {
           <span>Location</span>
           <select
             value={selectedLocationId}
-            onChange={(event) => setSelectedLocationId(event.target.value)}
+            onChange={(event) => setSelectedLocationId(event.target.value)}   //this is always a STRING
           >
-            {LOCATIONS.map((loc) => (
+            {STATIONS.map((loc) => (
               <option key={loc.id} value={loc.id}>
                 {loc.name}
               </option>
@@ -433,8 +410,8 @@ function Meteogram({ refreshMinutes = 2 }) {
 
           <text x={margin.left + 10} y={row1Y - 14} fill={COLORS.temp} fontSize={FONTS.var_label}>Temperatura</text>
           <text x={margin.left + innerW - 220} y={row1Y - 14} fill={COLORS.dew} fontSize={FONTS.var_label}>Temp. punto de rocío</text>
-          <text x={margin.left - 56} y={row1Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row1Y + rowH / 2})`} fontSize={FONTS.unit_label}>Celsius</text>
-          <text x={margin.left + innerW + 48} y={row1Y + rowH - 2} fill="gray" fontSize={FONTS.var_label-3}>Niebla*</text>
+          <text x={margin.left - 95} y={row1Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row1Y + rowH / 2})`} fontSize={FONTS.unit_label}>Celsius</text>
+          <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>Niebla*</text>
 
           {/* Row 2: Wind, arrows, precipitation */}
           <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 2)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
@@ -467,8 +444,8 @@ function Meteogram({ refreshMinutes = 2 }) {
           ))}
         </svg>
       </div>
-      <p>* Desde Open-Meteo obtenemos la variable <strong>visibilidad</strong>, ver <a href="https://open-meteo.com/">OpenMeteo-Doc</a> para más información</p>
-      <p>** Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" >PronosticoIFA</a></p>
+      <p>* Desde Open-Meteo se obtiene la variable <strong>visibilidad</strong>. Ver <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">OpenMeteo-Doc</a> para más información</p>
+      <p>** Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
     </div>
   );
 }
@@ -476,3 +453,36 @@ function Meteogram({ refreshMinutes = 2 }) {
 export default function Meteogram2() {
   return <Meteogram refreshMinutes={2} />;
 }
+
+
+
+/*
+NOTE: The SVG <text> element has seven basic attributes to position and rotate the text
+*/
+
+
+/*
+const LOCATIONS = [
+  {
+    id: "station-1",
+    name: "Ciencias UV — Valparaíso",
+    latitude: -33.02705,
+    longitude: -71.63875,    
+    timezone: "America/Santiago",
+  },
+  {
+    id: "station-2",
+    name: "La Reserva — Villa Alemana",
+    latitude: -33.04374,
+    longitude: -71.33947,
+    timezone: "America/Santiago",
+  },
+  {
+    id: "station-3",
+    name: "Pocuro UV — Los Andes",
+    latitude: -32.86967,
+    longitude: -70.61523,
+    timezone: "America/Santiago",
+  },
+];            TESTING importing form stations.js instead
+*/    

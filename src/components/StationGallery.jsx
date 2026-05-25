@@ -1,45 +1,52 @@
 import { useState } from 'react';
 
-//css
+//CSS
 import './stationGallery.css'
 
-// constants
+//STATIC
 import { STATIONS } from '../constants/stations';
 
-import pocuro1 from "/images/pocuro1.jpg"        // This works... manual imports
-import pocuro2 from "/images/pocuro2.gif"
+import pocuro1 from "/images/pocuro1.jpg"        // manual imports work
+import pocuro2 from "/images/pocuro2.gif"         // using / as public is not working
 import pocuro3 from "/images/pocuro3.jpg"
 
 //import ciencias4 from "/images/2025-07-28-10-19-19.jpg"
 import ciencias2 from "/images/2025-07-28-10-49-19.jpg"
 import ciencias3 from "/images/2025-07-28-07-49-19.jpg"
 import ciencias1 from "/images/cameraciencias.gif"
-import ciencias4 from "/images/estacionUV.png"
+import ciencias4 from "/src/images/estacionUV.png"
 
 import reserva1 from "/images/reserva1.jpg"
 import reserva2 from "/images/presentation.jpeg"
 import reserva3 from "/images/instalacion.jpeg"
 
 const IMAGE_DB = {
-  "Pocuro-AWS": [
+  "Pocuro UV": [
     pocuro1,
     pocuro2,
     pocuro3
   ],
-  "CienciasUV-AWS": [
+  "Ciencias UV": [
     ciencias4,
     ciencias1,
     ciencias2,
     ciencias3
   ],
-  "LaReserva-AWS": [
+  "La Reserva": [
     reserva1,
     reserva2,
     reserva3
   ]
 };
 
-const StationGallery = ({ selectedStation,setSelectedStation }) => {
+const StationGallery = () => {
+
+  const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
+  
+  const selectStation = (station) => {
+    setSelectedStation(station);
+    setIndex(0);
+  };
 
   const images = IMAGE_DB[selectedStation?.name] || [];
 
@@ -52,8 +59,8 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
   if (images.length === 0) return <div>No images</div>;
 
   return (
-    <div className="card-frame gallery-card">
-
+    <div className="station-gallery">
+      <div className="gallery-card">
       {/*<div className="card-header">Station Gallery</div>*/}
 
       <div className="splited-gallery">     
@@ -62,8 +69,8 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
           <select
                 value={selectedStation.id}
                 onChange={(e) =>
-                  setSelectedStation(
-                    STATIONS.find(s => s.id === Number(e.target.value))
+                  selectStation(
+                    STATIONS.find(s => s.id === e.target.value)         /*always a string*/
                   )
                 }
               >
@@ -112,8 +119,8 @@ const StationGallery = ({ selectedStation,setSelectedStation }) => {
               onClick={() => setIndex(i)}
             />
           ))}
-        </div>
-
+          </div>
+        </div> 
       </div>
     </div>
   );
