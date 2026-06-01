@@ -77,7 +77,7 @@ export default function CurrentConditions() {
       setLoading(true)
 
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,precipitation,shortwave_radiation&timezone=auto&past_days=${days}&forecast_days=1`
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,precipitation,shortwave_radiation&timezone=auto&past_days=${days}&forecast_days=2`
 
         const response = await fetch(url)
         const data = await response.json()
@@ -151,7 +151,7 @@ export default function CurrentConditions() {
               value={selectedStation.id}
               onChange={(e) => {
                 const station = STATIONS.find(
-                  (s) => s.id === Number(e.target.value)      
+                  (s) => s.id === e.target.value         // removed Number(), using string now      
                 )
                 setSelectedStation(station)
               }}
@@ -525,8 +525,8 @@ export default function CurrentConditions() {
 //NOTE: strokeDasharray="5 3"  -> 5px dashes 3px gaps 
 //NOTE: strokeDasharray="0"  -> solid line
 
-/* TASK: refactor this, quite repetitive */
-
+// NOTE: seems like open-meteo request does not go more than 20 days back 
+// TASK: refactor this, quite repetitive
 /* TASK: format dates: import { format } from 'date-fns';
 
 const formatXAxis = (tickItem) => {

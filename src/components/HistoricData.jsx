@@ -148,11 +148,11 @@ const HistoricData = () => {
     return {
       backgroundColor: '#100132',
       tooltip: {
-        trigger: 'axis',
+        trigger: 'axis',            //try to increase font-size of the axis ticks when this is triggered
         axisPointer: {
           type: 'cross',
         },
-        backgroundColor: '#edeadef4',
+        backgroundColor: '#e1deedf4',
         textStyle: {
           fontSize: 19,        
           color: '#4e4949',    
@@ -452,5 +452,10 @@ See: https://chatgpt.com/share/6a12c0d8-a750-83e9-bc41-458a7e4fd4b8
 
 TASK: add title to chart to indicate station and location
 TASK: evaluate if it's better to automatically update chart (just add dependencies: [selectedStation, selectedVariables, dateRange])
+
+// TASK: add a highlight feature to the chart, kinda like the one in Open-Meteo website.
+they're using highcharts, which look so aesthetic
+// TASK: add button to select all variables at once
+
 */
 
