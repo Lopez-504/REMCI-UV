@@ -488,12 +488,8 @@ export default function Meteogram2() {
 }
 
 
-//TASK: flip wind direction arrows 180deg ()
-//TASK: Check if precipitation ever gives a nonzero value and add a legend 
 //TASK: add a marking shadow for winds associated with precipitation (e.g., north wind for Villa Alemana ) 
-
 //TASK: add instruction on how to use the website
-
 
 /*
 NOTE: The SVG <text> element has seven basic attributes to position and rotate the text
