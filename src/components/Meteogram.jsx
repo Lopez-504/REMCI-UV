@@ -15,10 +15,12 @@ import { STATIONS } from "../constants/stations";
 const COLORS = {
   temp: "#ff6b3a",
   dew: "#7d2cff",
-  wind: "#ff1010",
-  precip: "#1e63ff",
-  pressure: "#001eff",
-  humidity: "#008000",
+  wind: "#ff1010ee",
+  wind2: "#ff1010cd",
+  arrow:"#c80505",
+  precip: "#151be1",
+  pressure: "#001effd0",
+  humidity: "#008000cf",
   fog: "rgba(54, 80, 96, 0.72)",
   night: "rgba(11, 148, 233, 0.42)",
   grid: "rgba(150, 150, 150, 0.46)",
@@ -145,7 +147,7 @@ function Meteogram({ refreshMinutes = 2 }) {
       past_days: "1",
       forecast_days: "5",
       wind_speed_unit: "kmh",
-      precipitation_unit: "mm",
+      precipitation_unit: "mm",           //Testing, this might be causing the precipitation error 
       hourly:
         "temperature_2m,dew_point_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,wind_direction_10m,precipitation,visibility",
     });
@@ -197,7 +199,7 @@ function Meteogram({ refreshMinutes = 2 }) {
     const yTempMax = Math.max(25, niceCeil(tempMax, 5));
 
     const windMax = Math.max(50, niceCeil(Math.max(...vals("wind")), 10));
-    const precipMax = Math.max(10, niceCeil(Math.max(...vals("precip")), 2));
+    const precipMax = Math.max(20, niceCeil(Math.max(...vals("precip")), 2));
 
     const pMin = niceFloor(Math.min(...vals("pressure")) - 2, 5);
     const pMax = niceCeil(Math.max(...vals("pressure")) + 2, 5);
@@ -208,6 +210,33 @@ function Meteogram({ refreshMinutes = 2 }) {
       rows
         .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.time).toFixed(2)} ${y(d[key], min, max, top).toFixed(2)}`)
         .join(" ");
+
+    // Bars for precipitation
+    const barPlot = (key, min, max, top, color, scale = 0.77) => {
+      const dx = innerW / Math.max(1, rows.length - 1);
+      const barW = dx * scale;
+
+      return rows.map((d, i) => {
+        const value = d[key];
+        if (value == null || Number.isNaN(value) || value <= 0) return null;
+
+        const yTop = y(value, min, max, top);
+        const yBottom = y(0, min, max, top);
+
+        return (
+          <rect
+            key={`${key}-${i}`}
+            x={x(d.time) - barW / 2}
+            y={Math.min(yTop, yBottom)}
+            width={barW}
+            height={Math.abs(yBottom - yTop)}
+            rx='2'
+            ry='2'
+            fill={color}
+          />
+        );
+      });
+    };
 
     const yTicks = (min, max, step) => {
       const out = [];
@@ -276,16 +305,17 @@ function Meteogram({ refreshMinutes = 2 }) {
       );
     }
 
+    // downward arrow -> North wind ; upward arrow -> south wind  (adding the Math.PI) 
     function WindArrow({ cx, cy, dir }) {
       const len = 16;
-      const angle = ((dir - 90) * Math.PI) / 180;
+      const angle = Math.PI + ((dir - 90) * Math.PI) / 180;      // Meteo angles != math angles
       const x2 = cx + len * Math.cos(angle);
       const y2 = cy + len * Math.sin(angle);
       const head = len * 3/7;
-      const a1 = angle + Math.PI * 0.82;
+      const a1 = angle + Math.PI * 0.82;          
       const a2 = angle - Math.PI * 0.82;
       return (
-        <g stroke={COLORS.wind} fill="none" strokeWidth="2">
+        <g stroke={COLORS.arrow} fill="none" strokeWidth="2">
           <line x1={cx} y1={cy} x2={x2} y2={y2} />
           <line x1={x2} y1={y2} x2={x2 + head * Math.cos(a1)} y2={y2 + head * Math.sin(a1)} />
           <line x1={x2} y1={y2} x2={x2 + head * Math.cos(a2)} y2={y2 + head * Math.sin(a2)} />
@@ -311,6 +341,7 @@ function Meteogram({ refreshMinutes = 2 }) {
       x,
       y,
       linePath,
+      barPlot,
       yTicks,
       zeroY,
       sixHourTicks,
@@ -343,6 +374,7 @@ function Meteogram({ refreshMinutes = 2 }) {
     x,
     y,
     linePath,
+    barPlot,
     yTicks,
     zeroY,
     dateLabels,
@@ -397,7 +429,7 @@ function Meteogram({ refreshMinutes = 2 }) {
         <svg viewBox={`0 0 ${width} ${height}`} className="meteogram-svg" role="img" aria-label="Meteorological meteogram">
           {/* Row 1: Temperature, dew point, fog */}
           <Grid top={row1Y} leftTicks={yTicks(yTempMin, yTempMax, 5)} rightTicks={yTicks(yTempMin, yTempMax, 5)} leftMin={yTempMin} leftMax={yTempMax} rightMin={yTempMin} rightMax={yTempMax} />
-          <line x1={margin.left} x2={margin.left + innerW} y1={zeroY} y2={zeroY} stroke="#001eff" strokeWidth="2" />
+          <line x1={margin.left} x2={margin.left + innerW} y1={zeroY} y2={zeroY} stroke="#001eff" strokeWidth="1.3" />
           {rows.map((d, i) => {
             const barW = innerW / Math.max(1, rows.length - 1) * 0.78;
             const isFog = d.visibility != null && d.visibility < 1000;
@@ -414,8 +446,9 @@ function Meteogram({ refreshMinutes = 2 }) {
           <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>Niebla*</text>
 
           {/* Row 2: Wind, arrows, precipitation */}
-          <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 2)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
-          <path d={linePath("wind", 0, windMax, row2Y)} fill="none" stroke={COLORS.wind} strokeWidth="2.6" />
+          <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 4)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
+          {barPlot("precip", 0, precipMax, row2Y, COLORS.precip)}
+          <path d={linePath("wind", 0, windMax, row2Y)} fill='none' stroke={COLORS.wind2} strokeWidth="2.8" />
           {rows.map((d, i) => {
             if (i % 3 !== 0) return null;
             return <WindArrow key={`arrow-${i}`} cx={x(d.time)} cy={row2Y + 30} dir={d.dir ?? 0} />;
@@ -444,8 +477,8 @@ function Meteogram({ refreshMinutes = 2 }) {
           ))}
         </svg>
       </div>
+      <p><strong>↓</strong>: Viento Norte. ➜: Viento Oeste. Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
       <p>* Desde Open-Meteo se obtiene la variable <strong>visibilidad</strong>. Ver <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">OpenMeteo-Doc</a> para más información</p>
-      <p>** Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
     </div>
   );
 }
@@ -454,6 +487,12 @@ export default function Meteogram2() {
   return <Meteogram refreshMinutes={2} />;
 }
 
+
+//TASK: flip wind direction arrows 180deg ()
+//TASK: Check if precipitation ever gives a nonzero value and add a legend 
+//TASK: add a marking shadow for winds associated with precipitation (e.g., north wind for Villa Alemana ) 
+
+//TASK: add instruction on how to use the website
 
 
 /*
