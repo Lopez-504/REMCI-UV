@@ -149,12 +149,15 @@ export default function CurrentConditions() {
   {/* Get current datetime */}
   const now = new Date();
 
-  const closestTime = weatherData.reduce((closest, d) => {
-    return Math.abs(new Date(d.time) - now) <
-          Math.abs(new Date(closest.time) - now)
-      ? d
-      : closest;
-  }).time;
+  const closestTime =
+  weatherData.length > 0                            // only use reduce if there's data
+    ? weatherData.reduce((closest, d) =>
+        Math.abs(new Date(d.time) - now) <
+        Math.abs(new Date(closest.time) - now)
+          ? d
+          : closest
+      ).time
+    : null;
 
   {/* Visuals */}
   return (
@@ -323,7 +326,8 @@ export default function CurrentConditions() {
                 fillOpacity={1}
                 fill="url(#windGradient)"
               />
-              <ReferenceLine 
+              {closestTime && (
+                <ReferenceLine 
                 x={closestTime} 
                 stroke="#4a4949ee" 
                 strokeDasharray="6 12" 
@@ -333,7 +337,8 @@ export default function CurrentConditions() {
                          dx:-20, 
                          dy: -110
                 }}
-              />
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </StatCard> 
