@@ -80,7 +80,7 @@ const HistoricData = () => {
         timezone: String(selectedStation.timezone),     /*TESTING*/
         start_date: formatDate(dateRange[0]),
         end_date: formatDate(dateRange[1]),
-        wind_speed_unit: 'kmh',
+        wind_speed_unit: 'kmh',               
         precipitation_unit: 'mm',
         hourly: selectedVariables.join(','),
       });
@@ -256,7 +256,7 @@ const HistoricData = () => {
             break;
           case 'wind_speed_10m':
             min = 0;
-            max = 120;
+            max = 50;
             break;
           case 'precipitation':
             min = 'dataMin'          //0;     
@@ -445,7 +445,7 @@ export default HistoricData;
 
 
 /*
-TASK: add a dunamic y_lim to the precipitation axis
+TASK: add a dynamic y_lim to the precipitation axis
 TASK: select different quality for the save plot option:
 https://echarts.apache.org/en/api.html#echartsInstance.getDataURL
 See: https://chatgpt.com/share/6a12c0d8-a750-83e9-bc41-458a7e4fd4b8
