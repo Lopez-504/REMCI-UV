@@ -14,7 +14,7 @@ export const VARIABLE_OPTIONS = [
   {
     value: 'dew_point_2m',
     label: 'Dew Point °C',   //'Dew Point (°C)'
-    color: '#cb77ecc7',
+    color: '#d1afdeec',
     type: 'line',
   },
   {
@@ -36,9 +36,15 @@ export const VARIABLE_OPTIONS = [
     type: 'line',
   },
   {
+    value: 'wind_gusts_10m',
+    label: 'Wind Gust km/h',  //'Wind Gust (km/h)'
+    color: '#7f25d8',
+    type: 'line',
+  },
+  {
     value: 'precipitation',
     label: 'Prec mm',  //'Precipitation (mm)'
-    color: '#00cecbed',
+    color: '#00cecbd0',
     type: 'bar',
   },
   {

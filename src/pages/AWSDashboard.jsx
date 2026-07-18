@@ -25,12 +25,12 @@ import cluodgif from '../../public/images/weatherconditions.gif'
 // --  CSS  -- //
 import './awsDashboard.css'
 import HistoricData from '../components/HistoricData';
+import Landing from '../components/Landing';
 
 // -- links -- //
 const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
 const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
 const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
-
 
 // --  Actual Component  -- //
 const AWSDashboard = () => {
@@ -40,7 +40,7 @@ const AWSDashboard = () => {
 
   //Section Tab
   const getInitialSection = () => {
-    return window.location.hash.replace('#', '') || 'overview-main'
+    return window.location.hash.replace('#', '') || 'landing-page'   //overview-main
   }
 
   // hash fragments + active sections
@@ -50,6 +50,14 @@ const AWSDashboard = () => {
   useEffect(() => {
      window.location.hash = activeSection
   }, [activeSection])
+
+  // Smooth scrollbar
+  useEffect(() => {
+      window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+      });
+  }, [activeSection]);
 
   // Browser back and forth buttons
   useEffect(() => {
@@ -179,6 +187,14 @@ const AWSDashboard = () => {
 
       {/* Main content */}
       <main id='main' className="main-content">
+
+{/* TESTING: Landing page */}
+
+        {activeSection === 'landing-page' && (
+          <>
+            <Landing setActiveSection={setActiveSection}/>
+          </>
+        )}
 
 {/* Overview -> main */}
 

@@ -1,0 +1,147 @@
+.landing-page{
+    width:100%;
+    min-height:100vh;
+    background:#f4f7fb;
+}
+
+
+/* HERO */
+.hero{
+    height:530px;
+    background-image:
+        linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+        url("/images/torresPaine.jpg");
+
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+.hero-overlay{
+    max-width:900px;
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:3.2rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+  font-size:1.2rem;
+  line-height:1.7;
+  margin-bottom:35px;
+}
+
+.hero-button{
+  background:#287fe9;
+  color:white;
+  border:none;
+  padding:15px 36px;
+  border-radius:10px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.hero-button:hover{
+  background:#0861d6;
+}
+
+/* GRID */
+.landing-grid{
+    width:min(1400px,95%);
+    margin:60px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+    gap:30px;
+}
+
+.landing-card{
+    background:rgba(19, 29, 223, 0.088);
+    border-radius:16px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.25s;
+    display:flex;
+    flex-direction:column;
+    transition: 0.25s ease-in-out;
+}
+
+.landing-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 20px 40px rgba(0, 0, 0, 0.471);
+}
+
+.landing-icon{
+    font-size:2.5rem;
+    margin-bottom:15px;
+}
+
+.landing-card h2{
+    margin-bottom: 15px;
+    font-size: 1.48rem;
+}
+
+.titleAndIcon {
+  display: flex;
+  gap: 8%;
+  justify-content: space-between;
+}
+
+.landing-card p{
+    color:#555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    font-size: 1.1rem;
+}
+
+.landing-card ul{
+    margin-left:20px;
+    margin-bottom:25px;
+    line-height:1.8;
+    flex:1;
+    font-size: 1.05rem;
+}
+
+.landing-card button{
+    align-self:flex-start;
+    background:#1f2937;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.25s;
+    font-size: 1.1rem;
+}
+
+
+.landing-card button:hover{
+    background:#182e5c;
+}
+
+
+/* ABOUT */
+.about{
+    max-width:900px;
+    margin:80px auto;
+    text-align:center;
+    padding:20px;
+}
+
+
+.about h2{
+    margin-bottom:20px;
+}
+
+.about p{
+    line-height:1.8;
+    color:#555;
+}

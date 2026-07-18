@@ -13,7 +13,7 @@ const Navbar = ({ setActiveSection }) => {
         <img 
           src={logo} alt="Logo" 
           onClick={() => {
-                    setActiveSection(NAV_ITEMS[0].options[0].key);
+                    setActiveSection('landing-page');
           }}
           style={{ width: '70px', height: '70px', objectFit: 'contain' }}/>
         <h1> METEO-HUB PRO   ⛅ </h1>

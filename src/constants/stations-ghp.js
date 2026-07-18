@@ -1,23 +1,6 @@
 export const STATIONS = [
-  { id: 1, 
-    name: "Pocuro-AWS", 
-    color: '#8b0cc6',
-    lat: -32.86967, 
-    lng: -70.61523, 
-    brand: 'Hobo RX3000', 
-    status: 'ACTIVE',
-    images: [
-      "images/pocuro1.jpg",                   /*Work on ghpages !!*/
-      "images/pocuro2.gif",
-      "images/pocuro3.jpg",
-    ],
-    temp: 18.5, 
-    humidity: 45, 
-    windSpeed: 0.5, 
-    windDir: 216, 
-    solarRad: 1}, 
 
-  { id: 2,
+  { id: 1,
     name: "CienciasUV-AWS",
     color: '#33ff00',
     lat: -33.02705, 
@@ -29,11 +12,51 @@ export const STATIONS = [
       "images/cameraciencias.gif",
       "images/2025-07-28-07-49-19.jpg"
     ],
+    variables: [
+      "Temperature",
+      "Relative Humidity",
+      "Dew Point",
+      "Wind Speed",
+      "Wind Direction",
+      "Wind Gusts",
+      "Atmospheric Pressure",
+      "Solar Radiation",
+      "Accumulated Rain"
+    ],
     temp: 16.2, 
     humidity: 62, 
     windSpeed: 0.5, 
     windDir: 216, 
     solarRad: 1 },
+
+  { id: 2, 
+    name: "Pocuro-AWS", 
+    color: '#8b0cc6',
+    lat: -32.86967, 
+    lng: -70.61523, 
+    brand: 'Hobo RX3000', 
+    status: 'ACTIVE',
+    images: [
+      "images/pocuro1.jpg",                   /*Work on ghpages !!*/
+      "images/pocuro2.gif",
+      "images/pocuro3.jpg",
+    ],
+    variables: [
+      "Temperature",
+      "Relative Humidity",
+      "Dew Point",
+      "Wind Speed",
+      "Wind Direction",
+      "Wind Gusts",
+      "Atmospheric Pressure",
+      "Solar Radiation",
+      "Accumulated Rain"
+    ],
+    temp: 18.5, 
+    humidity: 45, 
+    windSpeed: 0.5, 
+    windDir: 216, 
+    solarRad: 1}, 
 
   { id: 3, 
     name: "LaReserva-AWS", 
@@ -45,7 +68,49 @@ export const STATIONS = [
     images: [
       "images/reserva1.jpg",
       "images/presentation.jpeg",
-      "images/instalacion.jpeg"
+      "images/instalacion.jpeg",
+      "images/davis2.1.png"
+    ],
+    variables: [
+      "Temperature",
+      "Relative Humidity",
+      "Dew Point",
+      "Wind Speed",
+      "Wind Direction",
+      "Wind Gusts",
+      "Atmospheric Pressure",
+      "Solar Radiation",
+      "Accumulated Rain"
+    ],
+    temp: 17.8, 
+    humidity: 55, 
+    windSpeed: 0.5, 
+    windDir: 216, 
+    solarRad: 1 },
+
+    { id: 4, 
+    name: "Home", 
+    color: '#1602eb',
+    lat: -33.061188,
+    lng: -71.396009, 
+    timezone: 'America/Santiago',
+    brand: 'DIY Weather Station',
+    status: 'MAINTENANCE',
+    images: [
+      "",
+      "",
+      ""
+    ],
+    variables: [
+      "Temperature",
+      "Relative Humidity",
+      "Dew Point",
+      "Wind Speed",
+      "Wind Direction",
+      "Wind Gusts",
+      "Atmospheric Pressure",
+      "Solar Radiation",
+      "Accumulated Rain"
     ],
     temp: 17.8, 
     humidity: 55, 

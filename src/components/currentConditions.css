@@ -22,13 +22,13 @@ body {
   width: 100%;
 }
 
-.dashboard-controls select {
+.dashboard-controls select {             /* OLD ONE */ 
   border-radius: 10px;
   border: transparent;        /*border-image: linear-gradient(to right, rgb(0, 98, 2), rgb(0, 171, 117)) 1;*/
   background: transparent;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   min-width: 140px;
-  color: white;
+  color: rgb(53, 244, 222);
   font-weight: 420;
 }
 
@@ -60,20 +60,24 @@ body {
   border-radius: 14px;
 
   color: black;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 430;
   cursor: pointer;
   height: 60px !important;
   outline: none;
+  transition: 0.2s ease-in-out;
 }
 
 /* optional hover */
 .dashboard-controls select:hover {
   background-color: #f5f5f5;
+  transform: scale(1.03);
 }
 
 /* optional focus */
 .dashboard-controls select:focus {
-  border-color: #0077ff;
+  border-color: #020079;
+  border-width: 5px;
 }
 
 .select-wrapper {
@@ -83,13 +87,14 @@ body {
 
 .select-wrapper::after {
   content: "▼";
-  color: #1f1d1de2;
+  color: #330034e2;
   position: absolute;
-  right: 12px;
-  top: 12%;
+  right: 10%;
+  top: 8%;
   transform: translateY(-50%);
   pointer-events: none;
   font-size: 0.7rem;
+  font-weight: 900;
 }
 
 /* END of safer anternatives */
@@ -129,7 +134,7 @@ body {
 }
 
 .card-header:hover {
-  transform: scale(1.04);
+  transform: scale(1.1);
   background: #2838e58a !important;
   cursor: grab;
 }
@@ -149,6 +154,7 @@ body {
   background-size: cover;
   background-position: center;
   filter: blur(0px);
+  padding: 5px;
 }
 
 /* BIG NUMBERS */

@@ -34,11 +34,18 @@ import { STATIONS } from '../constants/stations.js'
 import cloudgif from '../../public/images/weatherconditions2.gif'
 
 const TIME_RANGES = [
-  { label: 'Last 24 Hours', value: 1 },
-  { label: 'Last 3 Days', value: 3 },
-  { label: 'Last 7 Days', value: 7 },
-  { label: 'Last 14 Days', value: 14 },
-  { label: 'Last 30 Days', value: 30 },
+  { label: 'Last 1 day', value: 1 },
+  { label: 'Last 3 days', value: 3 },
+  { label: 'Last 7 days', value: 7 },
+  { label: 'Last 14 days', value: 14 },
+  { label: 'Last 30 days', value: 30 },
+]
+
+const FORECAST_RANGES = [
+  {label: 'No forecast', value: 0},
+  {label: '+1 day', value: 2},
+  {label: '+2 days', value: 3},
+  {label: '+3 days', value: 4},
 ]
 
 //Card
@@ -68,7 +75,8 @@ const SummaryItem = ({ icon, label, value, unit }) => {
 
 export default function CurrentConditions() {
   const [selectedStation, setSelectedStation] = useState(STATIONS[0])
-  const [days, setDays] = useState(7)
+  const [days, setDays] = useState(3)
+  const [forecastDays, setForecastDays] = useState(2)
 
   const [loading, setLoading] = useState(false)
   const [weatherData, setWeatherData] = useState([])
@@ -78,7 +86,7 @@ export default function CurrentConditions() {
       setLoading(true)
 
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_gusts_10m,wind_speed_10m,precipitation,shortwave_radiation&timezone=auto&past_days=${days}&forecast_days=2`
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_gusts_10m,wind_speed_10m,precipitation,shortwave_radiation&timezone=America%2FNew_York&past_days=${days}&forecast_days=${forecastDays}`
 
         const response = await fetch(url)
         const data = await response.json()
@@ -103,7 +111,7 @@ export default function CurrentConditions() {
     }
 
     fetchWeather()
-  }, [selectedStation, days])
+  }, [selectedStation, days, forecastDays])         //dependencies
 
   const stats = useMemo(() => {
     if (!weatherData.length) return null
@@ -165,37 +173,46 @@ export default function CurrentConditions() {
       {/* GRID */}
       <div className="dashboard-grid">
 
-        {/* Testing controls StatCard */}
+        {/* Controls Card */}
         <StatCard title='Settings'>
           <div className="dashboard-controls">
-            <div className="select-wrapper">            {/*testing*/}
-            <select
-              value={selectedStation.id}
-              onChange={(e) => {
-                const station = STATIONS.find(
-                  (s) => s.id === e.target.value         // removed Number(), using string now      
-                )
-                setSelectedStation(station)
-              }}
-            >
-            <option value="" disabled>Select station</option>
-            {STATIONS.map((station) => (
-              <option key={station.id} value={station.id}>
-                {station.name}
-              </option>
-            ))}
-            </select> 
+            <div className="select-wrapper">            
+              <select
+                value={selectedStation.id}
+                onChange={(e) => {
+                  const station = STATIONS.find(
+                    (s) => s.id === e.target.value         // removed Number(), using string now      
+                  )
+                  setSelectedStation(station)
+                }}
+              >
+              <option value="" disabled>Select station</option>
+              {STATIONS.map((station) => (
+                <option key={station.id} value={station.id}>
+                  {station.name}
+                </option>
+              ))}
+              </select> 
             </div>
-
             <div className="select-wrapper">  
-            <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
-            <option value="" disabled>Date range</option>
-            {TIME_RANGES.map((range) => (
-              <option key={range.value} value={range.value}>
-                {range.label}
-              </option>
-            ))}
-            </select>
+              <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+              <option value="" disabled>Date range</option>
+              {TIME_RANGES.map((range) => (
+                <option key={range.value} value={range.value}>
+                  {range.label}
+                </option>
+              ))}
+              </select>
+            </div>
+            <div className="select-wrapper">  
+              <select value={forecastDays} onChange={(e) => setForecastDays(Number(e.target.value))}>
+              <option value="" disabled>Include Forecast</option>
+              {FORECAST_RANGES.map((range) => (
+                <option key={range.value} value={range.value}>
+                  {range.label}
+                </option>
+              ))}
+              </select>
             </div>
           </div>
         </StatCard>
@@ -235,7 +252,7 @@ export default function CurrentConditions() {
                 tickFormatter={(v) => v.slice(5, 16)}
                 tick={false}
                 axisLine={false}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
 {/*dx dy for further adjustment */}
               <YAxis  
@@ -259,8 +276,9 @@ export default function CurrentConditions() {
               />
               <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: 'Now', 
                          angle:0, 
                          position: 'centerTop',
@@ -304,7 +322,7 @@ export default function CurrentConditions() {
                 tickFormatter={(v) => v.slice(5, 16)}
                 tick={false}
                 axisLine={false}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -329,15 +347,16 @@ export default function CurrentConditions() {
               {closestTime && (
                 <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
                          dx:-20, 
                          dy: -110
                 }}
-                />
+              />
               )}
             </AreaChart>
           </ResponsiveContainer>
@@ -383,7 +402,7 @@ export default function CurrentConditions() {
 
             <SummaryItem
               icon={<Sun size={20} />}
-              label="Radiation"
+              label="Max Radiation"
               value={stats?.maxRadiation}
               unit="W/m²"
             />
@@ -412,7 +431,7 @@ export default function CurrentConditions() {
                 dataKey="time"
                 tick={false}
                 axisLine={false}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
 
               <YAxis
@@ -435,10 +454,12 @@ export default function CurrentConditions() {
                 strokeWidth={1.4}
                 fill="#f9b20855"
               />
-              <ReferenceLine 
+              {closestTime && (
+                <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
@@ -446,6 +467,7 @@ export default function CurrentConditions() {
                          dy: -110
                 }}
               />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </StatCard>          
@@ -471,7 +493,7 @@ export default function CurrentConditions() {
                 dataKey="time"
                 tick={false}
                 axisLine={true}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
 
               <YAxis 
@@ -490,8 +512,9 @@ export default function CurrentConditions() {
               <Bar dataKey="rain" fill="#4da6ff" radius={[4, 4, 0, 0]} />
               <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
@@ -533,7 +556,7 @@ export default function CurrentConditions() {
                 tickFormatter={(v) => v.slice(5, 16)}
                 tick={false}
                 axisLine={false}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -560,8 +583,9 @@ export default function CurrentConditions() {
               />
               <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
@@ -601,7 +625,7 @@ export default function CurrentConditions() {
                 dataKey="time"
                 tick={false}
                 axisLine={false}
-                label={days + ' + 2 days'}
+                label={days + ' + ' + forecastDays + ' days'}
               />
 
               <YAxis 
@@ -631,8 +655,9 @@ export default function CurrentConditions() {
               />
               <ReferenceLine 
                 x={closestTime} 
-                stroke="#4a4949ee" 
-                strokeDasharray="6 12" 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
@@ -652,10 +677,10 @@ export default function CurrentConditions() {
 }
 
 
+//Note: open-meteo only has day-resolution, so no hours. 
 //Note: took the humidity card out (left it at the bottom of this code)
 
 //NOTE: kmh is the default unit for wind speed
-
 //Note: Wind speed refers to the average velocity of the wind over a sustained period (typically 1 to 10 minutes), while a wind gust is a sudden, brief surge in wind speed that lasts for only a few seconds and exceeds the average speed by at least 10 knots (11.5 mph)
 
 // TASK: add a vline at the current time

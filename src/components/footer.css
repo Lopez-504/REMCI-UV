@@ -42,6 +42,7 @@
   padding: 5px; 
   justify-content: center;          /*these should go in the parent*/
   align-items: center;
+  gap: 1px
 }
 
 .footer .footer-left strong {
@@ -52,8 +53,10 @@
 .footer .footer-left p {
   color: rgba(204, 203, 203, 0.889);  
   font-size: 1.1rem;
-  animation: mymove 2s linear infinite;
+  animation: mymove 4s linear infinite;
   position: relative;
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 @keyframes mymove {
@@ -62,7 +65,7 @@
     filter: blur(0px);
   }
   33% {
-    opacity: 0.2;
+    opacity: 0.6;
     filter: blur(0px);
     color: rgb(255, 255, 255);
   }

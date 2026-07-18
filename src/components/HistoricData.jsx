@@ -211,7 +211,7 @@ const HistoricData = () => {
             day: '2-digit',
             month: 'short',
             hour: '2-digit',
-            year: 'numeric',
+            year: '2-digit',        //or numeric
           })
         ),
         axisLabel: {
@@ -258,6 +258,10 @@ const HistoricData = () => {
             min = 0;
             max = 50;
             break;
+          case 'wind_gusts_10m':
+            min = 'dataMin'
+            max = 'dataMax'
+            break;  
           case 'precipitation':
             min = 'dataMin'          //0;     
             max = 'dataMax'          //20;
@@ -319,7 +323,7 @@ const HistoricData = () => {
           },
           lineStyle: {
             color: metadata?.color,
-            width: 2.2,
+            width: 2.4,
           },
         };
       }),
@@ -431,7 +435,7 @@ const HistoricData = () => {
                 height: '600px',
                 width: '100%',
               }}
-              notMerge={true}        //IDK what this does
+              notMerge={false}        //IDK what this does
               lazyUpdate={true}
             />
           </div>

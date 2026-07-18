@@ -1,13 +1,13 @@
 .station-gallery {
-  width: min(1400px, 95%);
+  width: min(1600px, 95%);
   margin: 30px auto;
   display: flex;
-  gap: 5px;
-  min-height: 69vh;
+  gap: 30px;
+  min-height: 69dvh;
 }
 
 #gallery {                    /* from awsDashboard id */
-  background: #D3D3D3;
+  background: #ebe8e8;
   align-items: center;
   justify-content: center;
 }
@@ -48,12 +48,16 @@
 .gallery-card {
   flex: 1;
   height: 100%;
-  background: #808080 !important;
+  background: #ced1d1;
   width: 60%;
-  border-radius: 30px;
+  border-radius: 16px;
 }
 /*linear-gradient(90deg, rgba(2, 2, 94, 0.129), rgba(140, 0, 138, 0.795)) !important*/
 
+.gallery-card h2 {
+  padding: 12px;
+  font-size: 1.7rem;
+}
 
 .gallery-container {
   display: flex;
@@ -150,17 +154,16 @@
 /* Zoom button */
 .zoom-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 30px;
-  background: rgba(0, 0, 0, 0.849);
-  color: white;
+  bottom: 20px;
+  right: 30px;
+  font-size: 26px;
+  background: rgba(0, 0, 0, 0.329);
   border: none;
   padding: 12px 18px;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
-  animation: pulse 1.5s infinite;
+  transition: 0.1s ease-in-out;
+  animation: pulse 2.1s infinite;
 }
 
 @keyframes pulse {
@@ -186,7 +189,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
@@ -202,3 +205,68 @@
 
 
 /* Task: make the transitions smooth: image changes, zooms, button hovers, etc */
+
+
+/* Station Characteristics */
+
+.station-info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.info-group{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.label{
+    font-size:0.96rem;
+    color:#888;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:600;
+}
+
+.value{
+    font-size:1.25rem;
+    font-weight:500;
+}
+
+.variables-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.variable-pill{
+    background:#f3f5f8;
+    border:1px solid #02132c;
+    border-radius:10px;
+    padding:4px 10px;
+    font-size:.98rem;
+}
+
+.status{
+    display:inline-block;
+    width:fit-content;
+    padding:4px 12px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.status.active{
+    background:#dff5df;
+    color:#1d7d35;
+}
+
+.status.idle{
+    background:#fff3cd;
+    color:#8a6d00;
+}
+
+.status.maintenance{
+    background:#fde2e2;
+    color:#b3261e;
+}
