@@ -9,7 +9,7 @@
 .hero{
     height:530px;
     background-image:
-        linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+        linear-gradient(rgba(0, 0, 0, 0.20),rgba(0, 0, 0, 0.558)),
         url("/images/torresPaine.jpg");
 
     background-size:cover;
@@ -28,12 +28,22 @@
 }
 
 .hero h1{
-    font-size:3.2rem;
-    margin-bottom:20px;
+  font-size:3.2rem;
+  margin-bottom:-14px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.hero h2 {
+  font-size: 19px;
+  /*font-family: "Times New Roman", Times, serif;*/
+  color: #d8d8d8;
+  margin-top: -10px;
+  margin-bottom: 26px;
+  font-weight: 500;
 }
 
 .hero p{
-  font-size:1.2rem;
+  font-size:1.25rem;
   line-height:1.7;
   margin-bottom:35px;
 }
@@ -44,7 +54,7 @@
   border:none;
   padding:15px 36px;
   border-radius:10px;
-  font-size:1rem;
+  font-size:1.1rem;
   cursor:pointer;
   transition:.25s;
 }

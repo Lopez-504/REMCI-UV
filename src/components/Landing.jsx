@@ -11,7 +11,8 @@ export default function Landing({ activeSection, setActiveSection }) {
       {/* HERO */}
       <section className="hero">
         <div className="hero-overlay">
-          <h1>REMCI-UV Dashboard</h1>
+          <h1>REMCI-UV</h1>
+          <h2>Red de Estaciones Meteorológicas Universidad de Valparaíso</h2>
           <p>
             Real-time meteorological observations, weather forecasts,
             historical records and environmental monitoring from the

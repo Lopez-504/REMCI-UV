@@ -51,14 +51,6 @@ const AWSDashboard = () => {
      window.location.hash = activeSection
   }, [activeSection])
 
-  // Smooth scrollbar
-  useEffect(() => {
-      window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-      });
-  }, [activeSection]);
-
   // Browser back and forth buttons
   useEffect(() => {
     const handleHashChange = () => {
@@ -75,6 +67,14 @@ const AWSDashboard = () => {
       window.removeEventListener('hashchange', handleHashChange)
      }
   }, [])
+
+  // Smooth scrollbar
+  useEffect(() => {
+      window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+      });
+  }, [activeSection]);
 
   //const [activeSection, setActiveSection] = useState('overview-main');   //starts at overview-main
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
@@ -172,7 +172,6 @@ const AWSDashboard = () => {
 
 
 //   ---  Return  ---   //
-
   return (
     <div id='#' className="dashboard-container">
      
@@ -188,7 +187,7 @@ const AWSDashboard = () => {
       {/* Main content */}
       <main id='main' className="main-content">
 
-{/* TESTING: Landing page */}
+{/* Landing page */}
 
         {activeSection === 'landing-page' && (
           <>
@@ -314,7 +313,6 @@ const AWSDashboard = () => {
             <p>Lorem, ipsum dolor sit amet consectetur 
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
               Eveniet excepturi eius at fuga asperiores!</p>
-            <button>btn</button>
           </div>
           </>
         )}

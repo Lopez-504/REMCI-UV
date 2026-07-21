@@ -4,6 +4,7 @@ import {
   AreaChart,
   Area,
   LineChart,
+  ComposedChart,
   Line,
   XAxis,
   YAxis,
@@ -13,7 +14,8 @@ import {
   Bar,
   RadialBarChart,
   RadialBar,
-  ReferenceLine
+  ReferenceLine,
+  Legend,
 } from 'recharts'
 
 import {
@@ -86,21 +88,37 @@ export default function CurrentConditions() {
       setLoading(true)
 
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_gusts_10m,wind_speed_10m,precipitation,shortwave_radiation&timezone=America%2FNew_York&past_days=${days}&forecast_days=${forecastDays}`
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${selectedStation.lat}&longitude=${selectedStation.lng}&hourly=temperature_2m,relative_humidity_2m,surface_pressure,wind_gusts_10m,wind_speed_10m,precipitation,shortwave_radiation&daily=precipitation_sum&timezone=America%2FNew_York&past_days=${days}&forecast_days=${forecastDays}`
 
         const response = await fetch(url)
         const data = await response.json()
+        
+        //daily test
+        const dailyRainMap = Object.fromEntries(
+          data.daily.time.map((date, index) => [
+            date,
+            data.daily.precipitation_sum[index],
+          ])
+        ); 
 
-        const formatted = data.hourly.time.map((time, index) => ({
-          time,
-          temperature: data.hourly.temperature_2m[index],
-          humidity: data.hourly.relative_humidity_2m[index],
-          pressure: data.hourly.surface_pressure[index],
-          wind: data.hourly.wind_speed_10m[index],
-          gust: data.hourly.wind_gusts_10m[index],       //wind gust
-          rain: data.hourly.precipitation[index],
-          radiation: data.hourly.shortwave_radiation[index],
-        }))
+        const formatted = data.hourly.time.map((time, index) => {
+        const isMidnight = time.endsWith("00:00");
+
+          return {
+            time,
+            temperature: data.hourly.temperature_2m[index],
+            humidity: data.hourly.relative_humidity_2m[index],
+            pressure: data.hourly.surface_pressure[index],
+            wind: data.hourly.wind_speed_10m[index],
+            gust: data.hourly.wind_gusts_10m[index],
+            hourlyRain: data.hourly.precipitation[index],
+            radiation: data.hourly.shortwave_radiation[index],
+
+            dailyRain: isMidnight
+              ? dailyRainMap[time.slice(0, 10)]
+              : null,
+          };
+        });
 
         setWeatherData(formatted)
       } catch (error) {
@@ -123,7 +141,7 @@ export default function CurrentConditions() {
     const gustValues = weatherData.map((d) => d.gust) 
     const radiationValues = weatherData.map((d) => d.radiation)
 
-    const totalRain = weatherData.reduce((acc, d) => acc + d.rain, 0)
+    const totalRain = weatherData.reduce((acc, d) => acc + d.hourlyRain, 0)
 
     return {
       maxTemp: Math.max(...tempValues).toFixed(1),                  //stats
@@ -166,6 +184,8 @@ export default function CurrentConditions() {
           : closest
       ).time
     : null;
+
+  
 
   {/* Visuals */}
   return (
@@ -249,10 +269,13 @@ export default function CurrentConditions() {
 
               <XAxis
                 dataKey="time"
-                tickFormatter={(v) => v.slice(5, 16)}
+                tickFormatter={(v) => v.slice(5, 10)}
                 tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
                 axisLine={false}
-                label={days + ' + ' + forecastDays + ' days'}
+                label={String(days) + ' Past days ' + `${forecastDays===0 ? '' : '+ Today + ' + String(forecastDays -1) + ' Forecast days'}`}
               />
 {/*dx dy for further adjustment */}
               <YAxis  
@@ -322,7 +345,7 @@ export default function CurrentConditions() {
                 tickFormatter={(v) => v.slice(5, 16)}
                 tick={false}
                 axisLine={false}
-                label={days + ' + ' + forecastDays + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -427,11 +450,15 @@ export default function CurrentConditions() {
             <AreaChart data={weatherData}>
               <CartesianGrid strokeDasharray="3 3" opacity={1} vertical={false} />
 
-              <XAxis 
+              <XAxis
                 dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
                 tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
                 axisLine={false}
-                label={days + ' + ' + forecastDays + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
               />
 
               <YAxis
@@ -441,6 +468,7 @@ export default function CurrentConditions() {
                          dx:-28, 
                          dy: -10
                 }}
+                //unit='[W/m²]'
               />
 
               <Tooltip 
@@ -472,7 +500,131 @@ export default function CurrentConditions() {
           </ResponsiveContainer>
         </StatCard>          
 
-        {/* PRECIPITATION */}
+        {/* Test double precipitation */}
+        <StatCard title="Hourly & Daily Accumulated Rain">
+          <div className="big-number">
+            {stats?.totalRain} mm
+            <span>total</span>
+          </div>
+          <ResponsiveContainer width="100%" height={310}>
+            <ComposedChart data={weatherData}>
+            {/*<BarChart data={weatherData}>*/}
+              <CartesianGrid                        
+                  yAxisId='hourly'
+                  strokeDasharray="15 12" 
+                  opacity={1} 
+                  vertical={false}
+                  stroke='#00000022'
+              />  
+
+              <XAxis
+                dataKey="time"
+                xAxisId='hourly'
+                tickFormatter={(v) => v.slice(5, 10)}
+                tick={false}
+                interval={23}
+                angle={-16}
+                axisLine={false}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
+                orientation="bottom" 
+              />
+
+              <XAxis
+                xAxisId={'daily'} 
+                dataKey='time'
+                tick={false}
+                axisLine={false}
+                orientation="top"       //invisible. Test daily acc. on this xAxis
+                height={10}
+              />
+
+              {/* Left axis: hourly precipitation */}
+              <YAxis
+                yAxisId="hourly"
+                label={{
+                  value: "Hourly rain [mm]",
+                  angle: -90,
+                  position: "centerTop",
+                  dx: -20,
+                  dy: -10,
+                }}
+              />
+
+              {/* Right axis: daily accumulated precipitation */}
+              <YAxis
+                yAxisId="daily"
+                orientation="right"
+                label={{
+                  value: "Daily rain [mm]",
+                  angle: 90,
+                  position: "centerTop",
+                  dx: 22,
+                  dy: -10,
+                }}
+                niceTicks="snap125"         //same as default I think
+              />
+
+              <Tooltip 
+                position={{ y: 134 }} 
+                axisId="hourly" 
+              />  
+
+              {/* Daily accumulation */}
+                <Line
+                  type="monotone"
+                  yAxisId='daily'
+                  xAxisId='daily'
+                  dataKey="dailyRain"
+                  stroke="#7304a6"
+                  strokeWidth={1.4}
+                  fill="#65038b8b"
+                  activeDot={{ r: 6 }}
+                  label={{position:'right', fontSize:16}}
+                  //iconType={'square'}           //not working
+                />
+
+                {/* Hourly rain */}
+                <Bar 
+                  yAxisId="hourly"
+                  dataKey="hourlyRain" 
+                  fill="#4da6ff" 
+                  radius={[4, 4, 0, 0]} 
+                  barSize={6}
+                />
+                
+                <ReferenceLine 
+                  x={closestTime} 
+                  yAxisId='hourly'
+                  xAxisId='hourly'
+                  stroke="#4a494936" 
+                  strokeDasharray="6 0" 
+                  strokeWidth={4.0} 
+                  label={{ value: '', 
+                          angle:0, 
+                          position: 'centerTop',
+                          dx:-20, 
+                          dy: -110
+                  }}
+                />  
+                <Legend
+                  iconSize={8}
+                  iconType='circle'
+                  //position={'middle'}          //insideTop not working
+                  //layout='horizontal'
+                  verticalAlign='top'
+                  offset={'10'}
+                  wrapperStyle={{
+                    border: '0px solid black',
+                    borderRadius: 10,
+                    backgroundColor: '#b4b5992f',
+                  }}
+                />
+              </ComposedChart>           
+              {/*</BarChart>*/}
+          </ResponsiveContainer>      
+        </StatCard>  
+
+        {/* PRECIPITATION 
         <StatCard title="Accumulated Rain">
           <div className="big-number">
             {stats?.totalRain} mm
@@ -489,11 +641,15 @@ export default function CurrentConditions() {
                 strokeWidth={1} 
               />    
 
-              <XAxis 
+              <XAxis
                 dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
                 tick={false}
-                axisLine={true}
-                label={days + ' + ' + forecastDays + ' days'}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
+                axisLine={false}
+                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ' days'}
               />
 
               <YAxis 
@@ -507,14 +663,20 @@ export default function CurrentConditions() {
 
               <Tooltip 
                 position={{ y: 134 }}
+
               />
 
-              <Bar dataKey="rain" fill="#4da6ff" radius={[4, 4, 0, 0]} />
+              <Bar 
+                dataKey="hourlyRain" 
+                fill="#4da6ff" 
+                barSize={3}               //1-4
+                radius={[4, 4, 0, 0]}
+              />
               <ReferenceLine 
                 x={closestTime} 
                 stroke="#4a494936" 
                 strokeDasharray="6 0" 
-                strokeWidth={4.0} 
+                strokeWidth={4.0}         
                 label={{ value: '', 
                          angle:0, 
                          position: 'centerTop',
@@ -524,7 +686,7 @@ export default function CurrentConditions() {
               />
             </BarChart>
           </ResponsiveContainer>
-        </StatCard>
+        </StatCard>*/}
 
         {/* WIND GUST*/}
         <StatCard title="Wind Gust">
@@ -553,10 +715,13 @@ export default function CurrentConditions() {
 
               <XAxis
                 dataKey="time"
-                tickFormatter={(v) => v.slice(5, 16)}
+                tickFormatter={(v) => v.slice(5, 10)}
                 tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
                 axisLine={false}
-                label={days + ' + ' + forecastDays + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -623,9 +788,13 @@ export default function CurrentConditions() {
 
               <XAxis
                 dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
                 tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                //interval={23}
+                //angle={-16}
                 axisLine={false}
-                label={days + ' + ' + forecastDays + ' days'}
+                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ' days'}
               />
 
               <YAxis 
@@ -633,8 +802,8 @@ export default function CurrentConditions() {
                          angle:-90, 
                          position: 'centerTop',
                          dx:-29, 
-                         dy: -10
-                }}
+                         dy: -10,
+                }} 
                 //tickCount={3}
                 domain={[
                   stats?.avgPressure ? Number(stats.avgPressure) - 25 : 'dataMin', 
