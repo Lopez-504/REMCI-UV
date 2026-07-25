@@ -1,0 +1,23 @@
+{
+  "language":"Idioma",
+  "nav": {
+    "overview": "Menú",
+    "mainOverview": "Menú Principal",
+    "mapView": "Mapa",
+
+    "stations": "Estaciones",
+    "currentConditions": "Condiciones Actuales",
+    "gallery": "Galería",
+    "maintenance": "Mantenimiento",
+
+    "data": "Datos",
+    "historic": "Históricos",
+    "forecast": "Pronóstico",
+    "download": "Exportar",
+    "availability": "Disponibilidad",
+
+    "about": "Acerca de",
+    "project": "Proyecto",
+    "team": "Equipo"
+  }
+}

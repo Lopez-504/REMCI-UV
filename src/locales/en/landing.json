@@ -1,0 +1,80 @@
+{
+    "explore": "Explore Dashboard!",
+    "language": "Language",
+    "stationsOnline": "Stations Online",
+    "landingDescription": "Real-time meteorological observations, weather forecasts, historical records and environmental monitoring from the REMCI-UV automatic weather station network.",
+    "open": "Open",
+
+    "cards": {
+        "currentConditions": {
+            "title": "Current Conditions",
+            "description": "Monitor real-time meteorological observations from every station in the REMCI-UV network.",
+            "items": {
+                "0": "Temperature & humidity",
+                "1": "Wind speed and direction",
+                "2": "Solar radiation",
+                "3": "Interactive charts"
+            }
+        },
+
+        "forecast": {
+            "title": "Forecast",
+            "description": "Explore numerical weather predictions and 6-days meteograms.",
+            "items": {
+                "0": "Temperature forecast",
+                "1": "Wind forecast",
+                "2": "Rainfall",
+                "3": "Solar radiation"
+            }
+        },
+
+        "gallery": {
+            "title": "Stations Gallery",
+            "description": "Discover the REMCI-UV monitoring stations and their instrumentation.",
+            "items": {
+                "0": "Station photographs",
+                "1": "Measured variables",
+                "2": "Technical specifications",
+                "3": "Current status"
+            }
+        },
+
+        "exportData": {
+            "title": "Export Data",
+            "description": "Download historical observations in multiple formats.",
+            "items": {
+                "0": "CSV & TXT formats",
+                "1": "Date filters",
+                "2": "Variable and Station selection",
+                "3": "Build & Export your own charts!"
+            }
+        },
+
+        "dataAvailability": {
+            "title": "Data Availability",
+            "description": "Inspect station uptime and historical data completeness.",
+            "items": {
+                "0": "Availability plots",
+                "1": "Missing records",
+                "2": "Coverage",
+                "3": "AI interpolation (coming soon)"
+            }
+        },
+
+        "help": {
+            "title": "Education",
+            "description": "Learn how to use the dashboard and understand each visualization.",
+            "items": {
+                "0": "Export tutorials",
+                "1": "Wind rose guide",
+                "2": "Forecast interpretation",
+                "3": "Educational resources"
+            }
+        }
+    },
+
+    "about0": "About",
+    "about1": "The REMCI-UV Dashboard is a web platform developed to visualize observations collected by the Red de Estaciones Meteorológicas de la Universidad de Valparaíso. The system provides real-time meteorological monitoring, weather forecasts, historical data visualization, and data export capabilities for research, education and operational decision-making.",
+    "about2": "Its purpose is to provide researchers, students, decision makers, and the general public with intuitive access to high-quality meteorological observations through interactive visualizations and data export tools."
+  
+}

@@ -10,24 +10,33 @@
   background: #ebe8e8;
   align-items: center;
   justify-content: center;
-}
-
-.splited-gallery select{            /*mising splitted-gallery alone?*/
-  padding-left: 8px;
-  padding-right: 8px;
-  border-radius: 8px;
-  border: 1px solid #000000;
-  font-size: 17px;
-  background-color: #ffffffd8;
-  margin: 9px;
-  box-shadow: 0 0 0px rgba(0, 0, 0, 0.357);
-}        
+}     
 
 .title-select {
   display: flex;
   padding: 9px;
   margin-left: 5px;
   gap: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  margin-top: -4px;
+  margin-bottom: -16px;
+}
+
+.title-select h3 {
+  padding: 0px;
+  font-size: 1.7rem;
+}
+
+.title-select select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  font-size: 17px;
+  background-color: #eef1f4b5;
+  margin-top: 22px;
+  margin-left: 22px;
+  margin-right: 22px;
+  margin-bottom: 28px;
 }
 
 /* ---------------- CARDS ---------------- */
@@ -62,8 +71,8 @@
 .gallery-container {
   display: flex;
   flex-direction: column;
-  height: 570px;               /*useless if height is set to a fixed value*/
-  min-height: 67vh;
+  height: 630px;
+  /*min-height: 60dvh;*/
   width: 100%;
   min-width: 0;
   padding: 10px;
@@ -212,13 +221,13 @@
 .station-info{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap: 8px !important;
 }
 
 .info-group{
     display:flex;
     flex-direction:column;
-    gap:4px;
+    gap: 1px;
 }
 
 .label{
@@ -231,17 +240,18 @@
 
 .value{
     font-size:1.25rem;
-    font-weight:500;
+    font-weight:400;
 }
 
 .variables-list{
     display:flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     gap:8px;
+    padding: 10px;
 }
 
 .variable-pill{
-    background:#f3f5f8;
+    background:#e4ecfa;
     border:1px solid #02132c;
     border-radius:10px;
     padding:4px 10px;
@@ -257,16 +267,19 @@
 }
 
 .status.active{
-    background:#dff5df;
+    background:#cdfbcd;
     color:#1d7d35;
-}
-
-.status.idle{
-    background:#fff3cd;
-    color:#8a6d00;
+    text-transform: capitalize;
 }
 
 .status.maintenance{
-    background:#fde2e2;
+    background:#fdefc1;
+    color:#8a6d00;
+    text-transform: capitalize;
+}
+
+.status.offline{
+    background:#fbd4d4;
     color:#b3261e;
+    text-transform: capitalize;
 }

@@ -1,9 +1,15 @@
 import {React, useState} from 'react';
 import "./landing.css";
 
+//STATIC
 import { SECTIONS } from '../constants/sectionsLanding'
 
+//Translations
+import { useTranslation } from "react-i18next";
+
 export default function Landing({ activeSection, setActiveSection }) {
+
+   const { t } = useTranslation("landing");
 
   return (
     <div className="landing-page">
@@ -14,15 +20,13 @@ export default function Landing({ activeSection, setActiveSection }) {
           <h1>REMCI-UV</h1>
           <h2>Red de Estaciones Meteorológicas Universidad de Valparaíso</h2>
           <p>
-            Real-time meteorological observations, weather forecasts,
-            historical records and environmental monitoring from the
-            REMCI-UV automatic weather station network.
+            { t ("landingDescription")}
           </p>
           <button
             className="hero-button"
             onClick={() => setActiveSection("stations-currentConditions")}
           >
-            Explore Dashboard!
+            {t("explore")}
           </button>
         </div>
       </section>
@@ -38,7 +42,7 @@ export default function Landing({ activeSection, setActiveSection }) {
               className="landing-card"
             >
               <div className='titleAndIcon'>  
-                <h2>{section.title}</h2>
+                <h2>{t(`cards.${section.id}.title`)}</h2>
                 <div
                   className="landing-icon"
                   style={{ color: section.color }}
@@ -47,17 +51,17 @@ export default function Landing({ activeSection, setActiveSection }) {
                 </div>
               </div>
 
-              <p>{section.description}</p>
+              <p>{t(`cards.${section.id}.description`)}</p>
               <ul>
-                {section.items.map((item) => (
-                  <li key={item}>{item}</li>
+                {[0,1,2,3].map((item) => (
+                  <li key={item}>{t(`cards.${section.id}.items.${item}`)}</li>
                 ))}
               </ul>
 
                 <button
                 onClick={() => setActiveSection(section.key)}
                 >
-                Open →
+                {t('open')} →
                 </button>
             </div>
           )  
@@ -66,16 +70,12 @@ export default function Landing({ activeSection, setActiveSection }) {
 
       {/* ABOUT */}
       <section className="about">
-        <h2>About REMCI-UV</h2>
+        <h2>{t("about0")} REMCI-UV</h2>
         <p>
-          The <strong>REMCI-UV Dashboard</strong> is a web platform developed to visualize
-          observations collected by the <strong>Red de Estaciones Meteorológicas de la Universidad de Valparaíso</strong>. The system provides real-time meteorological
-          monitoring, weather forecasts, historical data visualization,
-          and data export capabilities for research, education and
-          operational decision-making.
+          { t ("about1")}
         </p>
         <p>
-          Its purpose is to provide researchers, students, decision makers, and the general public with intuitive access to high-quality meteorological observations through interactive visualizations and data export tools.
+          { t ("about2")}
         </p>
       </section>
     </div>

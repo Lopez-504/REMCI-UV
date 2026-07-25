@@ -1,36 +1,78 @@
 export const NAV_ITEMS = [
   {
-    label: 'Overview',
+    key: "Overview",
+    labelKey: "nav.overview",
     options: [
-      { key: 'overview-main', label: 'Main Overview' },
-      { key: 'overview-map', label: 'Map View' }
-    ]
+      {
+        key: "landing-page",
+        labelKey: "nav.mainOverview",
+      },
+      {
+        key: "overview-map",
+        labelKey: "nav.mapView",
+      },
+    ],
   },
   {
-    label: 'Stations',
+    key: "stations",
+    labelKey: "nav.stations",
     options: [
-      { key: 'stations-currentConditions', label: 'CurrentConditions' },
-      { key: 'stations-gallery', label: 'Gallery' },
-      { key: 'stations-maintenance', label: 'Maintenance' },
-    ]
+      {
+        key: "stations-currentConditions",
+        labelKey: "nav.currentConditions",
+      },
+      {
+        key: "stations-gallery",
+        labelKey: "nav.gallery",
+      },
+      {
+        key: "stations-maintenance",
+        labelKey: "nav.maintenance",
+      },
+    ],
   },
   {
-    label: 'Data',
+    key: "data",
+    labelKey: "nav.data",
     options: [
-      { key: 'data-historic', label: 'Historic' },
-      { key: 'data-forecast', label: 'Forecast' },
-      { key: 'data-download', label: 'Download' },
-      { key: 'data-availability', label: 'Availability' },
-      //{ key: 'data-lightPoll', label: 'Light Pollution' },
-      //{ key: 'data-forestFires', label: 'Forest Fires ' }
-    ]
+      {
+        key: "data-historic",
+        labelKey: "nav.historic",
+      },
+      {
+        key: "data-forecast",
+        labelKey: "nav.forecast",
+      },
+      {
+        key: "data-download",
+        labelKey: "nav.download",
+      },
+      {
+        key: "data-availability",
+        labelKey: "nav.availability",
+      },
+      // {
+      //   key: "data-lightPoll",
+      //   labelKey: "nav.lightPollution",
+      // },
+      // {
+      //   key: "data-forestFires",
+      //   labelKey: "nav.forestFires",
+      // },
+    ],
   },
   {
-    label: 'About REMCI-UV',
+    key: "about",
+    labelKey: "nav.about",
     options: [
-      { key: 'about-project', label: 'Project' },
-      { key: 'about-team', label: 'Team' },
-      //{ key: 'about-links', label: 'Links' }
-    ]
-  }
+      {
+        key: "about-project",
+        labelKey: "nav.project",
+      },
+      {
+        key: "about-team",
+        labelKey: "nav.team",
+      },
+    ],
+  },
 ];

@@ -1,11 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+//Translations
+import "./i18n"
+
 import App from './App.jsx'
 
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import '@mantine/dates/styles.css';
+import '@mantine/dates/styles.css'; 
 
 // CSS
 import './index.css' 		            // v2	

@@ -35,6 +35,12 @@ import './currentConditions.css'
 import { STATIONS } from '../constants/stations.js'
 import cloudgif from '../../public/images/weatherconditions2.gif'
 
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
+
+//Translations
+import { useTranslation } from "react-i18next";
+
 const TIME_RANGES = [
   { label: 'Last 1 day', value: 1 },
   { label: 'Last 3 days', value: 3 },
@@ -51,10 +57,17 @@ const FORECAST_RANGES = [
 ]
 
 //Card
-const StatCard = ({ title, children }) => {
+const StatCard = ({ title, children, help }) => {
+  const { t } = useTranslation("currentCond");
+
   return (
     <div className="weather-card">
-      <div className="card-header">{title}</div>
+      <div className="card-header">
+        {title} 
+        <span>
+          <HelpTooltip helpKey={t(help)}/>
+        </span>
+      </div>
       <div className="card-body">{children}</div>
     </div>
   )
@@ -75,7 +88,10 @@ const SummaryItem = ({ icon, label, value, unit }) => {
   )
 }
 
+// ACTUAL COMPONENT
 export default function CurrentConditions() {
+   const { t } = useTranslation("currentCond");
+  
   const [selectedStation, setSelectedStation] = useState(STATIONS[0])
   const [days, setDays] = useState(3)
   const [forecastDays, setForecastDays] = useState(2)
@@ -169,7 +185,7 @@ export default function CurrentConditions() {
   }, [weatherData])
 
   if (loading) {
-    return <div className="loading">Loading weather data...</div>
+    return <div className="loading">{t("loading")}</div>
   }
 
   {/* Get current datetime */}
@@ -194,7 +210,7 @@ export default function CurrentConditions() {
       <div className="dashboard-grid">
 
         {/* Controls Card */}
-        <StatCard title='Settings'>
+        <StatCard title={t("cards.settings.title")} help={t("cards.settings.help")}>
           <div className="dashboard-controls">
             <div className="select-wrapper">            
               <select
@@ -238,7 +254,7 @@ export default function CurrentConditions() {
         </StatCard>
 
         {/* TEMPERATURE */}                  
-        <StatCard title="Temperature">
+        <StatCard title={t("cards.temp.title")} help={t("cards.temp.help")}>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div className="big-number">
               {stats?.minTemp} °C
@@ -316,7 +332,7 @@ export default function CurrentConditions() {
         </StatCard>
 
         {/* WIND */}
-        <StatCard title="Wind Speed">
+        <StatCard title={t("cards.ws")}>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div className="big-number">
               {stats?.maxWind} km/h
@@ -386,25 +402,25 @@ export default function CurrentConditions() {
         </StatCard> 
 
         {/* SUMMARY */}
-        <StatCard title="Summary">
+        <StatCard title={t("cards.summary.title")} help={t("cards.summary.help")}>
           <div className="summary-list">
             <SummaryItem
               icon={<Thermometer size={20} />}
-              label="Max Temperature"
+              label={t(`summaryItems.maxTemp`)}
               value={stats?.maxTemp}
               unit="°C"
             />
 
             <SummaryItem
               icon={<Droplets size={20} />}
-              label="Avg Humidity"
+              label={t(`summaryItems.avgHum`)}
               value={stats?.avgHumidity}
               unit="%"
             />
 
             <SummaryItem
               icon={<Wind size={20} />}
-              label="Max Wind"
+              label={t(`summaryItems.maxWind`)}
               value={stats?.maxWind}
               unit="km/h"
             />
@@ -418,21 +434,21 @@ export default function CurrentConditions() {
 
             <SummaryItem
               icon={<Wind size={20} />}
-              label="Max Wind Gust"
+              label={t(`summaryItems.maxWindGust`)}
               value={stats?.maxGust}
               unit="km/h"
             />
 
             <SummaryItem
               icon={<Sun size={20} />}
-              label="Max Radiation"
+              label={t(`summaryItems.maxRad`)}
               value={stats?.maxRadiation}
               unit="W/m²"
             />
 
             <SummaryItem
               icon={<CloudRain size={20} />}
-              label="Accumulated Rain"
+              label={t(`summaryItems.accRain`)}
               value={stats?.totalRain}
               unit="mm"
             />
@@ -440,7 +456,7 @@ export default function CurrentConditions() {
         </StatCard>
 
         {/* SOLAR RADIATION */}
-        <StatCard title="Solar Radiation">
+        <StatCard title={t("cards.solarRad")}>
           <div className="big-number">
             {stats?.maxRadiation} W/m²
             <span>max</span>
@@ -501,7 +517,7 @@ export default function CurrentConditions() {
         </StatCard>          
 
         {/* Test double precipitation */}
-        <StatCard title="Hourly & Daily Accumulated Rain">
+        <StatCard title={t("cards.accRain")}>
           <div className="big-number">
             {stats?.totalRain} mm
             <span>total</span>
@@ -689,7 +705,7 @@ export default function CurrentConditions() {
         </StatCard>*/}
 
         {/* WIND GUST*/}
-        <StatCard title="Wind Gust">
+        <StatCard title={t("cards.wg.title")} help={t("cards.wg.help")}>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div className="big-number">
               {stats?.maxGust} km/h
@@ -763,7 +779,7 @@ export default function CurrentConditions() {
         </StatCard>
 
         {/* PRESSURE */}
-        <StatCard title="Pressure">
+        <StatCard title={t("cards.press")}>
           <div className="big-number">
             {stats?.avgPressure} hPa
             <span>Avg</span>

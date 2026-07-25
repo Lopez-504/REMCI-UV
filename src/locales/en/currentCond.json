@@ -1,0 +1,36 @@
+{
+    "cards": {
+        "settings": {
+            "title":"Settings",
+            "help":"Select: Station, Passed days and Forecast days"
+        },
+        "summary": {
+            "title":"Summary",
+            "help":"Summary for the selected period"
+        },
+        "temp": {
+            "title":"Temperature",
+            "help":"The gray band marks the current time"
+        },
+        "rh": "Relative Humidity",
+        "dew": "Dew Point",
+        "ws": "Wind Speed",
+        "wd": "Wind Direction",
+        "wg": {
+            "title":"Wind Gusts",
+            "help":"Brief, sudden increases in wind speed that last for only a few seconds"
+        },
+        "press": "Atmospheric Pressure",
+        "solarRad": "Solar Radiation",
+        "accRain": "Accumulated Rain"
+    },
+    "summaryItems": {
+        "maxTemp":"Max Temperature",
+        "avgHum": "Average Humidity",
+        "maxWind": "Max Wind",
+        "maxWindGust": "Max Wind Gust",
+        "maxRad": "Max Radiation",
+        "accRain": "Total Accumulated Rain" 
+    },
+    "loading": "Loading weather data..." 
+}

@@ -1,0 +1,23 @@
+{
+    "selectStation": "Select Weather Station",
+    "characteristics": "Station Characteristics",
+    "station": "Station",
+    "status": "Status",
+    "variables": "Measured variables",
+    "coords": "Coordinates",
+    "elevation": "Elevation",
+    "model": "Station Model",
+    "installation": "Installation Date",
+    "active": "Online",
+    "offline": "Offline",
+    "maintenance": "Maintenance",
+    "temp": "Temperature",
+    "rh": "Relative Humidity",
+    "dew": "Dew Point",
+    "ws": "Wind Speed",
+    "wd": "Wind Direction",
+    "wg": "Wind Gusts",
+    "press": "Atmospheric Pressure",
+    "solarRad": "Solar Radiation",
+    "accRain": "Accumulated Rain"
+}

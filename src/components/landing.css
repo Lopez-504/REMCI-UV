@@ -20,6 +20,19 @@
 
 }
 
+
+.hero::after {                     
+  position: absolute;              
+  content: '';
+  left: 0;
+  top: 660px;
+  width: 100%;
+  height: 14px;
+  background: #000000;
+  filter: blur(6px);
+}
+
+
 .hero-overlay{
     max-width:900px;
     text-align:center;
@@ -113,11 +126,12 @@
 }
 
 .landing-card ul{
-    margin-left:20px;
+    margin-left:10px;
     margin-bottom:25px;
     line-height:1.8;
     flex:1;
     font-size: 1.05rem;
+    list-style-type: "🌱   ";  /* 🍁 🌳 ༄ ༄.° */
 }
 
 .landing-card button{
@@ -154,4 +168,5 @@
 .about p{
     line-height:1.8;
     color:#555;
+    text-align: justify;
 }

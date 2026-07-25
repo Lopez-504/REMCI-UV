@@ -1,0 +1,36 @@
+{
+    "cards": {
+        "settings": {
+            "title":"Configuración",
+            "help":"Selecciona: Estación, Días pasados y Días de Pronóstico"
+        },
+        "summary": {
+            "title":"Resumen",
+            "help":"Resumen para el periodo selecionado"
+        },
+        "temp": {
+            "title":"Temperature",
+            "help":"La hora actual se marca con una barra gris"
+        },
+        "rh": "Humedad Relativa",
+        "dew": "Punto de rocío",
+        "ws": "Velocidad del Viento",
+        "wd": "Dirección del Viento",
+        "wg": {
+            "title":"Ráfagas de Viento",
+            "help":"Breve y repentino incremento en la velocidad del viento que se prolonga solo por unos segundos"
+        },
+        "press": "Presión Atmosférica",
+        "solarRad": "Radiación Solar",
+        "accRain": "Precipitación"
+    },
+    "summaryItems": {
+        "maxTemp":"Temperatura Máxima",
+        "avgHum": "Humedad Promedio",
+        "maxWind": "Viento Máximo",
+        "maxWindGust": "Ráfaga Máxima",
+        "maxRad": "Radiación Máxima",
+        "accRain": "Precipitación Total Acumulada"  
+    },
+    "loading":"Cargando condiciones actuales..."  
+}

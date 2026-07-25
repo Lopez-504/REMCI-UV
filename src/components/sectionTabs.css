@@ -11,6 +11,14 @@
   justify-content: left;
 }
 
+.section-tabs span {
+  margin-left: auto;
+  font-size: 1.3rem;
+  color: #d8dee6;
+  text-transform: capitalize;
+  margin-top: 5px;
+}
+
 .tab-dropdown {
   position: relative;
 }
@@ -33,7 +41,7 @@
   transform: translateY(-3px);
 }
 
-.tab-btn.active {                            /* not available yet */                   
+.tab-btn.active {                                           
   color: white;
   background-color: rgba(195, 6, 186, 0.754);
 }

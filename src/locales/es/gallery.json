@@ -1,0 +1,23 @@
+{
+    "selectStation": "Estación Meteorológica",
+    "characteristics": "Especificaciones",
+    "station": "Nombre",
+    "status": "Estado",
+    "variables": "Variables Medidas",
+    "coords": "Coordenadas",
+    "elevation": "Elevación",
+    "model": "Modelo",
+    "installation": "Fecha de instalación",
+    "active": "En linea",
+    "offline": "Sin conexión",
+    "maintenance": "En mantenimiento",
+    "temp": "Temperatura",
+    "rh": "Humedad Relativa",
+    "dew": "Punto de rocío",
+    "ws": "Velocidad del Viento",
+    "wd": "Dirección del Viento",
+    "wg": "Ráfagas de Viento",
+    "press": "Presión Atmosférica",
+    "solarRad": "Radiación Solar",
+    "accRain": "Precipitación"    
+}

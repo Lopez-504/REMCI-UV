@@ -1,0 +1,23 @@
+{
+  "language":"Language",
+  "nav": {
+    "overview": "Overview",
+    "mainOverview": "Main Overview",
+    "mapView": "Map View",
+
+    "stations": "Stations",
+    "currentConditions": "Current Conditions",
+    "gallery": "Gallery",
+    "maintenance": "Maintenance",
+
+    "data": "Data",
+    "historic": "Historic",
+    "forecast": "Forecast",
+    "download": "Download",
+    "availability": "Availability",
+
+    "about": "About REMCI-UV",
+    "project": "Project",
+    "team": "Team"
+  }
+}

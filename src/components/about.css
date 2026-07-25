@@ -39,7 +39,7 @@
 
 .about-content p {
   /* 1. Limit line length for better scanning (approx. 45-75 characters) */
-  max-width: 65ch;
+  max-width: 80ch;
   
   /* 2. Increase spacing between lines to let the text breathe */
   line-height: 1.6;

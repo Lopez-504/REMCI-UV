@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Card } from '@mantine/core';
+import { useTranslation } from "react-i18next";
 
 //CSS
 import './stationGallery.css'
@@ -38,9 +39,9 @@ const IMAGE_DB = {
   ],
   "La Reserva": [
     reserva1,
-    reserva2,
-    reserva3,
     reserva4,
+    reserva3,
+    reserva2,
   ],
   "Home": [
     home1,
@@ -48,6 +49,7 @@ const IMAGE_DB = {
 };
 
 const StationGallery = () => {
+  const { t } = useTranslation(["gallery","common"]);
 
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
   
@@ -69,11 +71,10 @@ const StationGallery = () => {
   return (
     <div className="station-gallery">
       <div className="gallery-card">
-      {/*<div className="card-header">Station Gallery</div>*/}
-
-        <div className="splited-gallery">     
+      {/*<div className="card-header">Station Gallery</div>*/}   
+      
           <div className='title-select'>
-            <h3>Select weather station: </h3>
+            <h3>{t('selectStation')}: </h3>
             <select
               value={selectedStation.id}
               onChange={(e) =>
@@ -87,7 +88,6 @@ const StationGallery = () => {
               ))}
             </select>
           </div>
-        </div>
 
         {/* Gallery Container */}
         <div className="gallery-container">
@@ -133,59 +133,67 @@ const StationGallery = () => {
 
       {/* Station Characteristics */}
       <div className="gallery-card">
-        <h2>Station Characteristics</h2>
+        <h2>{t("characteristics")}</h2>
         <Card title="Station Characteristics">
           <div className="station-info">
 
             <div className="info-group">
-              <span className="label">Station</span>
+              <span className="label">{t("station")}</span>
               <span className="value">{selectedStation.name}</span>
             </div>
 
             <div className="info-group">
-              <span className="label">Status</span>
+              <span className="label">{t("status")}</span>
               <span className={`status ${selectedStation.status.toLowerCase()}`}>
-                {selectedStation.status}
+                {t(selectedStation.status)}
               </span>
             </div>
 
             <div className="info-group">
-              <span className="label">Station Model</span>
-              <span className="value">{selectedStation.brand}</span>
-            </div>
-
-            <div className="info-group">
-              <span className="label">Measured Variables</span>
+              <span className="label">{t("variables")}</span>
 
               <div className="variables-list">
                 {selectedStation.variables.map(variable => (
                   <span className="variable-pill" key={variable}>
-                    {variable}
+                    {t(variable)}
                   </span>
                 ))}
               </div>
             </div>
 
             <div className="info-group">
-              <span className="label">Coordinates</span>
+              <span className="label">{t('coords')}</span>
               <span className="value">
-                {selectedStation.lat.toFixed(5)}°, {selectedStation.lng.toFixed(5)}°    ({selectedStation.loc})
+                lat: {selectedStation.lat.toFixed(5)}°, lon: {selectedStation.lng.toFixed(5)}°    ({selectedStation.loc})
               </span>
             </div>
 
             <div className="info-group">
-              <span className="label">Elevation</span>
+              <span className="label">{t("elevation")}</span>
               <span className="value">
-                {selectedStation.elev ?? "Not available"}
+                {selectedStation.elev ?? "Not available"} {t(selectedStation.elevUnit, {ns: 'common'})}
               </span>
             </div>
 
             <div className="info-group">
-              <span className="label">Installation date</span>
+              <span className="label">{t("model")}</span>
+              <span className="value">{selectedStation.brand}</span>
+            </div>      
+
+            <div className="info-group">
+              <span className="label">{t("installation")}</span>
               <span className="value">
                 {selectedStation.instdate ?? "Not available"} 
               </span>
             </div>
+
+            <div className="info-group">
+              <span className="label">{"Link*"}</span>
+              <span className="value">
+                {<a href={selectedStation.link} target="_blank" rel="noreferrer">
+                {selectedStation.name} </a> ?? "Not available"} 
+              </span>
+            </div>      
 
           </div>
         </Card>

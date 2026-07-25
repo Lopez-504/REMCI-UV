@@ -1,0 +1,79 @@
+{ 
+    "explore": "Explorar gráficas!",
+    "language": "Idioma",
+    "stationsOnline": "Estaciones en linea",
+    "landingDescription": "Observaciones meteorológicas en tiempo real, Pronóstico, Registros históricos y monitoreo ambiental desde las estaciones de REMCI-UV. Datos disponibles abiertamente para toda la comunidad.",
+    "open": "Abrir",
+
+    "cards": {
+        "currentConditions": {
+            "title": "Condiciones Actuales",
+            "description": "Monitorea en tiempo real las observaciones meteorológicas de cada una de las estaciones en la red.",
+            "items": {
+                "0": "Temperatura y Humedad",
+                "1": "Rapidez, Dirección y  Ráfagas de Viento",
+                "2": "Radiación Solar",
+                "3": "Gráficas Interactivas"
+            }
+        },
+
+        "forecast": {
+            "title": "Pronóstico",
+            "description": "Explora predicciones de los modelos meteorológicos con meteogramas de hasta 6 días.",
+            "items": {
+                "0": "Meteogramas",
+                "1": "Pronóstico WRF",
+                "2": "Precipitaciones",
+                "3": "Olas de Calor"
+            }
+        },
+
+        "gallery": {
+            "title": "Galería",
+            "description": "Vista en detalle de las estaciones sus instrumentos y especificaciones.",
+            "items": {
+                "0": "Imágenes de las Estaciones",
+                "1": "Variables medidas",
+                "2": "Especificaciones Técnicas",
+                "3": "Estado Actual"
+            }
+        },
+
+        "exportData": {
+            "title": "Exportar Datos",
+            "description": "Descarga registros históricos de observaciones en distintos formatos",
+            "items": {
+                "0": "CSV y TXT",
+                "1": "Filtra for fecha",
+                "2": "Selecciona estación y variables de interés",
+                "3": "Construye y exporta tu propias gráficas!"
+            }
+        },
+
+        "dataAvailability": {
+            "title": "Disponibilidad de Datos",
+            "description": "Examina el tiempo actividad de cada estación y la completitud de sus mediciones.",
+            "items": {
+                "0": "Gráficas de completitud",
+                "1": "Datos Faltantes",
+                "2": "Covertura",
+                "3": "Interpolación con IA (*)"
+            }
+        },
+
+        "help": {
+            "title": "Recursos Educativos",
+            "description": "Aprende a usar estas herramientas, generar y comprender cada una de las gráficas. Aprende acerca de la Atmósfera, el Tiempo y el Clima",
+            "items": {
+                "0": "Recursos Educativos",
+                "1": "Guía rosa de los Vientos",
+                "2": "Interpretación del Pronóstico",
+                "3": "Análisis de datos observacionales"
+            }
+        }
+    },
+
+    "about0":"Acerca de ",
+    "about1": "REMCI-UV Dashboard es una plataforma web desarrollada para visualizar observaciones recolectadas por las estaciones de la Red de Estaciones Meteorológicas de la Universidad de Valparaíso. Ofrece monitoreo meteorológico en tiempo real, Pronóstico, datos históricos y la posibilidad de exportar datos ya sea para uso en investigación, educacional o para toma de decisiones operacionales.",
+    "about2": "Nuestro propósito es habilitar el acceso a observaciones meteorológicas de alta calidad a través de gráficas interactivas y herramientas para la exportación de datos, para investigadores, estudiantes y el público en general."
+}

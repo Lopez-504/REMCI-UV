@@ -36,21 +36,30 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: auto;                                 /*text cursor*/
+  cursor: auto;                                
   color: rgb(255, 255, 255);
 }
 
-.checkbox-row input[type="checkbox"] {
-  opacity: 0.9;
+.checkbox-row input[type="checkbox"] {       /* most of these aren't working */   
   cursor: pointer;
-  border-radius: 50%;
+  appearance: auto;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #8b8c89;
+  background-color: rgb(243, 0, 0);   
+  place-content: center;
+  transition: all 0.2s ease-in-out;
+  accent-color: #2196F3; 
+  transform: scale(1.09); 
 }
 
+.checkbox-row input[type="checkbox"]:hover {    
+  transform: scale(1.5);
+}
+
+
 /* ---------------- DATE PICKER ---------------- */
-
-
-
-
 
 h2 {
   margin-top: 1px;

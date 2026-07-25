@@ -9,6 +9,7 @@ import {
 
 export const SECTIONS = [
     {
+        id: "currentConditions",
         title: "Current Conditions",
         icon: FaCloudSun,
         color: "#2d8cff",
@@ -24,6 +25,7 @@ export const SECTIONS = [
     },
 
     {
+        id: "forecast",
         title: "Forecast",
         icon: FaChartLine,
         color: "#f59e0b",
@@ -39,7 +41,8 @@ export const SECTIONS = [
     },
 
     {
-        title: "Station Gallery",
+        id: "gallery",
+        title: "Stations Gallery",
         icon: FaImages,
         color: "#16a34a",
         description:
@@ -54,6 +57,7 @@ export const SECTIONS = [
     },
 
     {
+        id: 'exportData',
         title: "Export Data",
         icon: FaDownload,
         color: "#7c3aed",
@@ -69,6 +73,7 @@ export const SECTIONS = [
     },
 
     {
+        id: 'dataAvailability',
         title: "Data Availability",
         icon: FaDatabase,
         color: "#0891b2",
@@ -84,6 +89,7 @@ export const SECTIONS = [
     },
 
     {
+        id: 'help',
         title: "Help",
         icon: FaQuestionCircle,
         color: "#6b7280",

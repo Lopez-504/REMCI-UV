@@ -39,7 +39,7 @@ const AnalyticsPanel = ({
           <div className="info-item">
             <span>Status</span>
             <div className='pill' 
-                 style={{ color: selectedStation.status==='ACTIVE' ? '#1aff00' : '#d80e0e', 
+                 style={{ color: selectedStation.status==='online' ? '#1aff00' : selectedStation.status==='offline' ? '#d80e0e' : '#8a6d00', 
                           fontWeight: 'bold', 
                           textTransform: 'uppercase' 
                           }}>
