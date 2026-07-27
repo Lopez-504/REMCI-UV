@@ -262,11 +262,11 @@
     display:inline-block;
     width:fit-content;
     padding:4px 12px;
-    border-radius:10px;
+    border-radius:8px;
     font-weight:600;
 }
 
-.status.active{
+.status.online{
     background:#cdfbcd;
     color:#1d7d35;
     text-transform: capitalize;

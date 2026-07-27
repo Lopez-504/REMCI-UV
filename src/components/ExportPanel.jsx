@@ -1,6 +1,9 @@
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
+
 // Static data
 import { VAR_LABELS } from '../constants/variables';
 
@@ -8,6 +11,8 @@ import { VAR_LABELS } from '../constants/variables';
 import './exportPanel.css'
 import DateRangePicker from './DateRangePicker';
 
+//Translations
+import { useTranslation } from "react-i18next";
 
 const ExportPanel = ({
   isOpen,
@@ -20,14 +25,14 @@ const ExportPanel = ({
   stationName
 }) => {
 
+  const { t } = useTranslation("common");
+
   return (
     <section style={{ borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
 
       {/* HEADER */}
-      <div>
-        <h2>Export Settings</h2>
-      </div>
-
+      <h2>{t("exportSettings")}</h2>
+  
       {/* took out expand button*/}
 
       {/* CONTENT */}
@@ -41,7 +46,7 @@ const ExportPanel = ({
                 checked={exportVars[key]}
                 onChange={() => handleCheckboxChange(key)}
               />
-              {VAR_LABELS[key]}
+              {t('variables.' + key)}
             </label>
           ))}
 
@@ -59,7 +64,7 @@ const ExportPanel = ({
             onClick={() => handleDownload(stationName)}
             disabled={!Object.values(exportVars).some(v => v)}
           >
-            📥 Download CSV
+            📥 {t("download")} CSV
           </button>
 
         </div>

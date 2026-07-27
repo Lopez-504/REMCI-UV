@@ -28,13 +28,6 @@ L.Icon.Default.mergeOptions({
 const MapView = ({ setSelectedStation }) => {
   return (
     <div className="mapview-split">
-      <div className="mapview-top">
-        <img
-          src={SATELLITE_OVERVIEW}
-          alt="Satellite view of the three weather stations"
-          className="mapview-image"
-        />
-      </div>
       <div className="mapview-bottom">
         <MapContainer
           center={[-32.9, -70.97]}
@@ -64,6 +57,13 @@ const MapView = ({ setSelectedStation }) => {
             </Marker>
           ))}
         </MapContainer>
+      </div>
+      <div className="mapview-top">
+        <img
+          src={SATELLITE_OVERVIEW}
+          alt="Satellite view of the three weather stations"
+          className="mapview-image"
+        />
       </div>
     </div>
   );

@@ -1,22 +1,21 @@
 import React from 'react';
 
-// --   Links   -- //
-const ciencias_ln = "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
-const lareserva_ln = "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
-const pocuro_ln = "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
-
-import { STATIONS } from '../constants/stations';
+//Translations
+import { useTranslation } from "react-i18next";
 
 // CSS
 import './about.css'
 
-// Pictures
+// STATIC
+import { STATIONS } from '../constants/stations';
 import earth from "/images/stations_google_earth.png"
 
 function About() {
+    const { t } = useTranslation("common");
+
   return (
     <div className="card-frame about-card">
-      <div className="card-header">About REMCI-UV</div>
+      <div className="card-header">{t("about")} REMCI-UV</div>
         <div className="about-content">
           <p>
             <strong>REMCI-UV</strong> (Red de Estaciones Meteorológicas Ciencias UV), realiza monitoreo para la 
@@ -26,7 +25,7 @@ function About() {
               {STATIONS.map((station) => (
                 <li key={station.id}>
                   <a href={station.link} target="_blank" rel="noreferrer">
-                {station.name} </a> ({station.loc}) [<strong>{station.status}</strong>]
+                {station.name} </a> ({station.loc}) [<strong>{t(station.status)}</strong>]
                 </li>
               ))}
             </ol>

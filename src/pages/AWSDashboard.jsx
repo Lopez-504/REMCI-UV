@@ -16,6 +16,7 @@ import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
 import About from '../components/About';
 import LanguageToggle from '../components/LanguageToggle';
+import HelpTooltip from '../components/HelpTooltip';
 
 // --   Constants  --  //
 import { RAW_WEATHER_DATA } from '../data/weatherData';
@@ -28,8 +29,12 @@ import './awsDashboard.css'
 import HistoricData from '../components/HistoricData';
 import Landing from '../components/Landing';
 
+//Translations
+import { useTranslation } from "react-i18next";
+
 // --  Actual Component  -- //
 const AWSDashboard = () => {
+  const { t } = useTranslation("common");
 
   //States
   const [exportData] = useState(RAW_WEATHER_DATA);
@@ -183,33 +188,11 @@ const AWSDashboard = () => {
       {/* Main content */}
       <main id='main' className="main-content">
 
-{/* Landing page */}
+{/* Overview -> Landing page */}
 
         {activeSection === 'landing-page' && (
           <>
             <Landing setActiveSection={setActiveSection}/>
-          </>
-        )}
-
-{/* Overview -> main */}
-
-        {activeSection === 'overview-main' && (
-          <>
-            <div className="top-section">
-              <div className="card-frame map-side">    
-                <div className="card-header">Network Geospatial View</div>
-                  <MapView setSelectedStation={setSelectedStation} />
-              </div>
-              <AnalyticsPanel
-                selectedStation={selectedStation}
-                isExportOpen={isExportOpen}
-                setIsExportOpen={setIsExportOpen}
-                exportVars={exportVars}
-                handleCheckboxChange={handleCheckboxChange}
-                dateRange={dateRange}                                   //new date system
-                setDateRange={setDateRange}                             //new date system
-                handleDownload={handleDownload}/>
-            </div>
           </>
         )}
 
@@ -259,8 +242,13 @@ const AWSDashboard = () => {
           <>
             <div id='downloads' className="top-section">
               <div className="card-frame map-side">    
-                <div className="card-header">Network Geospatial View</div>
-                  <MapView setSelectedStation={setSelectedStation} />
+                <div className="card-header">
+                  {t("geoView")}
+                  <span>
+                    <HelpTooltip helpKey={t("helpMapElev")} placement='right'/>
+                  </span>
+                </div>
+                <MapView setSelectedStation={setSelectedStation} />
               </div>
               <AnalyticsPanel
                 selectedStation={selectedStation}

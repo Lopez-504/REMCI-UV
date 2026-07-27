@@ -1,7 +1,7 @@
 export const STATIONS = [
 
   { id: 1,
-    name: "CienciasUV-AWS",
+    name: "Ciencias UV",
     color: '#33ff00',
     lat: -33.02705, 
     lng: -71.63875, 
@@ -10,7 +10,7 @@ export const STATIONS = [
     images: [
       "images/estacionUV.png",
       "images/cameraciencias.gif",
-      "images/2025-07-28-07-49-19.jpg"
+      "images/anima_D4_LC.gif"
     ],
     variables: [
       "Temperature",
@@ -30,7 +30,7 @@ export const STATIONS = [
     solarRad: 1 },
 
   { id: 2, 
-    name: "Pocuro-AWS", 
+    name: "Pocuro UV", 
     color: '#8b0cc6',
     lat: -32.86967, 
     lng: -70.61523, 
@@ -59,7 +59,7 @@ export const STATIONS = [
     solarRad: 1}, 
 
   { id: 3, 
-    name: "LaReserva-AWS", 
+    name: "La Reserva UV", 
     color: '#fff700',
     lat: -33.04374, 
     lng: -71.33947, 
@@ -95,7 +95,7 @@ export const STATIONS = [
     lng: -71.396009, 
     timezone: 'America/Santiago',
     brand: 'DIY Weather Station',
-    status: 'MAINTENANCE',
+    status: 'maintenance',
     images: [
       "",
       "",

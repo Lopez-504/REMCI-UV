@@ -31,7 +31,7 @@ Note: all these classes supersede the ones defined in the child component's css
   background: var(--card-bg);
   border: 3px solid rgba(0, 7, 39, 0.696);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;         /*hidden*/
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);

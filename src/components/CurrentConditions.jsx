@@ -41,20 +41,19 @@ import HelpTooltip from "./HelpTooltip"
 //Translations
 import { useTranslation } from "react-i18next";
 
-const TIME_RANGES = [
-  { label: 'Last 1 day', value: 1 },
-  { label: 'Last 3 days', value: 3 },
-  { label: 'Last 7 days', value: 7 },
-  { label: 'Last 14 days', value: 14 },
-  { label: 'Last 30 days', value: 30 },
-]
+const P_DAYS = [1, 3, 7, 14, 30]
+const F_DAYS = [0, 1, 2, 3, 8]
 
-const FORECAST_RANGES = [
-  {label: 'No forecast', value: 0},
-  {label: '+1 day', value: 2},
-  {label: '+2 days', value: 3},
-  {label: '+3 days', value: 4},
-]
+
+const TIME_RANGES = P_DAYS.map((value) => ({
+  label: value,
+  value,
+}));
+
+const FORECAST_RANGES = F_DAYS.map((value) => ({
+  label: value,
+  value,
+}));
 
 //Card
 const StatCard = ({ title, children, help }) => {
@@ -222,7 +221,7 @@ export default function CurrentConditions() {
                   setSelectedStation(station)
                 }}
               >
-              <option value="" disabled>Select station</option>
+              <option value="" disabled>{t("selects.selectStation")}</option>
               {STATIONS.map((station) => (
                 <option key={station.id} value={station.id}>
                   {station.name}
@@ -232,20 +231,20 @@ export default function CurrentConditions() {
             </div>
             <div className="select-wrapper">  
               <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
-              <option value="" disabled>Date range</option>
+              <option value="" disabled>{t("selects.pastDays")}</option>
               {TIME_RANGES.map((range) => (
                 <option key={range.value} value={range.value}>
-                  {range.label}
+                  {range.label} {t('selects.day')}{range.value === 1 ? '' : 's'}
                 </option>
               ))}
               </select>
             </div>
             <div className="select-wrapper">  
               <select value={forecastDays} onChange={(e) => setForecastDays(Number(e.target.value))}>
-              <option value="" disabled>Include Forecast</option>
+              <option value="" disabled>{t("selects.forecastDays")}</option>
               {FORECAST_RANGES.map((range) => (
                 <option key={range.value} value={range.value}>
-                  {range.label}
+                  {range.label} {t('selects.day')}{range.value === 1 ? '' : 's'}
                 </option>
               ))}
               </select>
@@ -291,7 +290,7 @@ export default function CurrentConditions() {
                 interval={23}
                 angle={-16}
                 axisLine={false}
-                label={String(days) + ' Past days ' + `${forecastDays===0 ? '' : '+ Today + ' + String(forecastDays -1) + ' Forecast days'}`}
+                label={String(days) + ` ${t("selects.pastDays")}` + `${forecastDays===0 ? '' : ` + ${t("selects.today")}`+ ' + ' + String(forecastDays -1) + ` ${t("selects.forecastDays")}`}`}
               />
 {/*dx dy for further adjustment */}
               <YAxis  
@@ -318,10 +317,10 @@ export default function CurrentConditions() {
                 stroke="#4a494936" 
                 strokeDasharray="6 0" 
                 strokeWidth={4.0} 
-                label={{ value: 'Now', 
+                label={{ value: `${t("now")}`, 
                          angle:0, 
                          position: 'centerTop',
-                         dx:-24, 
+                         dx:-29, 
                          dy: -110,
                          fontWeight:'bold',
                          fontSize: 17 
@@ -332,7 +331,7 @@ export default function CurrentConditions() {
         </StatCard>
 
         {/* WIND */}
-        <StatCard title={t("cards.ws")}>
+        <StatCard title={t("cards.ws.title")} help={t("cards.ws.help")}>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div className="big-number">
               {stats?.maxWind} km/h
@@ -361,7 +360,7 @@ export default function CurrentConditions() {
                 tickFormatter={(v) => v.slice(5, 16)}
                 tick={false}
                 axisLine={false}
-                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -455,69 +454,8 @@ export default function CurrentConditions() {
           </div>
         </StatCard>
 
-        {/* SOLAR RADIATION */}
-        <StatCard title={t("cards.solarRad")}>
-          <div className="big-number">
-            {stats?.maxRadiation} W/m²
-            <span>max</span>
-          </div>
-
-          <ResponsiveContainer width="100%" height={290}>
-            <AreaChart data={weatherData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={1} vertical={false} />
-
-              <XAxis
-                dataKey="time"
-                tickFormatter={(v) => v.slice(5, 10)}
-                tick={false}
-                //tickCount={20}      //for continuous numerical axis 
-                interval={23}
-                angle={-16}
-                axisLine={false}
-                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
-              />
-
-              <YAxis
-                label={{ value: 'Solar radiation [W/m²]', 
-                         angle:-90, 
-                         position: 'centerTop',
-                         dx:-28, 
-                         dy: -10
-                }}
-                //unit='[W/m²]'
-              />
-
-              <Tooltip 
-                position={{ y: 180 }}
-              />
-
-              <Area
-                type="monotone"
-                dataKey="radiation"
-                stroke="#fcb000"
-                strokeWidth={1.4}
-                fill="#f9b20855"
-              />
-              {closestTime && (
-                <ReferenceLine 
-                x={closestTime} 
-                stroke="#4a494936" 
-                strokeDasharray="6 0" 
-                strokeWidth={4.0} 
-                label={{ value: '', 
-                         angle:0, 
-                         position: 'centerTop',
-                         dx:-20, 
-                         dy: -110
-                }}
-              />
-              )}
-            </AreaChart>
-          </ResponsiveContainer>
-        </StatCard>          
-
-        {/* Test double precipitation */}
-        <StatCard title={t("cards.accRain")}>
+        {/* Double precipitation */}
+        <StatCard title={t("cards.accRain.title")} help={t("cards.accRain.help")}>
           <div className="big-number">
             {stats?.totalRain} mm
             <span>total</span>
@@ -541,7 +479,7 @@ export default function CurrentConditions() {
                 interval={23}
                 angle={-16}
                 axisLine={false}
-                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
                 orientation="bottom" 
               />
 
@@ -638,71 +576,7 @@ export default function CurrentConditions() {
               </ComposedChart>           
               {/*</BarChart>*/}
           </ResponsiveContainer>      
-        </StatCard>  
-
-        {/* PRECIPITATION 
-        <StatCard title="Accumulated Rain">
-          <div className="big-number">
-            {stats?.totalRain} mm
-            <span>total</span>
-          </div>
-
-          <ResponsiveContainer width="100%" height={290}>
-            <BarChart data={weatherData}>
-              <CartesianGrid 
-                strokeDasharray="15 12" 
-                opacity={1} 
-                vertical={false}
-                stroke='#00000022'
-                strokeWidth={1} 
-              />    
-
-              <XAxis
-                dataKey="time"
-                tickFormatter={(v) => v.slice(5, 10)}
-                tick={false}
-                //tickCount={20}      //for continuous numerical axis 
-                interval={23}
-                angle={-16}
-                axisLine={false}
-                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ' days'}
-              />
-
-              <YAxis 
-                label={{ value: 'Accumulated rain [mm]', 
-                         angle:-90, 
-                         position: 'centerTop',
-                         dx:-29, 
-                         dy: -10
-                }}
-              />
-
-              <Tooltip 
-                position={{ y: 134 }}
-
-              />
-
-              <Bar 
-                dataKey="hourlyRain" 
-                fill="#4da6ff" 
-                barSize={3}               //1-4
-                radius={[4, 4, 0, 0]}
-              />
-              <ReferenceLine 
-                x={closestTime} 
-                stroke="#4a494936" 
-                strokeDasharray="6 0" 
-                strokeWidth={4.0}         
-                label={{ value: '', 
-                         angle:0, 
-                         position: 'centerTop',
-                         dx:-20, 
-                         dy: -110
-                }}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </StatCard>*/}
+        </StatCard>             
 
         {/* WIND GUST*/}
         <StatCard title={t("cards.wg.title")} help={t("cards.wg.help")}>
@@ -737,7 +611,7 @@ export default function CurrentConditions() {
                 interval={23}
                 angle={-16}
                 axisLine={false}
-                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ' days'}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
               />
               <YAxis  
                 label={{ value: 'Wind Speed [km/h]', 
@@ -776,13 +650,138 @@ export default function CurrentConditions() {
               />
             </AreaChart>
           </ResponsiveContainer>
-        </StatCard>
+        </StatCard> 
+
+        {/* SOLAR RADIATION */}
+        <StatCard title={t("cards.solarRad.title")} help={t("cards.solarRad.help")}>
+          <div className="big-number">
+            {stats?.maxRadiation} W/m²
+            <span>max</span>
+          </div>
+
+          <ResponsiveContainer width="100%" height={290}>
+            <AreaChart data={weatherData}>
+              <CartesianGrid strokeDasharray="3 3" opacity={1} vertical={false} />
+
+              <XAxis
+                dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
+                tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
+                axisLine={false}
+                label={`${forecastDays===0 ? days : String(days+1) + ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
+              />
+
+              <YAxis
+                label={{ value: 'Solar radiation [W/m²]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-28, 
+                         dy: -10
+                }}
+                //unit='[W/m²]'
+              />
+
+              <Tooltip 
+                position={{ y: 180 }}
+              />
+
+              <Area
+                type="monotone"
+                dataKey="radiation"
+                stroke="#fcb000"
+                strokeWidth={1.4}
+                fill="#f9b20855"
+              />
+              {closestTime && (
+                <ReferenceLine 
+                x={closestTime} 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
+                label={{ value: '', 
+                         angle:0, 
+                         position: 'centerTop',
+                         dx:-20, 
+                         dy: -110
+                }}
+              />
+              )}
+            </AreaChart>
+          </ResponsiveContainer>
+        </StatCard> 
+
+        {/* PRECIPITATION 
+        <StatCard title="Accumulated Rain">
+          <div className="big-number">
+            {stats?.totalRain} mm
+            <span>total</span>
+          </div>
+
+          <ResponsiveContainer width="100%" height={290}>
+            <BarChart data={weatherData}>
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#00000022'
+                strokeWidth={1} 
+              />    
+
+              <XAxis
+                dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
+                tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                interval={23}
+                angle={-16}
+                axisLine={false}
+                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
+              />
+
+              <YAxis 
+                label={{ value: 'Accumulated rain [mm]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-29, 
+                         dy: -10
+                }}
+              />
+
+              <Tooltip 
+                position={{ y: 134 }}
+
+              />
+
+              <Bar 
+                dataKey="hourlyRain" 
+                fill="#4da6ff" 
+                barSize={3}               //1-4
+                radius={[4, 4, 0, 0]}
+              />
+              <ReferenceLine 
+                x={closestTime} 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0}         
+                label={{ value: '', 
+                         angle:0, 
+                         position: 'centerTop',
+                         dx:-20, 
+                         dy: -110
+                }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </StatCard>*/}
 
         {/* PRESSURE */}
-        <StatCard title={t("cards.press")}>
+        <StatCard title={t("cards.press.title")} help={t("cards.press.help")}>
           <div className="big-number">
             {stats?.avgPressure} hPa
-            <span>Avg</span>
+            <span>{t("avg")}</span>
           </div>
 
           <ResponsiveContainer width="100%" height={290}>
@@ -810,14 +809,14 @@ export default function CurrentConditions() {
                 //interval={23}
                 //angle={-16}
                 axisLine={false}
-                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ' days'}
+                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
               />
 
               <YAxis 
                 label={{ value: 'Pressure [hPa]', 
                          angle:-90, 
                          position: 'centerTop',
-                         dx:-29, 
+                         dx:-27, 
                          dy: -10,
                 }} 
                 //tickCount={3}
@@ -854,8 +853,80 @@ export default function CurrentConditions() {
           </ResponsiveContainer>
         </StatCard>
 
-        {/* HUMIDITY (out for now)*/}
+        {/* HUMIDITY */}
+        <StatCard title={t("cards.rh.title")} help={t("cards.rh.help")}>
+          <div className="big-number">
+            {stats?.avgHumidity} %
+            <span>{t("avg")}</span>
+          </div>
 
+          <ResponsiveContainer width="100%" height={290}>
+            <AreaChart data={weatherData}>
+              <defs>
+                <linearGradient id="rhGradient" x1="0" y1="0.3" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#c70f8a" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#c70f8a" stopOpacity={0.05} />
+                </linearGradient>
+              </defs>
+              
+              <CartesianGrid 
+                strokeDasharray="15 12" 
+                opacity={1} 
+                vertical={false}
+                stroke='#00000025'
+                strokeWidth={1} 
+              />
+
+              <XAxis
+                dataKey="time"
+                tickFormatter={(v) => v.slice(5, 10)}
+                tick={false}
+                //tickCount={20}      //for continuous numerical axis 
+                //interval={23}
+                //angle={-16}
+                axisLine={false}
+                label={String(days+1)+ `${forecastDays===0 ? '' : ' + ' + String(forecastDays -1)}` + ` ${t("selects.day")}s`}
+              />
+
+              <YAxis 
+                label={{ value: 'Relative humidity [%]', 
+                         angle:-90, 
+                         position: 'centerTop',
+                         dx:-27, 
+                         dy: -10,
+                }}
+                domain={[
+                  stats?.avgHumidity ? Number(stats.avgHumidity) - 35 : 'dataMin', 
+                  stats?.avgHumidity && Number(stats.avgHumidity) + 35 <= 100 ? Number(stats.avgHumidity) + 35 : 'dataMax'
+                ]} 
+              />
+
+              <Tooltip
+                position={{ y: 60 }}
+              />
+
+              <Area
+                type="monotone"
+                dataKey="humidity"
+                stroke="#c70f8a"
+                strokeWidth={1.4}
+                fill="url(#rhGradient)" 
+              />
+              <ReferenceLine 
+                x={closestTime} 
+                stroke="#4a494936" 
+                strokeDasharray="6 0" 
+                strokeWidth={4.0} 
+                label={{ value: '', 
+                         angle:0, 
+                         position: 'centerTop',
+                         dx:-20, 
+                         dy: -110
+                }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </StatCard>
       </div>
     </div>
   )

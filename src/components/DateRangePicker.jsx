@@ -1,17 +1,21 @@
 import { DatePickerInput } from '@mantine/dates';
 import { useState } from 'react';
 
+//Translations
+import { useTranslation } from "react-i18next";
+
 //CSS
 import './dateRangePicker.css'
 
 function DateRangePicker({ value, onChange }) {
+  const { t } = useTranslation("common");
 
   return (
     <DatePickerInput
       clearable
       type="range"
-      label="Date range"
-      placeholder="Select dates"
+      label={t("dateRange")}
+      placeholder={t("selectDates")}
       value={value}
       onChange={onChange}
     />

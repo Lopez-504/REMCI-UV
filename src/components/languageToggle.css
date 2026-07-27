@@ -4,7 +4,9 @@ button {
   border: 4px;
   padding: 8px;
   cursor: pointer;
-  background-color: #fceaff;
-
+  background-color: #fceaffc7;
 }
-    
+
+button:hover {
+  background-color: #fef2ff;
+}

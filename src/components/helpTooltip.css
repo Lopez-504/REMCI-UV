@@ -6,11 +6,14 @@
     cursor:help;
     transition:all .2s ease;
     margin-left: auto;
-    z-index: 3 !important;
 }
 
 .help-tooltip:hover{
-    color:#2b7fff;
+    color:#085ad5;
+}
+
+.tooltip.dash-tooltip {
+    z-index: 9999 !important;
 }
 
 .dash-tooltip .tooltip-inner{

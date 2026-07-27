@@ -1,4 +1,9 @@
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
 import ExportPanel from './ExportPanel';
+
+//Translations
+import { useTranslation } from "react-i18next";
 
 //CSS
 import './analyticsPanel.css'
@@ -13,42 +18,45 @@ const AnalyticsPanel = ({
   setDateRange,
   handleDownload
 }) => {
+  const { t } = useTranslation("common");
 
   return (
     <div className="analytics-card-frame">
       <div className="card-header">
-        Station Analytics: {selectedStation.name}
+        <span>
+          <HelpTooltip helpKey={t("helpSelectStation")}/>
+        </span>
+        {t("stationAnalytics")}: {selectedStation.name}
       </div>
-      
-      <p>(Click map to change stations!)</p>
-
       <div style={{ padding: '4px', display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'hidden' }}>
 
         {/* METADATA  */}
+        <h2>{t("stationSpecs")}</h2>
         <section className="info-grid">
           <div className="info-item">
-            <span>ID</span>
-            <div className='pill'>AWS-{selectedStation.id.toString().padStart(3, '0')}</div>
+            <span>{t("elevation")}</span>
+            <div className='pill'>{selectedStation.elev} {t("masl")}</div>
           </div>
 
           <div className="info-item">
-            <span>Coords</span>
+            <span>{t("coords")}</span>
             <div className='pill'>{selectedStation.lat.toFixed(3)}, {selectedStation.lng.toFixed(3)}</div>
           </div>
 
           <div className="info-item">
-            <span>Status</span>
+            <span>{t("status")}</span>
             <div className='pill' 
                  style={{ color: selectedStation.status==='online' ? '#1aff00' : selectedStation.status==='offline' ? '#d80e0e' : '#8a6d00', 
                           fontWeight: 'bold', 
-                          textTransform: 'uppercase' 
+                          textTransform: 'uppercase',
+                          fontSize: '1rem' 
                           }}>
-              {selectedStation.status}
+              {t(selectedStation.status)}
             </div>
           </div>
 
           <div className="info-item">
-            <span>Brand/Model</span>
+            <span>{t('brandModel')}</span>
             <div className='pill'>{selectedStation.brand}</div>
           </div>
         </section>

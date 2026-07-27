@@ -8,7 +8,7 @@
     "elevation": "Elevation",
     "model": "Station Model",
     "installation": "Installation Date",
-    "active": "Online",
+    "online": "Online",
     "offline": "Offline",
     "maintenance": "Maintenance",
     "temp": "Temperature",

@@ -17,6 +17,7 @@ export default function HelpTooltip({
         <OverlayTrigger
             placement={placement}
             delay={{ show: 100, hide: 300 }}
+            container={document.body}
             overlay={
                 <Tooltip id={`tooltip-${helpKey}`} className="dash-tooltip">
                     {t(helpKey)}

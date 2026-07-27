@@ -14,7 +14,7 @@ export const STATIONS = [
     images: [
       "REMCI-UV/images/estacionUV.png",
       "REMCI-UV/images/cameraciencias.gif",
-      "REMCI-UV/images/2025-07-28-07-49-19.jpg"
+      "REMCI-UV/images/anima_D4_LC.gif"
     ],
     variables: [
       "temp",
@@ -60,7 +60,7 @@ export const STATIONS = [
     link: "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"}, 
 
   { id: '3', 
-    name: "La Reserva",
+    name: "La Reserva UV",
     loc: 'Villa Alemana, Chile', 
     color: '#fff700',
     lat: -33.04374, 
@@ -101,7 +101,7 @@ export const STATIONS = [
     instdate: 'July 28, 2026',
     timezone: 'America/Santiago',
     brand: 'DIY Weather Station',
-    status: 'MAINTENANCE',
+    status: 'maintenance',
     images: [
       "REMCI-UV/images/cameraciencias.gif",
     ],

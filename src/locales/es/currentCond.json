@@ -12,17 +12,35 @@
             "title":"Temperature",
             "help":"La hora actual se marca con una barra gris"
         },
-        "rh": "Humedad Relativa",
+        "rh": {
+            "title":"Humedad Relativa",
+            "help":"Humedad Relativa a 2 metros (elevación estándar)"
+        },
         "dew": "Punto de rocío",
-        "ws": "Velocidad del Viento",
-        "wd": "Dirección del Viento",
+        "ws": {
+            "title":"Velocidad del Viento",
+            "help":"Velocidad del Viento a 10 metros (elevación estándar)"
+        },
+        "wd": {
+            "title":"Dirección del Viento",
+            "help":"Dirección del Viento a 10 metros (elevación estándar)"
+        },
         "wg": {
             "title":"Ráfagas de Viento",
             "help":"Breve y repentino incremento en la velocidad del viento que se prolonga solo por unos segundos"
         },
-        "press": "Presión Atmosférica",
-        "solarRad": "Radiación Solar",
-        "accRain": "Precipitación"
+        "press": {
+            "title":"Presión Atmosférica",
+            "help":"Presión superficial (decrece con la altura)"
+        },
+        "solarRad": {
+            "title":"Radiación Solar",
+            "help":"Radiación solar de onda corta calculada como promedio de la hora anterior, igual al GHI total"
+        },
+        "accRain": {
+            "title":"Precipitación Acumulada",
+            "help":"Precipitación (lluvia + chubasco + nieve). Acumulado diario (círculos púrpura) y acumulado por hora (barras celestes)"
+        }
     },
     "summaryItems": {
         "maxTemp":"Temperatura Máxima",
@@ -32,5 +50,15 @@
         "maxRad": "Radiación Máxima",
         "accRain": "Precipitación Total Acumulada"  
     },
-    "loading":"Cargando condiciones actuales..."  
+    "loading":"Cargando condiciones actuales...",
+    "selects": {
+        "last": "Últimos",
+        "day": "día",
+        "selectStation":"Seleciona Estación",
+        "forecastDays":"Días Pronóstico",
+        "pastDays":"Días pasados",
+        "today":"Hoy"
+    },
+    "now":"Ahora",
+    "avg":"Prom"    
 }

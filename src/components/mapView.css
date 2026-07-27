@@ -8,11 +8,12 @@
 
 .mapview-top {
   position: relative;
-  height: 260px;
+  height: 290px;
   width: 100%;
-  overflow: hidden;
-  border-radius: 14px;
-  bottom: 0;
+  overflow: visible;
+  border-radius: 8px;
+  bottom: -4px;
+  margin-bottom: -22px ;
 }
 
 .mapview-image {
@@ -31,7 +32,7 @@
   flex: 1;
   min-height: 100px;
   width: 100%;
-  border-radius: 18px;
+  border-radius: 8px;
   overflow: hidden;
   top: 2px;
   bottom: 0px;              /*not working*/

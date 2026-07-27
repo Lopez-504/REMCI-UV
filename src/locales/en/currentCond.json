@@ -12,17 +12,35 @@
             "title":"Temperature",
             "help":"The gray band marks the current time"
         },
-        "rh": "Relative Humidity",
+        "rh": {
+            "title":"Relative Humidity",
+            "help":"Relative humidity at 2 meters above ground (standar level)"
+        },
         "dew": "Dew Point",
-        "ws": "Wind Speed",
-        "wd": "Wind Direction",
+        "ws": {
+            "title":"Wind Speed",
+            "help":"Wind speed at 10 meters above ground (standard level)"
+        },
+        "wd": {
+            "title":"Wind Direction",
+            "help":"Wind direction at 10 meters above ground (standar level)"
+        },
         "wg": {
             "title":"Wind Gusts",
             "help":"Brief, sudden increases in wind speed that last for only a few seconds"
         },
-        "press": "Atmospheric Pressure",
-        "solarRad": "Solar Radiation",
-        "accRain": "Accumulated Rain"
+        "press": {
+            "title":"Atmospheric Pressure",
+            "help":"Typically pressure on mean sea level is used in meteorology. Surface pressure gets lower with increasing elevation"
+        },
+        "solarRad": {
+            "title":"Solar Radiation",
+            "help":"Shortwave solar radiation as average of the preceding hour, equal to the total global horizontal irradiation (GHI)"
+        },
+        "accRain": {
+            "title":"Accumulated Precipitation",
+            "help":"Precipitation (rain + shower + snow). Daily accumulated (purple circles) and hourly accumulated (cyan bars)"
+        }
     },
     "summaryItems": {
         "maxTemp":"Max Temperature",
@@ -32,5 +50,15 @@
         "maxRad": "Max Radiation",
         "accRain": "Total Accumulated Rain" 
     },
-    "loading": "Loading weather data..." 
+    "loading": "Loading weather data...",
+    "selects": {
+        "last": "Last",
+        "day": "day",
+        "selectStation":"Select Station",
+        "forecastDays":"Forecast days",
+        "pastDays":"Past days",
+        "today":"Today"
+    },
+    "now":"Now",
+    "avg":"Avg" 
 }

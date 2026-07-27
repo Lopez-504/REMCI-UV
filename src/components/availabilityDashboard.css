@@ -21,14 +21,19 @@
   min-height: 75vh;
 }
 
-.card-header {
+.card-header-local {
   background: #f1f3f5;
   padding: 10px 15px;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
   text-align: center;
   font-size: 17px;
+  background: #636eee34 !important;            
+  color: rgb(6, 0, 90);
+  padding: 0.65rem 1rem;                                            /**/
 }
+
+
 
 /* Availability plot */
 
@@ -44,7 +49,7 @@
 }
 
 .var-row input[type="color"] {
-  width: 40px;
+  width: 30px;
   height: 30px;
   border: none;
 }
@@ -75,7 +80,8 @@
 }
 
 .add-btn:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
+  background: #40be1d;
 }
 
 /* - */
@@ -97,6 +103,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 400px;
 }
 
 .availability-controls h4:first-child {
@@ -107,6 +114,7 @@
   align-items: center;
   justify-content: center;
   max-height: 7vh;
+  background-color: var(--card-bg);
 }
 
 /* Select */
@@ -142,6 +150,6 @@
   font-size: 1.07rem;
   font-weight: 500;
   border-radius: 2px;
-  background-color: #3333330e;
+  background-color: #33333300;
   width: fit-content;
 }

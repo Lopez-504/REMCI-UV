@@ -22,6 +22,9 @@ import './historicData.css';
 import { STATIONS } from '../constants/stations';
 import { VARIABLE_OPTIONS } from '../constants/variables-options'
 
+//Translations
+import { useTranslation } from "react-i18next";
+
 //METEOGRAM color for a clear background (not used here)
 const COLORS = {
   temp: "#ff6b3a",
@@ -38,6 +41,7 @@ const COLORS = {
 
 //Actual component
 const HistoricData = () => {
+  const { t } = useTranslation("common");
 
   // STATES
   const [selectedStation, setSelectedStation] = useState(STATIONS[1]);
@@ -47,6 +51,12 @@ const HistoricData = () => {
     'shortwave_radiation',
     'precipitation',
   ]);
+
+  // TRANSLATE BEFORE RENDERING MULTISELECT
+  const TRANSLATED_VARIABLE_OPTIONS = VARIABLE_OPTIONS.map(option => ({
+    value: option.value,
+    label: t('variables.'+option.labelKey),
+}));
 
   const [dateRange, setDateRange] = useState([
     (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0],
@@ -276,7 +286,7 @@ const HistoricData = () => {
         }
         return {
           type: 'value',
-          name: metadata?.label,
+          name: `${t('variables.'+metadata?.labelKey)}`,
           nameTextStyle: {
             fontSize: 18,
             padding: [34, 0, 12, 0],
@@ -312,7 +322,7 @@ const HistoricData = () => {
         );
 
         return {
-          name: metadata?.label,
+          name: `${t('variables.'+metadata?.labelKey)}`,
           type: metadata?.type || 'line',
           yAxisIndex: index,
           data: weatherData.map((row) => row[variable]),
@@ -348,7 +358,7 @@ const HistoricData = () => {
             variant="gradient"
             gradient={{ from: '#1b3f02', to: '#d50505', deg: 90 }}    //not working because of css clash
           >
-            Historic Meteorological Data 
+            {t("historicData")}
           </Text>
           <Text size="sm" c="dimmed">
             Open-Meteo Archive API
@@ -358,7 +368,7 @@ const HistoricData = () => {
         {/* CONTROLS */}
         <div className="historic-dashboard-controls">
           <Select
-            label="Station"
+            label={t("station")}
             placeholder="Select station"
             data={STATIONS.map((station) => ({
               value: String(station.id),
@@ -374,8 +384,8 @@ const HistoricData = () => {
           />
           <MultiSelect
             label="Variables"
-            placeholder="Select variables"
-            data={VARIABLE_OPTIONS}
+            placeholder={t("selectVar")+'s'}
+            data={TRANSLATED_VARIABLE_OPTIONS}
             value={selectedVariables}
             onChange={setSelectedVariables}
             searchable
@@ -383,7 +393,7 @@ const HistoricData = () => {
           />
           <DatePickerInput
             type="range"
-            label="Date Range"
+            label={t("dateRange")}
             placeholder="Pick dates"
             value={dateRange}
             onChange={setDateRange}
@@ -396,10 +406,10 @@ const HistoricData = () => {
               disabled={!selectedVariables.length}
               icon={<ion-icon name="rainy-outline"></ion-icon>}
             >
-              Plot Data
+              {t("plotData")}
             </Button>
             <Button onClick={exportHighRes} color="#0ba51a">
-              Export chart
+              {t("exportChart")}
             </Button>
           </Group>
         </div>

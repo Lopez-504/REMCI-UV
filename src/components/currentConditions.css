@@ -22,15 +22,6 @@ body {
   width: 100%;
 }
 
-.dashboard-controls select {             /* OLD ONE */ 
-  border-radius: 10px;
-  border: transparent;        /*border-image: linear-gradient(to right, rgb(0, 98, 2), rgb(0, 171, 117)) 1;*/
-  background: transparent;
-  font-size: 1.35rem;
-  min-width: 140px;
-  color: rgb(53, 244, 222);
-  font-weight: 420;
-}
 
 
 /* Opt-in to full styling for both the button and the dropdown picker     
@@ -61,9 +52,10 @@ body {
 
   color: black;
   font-size: 1.05rem;
-  font-weight: 430;
+  font-weight: 440;
   cursor: pointer;
-  height: 60px !important;
+  height: 54px !important;
+  width:fit-content !important;
   outline: none;
   transition: 0.2s ease-in-out;
 }
@@ -87,7 +79,7 @@ body {
 
 .select-wrapper::after {
   content: "▼";
-  color: #330034e2;
+  color: #20002180;
   position: absolute;
   right: 10%;
   top: 8%;
@@ -124,7 +116,7 @@ body {
 }
 
 .card-header {
-  background: #5864e434 !important;            
+  background: #636eee34 !important;            
   color: rgb(6, 0, 90);
   padding: 0.65rem 1rem;                                            /**/
   font-size: 0.95rem;

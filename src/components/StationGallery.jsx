@@ -37,7 +37,7 @@ const IMAGE_DB = {
     ciencias2,
     ciencias3
   ],
-  "La Reserva": [
+  "La Reserva UV": [
     reserva1,
     reserva4,
     reserva3,

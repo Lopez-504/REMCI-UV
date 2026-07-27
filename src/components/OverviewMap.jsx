@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, Circle } from 'react-leaflet';
+
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
+
+//CSS
 import 'leaflet/dist/leaflet.css';
 import './overviewMap.css';
+
+//Translations
+import { useTranslation } from "react-i18next";
 
 //import { STATIONS } from '../constants/stations'
 import { STATIONS } from '../constants/stations-ghp'
 
 const OverviewMap = () => {
+  const { t } = useTranslation("common");
+
   const [selectedStation, setSelectedStation] = useState(STATIONS[0]);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -30,8 +40,13 @@ const OverviewMap = () => {
 
       <div className="omg-map-card">
         <div className="omg-card-header">
-          <h3>Station Network</h3>
-          <span>Click a marker to update the gallery</span>
+          <h3>
+            {t("WSN")} 
+            <span>
+              <HelpTooltip helpKey={t("helpMapElev")} placement='right'/>
+            </span>
+          </h3>
+          <span>{t("clickMarker")}</span>
         </div>
 
         <div className="omg-map-body">
@@ -68,7 +83,7 @@ const OverviewMap = () => {
               </Tooltip>
               <Circle center={[station.lat, station.lng]} 
                       pathOptions={{ color: station.color ,fillColor: station.color }} 
-                      radius={8000} />
+                      radius={6200} />
               </Marker>
             ))}
           </MapContainer>
@@ -78,7 +93,7 @@ const OverviewMap = () => {
       <div className="omg-gallery-card">
         <div className="omg-card-header">
           <h3>{selectedStation.name}</h3>
-          <span>Station imagery</span>
+          <span>{t("stationImg")}</span>
         </div>
 
         <div className="omg-gallery-body">
@@ -89,7 +104,7 @@ const OverviewMap = () => {
                 alt={`${selectedStation.name} ${imageIndex + 1}`}
             />
             ) : (
-            <div className="omg-no-image">No images available</div>
+            <div className="omg-no-image">{t("noImgAvail")}</div>
             )}
           </div>
 

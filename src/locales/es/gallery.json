@@ -8,7 +8,7 @@
     "elevation": "Elevación",
     "model": "Modelo",
     "installation": "Fecha de instalación",
-    "active": "En linea",
+    "online": "En linea",
     "offline": "Sin conexión",
     "maintenance": "En mantenimiento",
     "temp": "Temperatura",

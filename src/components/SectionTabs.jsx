@@ -32,7 +32,7 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
               setOpenMenu(openMenu === section.key ? null : section.key)
             }
           >{/* took out onMouseOut, onClick and onMouseLeave */}
-            {t(section.labelKey)} ⏷
+            {t(section.labelKey)} ⌄
           </button>
 
 

@@ -1,5 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
+
+//Translations
+import { useTranslation } from "react-i18next";
+
 //CSS
 import './meteogram.css'
 
@@ -122,7 +128,10 @@ function getSegmentsByDay(data) {
   return [...byDay.entries()].map(([date, rows]) => ({ date, rows }));
 }
 
+// Actual Component
 function Meteogram({ refreshMinutes = 2 }) {
+  const { t } = useTranslation("common");
+
   const [selectedLocationId, setSelectedLocationId] = useState(STATIONS[0].id);
 
   const selectedLocation = useMemo(
@@ -353,7 +362,7 @@ function Meteogram({ refreshMinutes = 2 }) {
   }, [rows]);
 
   if (!plot) {
-    return <div className="meteogram-card">Loading meteogram...</div>;
+    return <div className="meteogram-card">{t("loadingMeteogram")}...</div>;
   }
 
   const {
@@ -394,19 +403,24 @@ function Meteogram({ refreshMinutes = 2 }) {
         }).format(d)
       : "--:--:--";
 
-  /* Actual component */
+  /* Actual return */
   return (
     <div className="meteogram-card">
       <div className="meteogram-header">
         <div>
-          <h2>Meteogram</h2>
+          <h2>
+            {t("meteogram")}
+            <span>
+              <HelpTooltip helpKey={t("helpMeteogram")} placement='right'/>
+            </span>
+          </h2>
           <p>
-            Open-Meteo hourly data · {selectedLocation.name} - {loc} · lat {lat}, lon {lng}
+            {t("openMeteoData")} · {selectedLocation.name} - {loc} · lat {lat}, lon {lng}
           </p>
         </div>
 
         <label className="station-selector">
-          <span>Location</span>
+          <span>{t("station")}</span>
           <select
             value={selectedLocationId}
             onChange={(event) => setSelectedLocationId(event.target.value)}   //this is always a STRING
@@ -440,10 +454,10 @@ function Meteogram({ refreshMinutes = 2 }) {
           <path d={linePath("dew", yTempMin, yTempMax, row1Y)} fill="none" stroke={COLORS.dew} strokeWidth="2.4" />
           <AxisHours top={row1Y} />
 
-          <text x={margin.left + 10} y={row1Y - 14} fill={COLORS.temp} fontSize={FONTS.var_label}>Temperatura</text>
-          <text x={margin.left + innerW - 220} y={row1Y - 14} fill={COLORS.dew} fontSize={FONTS.var_label}>Temp. punto de rocío</text>
-          <text x={margin.left - 95} y={row1Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row1Y + rowH / 2})`} fontSize={FONTS.unit_label}>Celsius</text>
-          <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>Niebla*</text>
+          <text x={margin.left + 10} y={row1Y - 14} fill={COLORS.temp} fontSize={FONTS.var_label}>{t("variables2.temp")}</text>
+          <text x={margin.left + innerW - 220} y={row1Y - 14} fill={COLORS.dew} fontSize={FONTS.var_label}>{t("variables2.dew")}</text>
+          <text x={margin.left - 95} y={row1Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row1Y + rowH / 2})`} fontSize={FONTS.unit_label}>°Celsius</text>
+          <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>{t("variables2.fog")}*</text>
 
           {/* Row 2: Wind, arrows, precipitation */}
           <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 4)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
@@ -454,8 +468,8 @@ function Meteogram({ refreshMinutes = 2 }) {
             return <WindArrow key={`arrow-${i}`} cx={x(d.time)} cy={row2Y + 30} dir={d.dir ?? 0} />;
           })}
           <AxisHours top={row2Y} />
-          <text x={margin.left + 10} y={row2Y - 10} fill={COLORS.wind} fontSize={FONTS.var_label}>Viento</text>
-          <text x={margin.left + innerW - 140} y={row2Y - 10} fill={COLORS.precip} fontSize={FONTS.var_label}>Precipitación</text>
+          <text x={margin.left + 10} y={row2Y - 10} fill={COLORS.wind} fontSize={FONTS.var_label}>{t("variables2.wind")}</text>
+          <text x={margin.left + innerW - 140} y={row2Y - 10} fill={COLORS.precip} fontSize={FONTS.var_label}>{t("variables2.cumulativeRainfall")}</text>
           <text x={margin.left - 56} y={row2Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row2Y + rowH / 2})`} fill={COLORS.wind} fontSize={FONTS.unit_label}>km/h</text>
           <text x={margin.left + innerW + 54} y={row2Y + rowH / 2} transform={`rotate(-90 ${margin.left + innerW + 54} ${row2Y + rowH / 2})`} fill={COLORS.precip} fontSize={FONTS.unit_label}>mm</text>
 
@@ -464,8 +478,8 @@ function Meteogram({ refreshMinutes = 2 }) {
           <path d={linePath("pressure", pMin, pMax, row3Y)} fill="none" stroke={COLORS.pressure} strokeWidth="2.6" />
           <path d={linePath("rh", 0, 100, row3Y)} fill="none" stroke={COLORS.humidity} strokeWidth="2.6" />
           <AxisHours top={row3Y + 0} />
-          <text x={margin.left + 10} y={row3Y - 10} fill={COLORS.pressure} fontSize={FONTS.var_label}>Presión</text>
-          <text x={margin.left + innerW - 190} y={row3Y - 10} fill={COLORS.humidity} fontSize={FONTS.var_label}>Humedad Relativa</text>
+          <text x={margin.left + 10} y={row3Y - 10} fill={COLORS.pressure} fontSize={FONTS.var_label}>{t("variables2.pressure")}</text>
+          <text x={margin.left + innerW - 190} y={row3Y - 10} fill={COLORS.humidity} fontSize={FONTS.var_label}>{t("variables2.humidity")}</text>
           <text x={margin.left - 56} y={row3Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row3Y + rowH / 2})`} fill={COLORS.pressure} fontSize={FONTS.unit_label}>hPa</text>
           <text x={margin.left + innerW + 54} y={row3Y + rowH / 2} transform={`rotate(-90 ${margin.left + innerW + 54} ${row3Y + rowH / 2})`} fill={COLORS.humidity} fontSize={FONTS.unit_label}>%</text>
 

@@ -2,6 +2,12 @@ import { useState, useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
 import DatePicker from 'react-datepicker';
 
+//COMPONENTS
+import HelpTooltip from "./HelpTooltip"
+
+//Translations
+import { useTranslation } from "react-i18next";
+
 //STATIC
 import { STATIONS } from '../constants/stations';
 import { VAR_LABELS } from '../constants/variables';
@@ -11,6 +17,7 @@ import './availabilityDashboard.css'
 
 // Actual Component 
 const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
+  const { t } = useTranslation("common");
 
   const [selectedStation, setSelectedStation] = useState(initialStation || STATIONS[0]);
   const [selectedVars, setSelectedVars] = useState([
@@ -21,11 +28,13 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
   const addVariable = () => {
   setSelectedVars(prev => [
     ...prev,
-    { var: 'humidity', color: '#e74c3c', type: 'bar' }]);};
+    { var: 'humidity', color: '#101a88', type: 'bar' }]);
+  };
     
   // Remove (-) function
   const removeVariable = (index) => {
-  setSelectedVars(prev => prev.filter((_, i) => i !== index));};  
+  setSelectedVars(prev => prev.filter((_, i) => i !== index));
+  };  
 
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
@@ -117,11 +126,11 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
       yAxis: { 
         type: 'value', 
         max: 100,
-        name: 'Percentage',
+        name: "%",
         axisLabel: {                // ticks
           show: true,           
           color: '#3f453f',        
-          fontSize: 18,         
+          fontSize: 16,         
           rotate: 0,          
           margin: 10           // Distance between the label and the axis line
         },
@@ -179,8 +188,8 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
   // Actual component
   return (
     <div className="availability-card-frame">
-      <div className="card-header">
-        Data Availability: <span class="highlight">{selectedStation.name}</span>
+      <div className="card-header-local">
+        {t("dataAvailability")}: <span>{selectedStation.name} <HelpTooltip helpKey={t('help.dataAvail')}/></span>
       </div>
 
       <div className="availability-content">
@@ -191,12 +200,12 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 
         {/* RIGHT: CONTROLS */}
         <div className="availability-controls">
-          <h4>Controls</h4>
-          <label>Station</label>
+          {/*<h4>{t("controls")}</h4>*/}
+          <label>{t("station")} <HelpTooltip helpKey={t('help.selectWS')}/></label>
           <select
             value={selectedStation.id}
             onChange={(e) => setSelectedStation(
-              STATIONS.find(s => s.id === Number(e.target.value))
+              STATIONS.find(s => s.id === e.target.value)
             )}
           >
           {STATIONS.map(st => (
@@ -205,7 +214,7 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
           </select>
 
           {/* Variable */}
-          <label>Variables</label>
+          <label>Variables <HelpTooltip helpKey={t('help.selectVar')}/></label>
           {selectedVars.map((item, i) => (
             <div key={i} className="var-row">
               {/* COLOR */}
@@ -241,8 +250,8 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
                   setSelectedVars(newVars);
                 }}
               >
-                <option value="line">Line</option>
-                <option value="bar">Bar</option>
+                <option value="line">{t("line")}</option>
+                <option value="bar">{t("bar")}</option>
               </select>
 
               {/* REMOVE var*/}
@@ -251,26 +260,25 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
           ))}
 
           {/* ADD var */}
-          <button className='add-btn' onClick={addVariable}>+ Add Variable</button>
+          <button className='add-btn' onClick={addVariable}>{t("addVar")}</button>
 
           {/* Dates  Note: onChangeRaw disables typing*/}
-          <label>Date Range</label>
+          <label>{t("dateRange")}</label>
           <DatePicker selected={startDate} onChange={setStartDate} onChangeRaw={(e) => e.preventDefault()} /> 
           <DatePicker selected={endDate} onChange={setEndDate} onChangeRaw={(e) => e.preventDefault()}/>
 
           {/* Resolution */}
-          <label>Resolution</label>
+          <label>{t("resolution")}</label>
           <select
               value={frequency}
               onChange={(e) => setFrequency(e.target.value)}
           >
-            <option value="1h">1 Hour</option>
-            <option value="6h">6 Hours</option>
-            <option value="12h">12 Hours</option>
-            <option value="1d">1 Day</option>
-            <option value="1w">1 Week</option>
-            <option value="1m">1 Month</option>
-            <option value="1y">1 Year</option>
+            <option value="1h">1 {t("time.hours")}</option>
+            <option value="12h">12 {t("time.hours")}</option>
+            <option value="1d">1 {t("time.day")}</option>
+            <option value="1w">1 {t("time.week")}</option>
+            <option value="1m">1 {t("time.month")}</option>
+            <option value="1y">1 {t("time.year")}</option>
           </select>
         </div>
       </div>
@@ -281,6 +289,7 @@ const AvailabilityDashboard = ({ selectedStation: initialStation }) => {
 export default AvailabilityDashboard;
 
 
+/* TASK: Figure out how to compare stations, maybe an add station button */
 /* TASK: debug this 'add/remove variables and restore plot' behavior */
 /* I suspect the height of the plot might be depending on the number of variables
    maybe add a clamp or minmax */
@@ -326,12 +335,18 @@ if (chartType === 'pie') {
     }
 */
 
-/* xaxis ticklabel 
-axisLabel: {
-      show: true,           
-      color: '#313731',        // Text color
-      fontSize: 14,         
-      rotate: 0,          
-      margin: 8           // Distance between the label and the axis line
-      },
+/* KEEP WORKING ON THIS
+// Add station
+  const addStation = () => {
+  setSelectedStation(prev => [
+    ...prev,
+    { var: 'humidity', color: '#101a88', type: 'bar' }]);
+  };
+    
+  // Add station
+  const removeStation = (index) => {
+  setSelectedStation(prev => prev.filter((_, i) => i !== index));
+  }; 
+          
+  <button className='add-btn' onClick={addStation}>Add Station</button>
 */
