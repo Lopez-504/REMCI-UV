@@ -51,6 +51,10 @@ export const NAV_ITEMS = [
         key: "data-availability",
         labelKey: "nav.availability",
       },
+      {
+        key: "data-satellite",
+        labelKey: "nav.satellite",
+      },
       // {
       //   key: "data-lightPoll",
       //   labelKey: "nav.lightPollution",

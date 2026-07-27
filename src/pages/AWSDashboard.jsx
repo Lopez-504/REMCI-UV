@@ -31,6 +31,7 @@ import Landing from '../components/Landing';
 
 //Translations
 import { useTranslation } from "react-i18next";
+import GoesSatellite from '../components/GoesSatellite';
 
 // --  Actual Component  -- //
 const AWSDashboard = () => {
@@ -298,6 +299,14 @@ const AWSDashboard = () => {
               adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
               Eveniet excepturi eius at fuga asperiores!</p>
           </div>
+          </>
+        )}
+
+{/* Data -> GOES */}
+
+{activeSection === 'data-satellite' && (
+          <>
+             <GoesSatellite/>
           </>
         )}
 
