@@ -40,7 +40,7 @@
     "technician":"Technician",
     "notes":"Notes",
     "report":{
-        "title":"Maintenane Report",
+        "title":"Maintenance Report",
         "date":"Date",
         "technician":"Technician",
         "notSpecified":"Not Specified",

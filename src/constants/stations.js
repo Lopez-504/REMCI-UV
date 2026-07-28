@@ -1,4 +1,5 @@
 export const STATIONS = [
+ 
   { id: '1',
     name: "Ciencias UV",
     loc: 'Valparaíso, Chile',
@@ -28,7 +29,8 @@ export const STATIONS = [
       "solarRad",
       "accRain"
     ],
-    link: "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"},
+    link: "https://www.licor.cloud/dashboards/public/edb4ddea-8f4d-4401-8479-1535407cc17a/false?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:false}}"
+  },
 
   { id: '2', 
     name: "Pocuro UV",
@@ -58,7 +60,8 @@ export const STATIONS = [
       "solarRad",
       "accRain"
     ],
-    link: "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"}, 
+    link: "https://www.licor.cloud/dashboards/public/f2e63989-d622-4d4a-95c3-6708d4ef080b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22minutes%22,%22value%22:30,%22live%22:true}}"
+  }, 
 
   { id: '3', 
     name: "La Reserva UV",
@@ -105,6 +108,8 @@ export const STATIONS = [
     status: 'maintenance',
     images: [
       "REMCI-UV/images/cameraciencias.gif",
+      "",
+      ""
     ],
     variables: [
       "temp",
@@ -117,7 +122,8 @@ export const STATIONS = [
       "solarRad",
       "accRain"
     ],
-    link: "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"}
+    link: "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
+  }
 ];
 
 // BUG: locally the images paths need the REMCI-UV at the begining, but in GitHub we don't need it
