@@ -2,9 +2,6 @@ import { useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
 import Meteogram from './Meteogram';
 
-//COMPONENTS
-import HelpTooltip from "./HelpTooltip"
-
 //Translations
 import { useTranslation } from "react-i18next";
 

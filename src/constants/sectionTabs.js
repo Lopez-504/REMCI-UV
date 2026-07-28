@@ -74,6 +74,10 @@ export const NAV_ITEMS = [
         labelKey: "nav.project",
       },
       {
+        key: "about-learning",
+        labelKey: "nav.learning",
+      },
+      {
         key: "about-team",
         labelKey: "nav.team",
       },

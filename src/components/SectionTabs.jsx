@@ -59,7 +59,7 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
 
         </div>
       ))}
-      <span>{t("language")}: </span> <LanguageToggle/>
+      <span>{t("language")} </span> <LanguageToggle/>
     </div>
     </>
   );

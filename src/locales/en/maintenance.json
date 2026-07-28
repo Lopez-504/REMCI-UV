@@ -1,0 +1,58 @@
+{
+    "AWSmaintenance":{
+        "title":"AWS Maintenance",
+        "sub":"Routine preventive maintenance for REMCI-UV automatic weather stations. Regular inspections help ensure reliable meteorological observations, sensor longevity, and uninterrupted telemetry."
+    },
+    "checklist":{
+        "solarPanelAndVoltage": "Inspect solar panel and battery voltage",
+        "cleanRadAndTemp":"Clean radiation shield and temperature sensor",
+        "rainGauge": "Verify rain gauge is free of debris",
+        "anemomenter":"Check anemometer rotation and wind vane alignment",
+        "corosion":"Inspect cables and connectors for corrosion",
+        "dataLogger":"Confirm data logger communication",
+        "synchronization": "timestamp synchronization",
+        "stability":"Check station leveling and mounting stability",
+        "photograph":"Take maintenance photographs",
+        "documentObsRepl":"Document observations and replacements"
+    },
+    "info":{
+        "type":{
+            "label":"Station type",
+            "value":"Automatic Weather Station"
+        },
+        "power":{
+            "label":"Power system",
+            "value":"Solar + Battery backup"
+        },
+        "telemetry":{
+            "label":"Telemetry",
+            "value":"4G/Wi-Fi"
+        },
+        "mainInterval":{
+            "label":"Maintenance interval",
+            "value":"Every 2-3 months"
+        }
+    },
+    "saveReport":"Save Maintenance Report",
+    "lastMaintenance":"From last maintenance",
+    "MainChecklist":"Maintenance checklist",
+    "station":"Station",
+    "technician":"Technician",
+    "notes":"Notes",
+    "report":{
+        "title":"Maintenane Report",
+        "date":"Date",
+        "technician":"Technician",
+        "notSpecified":"Not Specified",
+        "task":"Task",
+        "status":"Status",
+        "completed":"Completed",
+        "pending":"Pending",
+        "noNotes":"No notes",
+        "notes":"Notes",
+        "generated":"Generated",
+        "tasksCompleted":"Completed tasks",
+        "tasksPending":"Pending tasks",
+        "completion":"Completion"
+    }
+}

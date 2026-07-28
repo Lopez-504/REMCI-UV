@@ -14,6 +14,7 @@ export const STATIONS = [
     images: [
       "REMCI-UV/images/estacionUV.png",
       "REMCI-UV/images/cameraciencias.gif",
+      "REMCI-UV/images/2025-07-28-09-19-19.jpg",
       "REMCI-UV/images/anima_D4_LC.gif"
     ],
     variables: [
@@ -73,9 +74,9 @@ export const STATIONS = [
     status: 'offline',
     images: [
       "REMCI-UV/images/reserva1.jpg",
-      "REMCI-UV/images/presentation.jpeg",
+      "REMCI-UV/images/davis2.1.png",
       "REMCI-UV/images/instalacion.jpeg",
-      "REMCI-UV/images/davis2.1.png"
+      "REMCI-UV/images/presentation.jpeg",
     ],
     variables: [
       "temp",

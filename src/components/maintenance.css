@@ -40,6 +40,8 @@
 
 .maintenance-card h2 {
   margin-bottom: 20px;
+  font-size: 1.55rem;
+  font-weight: 600;
 }
 
 .diagram-wrapper {
@@ -64,8 +66,8 @@
 .station-info div {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.138);
 }
 
 .label {
@@ -81,6 +83,17 @@
   flex-direction: column;
   gap: 14px;
   margin-bottom: 25px;
+}
+
+.checklist-card select {
+  font-size: 1.15rem;
+  background-color: #ebf1fae7;
+  border-radius: 10px;
+  margin-left: 16px;
+  color: rgb(6, 8, 23);
+  padding: 2px;
+  font-weight: 400;
+  padding-left: 12px;
 }
 
 .check-item {
@@ -103,6 +116,18 @@
   cursor: pointer;
 }
 
+.maintenance-input,
+.maintenance-notes {
+  background-color: #ebf1fae7;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.maintenance-notes {
+  min-width: 320px;
+  max-height: 80px;
+}
+
 .maintenance-btn {
   width: 100%;
   padding: 14px;
@@ -117,7 +142,7 @@
 
 .maintenance-btn:hover {
   transform: translateY(-2px);
-  opacity: 0.9;
+  background: #2c6bff;
 }
 
 @media (max-width: 950px) {

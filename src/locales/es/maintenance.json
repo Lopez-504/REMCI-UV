@@ -1,0 +1,58 @@
+{
+    "AWSmaintenance":{
+        "title":"Matenimiento Estación Meteorológica",
+        "sub":"Mantenimiento preventivo y rutinario de las estaciones de REMCI-UV. Inspecciones regulares ayudan a asegurar la calidad de las observaciones meteorológicas, durabilidad de los sensores y una telemetría ininterrumpida."
+    },
+    "checklist":{
+        "solarPanelAndVoltage": "Revisar panel solar y voltaje de la batería",
+        "cleanRadAndTemp":"Limpiar sensor de radiación y temperatura",
+        "rainGauge": "Verificar que el pluviómetro esté libre de material",
+        "anemomenter":"Verificar rotación del anemómetro y alineamiento de la veleta",
+        "corosion":"Revisar óxido en cables y conectores",
+        "dataLogger":"Confirmar comunicación con el data logger",
+        "synchronization": "Validar sincronización",
+        "stability":"Revisar nivelación de la estación y estabilidad de la base",
+        "photograph":"Tomar fotografía de la estación y la base",
+        "documentObsRepl":"Documentar observaciones y repuestos"
+    },
+    "info":{
+        "type":{
+            "label":"Tipo de Estación",
+            "value":"Estación meteorológica automática"
+        },
+        "power":{
+            "label":"Alimentación",
+            "value":"Solar + Batería"
+        },
+        "telemetry":{
+            "label":"Telemetría",
+            "value":"4G/Wi-Fi"
+        },
+        "mainInterval":{
+            "label":"Intervalo de mantención",
+            "value":"Cada 2-3 meses"
+        }
+    },
+    "saveReport":"Guardar reporte de mantenimiento",
+    "lastMaintenance":"Datos última mantención",
+    "MainChecklist":"Lista de mantenimiento",
+    "station":"Estación",
+    "technician":"Técnico",
+    "notes":"Observaciones",
+    "report":{
+        "title":"Reporte de mantenimiento",
+        "date":"Fecha",
+        "technician":"Técnico",
+        "notSpecified":"No se indica",
+        "task":"Tarea",
+        "status":"Estado",
+        "completed":"Completado",
+        "pending":"Pendiente",
+        "noNotes":"Sin observaciones",
+        "notes":"Observaciones",
+        "generated":"Generado",
+        "tasksCompleted":"Tareas completadas",
+        "tasksPending":"Tareas pendientes",
+        "completion":"Progreso"
+    }
+}

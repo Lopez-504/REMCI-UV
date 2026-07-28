@@ -1,0 +1,126 @@
+.learning-container{
+    max-width:1400px;
+    margin:auto;
+    padding:10px 20px 10px;
+}
+
+.learning-header{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.learning-header h1{
+    font-size:2.5rem;
+    margin-bottom:1px;
+    color:#1e3a5f;
+}
+
+.learning-header p{
+    color:#666;
+    max-width:750px;
+    margin:auto;
+    line-height:1.7;
+}
+
+.article-card{
+    display:grid;
+    grid-template-columns:1fr 520px;
+    gap:60px;
+    align-items:top;
+    margin-bottom:70px;
+    padding-bottom:60px;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.article-meta{
+    display:flex;
+    gap:12px;
+    font-size:.9rem;
+    color:#5f8db6;
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+.article-info h2{
+    font-size:2rem;
+    margin-bottom:6px;
+    color:#222;
+}
+
+.article-info p{
+    line-height:1.8;
+    color:#555;
+    margin-bottom:30px;
+}
+
+.article-images{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.article-images img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:.3s;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.article-images img:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 24px rgba(0,0,0,.18);
+}
+
+.read-btn{
+    background:#1e88e5;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.25s;
+}
+
+.read-btn:hover{
+    background:#1565c0;
+}
+
+.article-card:nth-child(even){
+    grid-template-columns:520px 1fr;
+}
+
+.article-card:nth-child(even) .article-info{
+    order:2;
+}
+
+.article-card:nth-child(even) .article-images{
+    order:1;
+}
+
+@media(max-width:900px){
+.article-card,
+.article-card:nth-child(even){
+    grid-template-columns:1fr;
+}
+
+.article-card:nth-child(even) .article-info,
+.article-card:nth-child(even) .article-images{
+    order:unset;
+}
+
+.article-images img{
+    height:220px;
+}
+
+.learning-header h1{
+    font-size:2rem;
+}
+
+.article-info h2{
+    font-size:1.6rem;
+}
+
+}

@@ -1,5 +1,5 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { CircleQuestionMark } from "lucide-react";
+import { CircleQuestionMark, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import "./helpTooltip.css";
@@ -9,6 +9,8 @@ export default function HelpTooltip({
     namespace = "help",
     placement = "bottom",
     size = 18,
+    image = "",
+    icon = "circleQM"
 }) {
 
     const { t } = useTranslation(namespace);
@@ -21,11 +23,13 @@ export default function HelpTooltip({
             overlay={
                 <Tooltip id={`tooltip-${helpKey}`} className="dash-tooltip">
                     {t(helpKey)}
+                    <img src={image} alt="" />
                 </Tooltip>
             }
         >
             <span className="help-tooltip">
-                <CircleQuestionMark size={size} />
+                {icon==='pallete' ? <Palette size={size}/> : <CircleQuestionMark size={size}/> }
+                
             </span>
         </OverlayTrigger>
     );

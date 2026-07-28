@@ -8,46 +8,6 @@ import './stationGallery.css'
 //STATIC
 import { STATIONS } from '../constants/stations';
 
-import pocuro1 from "/images/pocuro1.jpg"        // manual imports work
-import pocuro2 from "/images/pocuro2.gif"         // using / as public is not working
-import pocuro3 from "/images/pocuro3.jpg"
-
-//import ciencias4 from "/images/2025-07-28-10-19-19.jpg"
-import ciencias2 from "/images/2025-07-28-10-49-19.jpg"
-import ciencias3 from "/images/2025-07-28-07-49-19.jpg"
-import ciencias1 from "/images/cameraciencias.gif"
-import ciencias4 from "/src/images/estacionUV.png"
-
-import reserva1 from "/images/reserva1.jpg"
-import reserva2 from "/images/presentation.jpeg"
-import reserva3 from "/images/instalacion.jpeg"
-import reserva4 from "/images/davis2.1.png"
-
-import home1 from "/images/reserva1.jpg"
-
-const IMAGE_DB = {
-  "Pocuro UV": [
-    pocuro1,
-    pocuro2,
-    pocuro3
-  ],
-  "Ciencias UV": [
-    ciencias4,
-    ciencias1,
-    ciencias2,
-    ciencias3
-  ],
-  "La Reserva UV": [
-    reserva1,
-    reserva4,
-    reserva3,
-    reserva2,
-  ],
-  "Home": [
-    home1,
-  ]
-};
-
 const StationGallery = () => {
   const { t } = useTranslation(["gallery","common"]);
 
@@ -58,7 +18,7 @@ const StationGallery = () => {
     setIndex(0);
   };
 
-  const images = IMAGE_DB[selectedStation?.name] || [];
+  const images = selectedStation?.images || [];
 
   const [index, setIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false); 

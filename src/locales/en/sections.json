@@ -17,8 +17,9 @@
     "availability": "Availability",
     "satellite":"Satellite",
 
-    "about": "About REMCI-UV",
+    "about": "About",
     "project": "Project",
+    "learning":"Learning",
     "team": "Team"
   }
 }

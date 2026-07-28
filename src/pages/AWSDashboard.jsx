@@ -8,6 +8,7 @@ import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
 import AvailabilityPrologue from '../components/AvailabilityPrologue';
+import GoesSatellite from '../components/GoesSatellite';
 import ForecastPanel from '../components/ForecastPanel';
 import StationGallery from '../components/StationGallery';
 import Maintenance from '../components/Maintenance'
@@ -15,6 +16,7 @@ import CurrentConditions from '../components/CurrentConditions';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
 import About from '../components/About';
+import Learning from '../components/Learning'
 import LanguageToggle from '../components/LanguageToggle';
 import HelpTooltip from '../components/HelpTooltip';
 
@@ -31,7 +33,6 @@ import Landing from '../components/Landing';
 
 //Translations
 import { useTranslation } from "react-i18next";
-import GoesSatellite from '../components/GoesSatellite';
 
 // --  Actual Component  -- //
 const AWSDashboard = () => {
@@ -315,6 +316,14 @@ const AWSDashboard = () => {
         {activeSection === 'about-project' && (
           <>
             <About/>
+          </>
+        )}
+
+{/* About -> Education */}
+
+        {activeSection === 'about-learning' && (
+          <>
+            <Learning/>
           </>
         )}
 
