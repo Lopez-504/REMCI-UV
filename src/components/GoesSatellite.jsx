@@ -6,7 +6,8 @@ import { useTranslation } from "react-i18next";
 
 //CSS & STATICS
 import "./goesSatellite.css";
-import { SATELLITE_PRODUCTS } from "../constants/satelliteProducts"
+import { SATELLITE_PRODUCTS } from "../constants/satelliteProducts-ghp"
+//import { SATELLITE_PRODUCTS } from "../constants/satelliteProducts"
 import { HQ_IMAGES } from "../constants/satelliteHQimg"
 
 export default function GoesSatellite() {
