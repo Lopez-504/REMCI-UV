@@ -75,7 +75,7 @@ const OverviewMap = () => {
                 <br />
                 {station.brand}
                 <br />
-                Status: {station.status}
+                {t("status")}: {t(station.status)}
                 </Popup>
 
               <Tooltip direction="top" offset={[0, -8]} permanent>

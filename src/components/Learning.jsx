@@ -1,7 +1,8 @@
 import "./learning.css";
 import { useTranslation } from "react-i18next";
 
-import {articles} from "../constants/articles"
+//import {articles} from "../constants/articles"
+import {articles} from "../constants/articles-ghp"
 
 export default function Learning() {
 
