@@ -4,7 +4,10 @@
     "stationsOnline": "Estaciones en linea",
     "landingDescription": "Observaciones meteorológicas en tiempo real, Pronóstico, Registros históricos y monitoreo ambiental desde las estaciones de REMCI-UV. Datos disponibles abiertamente para toda la comunidad.",
     "open": "Abrir",
-
+    "status": "Estado",
+    "offline":"Sin conexión",
+    "online":"En linea",
+    "maintenance":"Mantenimiento",
     "cards": {
         "currentConditions": {
             "title": "Condiciones Actuales",

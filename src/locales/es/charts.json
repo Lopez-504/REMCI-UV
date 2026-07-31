@@ -19,8 +19,15 @@
         "key":"El tiempo es indicado en tiempo Zulu (igual a UTC/GMT)",
         "time":"Esta banda muestra temperaturas atmosféricas en Celsius. Colores del rojo al amarillo representan atmósferas secas. Colores entre amarillo y blanco, incluyendo azul, representan una atmósfera relativamente húmeda. Colores más fríos que blanco, incluyendo verde, representan nubes"
     },
+    "geocolor":{
+        "title":"GeoColor",
+        "desc":"Estas luces no corresponden al tiempo real. Créditos: CIRA/NOAA",
+        "key":"",
+        "help":"GeoColor fue desarrollado por CIRA (Instituto corporativo para la investigación atmosférica) y RAMMB (STAR Meteorología regional y mesoescala)",
+        "time":"GeoColor es un producto multi-espectral compuesto por True Color (usando un component verde simulado) durante el día, y un producto infrarrojo que utiliza las bandas 7 y 13 durante la noche. Durante el día, las imágenes lucen aproximadamente como si fuesen vistas por el ojo humano desde el espacio. Durante la noche, el color azul representa nubes de agua líquida como neblina y estratus, colores del gris al blanco indican nubes altas de hielo, y las luces artificiales vienes de una base de datos estática derivada de VIIRS (banda Day Night)"
+    },
     "hqSatImg":{
         "title":"Imágenes satelitales de alta resolución",
-        "help":"Desde GOES-19"
+        "help":"Desde GOES-19. Créditos: NOAA/CIRA"
     }
 }

@@ -4,7 +4,10 @@
     "stationsOnline": "Online Stations",
     "landingDescription": "Real-time meteorological observations, weather forecasts, historical records and environmental monitoring from the REMCI-UV automatic weather station network.",
     "open": "Open",
-
+    "status": "Status",
+    "offline":"Offline",
+    "online":"Online",
+    "maintenance":"Maintenance",
     "cards": {
         "currentConditions": {
             "title": "Current Conditions",

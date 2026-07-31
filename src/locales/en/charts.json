@@ -19,8 +19,15 @@
         "help":"Band 8 will be used for upper-level tropospheric water vapor tracking, jet stream identification, hurricane track forecasting, mid-latitude storm forecasting, severe weather analysis, upper mid-level moisture estimation (for legacy vertical moisture profiles) and turbulence detection. 6.2 µm - Upper-level Water Vapor Band - 2 km resolution",
         "time":"This band shows atmospheric temperatures in Celsius. Values in the red to yellow range represent a dry atmosphere. Values between yellow and white, including blue, represent a relatively moist atmosphere. Values colder than white, including green, represent clouds"
     },
+    "geocolor":{
+        "title":"GeoColor",
+        "desc":"NOT real-time depictions of city lights. Credit: CIRA/NOAA",
+        "key":"",
+        "help":"GeoColor was developed at the Cooperative Institute for Research in the Atmosphere (CIRA) and the STAR Regional and Mesoscale Meteorology Branch (RAMMB). ",
+        "time":"GeoColor is a multispectral product composed of True Color (using a simulated green component) during daytime, and an Infrared product that uses bands 7 and 13 at night. During the day, the imagery looks approximately as it would when viewed with human eyes from space. At night, the blue colors represent liquid water clouds such as fog and stratus, while gray to white indicate higher ice clouds, and the city lights come from a static database derived from the VIIRS Day Night Band"
+    },
     "hqSatImg": {
         "title":"High Resolution Satellite Imagery",
-        "help":"From GOES-19"
+        "help":"GOES-19. Credit: NOAA/CIRA"
     }
 }

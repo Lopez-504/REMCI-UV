@@ -74,7 +74,7 @@ export const STATIONS = [
     instdate:'30/03/2026',
     timezone: 'America/Santiago',
     brand: 'Davis Vantage Pro2',
-    status: 'offline',
+    status: 'online',
     images: [
       "REMCI-UV/images/reserva1.jpg",
       "REMCI-UV/images/davis2.1.png",

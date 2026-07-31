@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {articles} from "../constants/articles-ghp"
 
 export default function Learning() {
-
     const { t } = useTranslation("learning");
 
     return (

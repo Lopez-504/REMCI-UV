@@ -16,6 +16,8 @@
     padding:12px;
     box-sizing:border-box;
     margin-top: -10px;
+    /*justify-content:center;*/
+    /*align-items:center;*/
 }
 
 .goes-header{
@@ -44,7 +46,7 @@
 .goes-image-wrapper{
     position: relative;
     display: inline-block;
-    width:100%;
+    width:fit-content;
     display:flex;
     justify-content:center;
     align-items:center;

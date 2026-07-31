@@ -24,6 +24,14 @@ export const SATELLITE_PRODUCTS = [
     url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/08/GOES19-SSA-08-900x540.gif",
     colorbar: "images/colorbar-band8.png",
   },
+  {
+    title: "geocolor.title",
+    description: "geocolor.desc",
+    help:"geocolor.help",
+    time:"geocolor.time",
+    url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/GEOCOLOR/GOES19-SSA-GEOCOLOR-900x540.gif",
+    colorbar: "",
+  },
 ];
 
 //ghp -> no REMCI-UV/
