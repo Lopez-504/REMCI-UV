@@ -8,6 +8,30 @@
     align-items: center;
 }
 
+.goes-container h1{
+  font-size:2.1rem;
+  margin-bottom: 20px;
+  margin-top: -2px;
+  color: rgb(247, 242, 236);
+  background-color: #6f6f6fde;
+  border-radius: 10px;
+  padding: 8px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-image: url('../../public/images/space.jpg');
+  background-size: cover;
+}
+
+.goes-container h2{
+    margin:0;
+    font-size:1.45rem;
+}
+
+.goes-container h1 span,
+.goes-container h2 span {
+    margin-left: 5px;
+}
+
 .goes-panel{
     flex:0 0 100%;
     scroll-snap-align:start;
@@ -16,6 +40,7 @@
     padding:12px;
     box-sizing:border-box;
     margin-top: -10px;
+    margin-bottom: 16px;
     /*justify-content:center;*/
     /*align-items:center;*/
 }
@@ -52,7 +77,11 @@
     align-items:center;
     border-radius:18px;
     overflow:hidden;
-    background:#000;
+    background: transparent;
+    cursor:grab;
+    box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.279);
+    transition:transform .25s ease,
+               box-shadow .25s ease;
 }
 
 .goes-image-wrapper span {
@@ -60,6 +89,11 @@
   top: 6px;          /* Distance from the top edge */
   left: 6px;         /* Distance from the left edge */
   z-index: 10;        /* Ensures it sits stacked above the image */
+}
+
+.goes-image-wrapper:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
 
 .goes-image{
@@ -74,14 +108,22 @@
     margin-top:20px;
 }    
 
-.gallery-title{
-    margin-bottom:20px;
-    text-align:center;
-    font-size:1.6rem;
-    font-weight:600;
+.goes-gallery h1{
+  font-size:2.1rem;
+  margin-bottom: 20px;
+  margin-top: -2px;
+  /*color: rgb(215, 214, 214);
+  background-color: #09090974;
+  border-radius: 10px;
+  padding: 8px;
+  padding-left: 1px;
+  padding-right: 1px;
+  background-image: url('../../public/images/space.jpg');
+  background-size: cover;*/
+  text-align:center;
 }
 
-.gallery-title span {
+.goes-gallery h1 span {
     margin-left: 5px;
 }
 
@@ -150,8 +192,8 @@
 }
 
 .lightbox-image{
-    max-width:95vw;
-    max-height:90vh;
+    max-width:95dvw;
+    max-height:90dvh;
     object-fit:contain;
     cursor:grab;
     user-select:none;

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import './stationGallery.css'
 
 //STATIC
+//import { STATIONS } from '../constants/stations';
 import { STATIONS } from '../constants/stations-ghp';
 
 const StationGallery = () => {

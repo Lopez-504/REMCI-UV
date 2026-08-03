@@ -124,3 +124,22 @@
 }
 
 }
+
+/* Not working */
+learning-details {
+    width: 50%;
+    margin-left: 25%;
+    background-color: #03680a96;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+learning-details::details-content {
+  padding: 16px;
+  background-color: #7d7d7d9b;
+  border-top: 1px solid #000000;
+}
+
+learning-details::details-content:hover {
+  font-size: 1rem;
+}

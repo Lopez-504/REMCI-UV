@@ -3,31 +3,42 @@
     "cleanIR":{
         "title":"Banda 13 - Infrarrojo",
         "desc":"Temperatura de la parte superior de la nube y condición sinóptica (día/noche).",
-        "help":"La banda 13 a 10.3 µm es una ventana infrarroja, por lo que no se ve muy afectada por la absorción del vapor de agua de la atmósfera. Este canal es útil para detectar nubes a cualquier hora tanto del día como de la noche, y es particularmente útil para determinar la elevación máxima de las nubes. [10.3 µm - Clean Longwave IR Window Band - 2 km resolution]",
-        "time":"El tiempo es indicado en tiempo Zulu (igual a UTC/GMT)"
+        "help":"La banda 13 a 10.3 µm es una ventana infrarroja, por lo que no se ve muy afectada por la absorción del vapor de agua de la atmósfera. \nEste canal es útil para detectar nubes a cualquier hora tanto del día como de la noche, y es particularmente útil para determinar la elevación máxima de las nubes.",
+        "time":"[10.3 µm - Clean Longwave IR Window Band - 2 km resolution]\nEl tiempo es indicado en tiempo Zulu (igual a UTC/GMT)"
     },
     "visibleRed":{
         "title":"Banda 02 - Rojo visible",
         "desc":"Imágenes satelitáles en el rango visible.",
-        "help":"La banda visible 02 es la porción roja del espectro visible y tiene la resolución más alta de todas las bandas ABI, a 0.5 km. Por esta razón, es la banda visible principal y se utiliza comunmente para monitorear la evolución de las nubes durante el día. [0.64 µm - Red Band - 0.5 km resolution]",
-        "time":"El tiempo es indicado en tiempo Zulu (igual a UTC/GMT)"
+        "help":"La banda visible 02 es la porción roja del espectro visible y tiene la resolución más alta de todas las bandas ABI, a 0.5 km. Por esta razón, es la banda visible principal y se utiliza comunmente para monitorear la evolución de las nubes durante el día.",
+        "time":"[0.64 µm - Red Band - 0.5 km resolution]\nEl tiempo es indicado en tiempo Zulu (igual a UTC/GMT)"
     },
     "waterVapor":{
         "title":"Banda 08 - Vapor de Agua",
         "desc":"Humedad en elevaciones superiores y corrientes de chorro.",
-        "help":"La banda 08 es usada paraseguir el vapor de agua de las partes más altas de la tropósfera, identificar corrientes en chorro (jet streams), pronosticar huracanes, pronosticar tormentas en latitudes medias, analizar tiempo severo, detecctar turbulencia y estimar humedad en niveles medios. [6.2 µm - Upper-level Water Vapor Band - 2 km resolution]",
+        "help":"La banda 08 es usada paraseguir el vapor de agua de las partes más altas de la tropósfera, identificar corrientes en chorro (jet streams), pronosticar huracanes, pronosticar tormentas en latitudes medias, analizar tiempo severo, detecctar turbulencia y estimar humedad en niveles medios. ",
         "key":"El tiempo es indicado en tiempo Zulu (igual a UTC/GMT)",
-        "time":"Esta banda muestra temperaturas atmosféricas en Celsius. Colores del rojo al amarillo representan atmósferas secas. Colores entre amarillo y blanco, incluyendo azul, representan una atmósfera relativamente húmeda. Colores más fríos que blanco, incluyendo verde, representan nubes"
+        "time":"Esta banda muestra temperaturas atmosféricas en Celsius. Colores del rojo al amarillo representan atmósferas secas. Colores entre amarillo y blanco, incluyendo azul, representan una atmósfera relativamente húmeda. Colores más fríos que blanco, incluyendo verde, representan nubes\n[6.2 µm - Upper-level Water Vapor Band - 2 km resolution]"
     },
     "geocolor":{
         "title":"GeoColor",
         "desc":"Estas luces no corresponden al tiempo real. Créditos: CIRA/NOAA",
         "key":"",
         "help":"GeoColor fue desarrollado por CIRA (Instituto corporativo para la investigación atmosférica) y RAMMB (STAR Meteorología regional y mesoescala)",
-        "time":"GeoColor es un producto multi-espectral compuesto por True Color (usando un component verde simulado) durante el día, y un producto infrarrojo que utiliza las bandas 7 y 13 durante la noche. Durante el día, las imágenes lucen aproximadamente como si fuesen vistas por el ojo humano desde el espacio. Durante la noche, el color azul representa nubes de agua líquida como neblina y estratus, colores del gris al blanco indican nubes altas de hielo, y las luces artificiales vienes de una base de datos estática derivada de VIIRS (banda Day Night)"
+        "time":"GeoColor es un producto multi-espectral compuesto por True Color (usando un component verde simulado) durante el día, y un producto infrarrojo que utiliza las bandas 7 y 13 durante la noche. Durante el día, las imágenes lucen aproximadamente como si fuesen vistas por el ojo humano desde el espacio. \nDurante la noche, el color azul representa nubes de agua líquida como neblina y estratus, colores del gris al blanco indican nubes altas de hielo, y las luces artificiales vienes de una base de datos estática derivada de VIIRS (banda Day Night)"
+    },
+    "airMass":{
+        "title":"Air Mass RGB",
+        "desc":"RGB está basado en información del infrarrojo y el vapor de agua.",
+        "key":"",
+        "help":"ayuda",
+        "time":"Air Mass RGB es usado para diagnosticar el vecindario que rodea a los sistemas sinópticos, resaltanto la temperatura y humedad características de las masas de aire. Cyclogenesis can be inferred by the identification of warm, dry, ozone-rich descending stratospheric air associated with jet streams and potential vorticity (PV) anomalies. \nThe RGB can be used to validate the location of PV anomalies in model data. Additionally, this RGB can distinguish between polar and tropical airmasses, especially along upper-level frontal boundaries and identify high-, mid-, and low-level clouds"
     },
     "hqSatImg":{
-        "title":"Imágenes satelitales de alta resolución",
+        "title":"🛰️ Imágenes satelitales de alta resolución",
         "help":"Desde GOES-19. Créditos: NOAA/CIRA"
+    },
+    "GIFs": {
+        "title":"🛰️ GOES-19: Loops de 8 horas",
+        "help":"Fuente: ThorntonWeather.com"
     }
 }

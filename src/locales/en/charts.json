@@ -3,31 +3,42 @@
     "cleanIR":{
         "title":"Band 13 - Clean Infrared",
         "desc":"Cloud-top temperature and synoptic weather (day/night)",
-        "help":"Band 13 at 10.3 µm is an infrared window, meaning it is not strongly affected by atmospheric water vapor absorption. This channel is useful for detecting clouds all times of day and night and is particularly useful in retrievals of cloud top height. 10.3 µm - Clean Longwave IR Window Band - 2 km resolution",
-        "time":"All timestamps are given in Zulu time (UTC/GMT)"
+        "help":"Band 13 at 10.3 µm is an infrared window, meaning it is not strongly affected by atmospheric water vapor absorption. \nThis channel is useful for detecting clouds all times of day and night and is particularly useful in retrievals of cloud top height.",
+        "time":"10.3 µm - Clean Longwave IR Window Band - 2 km resolution.\nAll timestamps are given in Zulu time (UTC/GMT)"
     },
     "visibleRed":{
         "title":"Band 02 - Visible Red",
         "desc":"Visible satellite imagery",
-        "help":"Visible band 2 is in the red portion of the spectrum and has the highest resolution of any ABI band at 0.5 km, and for that reason is the primary visible band. It is used primarily to monitor the evolution of clouds throughout the daylight hours. 0.64 µm - Red Band - 0.5 km resolution",
-        "time":"All timestamps are given in Zulu time (UTC/GMT)"
+        "help":"Visible band 2 is in the red portion of the spectrum and has the highest resolution of any ABI band at 0.5 km, and for that reason is the primary visible band. \nIt is used primarily to monitor the evolution of clouds throughout the daylight hours.",
+        "time":"0.64 µm - Red Band - 0.5 km resolution.\nAll timestamps are given in Zulu time (UTC/GMT)"
     },
     "waterVapor":{
         "title":"Band 08 - Water Vapor",
         "desc":"Upper-level moisture and jet stream",
         "key":"",
-        "help":"Band 8 will be used for upper-level tropospheric water vapor tracking, jet stream identification, hurricane track forecasting, mid-latitude storm forecasting, severe weather analysis, upper mid-level moisture estimation (for legacy vertical moisture profiles) and turbulence detection. 6.2 µm - Upper-level Water Vapor Band - 2 km resolution",
-        "time":"This band shows atmospheric temperatures in Celsius. Values in the red to yellow range represent a dry atmosphere. Values between yellow and white, including blue, represent a relatively moist atmosphere. Values colder than white, including green, represent clouds"
+        "help":"Band 8 will be used for upper-level tropospheric water vapor tracking, jet stream identification, hurricane track forecasting, mid-latitude storm forecasting, severe weather analysis, upper mid-level moisture estimation (for legacy vertical moisture profiles) and turbulence detection.",
+        "time":"This band shows atmospheric temperatures in Celsius. Values in the red to yellow range represent a dry atmosphere. Values between yellow and white, including blue, represent a relatively moist atmosphere. Values colder than white, including green, represent clouds.\n6.2 µm - Upper-level Water Vapor Band - 2 km resolution"
     },
     "geocolor":{
         "title":"GeoColor",
         "desc":"NOT real-time depictions of city lights. Credit: CIRA/NOAA",
         "key":"",
         "help":"GeoColor was developed at the Cooperative Institute for Research in the Atmosphere (CIRA) and the STAR Regional and Mesoscale Meteorology Branch (RAMMB). ",
-        "time":"GeoColor is a multispectral product composed of True Color (using a simulated green component) during daytime, and an Infrared product that uses bands 7 and 13 at night. During the day, the imagery looks approximately as it would when viewed with human eyes from space. At night, the blue colors represent liquid water clouds such as fog and stratus, while gray to white indicate higher ice clouds, and the city lights come from a static database derived from the VIIRS Day Night Band"
+        "time":"GeoColor is a multispectral product composed of True Color (using a simulated green component) during daytime, and an Infrared product that uses bands 7 and 13 at night. \nDuring the day, the imagery looks approximately as it would when viewed with human eyes from space. At night, the blue colors represent liquid water clouds such as fog and stratus, while gray to white indicate higher ice clouds, and the city lights come from a static database derived from the VIIRS Day Night Band"
+    },
+    "airMass":{
+        "title":"Air Mass RGB",
+        "desc":"RGB based on data from IR & water vapor",
+        "key":"",
+        "help":"1 - Jet stream / potential vorticity (PV) / deformation zones / dry upper level (dark red / orange) \n2 - Cold air mass (dark blue/purple) \n3 - Warm air mass (green) \n4 - Warm air mass, less moisture (olive/dark orange) \n5 - High thick cloud (white) \n6 - Mid level cloud (tan/salmon) \n7 - Low level cloud (green, dark blue) \n8 - Limb effects (purple/blue)",
+        "time":"Air Mass RGB is used to diagnose the environment surrounding synoptic systems by enhancing temperature and moisture characteristics of airmasses. Cyclogenesis can be inferred by the identification of warm, dry, ozone-rich descending stratospheric air associated with jet streams and potential vorticity (PV) anomalies.\n The RGB can be used to validate the location of PV anomalies in model data. Additionally, this RGB can distinguish between polar and tropical airmasses, especially along upper-level frontal boundaries and identify high-, mid-, and low-level clouds"
     },
     "hqSatImg": {
-        "title":"High Resolution Satellite Imagery",
+        "title":"🛰️ High Resolution Satellite Imagery",
         "help":"GOES-19. Credit: NOAA/CIRA"
+    },
+    "GIFs": {
+        "title":"🛰️ GOES-19: 8 hours Loops",
+        "help":"Credit: ThorntonWeather.com"
     }
 }

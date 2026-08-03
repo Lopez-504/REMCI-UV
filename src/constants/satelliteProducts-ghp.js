@@ -25,13 +25,22 @@ export const SATELLITE_PRODUCTS = [
     colorbar: "images/colorbar-band8.png",
   },
   {
-    title: "geocolor.title",
-    description: "geocolor.desc",
-    help:"geocolor.help",
-    time:"geocolor.time",
-    url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/GEOCOLOR/GOES19-SSA-GEOCOLOR-900x540.gif",
-    colorbar: "",
-  },
+    title: "airMass.title",
+    description: "airMass.desc",
+    help:"airMass.help",
+    time:"airMass.time",
+    url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/AirMass/GOES19-SSA-AirMass-900x540.gif",
+    colorbar: "images/colorbar-airmass.png",
+  }
+  //{
+    //title: "geocolor.title",
+    //description: "geocolor.desc",
+    //help:"geocolor.help",
+    //time:"geocolor.time",
+    //url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/GEOCOLOR/GOES19-SSA-GEOCOLOR-900x540.gif",
+    //colorbar: "",
+  //},
 ];
+
 
 //ghp -> no REMCI-UV/

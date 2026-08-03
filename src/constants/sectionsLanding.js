@@ -101,6 +101,6 @@ export const SECTIONS = [
         "Forecast interpretation",
         "Educational resources"
         ],
-        key: "about-project"
+        key: "about-learning"
     }
 ];

@@ -28,6 +28,12 @@ export default function GoesSatellite() {
   return (
     <>
     <div className="goes-container">
+      <h1>
+        {t("GIFs.title")}
+        <span>
+          <HelpTooltip helpKey={t("GIFs.help")} placement='right'/>
+        </span>
+      </h1>
       <div className="goes-scroll">
         {SATELLITE_PRODUCTS.map((product) => (
           <section className="goes-panel" key={product.title}>
@@ -45,7 +51,15 @@ export default function GoesSatellite() {
               </p>
             </div>
 
-            <div className="goes-image-wrapper">
+            <div 
+              className="goes-image-wrapper" 
+              onClick={() =>
+                  setSelectedImage({
+                      ...product,
+                      src: `${product.url}?t=${refreshKey}`,
+                  })
+              }
+            >
               <img
                 src={`${product.url}?t=${refreshKey}`}
                 alt={t(product.title)}
@@ -68,12 +82,12 @@ export default function GoesSatellite() {
     
     {/* HIGH RESOLUTION IMAGE GALLERY */}
     <div className="goes-gallery">
-        <h2 className="gallery-title">
+        <h1>
             {t("hqSatImg.title")}
             <span>
               <HelpTooltip helpKey={t("hqSatImg.help")} placement='right'/>
             </span>
-        </h2>
+        </h1>
         <div className="gallery-grid">
           {HQ_IMAGES.map((image) => (
             <div
@@ -109,7 +123,7 @@ export default function GoesSatellite() {
                 onClick={(e) => e.stopPropagation()}
             />
             <div className="lightbox-caption">
-                {selectedImage.title}
+                {t(selectedImage.title)}
             </div>
         </div>
     )}

@@ -27,4 +27,5 @@
     text-align: left;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.636);
     font-weight: 450;
+    white-space: pre-line !important;
 }
