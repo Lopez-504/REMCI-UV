@@ -15,7 +15,7 @@
   position: relative;
   left: 0%;
   right: 0%; 
-  padding: 0px; 
+  padding: 0px;
 }
 
 .card-header {
@@ -32,37 +32,52 @@
   line-height: 1.6;
   display: flex;
   justify-content: center;      /* Centers horizontally */
-  align-items: center;          /* Centers vertically */
+  align-items: top;          /* Centers vertically */
   height: auto;
-  
+  background: linear-gradient(rgba(71, 71, 71, 0.117),rgba(0, 0, 0, 0.558)),url('/images/earth3.png');
+  background-size: cover;
+  background-position: center;
+  height: 100dvh;
 }
 
-
 .about-content p {
-  /* 1. Limit line length for better scanning (approx. 45-75 characters) */
+  position: relative;
   max-width: 80ch;
-  
-  /* 2. Increase spacing between lines to let the text breathe */
   line-height: 1.6;
-  
-  /* 3. Soften the contrast (use #333 or similar instead of pure #000) */
-  color: #333;
-  
-  /* 4. Modern line wrapping to prevent "orphans" (single words on a new line) */
+  color: #e1e2e4;
   text-wrap: balance;
-  margin-bottom: 1.5rem;        /* space between paragraphs */
-  font-size: 1.125rem;
+  margin-bottom: 1.5rem;   
+  font-size: 1.135rem;
+  padding-top: 20px;
+}
+
+.about-content p ol {
+  background-color: rgba(12, 12, 12, 0.14);
+  backdrop-filter: blur(16px);
+  border-radius: 10px;  
+  padding: 14px;
+  padding-top: 2px;
+}
+
+.about-content p ol li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-content p ol li:first-child {
+  color: rgb(223, 223, 222);
 }
 
 .about-content a {
   position: relative;
   display: inline-block;
-  transition: 0.2s ease-in-out;
-  font-size: 1.2rem;
+  transition: 0.2s ease-in;
+  font-size: 1.26rem;
+  color: rgb(3, 5, 84);
 }
 
 .about-content a:hover {
-  transform: rotate(0deg) scale(1.03);
+  transform: scale(1.0);
   font-weight: 600;
 }
 

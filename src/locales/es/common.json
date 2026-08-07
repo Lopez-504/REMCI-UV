@@ -32,7 +32,7 @@
         "humidity": "Humedad Relativa",
         "wind": "Velocidad y Dirección del viento",
         "pressure": "Presión atmosférica",
-        "cumulativeRainfall": "Precipitación acumulada"
+        "cumulativeRainfall": "Precipitación acum."
     },
     "dateRange":"Periodo",
     "selectDates":"Selccionar fechas",

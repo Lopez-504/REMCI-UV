@@ -61,6 +61,40 @@ export default function Learning() {
             </Accordion>
           </details>
         </section>
+        <h1>Other resources</h1>
+        <section className="other">
+          <div>
+            <h2>Windy</h2>
+            <iframe src="https://earth.nullschool.net/#current/wind/surface/level/overlay=dew_point_temp/orthographic=-63.25,-12.84,160"></iframe>
+          </div>
+          <div>
+            <h2>Meteored</h2>
+            <iframe src="https://earth.nullschool.net/#current/ocean/surface/currents/overlay=sea_surface_temp_anomaly/orthographic=-63.25,-2.84,261" title="Nullschool"></iframe>
+          </div>
+          <div>
+            <h2>Nullschool</h2>
+            <iframe src="https://earth.nullschool.net/#current/wind/surface/level/overlay=total_precipitable_water/orthographic=-61.94,-31.26,361" title="Nullschool"></iframe>
+          </div>
+          <div>
+            <h2>Pivotal Weather</h2>
+            <iframe src="https://home.pivotalweather.com/" title="Nullschool"></iframe>
+          </div>
+          <div>
+            <h2>DMC</h2>
+            <iframe src="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml" title="Nullschool"></iframe>
+          </div>
+          <div>
+            <h2>DMC - Cartas interactivas</h2>
+            <iframe src="https://archivos.meteochile.gob.cl/portaldmc/imgsat/capas/CAPAS%20INTERACTIVAS_2.pdf" title="Nullschool"></iframe>
+          </div>
+        </section>
       </>  
     );
 }
+
+//Windy and NOAA not connecting:
+//https://www.windy.com/-Satellite-satellite?satellite,-38.048,-70.425,4,p:cities
+//https://www.noaa.gov/
+
+//DMC is quite nice, lots of information. I need to know how do they get the GOES-19 products and how to make that interactive
+

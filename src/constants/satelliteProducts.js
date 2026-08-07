@@ -41,3 +41,5 @@ export const SATELLITE_PRODUCTS = [
   //  colorbar: "",
   //},
 ];
+
+// This one is good too: Day Cloud Phase / Night Microphysics

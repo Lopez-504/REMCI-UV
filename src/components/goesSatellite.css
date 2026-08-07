@@ -16,8 +16,8 @@
   background-color: #6f6f6fde;
   border-radius: 10px;
   padding: 8px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
   background-image: url('../../public/images/space.jpg');
   background-size: cover;
 }
@@ -105,21 +105,26 @@
 
 /* Gallery */
 .goes-gallery{
-    margin-top:20px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
 }    
 
 .goes-gallery h1{
   font-size:2.1rem;
-  margin-bottom: 20px;
-  margin-top: -2px;
-  /*color: rgb(215, 214, 214);
+  margin-bottom: 30px;
+  margin-top: 10px;
+  color: rgb(215, 214, 214);
   background-color: #09090974;
   border-radius: 10px;
   padding: 8px;
-  padding-left: 1px;
-  padding-right: 1px;
+  padding-left: 50px;
+  padding-right: 50px;
   background-image: url('../../public/images/space.jpg');
-  background-size: cover;*/
+  background-size: cover;
   text-align:center;
 }
 

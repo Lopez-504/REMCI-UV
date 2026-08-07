@@ -1,7 +1,14 @@
 import { useTranslation } from "react-i18next";
+import React from 'react';
+import clickSound from '../../public/chords-0210.wav'; 
 
 //CSS
 import "./languageToggle.css"
+
+const playSound = () => {
+  const audio = new Audio(clickSound);
+  audio.play();
+};
 
 export default function LanguageToggle() {
     const { i18n } = useTranslation();
@@ -16,7 +23,7 @@ export default function LanguageToggle() {
     };
 
     return (
-        <button onClick={toggleLanguage}>
+        <button onClick={() => {toggleLanguage();playSound();}}>
         {i18n.language === "es" ? "ES" : "EN"}
         </button>
     );

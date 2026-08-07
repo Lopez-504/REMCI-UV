@@ -130,7 +130,7 @@ function getSegmentsByDay(data) {
 
 // Actual Component
 function Meteogram({ refreshMinutes = 2 }) {
-  const { t } = useTranslation("common");
+  const { t,i18n } = useTranslation("common");
 
   const [selectedLocationId, setSelectedLocationId] = useState(STATIONS[0].id);
 
@@ -257,9 +257,19 @@ function Meteogram({ refreshMinutes = 2 }) {
     const sixHourTicks = rows.filter((d) => d.time.getHours() % 6 === 0);
     const zeroY = y(0, yTempMin, yTempMax, row1Y);
 
+    //const dateLabels = daySegments.map(({ date, rows: ds }) => {
+    //  const mid = ds[Math.floor(ds.length / 2)]?.time ?? ds[0].time;
+    //  return { date, x: x(mid) };
+    //});
+
+    //TEST
     const dateLabels = daySegments.map(({ date, rows: ds }) => {
       const mid = ds[Math.floor(ds.length / 2)]?.time ?? ds[0].time;
-      return { date, x: x(mid) };
+      return {
+        date,
+        time: mid,
+        x: x(mid),
+      };
     });
 
     function Grid({ top, leftTicks, rightTicks, leftMin, leftMax, rightMin, rightMax }) {
@@ -455,7 +465,7 @@ function Meteogram({ refreshMinutes = 2 }) {
           <AxisHours top={row1Y} />
 
           <text x={margin.left + 10} y={row1Y - 14} fill={COLORS.temp} fontSize={FONTS.var_label}>{t("variables2.temp")}</text>
-          <text x={margin.left + innerW - 220} y={row1Y - 14} fill={COLORS.dew} fontSize={FONTS.var_label}>{t("variables2.dew")}</text>
+          <text x={margin.left + innerW - 150} y={row1Y - 14} fill={COLORS.dew} fontSize={FONTS.var_label}>{t("variables2.dew")}</text>
           <text x={margin.left - 95} y={row1Y + rowH / 2} transform={`rotate(-90 ${margin.left - 56} ${row1Y + rowH / 2})`} fontSize={FONTS.unit_label}>°Celsius</text>
           <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>{t("variables2.fog")}*</text>
 
@@ -485,14 +495,35 @@ function Meteogram({ refreshMinutes = 2 }) {
 
           {/* Bottom date labels */}
           {dateLabels.map((d) => (
-            <text key={d.date} x={d.x} y={height - 65} textAnchor="middle" fontSize={FONTS.date_label} fontWeight="700" fill="#111">
-              {d.date}
-            </text>
+            <g key={d.date}>
+              <text
+                x={d.x}
+                y={height - 65}
+                textAnchor="middle"
+                fontSize={FONTS.date_label}
+                fontWeight="700"
+                fill="#111"
+              >
+                {d.date}
+              </text>
+
+              <text
+                x={d.x}
+                y={height - 45}
+                textAnchor="middle"
+                fontSize={FONTS.date_label - 4}
+                fill="#666"
+              >
+                {d.time.toLocaleDateString(i18n.language, {weekday: "short",})}
+              </text>
+            </g>
           ))}
         </svg>
       </div>
-      <p><strong>↓</strong>: Viento Norte. ➜: Viento Oeste. Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
+      <p><strong>↑</strong>: Viento Norte.</p>
+      <p> ➜: Viento Oeste.</p>
       <p>* Desde Open-Meteo se obtiene la variable <strong>visibilidad</strong>. Ver <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">OpenMeteo-Doc</a> para más información</p>
+      <p>Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
     </div>
   );
 }

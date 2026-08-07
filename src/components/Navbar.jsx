@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { RadioTower } from "lucide-react";
+import clickSound from '../../public/chords-0236.wav'; 
+
 //COMPONENTS
 import LanguageToggle from "./LanguageToggle";
 
@@ -11,6 +13,11 @@ import logo from "/remci_logo.png"
 
 //CSS
 import './navbar.css'
+
+const playSound = () => {
+  const audio = new Audio(clickSound);
+  audio.play();
+};
 
 const Navbar = ({ setActiveSection }) => {
   const { t } = useTranslation("landing");      //namespace
@@ -42,7 +49,8 @@ const Navbar = ({ setActiveSection }) => {
         <img 
           src={logo} alt="Logo" 
           onClick={() => {
-                    setActiveSection('landing-page'); 
+                    setActiveSection('landing-page');
+                    playSound(); 
           }}
           style={{ width: '70px', height: '64px', objectFit: 'contain' }}/>
         <h1> REMCI-UV ⛅ </h1>

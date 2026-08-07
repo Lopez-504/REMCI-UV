@@ -43,4 +43,7 @@ export const SATELLITE_PRODUCTS = [
 ];
 
 
+// This one is good too: Day Cloud Phase / Night Microphysics
+
+
 //ghp -> no REMCI-UV/

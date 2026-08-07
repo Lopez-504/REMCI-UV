@@ -143,3 +143,32 @@ learning-details::details-content {
 learning-details::details-content:hover {
   font-size: 1rem;
 }
+
+.other {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  margin-top: 0rem;
+}
+
+.other > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.other iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 8px;
+}
+
+.other h2 {
+  margin-bottom: 10px;
+  background-color: #011732eb;
+  border-radius: 10px;
+  font-size: 2rem;
+  color: #e3e7e9;
+  text-align: center;
+}

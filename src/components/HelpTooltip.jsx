@@ -2,6 +2,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CircleQuestionMark, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+//CSS
 import "./helpTooltip.css";
 
 export default function HelpTooltip({
@@ -29,7 +30,6 @@ export default function HelpTooltip({
         >
             <span className="help-tooltip">
                 {icon==='pallete' ? <Palette size={size}/> : <CircleQuestionMark size={size}/> }
-                
             </span>
         </OverlayTrigger>
     );
