@@ -1,0 +1,95 @@
+.card-title {
+    color: rgb(236, 233, 233);
+    margin-top: 8px;
+}
+
+.card-title h3 {
+   padding: 0px;
+   margin-bottom: 0px;
+   margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+    /* justify-content: center; */
+}
+
+.flip-card {
+    perspective: 1000px;
+    width: 300px;
+    height: 400px;
+    position: relative;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.flip-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    padding-bottom: 0px;
+    border-radius: 20px;
+    box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.279);
+}
+
+.flip-card-front {
+    background: linear-gradient(45deg, rgb(0, 0, 92), rgb(184, 1, 181));
+    color: rgb(239, 237, 237);
+}
+
+.flip-card-back {
+    background: linear-gradient(45deg, rgb(40, 175, 3), rgb(212, 103, 1));
+    color: rgb(44, 43, 43);
+    transform: rotateY(180deg);
+}
+
+.card-content {
+    padding: 14px;
+    text-align: left;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+    color: aliceblue;
+    display: inline-block;
+    flex-direction: column;
+    height: 73%;
+    white-space: pre-line;
+}
+
+.flip-button {
+    width: 92%;
+    padding: 1px;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(200, 201, 200);
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    transition:.2s;
+}
+
+.flip-button:hover {
+    background-color: transparent;
+    color: rgb(250, 250, 250);
+    transform: scale(1.03);
+}
+

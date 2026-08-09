@@ -1,0 +1,122 @@
+/* Filename - App.css */
+
+.cloud-title {
+    color: rgb(236, 233, 233);
+    margin-top: 8px;
+}
+
+.cloud-title h2 {
+   color: black; 
+}
+
+.cloud-title h3 {
+   padding: 0px;
+   margin-bottom: 0px;
+   margin-top: 10px;
+}
+
+.cloud-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+    /*flex-direction: column;
+    row-gap: 0px;*/
+}
+
+.flip-cloud {
+    perspective: 1000px;
+    width: 600px;
+    height: 460px;
+    position: relative;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.flip-cloud.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-cloud-inner {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.flip-cloud-front,
+.flip-cloud-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    padding-bottom: 0px;
+    border-radius: 20px;
+    box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.279);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cloud-image img {
+    width: 100%;
+    display: block;
+    border-radius: 16px;
+    margin-bottom: -4px;
+}
+
+.cloud-text {
+    padding-top: 16px;
+    font-size: 1.1rem;
+    margin-bottom: auto;
+}
+
+.flip-cloud-front {
+  background: linear-gradient(45deg, rgb(96, 95, 95), rgb(197, 195, 195));
+  color: rgb(29, 29, 29);
+  border-radius: 20px;
+}
+
+.flip-cloud-back {
+  background: linear-gradient(45deg, rgb(185, 185, 185), rgb(228, 229, 228));
+  color: rgb(29, 29, 29);
+  transform: rotateY(180deg);
+}
+
+.cloud-content {
+    justify-content: center;
+    padding: 14px;
+    font-size: 1.0rem;
+    text-align: left;
+    padding-bottom: 8px;
+    margin-bottom: 1px;
+    /*color: aliceblue;*/
+    flex-direction: column;
+    white-space: pre-line;
+    display: flex;
+    height: 100%;
+}
+
+.cloud-flip-button {
+    width: 96%;
+    padding: 0px;
+    margin-right: -2px;
+    margin-bottom: auto;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(15, 15, 15);
+    display: flex;
+    justify-content: flex-end;
+    transition:.2s;
+}
+
+.cloud-flip-button:hover {
+    background-color: transparent;
+    color: rgb(250, 250, 250);
+    transform: scale(1.03);
+}
+

@@ -1,0 +1,192 @@
+export const glossaryData = [
+  {
+    emoji: '༄｡°',
+    name: 'Air',
+    front:
+      "This is considered the mixture of gases that make up the earth's atmosphere. The principle gases that compose dry air are:\n\n<b>Nitrogen</b> at 78.084% \n<b>Oxygen</b> at 20.946% \n<b>Argon</b> at 0.93% \n<b>Carbon Dioxide</b> at .03%",
+    back: 
+      "<b>Water</b> (vapor) is never shown in atmosphere composition, and the reason is that water vapor is a <b>variable gas</b>, it can range from around 0 to 4%. Then what it's usually presented as the atmosphere's gas composition is actually a <b>dry gas composition</b> (i.e., assuming there's no water)"  
+  },
+  {
+    emoji: '🌫',
+    name: 'Airmass',
+    front:
+      'An extensive body of air throughout which the horizontal temperature and moisture characteristics are similar.\n\nMeteorologists classify air masses by their moisture properties (based on where they form over land or water) and their temperature (based on latitude)',
+    back: 
+      '<b>Continental</b> (c): Formed over land; these air masses are dry.\n<b>Maritime</b> (m): Formed over oceans; these air masses are moist.\n<b>Arctic/Antarctic</b> (A/AA): Formed in polar regions; extremely cold.\n<b>Polar</b> (P): Formed in high-latitude regions; cold.\n<b> Tropical </b> (T): Formed in low-latitude regions; warm or hot'  
+  },
+  {
+    emoji: '🌍',
+    name: 'Climate',
+    front:
+      "The historical record of average daily and seasonal weather events. Statistics are generally drawn over several decades. The word is derived from the Greek 'klima' meaning inclination, and reflects the importance early scholars attributed to the sun's influence.",
+  },
+  {
+    emoji: '💨',
+    name: 'Cold Front',
+    front:
+      "The leading edge of an advancing cold air mass that is under running and displacing the warmer air in its path. Generally, when a cold front passes the temperature and humidity decrease, the pressure rises, and the wind shifts from southwest to northwest. Precipitation is usually along or ahead of the front in the form of thunderstorms."
+  },
+  {
+    emoji: '🌎',
+    name: 'Coriolis Force',
+    front:
+      "A force per unit mass that arises solely from the earth's rotation, acting as a deflecting force. It is dependent on the latitude and speed of the moving object. In the Northern Hemisphere the air is deflected to the right, and in the Southern Hemisphere to the left. The coriolis effect is almost non-existent at the equator."
+  },
+  {
+    emoji: '💧',
+    name: 'Dew',
+    front:
+      "Condensation in the form of small water drops that form on grass and other obect near the ground when the temperature has fallen to the dewpoint. Dew generally forms during the nighttime hours and evaporates by mid to late morning."
+  },
+  {
+    emoji: '🌡️',
+    name: 'Dewpoint',
+    front:
+      "The temperature to which air must be cooled at a constant pressure to become saturated. Example: If the air temperature is 70 degrees and the dewpoint temperature is 70 degrees the air is saturated and dew will form i.e, the relative humidity is 100%"
+  },
+  {
+    emoji: '🌑🌒🌓🌔🌕',
+    name: 'Eclipse',
+    front:
+      "An eclipse of the <b>moon</b> occurs when the Earth is in a direct line between the sun and the moon. The moon <b>does not have any light of its own</b>, instead it reflects the sun's light. During a <b>lunar eclipse</b> the moon is in the earth's shadow",
+    back:
+      "An eclipse of the <b>sun</b> occurs when the moon is in a direct line between the sun and the earth, casting some of the earth's surface in its shadow. The moon's disk shaped outline appears to cover the sun's brighter surface, or photosphere. That part of the earth that is directly in the moon's shadow will see a <b>total eclipse of the sun</b>, while the areas around it will see a partial eclipse"  
+  },
+  {
+    emoji: '👦🏻',
+    name: 'El Nino',
+    front:
+      "The cyclical warming of East Pacific Ocean sea water temperatures off the western coast of South America that can result in significant changes in weather patterns in the United States and elsewhere. This occurs when warm equatorial Pacific waters move in and displace the colder waters, cutting off the upwelling process"
+  },
+  {
+    emoji: '🌳',
+    name: 'Evapotranspiration',
+    front:
+      "The total amount of water that is transferred from the earth's surface to the atmosphere. It is made up of the evaporation of liquid or solid water plus the transpiration from plants."
+  },
+  {
+    emoji: '⛆',
+    name: 'Fog',
+    front:
+      "A visible aggregate of minute water droplets suspended in the atmosphere at or near the surface of the earth, reducing horizontal visibility to less than 5/8 statute miles. It is created when the temperature and the dew point of the air have become the same, or nearly the same, and sufficient condensation nuclei are present."
+  },
+  {
+    emoji: '☁️',
+    name: 'Front',
+    front:
+      "The transition zone or interface between two air masses of different densities, which usually means different temperatures. For example, the area of convergence between warm, moist air and cool, dry air"
+  },
+  {
+    emoji: '🔥',
+    name: 'Greenhouse Effect',
+    front:
+      "The overall warming of the earth's lower atmosphere primarily due to carbon dioxide and water vapor which permit the sun's rays to heat the earth, but then restrict some heat-energy from escaping back into space."
+  },
+  {
+    emoji: '💨',
+    name: 'Gust',
+    front:
+      "A sudden significant increase in or rapid fluctuations of wind speed. Peak wind must reach at least 16 knots (18 miles per hour) and the variation between peaks and lulls is at least 10 knots (11.5 miles per hour). The duration is usually less than twenty seconds"
+  },
+  {
+    emoji: '♨️',
+    name: 'Heat',
+    front:
+      "A form of energy transferred between two systems by virtue of a difference in temperature. The first law of thermodynamics demonstrated that the heat absorbed by a system may be used by the system to do work or to raise its internal energy"
+  },
+  {
+    emoji: '❄️💧',
+    name: 'Hydrometeor',
+    front:
+      "Any form of atmospheric water vapor, including those blown by the wind off the earth's surface. Liquid or solid water formation that is suspended in the air includes clouds, fog, ice fog, and mist. Drizzle and rain are examples of liquid precipitation, while freezing drizzle and freezing rain are examples of freezing precipitation.",
+    back: "Solid or frozen precipitation includes ice pellets, hail, snow, snow pellets, snow grains, and ice crystals. Water vapor that evaporates before reaching the ground is virga. Examples of liquid or solid water particles that are lifted off the earth's surface by the wind includes drifting and blowing snow and blowing spary."  
+  },
+  {
+    emoji: '⛈️',
+    name: 'Instability',
+    front:
+      "It is the condition of the atmosphere when spontaneous convection and severe weather can occur. \nAir parcels, when displaced vertically, will accelerate upward",
+    back: ""  
+  },
+  {
+    emoji: '❯❯❯❯',
+    name: 'Jetstream',
+    front:
+      "Area of strong winds that are concentrated in a realatively narrow band in the upper troposphere. Flowing in a semi-continuous band around the globe from west to east, it is caused by the changes in air temperature where the cold polar air moving towards the equator meets the warmer equatorial air moving northward toward the poles",
+    back: ""  
+  },
+  {
+    emoji: '⚡',
+    name: 'Lightning',
+    front:
+      "A rapid, visible discharge of electricity hotter than the surface of the sun. Lightning is caused by the build up of electrical potential between cloud and ground, between clouds, or between clouds and the surrounding air.",
+    back: ""  
+  },
+  {
+    emoji: '🌀',
+    name: 'Low Pressure System',
+    front:
+      "An area of a relative pressure minimum that has converging winds and rotates in the same direction as the Earth...counterclockwise in the Northern Hemisphere and clockwise in the Southern Hemisphere. Also known as a cyclone",
+    back: ""  
+  },
+  {
+    emoji: '🌐',
+    name: 'Mesoscale',
+    front:
+      "The scale of meteorological phenomena that range in size from several kilometers to around 100 kilometers. This includes MCCs, MCSs, and squall lines. Smaller phenomena are classified as <b>microscale</b> while larger are classified as <b>synoptic-scale</b>",
+    back: ""  
+  },
+  {
+    emoji: '🌧️🌨️', //❄️💧
+    name: 'Precipitation',
+    front:
+      "Any and all forms of <b>water, liquid or solid</b>, that falls from clouds and reaches the ground. This includes, drizzle, freezing drizzle, freezing rain, hail, ice crystals, ice pellets, rain, snow, snow pellets, and snow grains.",
+    back: ""  
+  },
+  {
+    emoji: '☀️', 
+    name: 'Radiation',
+    front:
+      "The process by which energy is propagated through any medium by virtue of the wave motion of that medium. Electromagnetic radiation, which emits heat and light, is one form. Sound waves are another.",
+    back: ""  
+  },
+  {
+    emoji: '﹏ꕀ﹏ꕀ', 
+    name: 'Scattering',
+    front:
+      "The process by which small particles suspended in the air diffuse a portion of the incident radiation in all directions. This is a primary reason for colors, such as blue skies, rainbows, and orange sunsets.",
+    back: ""  
+  },
+  {
+    emoji: '🌪️', 
+    name: 'Tornado',
+    front:
+      "A violently rotating column of air in contact with and extending between a <b>convective cloud</b> and the surface of the earth. It is the <b>most destructive</b> of all storm-scale atmospheric phenomena. They can occur anywhere in the world, but are most frequent in the US in an area bounded by the Rockies on the west and the Appalachians in the east",
+    back: ""  
+  },
+  {
+    emoji: '₊ ⊹ ☄ ₊ ⊹', 
+    name: 'Turbulence',
+    front:
+      "The irregular and instantaneous motions of air which is made up of a number of small eddies that travel in the general air current. <b>Atmospheric turbulence</b> is caused by random fluctuations in the wind flow. It can be caused by thermal or convective currents, differences in terrain and wind speed, along a frontal zone, or variation in temperature and pressure",
+    back: ""  
+  },
+  {
+    emoji: '꩜', 
+    name: 'Vorticity',
+    front:
+      "The measurement of the rotation of a small air parcel. It has vorticity when the parcel spins as it moves along its path. Although the axis of the rotation can extend in any direction, meteorologists are primarily concerned with the rotational motion about an axis that is perpendicular to the earth's surface. If it does not spin, it is said to have zero vorticity.",
+    back: "In the Southern Hemisphere, the vorticity is positive when the parcel has a clockwise, or anticyclonic, rotation. It is negative when the parcel has counterclockwise, or cyclonic, rotation.\n\nIn the Northern Hemisphere the situation is reversed."  
+  },
+  {
+    emoji: '☀️🌧️💨🌨️', 
+    name: 'Weather',
+    front:
+      "The state of the atmosphere at a specific time and with respect to its effect on life and human activities. It is the short term variations of the atmosphere, as opposed to the long term, or <b>climatic</b>, changes",
+    back: ""  
+  },
+];
+
+
+//Add types of clouds, maybe with images. Or maybe this is better suited for another section
