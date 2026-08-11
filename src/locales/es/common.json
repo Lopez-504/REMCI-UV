@@ -66,7 +66,11 @@
         "selectVar":"Selecciona variables. Añade o elimina variables usando los botones"
     },
     "about":"Acerca de",
-    "historicData":"Registros históricos",
+    "historic":{
+        "title":"Datos Históricos",
+        "subtitle":"desde la API de Open-Meteo",
+        "help":"Selecciona estación, variables, rango de fechas y presiona <b>Graficar</b>.\nPara exportar la gráfica, presiona <b>Exportar gráfica</b>!"
+    },
     "selectVar":"Seleccionar variable",
     "plotData":"Graficar",
     "exportChart":"Exportar gráfica"        

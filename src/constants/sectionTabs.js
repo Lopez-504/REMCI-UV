@@ -66,16 +66,30 @@ export const NAV_ITEMS = [
     ],
   },
   {
+    key: "learning",
+    labelKey: "nav.learning",
+    options: [
+      {
+        key: "learning-articles",
+        labelKey: "nav.articles",
+      },
+      {
+        key: "learning-glossary",
+        labelKey: "nav.glossary",
+      },
+      {
+        key: "learning-clouds",
+        labelKey: "nav.clouds",
+      },
+    ]
+  },
+  {
     key: "about",
     labelKey: "nav.about",
     options: [
       {
         key: "about-project",
         labelKey: "nav.project",
-      },
-      {
-        key: "about-learning",
-        labelKey: "nav.learning",
       },
       {
         key: "about-team",

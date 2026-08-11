@@ -66,7 +66,11 @@
         "selectVar":"Select variables. Add or remove variables using the buttons below" 
     },
     "about":"About",
-    "historicData":"Historic Meteorological Data",
+    "historic":{
+        "title":"Historic Meteorological Data",
+        "subtitle":"Open-Meteo Archive API",
+        "help":"Select station, variables, date range and click <b>Plot Data</b>. \nTo export chart, just click <b>Export chart</b>!"
+    },
     "selectVar":"Select variable",
     "plotData":"Plot Data",
     "exportChart":"Export chart"

@@ -1,0 +1,54 @@
+.glossary-header{
+    text-align:center;
+    margin-bottom:40px;
+    margin-top: 3rem;
+}
+
+.glossary-header h1{
+    font-size:2.5rem;
+    margin-bottom:1px;
+    margin-top: 0rem;
+    color:#1e3a5f;
+}
+
+.glossary-header h1 span {
+    margin-left: 4px;
+}
+
+.glossary-header p{
+    color:#666;
+    max-width:750px;
+    margin:auto;
+    line-height:1.7;
+}
+
+/* Glossary */
+
+.glossary-outer {
+  background-color: #dfdfde5b;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+}
+
+.glossary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+  padding: 10px;
+}
+
+
+.test:nth-child(even) .flip-card-front {
+  background: linear-gradient(225deg, rgb(0, 0, 92), rgb(184, 1, 181));
+  color: rgb(239, 237, 237);
+  padding-bottom: 0px;
+  border-radius: 20px;
+}
+
+.test:nth-child(even) .flip-card-back {
+  background: linear-gradient(225deg, rgb(40, 175, 3), rgb(212, 103, 1));
+  color: rgb(239, 237, 237);
+  padding-bottom: 0px;
+  border-radius: 20px;
+}
+

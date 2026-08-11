@@ -94,6 +94,7 @@ export const STATIONS = [
     link: "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
   },
 
+  /*
   { id: "4", 
     name: "Home", 
     loc: 'Villa Alemana, Chile', 
@@ -123,8 +124,9 @@ export const STATIONS = [
       "accRain"
     ],
     link: "https://www.weatherlink.com/embeddablePage/show/745c3c317c794f5a81f5a777bde785b5/summary"
-  }
+  }*/
 ];
+
 
 // BUG: locally the images paths need the REMCI-UV at the begining, but in GitHub we don't need it
 // Try to fix this in vite.config.js, here the base root is set to "/REMCI-UV"

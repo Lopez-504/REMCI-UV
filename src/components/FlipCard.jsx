@@ -29,7 +29,7 @@ const FlipCard = ({
               <button 
                 className="flip-button" 
                 onClick={handleFlip}>
-                ⮞
+                ➥
               </button>
             </div>
             {/* Card back */}
@@ -44,7 +44,7 @@ const FlipCard = ({
               <button 
                 className="flip-button" 
                 onClick={handleFlip}>
-                ⮜
+                ⤿
               </button>
             </div>
           </div>

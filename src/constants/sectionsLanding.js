@@ -69,7 +69,7 @@ export const SECTIONS = [
         "Variable and Station selection",
         "Export your own charts"
         ],
-        key: "data-historic"
+        key: "data-download"
     },
 
     {
@@ -85,7 +85,7 @@ export const SECTIONS = [
         "Sensor status",
         "Coverage"
         ],
-        key: "data-download"
+        key: "data-historic"
     },
 
     {
@@ -101,6 +101,6 @@ export const SECTIONS = [
         "Forecast interpretation",
         "Educational resources"
         ],
-        key: "about-learning"
+        key: "about-glossary"
     }
 ];

@@ -1,6 +1,7 @@
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CircleQuestionMark, Palette } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import FormattedText from "./FormattedText";
 
 //CSS
 import "./helpTooltip.css";
@@ -19,11 +20,11 @@ export default function HelpTooltip({
     return (
         <OverlayTrigger
             placement={placement}
-            delay={{ show: 100, hide: 300 }}
+            delay={{ show: 50, hide: 300 }}
             container={document.body}
             overlay={
                 <Tooltip id={`tooltip-${helpKey}`} className="dash-tooltip">
-                    {t(helpKey)}
+                    <FormattedText text={helpKey}/>
                     <img src={image} alt="" />
                 </Tooltip>
             }

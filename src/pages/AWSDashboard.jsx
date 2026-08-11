@@ -16,9 +16,11 @@ import CurrentConditions from '../components/CurrentConditions';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
 import About from '../components/About';
-import Learning from '../components/Learning'
 import LanguageToggle from '../components/LanguageToggle';
 import HelpTooltip from '../components/HelpTooltip';
+import Articles from '../components/Articles';
+import Glossary from '../components/Glossary';
+import Clouds from '../components/Clouds';
 
 // --   Constants  --  //
 import { RAW_WEATHER_DATA } from '../data/weatherData';
@@ -33,6 +35,7 @@ import Landing from '../components/Landing';
 
 //Translations
 import { useTranslation } from "react-i18next";
+
 
 // --  Actual Component  -- //
 const AWSDashboard = () => {
@@ -319,13 +322,29 @@ const AWSDashboard = () => {
           </>
         )}
 
-{/* About -> Education */}
+{/* Learning -> Articles */}
 
-        {activeSection === 'about-learning' && (
+        {activeSection === 'learning-articles' && (
           <>
-            <Learning/>
+            <Articles/>
           </>
         )}
+
+{/* Learning -> glossary */}
+
+        {activeSection === 'learning-glossary' && (
+          <>
+            <Glossary/>
+          </>
+        )}
+        
+{/* Learning -> clouds */}
+
+        {activeSection === 'learning-clouds' && (
+          <>
+            <Clouds/>
+          </>
+        )}        
 
 {/* About -> team */}
 

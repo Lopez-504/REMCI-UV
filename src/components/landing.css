@@ -86,7 +86,7 @@
 }
 
 .landing-card{
-    background:rgba(19, 29, 223, 0.088);
+    background: rgba(19, 29, 223, 0.088); /*linear-gradient(45deg, #00000042, #f9e8026c)*/;
     border-radius:16px;
     padding:30px;
     box-shadow:0 8px 20px rgba(0,0,0,.08);
@@ -99,6 +99,10 @@
 .landing-card:hover{
     transform:translateY(-5px);
     box-shadow:0 20px 40px rgba(0, 0, 0, 0.471);
+}
+
+.landing-card:nth-child(odd) {
+    background: rgba(19, 73, 223, 0.143); /*linear-gradient(225deg, #00000032, #f9e8026c)*/;
 }
 
 .landing-icon{
@@ -158,6 +162,8 @@
     margin:80px auto;
     text-align:center;
     padding:20px;
+    background: linear-gradient(0deg, #68686819, #cececc20);
+    border-radius: 20px;
 }
 
 

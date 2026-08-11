@@ -1,7 +1,7 @@
 export const articles = [
   {
     id: 1,
-    title: "clouds",
+    title: "cloud",
     category: "basics",
     readTime: "5 min",
     image1: "images/learning/clouds1.jpeg",

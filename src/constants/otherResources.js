@@ -5,7 +5,7 @@ export const otherResources = [
   },
   {
     title: 'Meteored',
-    url:'https://earth.nullschool.net/#current/ocean/surface/currents/overlay=sea_surface_temp_anomaly/orthographic=-63.25,-2.84,261" title="Nullschool',
+    url:'https://earth.nullschool.net/#current/ocean/surface/currents/overlay=sea_surface_temp_anomaly/orthographic=-63.25,-2.84,261" title="Meteored',
   },
   {
     title: 'NullSchool',
@@ -13,7 +13,7 @@ export const otherResources = [
   },
   {
     title: 'Pivotal Weather',
-    url:'https://home.pivotalweather.com/" title="Nullschool',
+    url:'https://home.pivotalweather.com/" title="PivotalWeather',
   },
   {
     title: 'DMC',

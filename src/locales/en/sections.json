@@ -17,9 +17,13 @@
     "availability": "Availability",
     "satellite":"Satellite",
 
+    "learning":"Learning",
+    "articles":"Articles",
+    "glossary":"Glossary",
+    "clouds":"Clouds",
+
     "about": "About",
     "project": "Project",
-    "learning":"Learning",
     "team": "Team"
   }
 }

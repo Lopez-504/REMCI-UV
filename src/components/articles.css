@@ -2,6 +2,8 @@
     max-width:1400px;
     margin:auto;
     padding:10px 20px 10px;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
 }
 
 .learning-header{
@@ -124,67 +126,20 @@
     }
 }
 
-/* Glossary */
-
-.glossary-outer {
-  background-color: #a0a09f35;
-  box-shadow: 0 -12px 12px #a0a09f35;
-}
-
-.glossary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1rem;
-  margin-top: 10px;
-  margin-bottom: 24px;
-  padding: 10px;
-}
-
-
-.test:nth-child(even) .flip-card-front {
-  background: linear-gradient(225deg, rgb(0, 0, 92), rgb(184, 1, 181));
-  color: rgb(239, 237, 237);
-  padding-bottom: 0px;
-  border-radius: 20px;
-}
-
-.test:nth-child(even) .flip-card-back {
-  background: linear-gradient(225deg, rgb(40, 175, 3), rgb(212, 103, 1));
-  color: rgb(239, 237, 237);
-  padding-bottom: 0px;
-  border-radius: 20px;
-}
-
-/* cloud types */
-
-.clouds-outer {
-  background-color: #dadad835;
-  box-shadow: 0 -12px 12px #dadad835;
-}
-
-.clouds {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-  gap: 2rem;
-  margin-top: 10px;
-  margin-bottom: 24px;
-  padding: 10px;
-}
-
 /* Other Resources */
 
 .other-resources {
-  background-color: #e2e3e3a4;
-  box-shadow: 0 -12px 12px #e2e3e3a4;
+  background-color: #cdcdcd7d;
+  box-shadow: 0 -12px 10px 16px #cdcdcd7d;      /* fix this */
 }
 
 .otherRes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   margin-top: 0rem;
-  padding: 10px;
+  padding: 20px;
 }
 
 .otherRes > div {
@@ -207,15 +162,3 @@
   color: #e3e7e9;
   text-align: center;
 }
-
-/*
-.clouds-cards:nth-child(even) .flip-cloud-front {
-  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
-  color: rgb(18, 18, 18);
-}
-
-.clouds-cards:nth-child(even) .flip-cloud-back {
-  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
-  color: rgb(18, 18, 18);
-}
-*/

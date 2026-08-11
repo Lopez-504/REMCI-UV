@@ -54,7 +54,7 @@
     backface-visibility: hidden;
     padding-bottom: 0px;
     border-radius: 20px;
-    box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.279);
+    box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.327);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -63,7 +63,7 @@
 .cloud-image img {
     width: 100%;
     display: block;
-    border-radius: 16px;
+    border-radius: 20px;
     margin-bottom: -4px;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .flip-cloud-front {
-  background: linear-gradient(45deg, rgb(96, 95, 95), rgb(197, 195, 195));
+  background: linear-gradient(45deg, rgba(176, 176, 176, 0.458), rgb(184, 183, 183));
   color: rgb(29, 29, 29);
   border-radius: 20px;
 }

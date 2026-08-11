@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
 import ReactECharts from 'echarts-for-react';
+import HelpTooltip from '../components/HelpTooltip';
+import FormattedText from "./FormattedText";
 
 import {
   MultiSelect,
@@ -356,14 +358,17 @@ const HistoricData = () => {
             size="xl" 
             fw={700} 
             variant="gradient"
-            gradient={{ from: '#1b3f02', to: '#d50505', deg: 90 }}    //not working because of css clash
+            gradient={{ from: '#1b3f02', to: '#d50505', deg: 45 }}   
           >
-            {t("historicData")}
+            {t("historic.title")}
           </Text>
-          <Text size="sm" c="dimmed">
-            Open-Meteo Archive API
-          </Text>
+          <span>
+            <HelpTooltip helpKey={t("historic.help")} placement='right'/>
+          </span>
         </div>
+        <Text size="sm" c="dimmed">
+          {t("historic.subtitle")}
+        </Text>
 
         {/* CONTROLS */}
         <div className="historic-dashboard-controls">

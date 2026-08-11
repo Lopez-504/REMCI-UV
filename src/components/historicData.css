@@ -14,7 +14,9 @@
 }
 
 .dashboard-header {
-  margin-bottom: 0.9rem;
+  margin-bottom: 0rem;
+  display: flex;      
+  gap: 15px;          
 }
 
 .historic-dashboard-controls {

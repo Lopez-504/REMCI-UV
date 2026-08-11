@@ -1,0 +1,49 @@
+.clouds-outer {
+  background-color: #dadad835;
+  margin-bottom: 4rem;    
+  margin-top: 2.2rem;    
+}
+
+.clouds-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.clouds-header h1{
+    font-size:2.5rem;
+    margin-bottom:1px;
+    color:#1e3a5f;
+}
+
+.clouds-header h1 span {
+    margin-left: 4px;
+}
+
+.clouds-header p{
+    color:#666;
+    max-width:750px;
+    margin:auto;
+    line-height:1.7;
+    white-space: pre-line;
+}
+
+.clouds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+  gap: 2rem;
+  margin-top: 10px;
+  margin-bottom: 24px;
+  padding: 10px;
+}
+
+/*
+.clouds-cards:nth-child(even) .flip-cloud-front {
+  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
+  color: rgb(18, 18, 18);
+}
+
+.clouds-cards:nth-child(even) .flip-cloud-back {
+  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
+  color: rgb(18, 18, 18);
+}
+*/
