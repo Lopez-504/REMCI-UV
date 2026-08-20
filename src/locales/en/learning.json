@@ -21,10 +21,5 @@
         "title":"The 10 basic Cloud Types",
         "subtitle":"<b>High clouds</b>: Cirrus (Ci), cirrocumulus (Cc), and cirrostratus (Cs)\n<b>Mid-level clouds</b>: Altocumulus (Ac), altostratus (As), and nimbostratus (Ns)\n<b>Low-level clouds</b>: Cumulus (Cu), stratocumulus (Sc), stratus (St), and cumulonimbus (Cb)",
         "help":"Flip the cards to know more! ☁️"        
-    },
-    "glossary":{
-        "title":"Weather Glossary",
-        "subtitle":"Find out more about the weather concepts we use everyday, and how they relate to forecast and observations. <b>Flip the cards to know more!</b>",
-        "help":"Flip the cards to know more! 🌦️"        
     }
 }

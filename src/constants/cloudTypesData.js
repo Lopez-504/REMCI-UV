@@ -6,7 +6,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "Detached clouds in the form of white, delicate filaments, mostly in patches or narrow bands. They may have a fibrous (hair-like) and/or silky sheen appearance.\nCirrus clouds are always composed of ice crystals, and their transparent character depends upon the degree of separation of the crystals.\nAs a rule, when these clouds cross the sun's disk, they hardly diminish its brightness. When they are exceptionally thick, they may veil its light and obscure its contour. \nBefore sunrise and after sunset, cirrus are often colored bright yellow or red. These clouds are lit up long before other clouds and fade out much later; some time after sunset they become gray.\nAt all hours of the day, cirrus near the horizon are often of a yellowish color. This is due to the distance the light travels through the atmosphere at a low angle."  
+      "Detached clouds in the form of white, delicate filaments, mostly in patches or narrow bands. They may have a fibrous (hair-like) and/or silky sheen appearance.\nCirrus clouds are always composed of <b>ice crystals</b>, and their transparent character depends upon the degree of separation of the crystals.\nAs a rule, when these clouds cross the sun's disk, they hardly diminish its brightness. When they are exceptionally thick, they may veil its light and obscure its contour. \nBefore sunrise and after sunset, cirrus are often colored bright yellow or red. These clouds are lit up long before other clouds and fade out much later; some time after sunset they become gray.\nAt all hours of the day, cirrus near the horizon are often of a yellowish color. This is due to the distance the light travels through the atmosphere at a low angle."  
   },
   {
     emoji: '',
@@ -15,7 +15,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "Thin and white, these clouds look like a patchy sheet or layer arranged somewhat-regularly into grains or ripples without shading. Most of these elements have an apparent width of less than one degree (approximately width of the little finger held at arm's length).\nPredominantly made of ice crystals, cirrocumulus often form in connection with cirrus or cirrostratus or from a degraded state of these cloud types and are short-lived"
+      "Thin and white, these clouds look like a patchy <b>sheet or layer</b> arranged somewhat-regularly into grains or ripples without shading. Most of these elements have an apparent width of less than one degree (approximately width of the little finger held at arm's length).\nPredominantly made of <b>ice crystals</b>, cirrocumulus often form in connection with <b>cirrus</b> or <b>cirrostratus</b> or from a degraded state of these cloud types and are short-lived"
   },
   {
     emoji: '',
@@ -33,7 +33,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "White and/or gray patchy, sheet, or layered clouds generally composed of laminae (plates), rounded masses, or rolls. They may be partly fibrous or diffuse and may or may not be merged.\nMost of these regularly arranged small elements have an apparent width of one to five degrees (larger than the little finger and smaller than three fingers held at arm's length).\nWhen the edge or a thin semitransparent patch of altocumulus passes in front of the sun or moon, a corona appears.This colored ring has red on the outside and blue inside and occurs within a few degrees of the sun or moon.\nThe most common mid-level cloud, multiple layers of altocumulus often appear at different levels at the same time. Many times, altocumulus will appear with other cloud types",  
+      "White and/or gray patchy, sheet, or layered clouds generally composed of laminae (plates), rounded masses, or rolls. They may be partly fibrous or diffuse and may or may not be merged.\nMost of these regularly arranged small elements have an apparent width of one to five degrees (larger than the little finger and smaller than three fingers held at arm's length).\nWhen the edge or a thin semitransparent patch of altocumulus passes in front of the sun or moon, a corona appears.This colored ring has red on the outside and blue inside and occurs within a few degrees of the sun or moon.\nThe <b>most common mid-level cloud</b>, multiple layers of altocumulus often appear at different levels at the same time. Many times, altocumulus will appear with other cloud types",  
   },
   {
     emoji: '',
@@ -42,7 +42,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "Gray or bluish cloud sheets or layers of striated or fibrous clouds that totally or partially cover the sky. They are thin enough to regularly reveal the sun as if seen through ground glass.\nAltostratus clouds do not produce a halo phenomenon nor are the shadows of objects on the ground visible.\nSometimes virga (streaks of rain) is seen hanging from altostratus and at times may even reach the ground, causing very light precipitation",  
+      "Gray or bluish cloud <b>sheets or layers</b> of striated or fibrous clouds that totally or partially cover the sky. They are thin enough to regularly reveal the sun as if seen through ground glass.\nAltostratus clouds do not produce a halo phenomenon nor are the shadows of objects on the ground visible.\nSometimes virga (streaks of rain) is seen hanging from altostratus and at times may even reach the ground, causing very light precipitation",  
   },
   {
     emoji: '',
@@ -51,7 +51,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "Resulting from thickening altostratus, this is a dark gray cloud layer diffused by falling rain or snow. It is thick enough throughout to blot out the sun. Low, ragged clouds frequently occur beneath this cloud and sometimes merge with its base.\nThe cloud base lowers as precipitation continues. Because of the lowering base, it is often erroneously called a low-level cloud. Both altostratus and nimbostratus can extend into the high level of clouds.",  
+      "Resulting from <b>thickening altostratus</b>, this is a dark gray cloud layer diffused by falling rain or snow. It is thick enough throughout to blot out the sun. Low, ragged clouds frequently occur beneath this cloud and sometimes merge with its base.\nThe <b>cloud base lowers as precipitation continues</b>. Because of the lowering base, it is often erroneously called a low-level cloud. Both altostratus and nimbostratus can extend into the high level of clouds.",  
   },
   {
     emoji: '',
@@ -60,7 +60,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "Detached, generally dense clouds and with sharp outlines that develop vertically in the form of rising mounds, domes, or towers with bulging upper parts often resembling a cauliflower.\nThe sunlit parts of these clouds are mostly brilliant white while their bases are relatively dark and horizontal.\nOver land, cumulus develops on days of clear skies due diurnal convection. It appears in the morning, grows, and then more or less dissolves again toward evening",  
+      "Detached, generally <b>dense clouds</b> and with <b>sharp outlines</b> that develop vertically in the form of rising mounds, domes, or towers with bulging upper parts <b>often resembling a cauliflower</b>.\nThe sunlit parts of these clouds are mostly brilliant white while their bases are relatively dark and horizontal.\nOver land, cumulus develops on days of clear skies due diurnal convection. It appears in the morning, grows, and then more or less dissolves again toward evening",  
   },
   {
     emoji: '',
@@ -69,7 +69,7 @@ export const cloudTypesData = [
     front:
       "",
     back:
-      "The thunderstorm cloud, this is a heavy and dense cloud in the form of a mountain or huge tower. The upper portion is usually smoothed, fibrous, or striated and nearly always flattened in the shape of an anvil or vast plume.\nUnder the base of this cloud, which is often very dark, there are commonly low ragged clouds that may or may not merge with the base. They produce precipitation, which sometimes is in the form of virga.\nCumulonimbus clouds also produce hail and tornadoes",  
+      "The <b>thunderstorm cloud</b>, this is a heavy and dense cloud in the form of a mountain or huge tower. The upper portion is usually smoothed, fibrous, or striated and nearly always flattened in the shape of an anvil or vast plume.\nUnder the base of this cloud, which is often very dark, there are commonly low ragged clouds that may or may not merge with the base. They produce precipitation, which sometimes is in the form of virga.\nCumulonimbus clouds also produce hail and tornadoes",  
   },
   {
     emoji: '',

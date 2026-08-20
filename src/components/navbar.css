@@ -35,7 +35,7 @@ nav img:hover {
   font-size: 26px;   
   font-weight: 610;
   align-items: center;
-  animation: pulse 1.5s infinite; 
+  animation: pulse 3s infinite; 
   display:inline-flex;
   justify-content:center;
   cursor:help;

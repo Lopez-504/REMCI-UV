@@ -11,6 +11,7 @@ import chartsEn from "./locales/en/charts.json";
 import exportEn from "./locales/en/export.json";
 import maintenanceEN from "./locales/en/maintenance.json"
 import learningEN from "./locales/en/learning.json"
+import glossaryEN from "./locales/en/glossary.json"
 
 import commonEs from "./locales/es/common.json"
 import landingEs from "./locales/es/landing.json";
@@ -22,6 +23,7 @@ import chartsEs from "./locales/es/charts.json";
 import exportEs from "./locales/es/export.json";
 import maintenanceES from "./locales/es/maintenance.json"
 import learningES from "./locales/es/learning.json"
+import glossaryES from "./locales/es/glossary.json"
 
 i18n
   .use(initReactI18next)
@@ -37,7 +39,8 @@ i18n
         charts: chartsEn,
         sections: sectionsEN,
         maintenance: maintenanceEN,
-        learning: learningEN
+        learning: learningEN,
+        glossary: glossaryEN
       },
       es: {
         common: commonEs,
@@ -49,12 +52,13 @@ i18n
         charts: chartsEs,
         sections: sectionsES,
         maintenance: maintenanceES,
-        learning: learningES
+        learning: learningES,
+        glossary: glossaryES
       },
     },
      
     //namespaces
-    ns: ["common", "sections", "gallery", "currentCond","export", "landing", "forecast", "charts", "maintenance", "learning"],      
+    ns: ["common", "sections", "gallery", "currentCond","export", "landing", "forecast", "charts", "maintenance", "learning","glossary"],      
     defaultNS: "common",
 
     lng: localStorage.getItem("language") || "es",

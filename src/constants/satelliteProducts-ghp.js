@@ -29,9 +29,18 @@ export const SATELLITE_PRODUCTS = [
     description: "airMass.desc",
     help:"airMass.help",
     time:"airMass.time",
-    url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/AirMass/GOES19-SSA-AirMass-900x540.gif",
+    //url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/AirMass/GOES19-SSA-AirMass-900x540.gif",
+    url: "https://archivos.meteochile.gob.cl/portaldmc/data/imgsat/loop/rgb_masa_de_aire_2500.gif",
     colorbar: "images/colorbar-airmass.png",
+  },
+  {
+    title: "meteochile-Test",
+    description: "click to zoom-in",
+    help:"",
+    time:"",
+    url: "https://archivos.meteochile.gob.cl/portaldmc/data/imgsat/loop/ir_loop_2500.gif",
   }
+  
   //{
     //title: "geocolor.title",
     //description: "geocolor.desc",

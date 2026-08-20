@@ -78,7 +78,7 @@
     border-radius:18px;
     overflow:hidden;
     background: transparent;
-    cursor:grab;
+    cursor:pointer;
     box-shadow: 14px 14px 10px rgba(4, 4, 4, 0.279);
     transition:transform .25s ease,
                box-shadow .25s ease;
@@ -96,11 +96,12 @@
   box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
 
-.goes-image{
+.goes-image {
     width:100%;
     height:auto;
     display:block;
     object-fit:contain;
+    max-width: 900px;
 }
 
 /* Gallery */

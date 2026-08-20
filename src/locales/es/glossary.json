@@ -1,0 +1,171 @@
+{
+    "glossary":{
+        "title":"Glosario Meteorológico",
+        "subtitle":"Aprende acerca de los conceptos meteorológicos que usamos a diario y cómo se relacionan al pronóstico y a las observaciones. <b>Gira las cartas para seguir leyendo!</b>",
+        "help":"Flip the cards to know more! 🌦️"        
+    },
+    "air":{
+        "name":"Aire",
+        "front":"El aire es la mezcla de gases que conforman la atmósfera terrestre. Los gases más abundantes en el aire seco son: \n\n<b>Nitrógeno</b> (78.084%) \n<b>Oxígeno</b> (20.946%) \n<b>Argón</b> (0.93%) \n<b>Dióxido de Carbono</b> (0.03%)",
+        "back":"El vapor de agua nunca se incluye en la composición atmosférica porque este es un <b>gas variable</b>, oscilando entre 0 y 4% dependiendo de las condiciones atmosféricas. Así, lo que usualmente se suele presentar como la composición atmosférica terrestre es en realidad una <b>composición de aire seco</b>, esto es, ignorando el vapor de agua."
+    },
+    "airmass":{
+        "name":"Masa de Aire",
+        "front":"Un extenso volumen de aire en el cual las temperaturas horizontales y características de humedad son similares.\n\nLos meteorólogos clasifican las masas de aire según sus propiedades de humedad (dadas por el lugar en donde se formaron: sobre tierra o agua) y su temperatura (dadas por la latitud)",
+        "back":"<b>Continental</b> (c): Formada sobre tierra; estas masas de aire son <b>secas</b>.\n<b>Marítimas</b> (m): Formadas sobre océanos; estas masas de aire son <b>húmedas</b>.\n<b>Polar</b> (P): Formadas en regiones de alta latitud; son <b>frías</b>.\n<b> Tropical </b> (T): Formadas en regiones de baja latitud; pueden ser <b>cálidas o frías</b>"
+    },
+    "climate":{
+        "name":"Clima",
+        "front":"El registro histórico de promedios diarios y estacionales de eventos meteorológicos. Las estadísticas generalmente son calculadas sobre <b>varias décadas</b>. La palabra <b>clima</b> deriva del Griego <i>klima</i> que significa inclinación, y refleja la importancia que atribuían los antiguos eruditos a la influencia del sol.",
+        "back":""
+    },
+    "coldFront":{
+        "name":"Frente Frío",
+        "front":"La región frontal de una masa de aire frío que se mueve y desplaza al aire cálido hacia arriba. Generalmente, cuando pasa un frente frío, la temperatura y la humedad disminuyem, la presión aumenta y el viento cambia desde <b>viento noroeste</b> a <b>viento suroeste</b>",
+        "back":""
+    },
+    "coriolisForce":{
+        "name":"Fuerza de Coriolis",
+        "front":"Una fuerza (por unidad de masa) que emerge únicamente por la rotación terrestre, actuando como una fuerza deflectora. Varía con la latitud y la rapidez de los cuerpos en movimiento. En el Hemisferio Sur el aire es desplazado hacia la izquierda, y en el Hemisferio Norte hacia la derecha. El efecto coriolis es prácticamente nulo en el ecuador.",
+        "back":""
+    },
+    "dew":{
+        "name":"Rocío",
+        "front":"Condensación en forma de pequñas gotas de agua que se forman en el pasto y otros objetos cerca del suelo, donde la temperatura ha alcanzado el punto de rocío. El rocío generalmente se forma durante la noche y se evapora durante la segunda mitad de la mañana.",
+        "back":"Puedes observar el rocío mayormente en los objetos planos como el pasto, pequeñas hojas cerca de la superficie, o los parabrisas de los autos, ya que estos se enfrían más rápido que los objetos de mayor volumen. Esto tiene relación con la <b>ley del cuadrado-cubo</b>."
+    },
+    "dewpoint":{
+        "name":"Punto de Rocío",
+        "front":"La temperatura a la cual se debe enfriar el aire (a presión constante) para que alcance la saturación. Por ejemplo, si la temperatura del aire es 10°C y el punto de rocío también es 10°C, el aire está saturado y formará rocío, esto es, la humedad relativa es 100%",
+        "back":""
+    },
+    "eclipse":{
+        "name":"Eclipse",
+        "front":"Un <b>eclipse lunar</b> ocurre cuando la Tierra se ubica precisamente entre el Sol y la Luna. La Luna no emite luz por sí misma, esta refleja la luz del Sol. Durante un eclipse lunar la Luna se ubica en la sombra de la Tierra",
+        "back":"Un <b>eclipse solar</b> ocurre cuando la Luna se ubica precisamente entre el Sol y la Tierra, proyectando una porción de la superficie terrestre en su sombra. La luna, que parece tener forma de disco, cubre la parte más brillante del sol (fotósfera). Unicamente la región ubicanda directamente en la sombra lunar verá un <b>eclipse solar total</b>, mientras que las regiones aledañas solamente verán un <b>eclipse parcial</b>"  
+    },
+    "elNino":{
+        "name":"El Niño",
+        "front":"Calentamiento cíclico del <b>Océano Pacífico Este</b> en la costa Oeste de Sudamérica, el cual puede resultar en cambios significativos en los patrones del Tiempo. Este fenómeno ocurre cuando las aguas cálidas del Pacífico Ecuatorial ascienden en latitud y desplazan a las aguas más frías, interrumpiendo el proceso de surgencia.",
+        "back":""
+    },
+    "evapotranspiration":{
+        "name":"Evapotranspiración",
+        "front":"La totalidad del agua que se transfiere desde la superficie terrestre hacia la atmósfera. Se compone de evaporación de agua líquida o sólida, y también de la <b>transpiración de las plantas</b>.",
+        "back":"El agua se mueve desde las raíces, a través de la planta, y se evapora como vapor de agua a la atmósfera desde pequeños poros en las hojas llamados estomas. \n<b>Hasta el 99% del agua</b> absorbida por las raíces es eliminada de esta forma, ayudando a <b>transportar nutrientes</b> y <b>enfria</b> a las plantas.</b>"
+    },
+    "fog":{
+        "name":"Niebla",
+        "front":"Un conjunto visible de múltiples y diminutas gotas de agua suspendidas en la atmósfera y cerca de la superficie, la cual reduce la visibilidad horizontal a menos de 1 km. Se forma cuando la temperatura alcanza el punto de rocío, o se acerca a ella, y se dispone de suficientes <b>nucleos de condensación</b>.",
+        "back":"La principal diferencia entre la niebla y la neblina es el nivel de visibilidad que permiten. Ambas son nubes muy cerca del suelo formadas por gotas de agua pequeñas, pero la niebla es más densa y reduce la visión a menos de un kilómetro, mientras que la neblina permite ver a más distancia"
+    },
+    "frontZone":{
+        "name":"Frente",
+        "front":"Zona de transición entre 2 masa de aire con diferentes densidades, lo cual suele implicar diferentes temperaturas. Por ejemplo, el área de convergencia entre una masa de aire cálido y húmedo, y otra de aire frío y seco",
+        "back":""
+    },
+    "greenhouseEffect":{
+        "name":"Efecto Invernadero",
+        "front":"El calentamiento general de la parte inferior de la atmósfera terrestre, principalmente debido al dióxido de carbono y vapor de agua, los cuales permiten que la radiación solar calienten la Tierra, pero que luego impiden que parte de esa energía térmica escape al espacio.",
+        "back":""
+    },
+    "gust":{
+        "name":"Racha de Viento",
+        "front":"Una racha de viento es un aumento rápido, fuerte y de corta duración en la velocidad del aire, que dura pocos segundos antes de disminuir o volver a la normalidad. Supera de forma notable la velocidad promedio del viento y causa la mayoría de los daños materiales",
+      "back":""
+    },
+    "heat":{
+        "name":"Calor",
+        "front":"Una forma de energía transferida entre 2 sistemas debido a una diferencia de temperatura. La primera ley de la Termodinámica demuestra que el calor absorbido por un sistema puede ser utilizado para realizar trabajo o incrementar su energía interna",
+        "back":""
+    },
+    "hydrometeor":{
+        "name": "Hidrometeoro",
+        "front":"Cualquier forma de vapor de agua atmosférico, incluyendo aquellos desplazados por el viento desde la superficie terrestre. Agua líquida o sólida suspendida en el aire incluye nubes, niebla, niebla helada, y neblina. La llovizna y lluvia son ejemplos de <b>precipitación líquida</b>, mientras que (...)",
+        "back": "Solid or frozen precipitation includes ice pellets, hail, snow, snow pellets, snow grains, and ice crystals. Water vapor that evaporates before reaching the ground is virga. Examples of liquid or solid water particles that are lifted off the earth's surface by the wind includes drifting and blowing snow and blowing spary."  
+    },
+    "instability":
+        {
+        "name": "Inestabilidad",
+        "front":
+        "It is the condition of the atmosphere when spontaneous convection and severe weather can occur. \nAir parcels, when displaced vertically, will accelerate upward",
+        "back": ""  
+    },
+    "jetstream":
+    {
+        "name": "Corriente en chorro",
+        "front":
+        "Area of strong winds that are concentrated in a realatively narrow band in the upper troposphere. Flowing in a semi-continuous band around the globe from west to east, it is caused by the changes in air temperature where the cold polar air moving towards the equator meets the warmer equatorial air moving northward toward the poles",
+        "back": ""  
+    },
+    "lightning":
+    {
+        "name": "Rayo",
+        "front":
+        "A rapid, visible discharge of electricity hotter than the surface of the sun. Lightning is caused by the build up of electrical potential between cloud and ground, between clouds, or between clouds and the surrounding air.",
+        "back": ""  
+    },
+    "lowPressureSystem":
+    {
+        "name": "Sistema de baja presión",
+        "front":
+        "An area of a relative pressure minimum that has converging winds and rotates in the same direction as the Earth...counterclockwise in the Northern Hemisphere and clockwise in the Southern Hemisphere. Also known as a cyclone",
+        "back": ""  
+    },
+    "mesoscale":
+    {
+        "name": "Mesoescala",
+        "front":
+        "The scale of meteorological phenomena that range in size from several kilometers to around 100 kilometers. This includes MCCs, MCSs, and squall lines. Smaller phenomena are classified as <b>microscale</b> while larger are classified as <b>synoptic-scale</b>",
+        "back": ""  
+    },
+    "precipitation":
+    {
+        "name": "Precipitación",
+        "front":
+        "Any and all forms of <b>water, liquid or solid</b>, that falls from clouds and reaches the ground. This includes, drizzle, freezing drizzle, freezing rain, hail, ice crystals, ice pellets, rain, snow, snow pellets, and snow grains.",
+        "back": ""  
+    },
+    "radiation":
+    {
+        "name": "Radiación",
+        "front":
+        "The process by which energy is propagated through any medium by virtue of the wave motion of that medium. Electromagnetic radiation, which emits heat and light, is one form. Sound waves are another.",
+        "back": "La radiación solar corresponde a la energía transferida desde el sol a la Tierra. El sol emite principalmente en el espectro infrarojo (53%) y visible (42%)."  
+    },
+    "scattering":
+    {
+        "name": "Scattering",
+        "front":
+        "The process by which small particles suspended in the air diffuse a portion of the incident radiation in all directions. This is a primary reason for colors, such as blue skies, rainbows, and orange sunsets.",
+        "back": ""  
+    },
+    "tornado":
+    {
+        "name": "Tornado",
+        "front":
+        "A violently rotating column of air in contact with and extending between a <b>convective cloud</b> and the surface of the earth. It is the <b>most destructive</b> of all storm-scale atmospheric phenomena. They can occur anywhere in the world, but are most frequent in the US in an area bounded by the Rockies on the west and the Appalachians in the east",
+        "back": ""  
+    },
+    "turbulence":
+    {
+        "name": "Turbulencia",
+        "front":
+        "The irregular and instantaneous motions of air which is made up of a number of small eddies that travel in the general air current. <b>Atmospheric turbulence</b> is caused by random fluctuations in the wind flow. It can be caused by thermal or convective currents, differences in terrain and wind speed, along a front al zone, or variation in temperature and pressure",
+        "back": ""  
+    },
+    "vorticity":
+    {
+        "name": "Vorticidad",
+        "front":
+        "The measurement of the rotation of a small air parcel. It has vorticity when the parcel spins as it moves along its path. Although the axis of the rotation can extend in any direction, meteorologists are primarily concerned with the rotational motion about an axis that is perpendicular to the earth's surface. If it does not spin, it is said to have zero vorticity.",
+        "back": "In the Southern Hemisphere, the vorticity is positive when the parcel has a clockwise, or anticyclonic, rotation. It is negative when the parcel has counterclockwise, or cyclonic, rotation.\n\nIn the Northern Hemisphere the situation is reversed."  
+    },
+    "weather":
+    {
+        "name": "Tiempo",
+        "front":
+        "The state of the atmosphere at a specific time and with respect to its effect on life and human activities. It is the short term variations of the atmosphere, as opposed to the long term, or <b>climatic</b>, changes",
+        "back": "El tiempo atmosférico también puede referir al estado de la atmósfera en los próximos días, esto es, un <b>pronóstico del tiempo</b>."  
+    }
+}    

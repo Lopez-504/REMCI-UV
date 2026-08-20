@@ -21,11 +21,6 @@
         "title":"Las 10 clases de Nubes básicas",
         "subtitle":"<b>Nubes altas</b>: Cirrus (Ci), cirrocumulus (Cc) y cirrostratus (Cs)\n<b>Nubes medias</b>: Altocumulus (Ac), altostratus (As) y nimbostratus (Ns)\n<b>Nubes bajas</b>: Cumulus (Cu), stratocumulus (Sc), stratus (St), y cumulonimbus (Cb) ",
         "help":"Gira las cartas para saber más! ☁️"        
-    },
-    "glossary":{
-        "title":"Glosario Meteorológico",
-        "subtitle":"Aprende acerca de los conceptos meteorológicos que usamos a diario y cómo se relacionan al pronóstico y a las observaciones. <b>Gira las cartas para seguir leyendo!</b>",
-        "help":"Flip the cards to know more! 🌦️"        
     }
 }
 

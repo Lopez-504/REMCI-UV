@@ -30,7 +30,7 @@
         "title":"Air Mass RGB",
         "desc":"RGB está basado en información del infrarrojo y el vapor de agua.",
         "key":"",
-        "help":"ayuda",
+        "help":"1 - Corriente en chorro / vorticidad potencial (PV) / zonas de deformación / niveles altos secos (rojo oscuro/naranjo) \n2 - Masas de aire frío (azul oscuro/púrpura) \n3 - Masas de aire cálido (verde) \n4 - Masa de aire cálido, menos húmedo (oliva/naranjo oscuro) \n5 - Nubes altas y gruesas (blanco) \n6 - Nubes intermedias (café claro/salmón) \n7 - Nubes bajas (verde, azul oscuro) \n8 - Efecto de borde (púrpura/azul)",
         "time":"Air Mass RGB es usado para diagnosticar el vecindario que rodea a los sistemas sinópticos, resaltanto la temperatura y humedad características de las masas de aire. Cyclogenesis can be inferred by the identification of warm, dry, ozone-rich descending stratospheric air associated with jet streams and potential vorticity (PV) anomalies. \nThe RGB can be used to validate the location of PV anomalies in model data. Additionally, this RGB can distinguish between polar and tropical airmasses, especially along upper-level frontal boundaries and identify high-, mid-, and low-level clouds"
     },
     "hqSatImg":{

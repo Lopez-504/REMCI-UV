@@ -11,7 +11,7 @@ import { glossaryData } from '../constants/glossaryData'
 
 
 export default function Glossary() {
-    const { t } = useTranslation("learning");
+    const { t } = useTranslation("glossary");
 
     return (
       <>
@@ -31,10 +31,10 @@ export default function Glossary() {
           {glossaryData.map((item) => (
             <div className="test" key={item.name}>
             <FlipCard
-              cardTitle={item.name}
+              cardTitle={t(item.name + ".name")}
               cardIcon={item.emoji} 
-              cardFront={item.front}
-              cardBack={item.back}
+              cardFront={t(item.name + '.front')}
+              cardBack={t(item.name + '.back')}
             />
             </div>
           ))}  
