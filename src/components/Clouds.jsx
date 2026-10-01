@@ -1,9 +1,9 @@
 import "./clouds.css";
 import { useTranslation } from "react-i18next";
-import HelpTooltip from '../components/HelpTooltip';
+import HelpTooltip from './HelpTooltip';
+import CloudCard from "./CloudCard";
 
 import { cloudTypesData } from '../constants/cloudTypesData'
-import FlipCard2 from "./FlipCard2";
 import FormattedText from "./FormattedText";
 
 export default function Clouds() {
@@ -23,18 +23,14 @@ export default function Clouds() {
           <FormattedText text={t("clouds.subtitle")}/>
         </p>
       </header>
-      <section className="clouds-grid">
-        {cloudTypesData.map((item) => (
-          <div className="clouds-cards" key={item.name}>
-            <FlipCard2
-              cardTitle={item.name}
-              cardImg={item.img}
-              cardFront={item.front}
-              cardBack={item.back}
-            />
-          </div>
-        ))}  
-      </section>
+      <div className="cloud-grid">
+        {cloudTypesData.map((cloud) => (
+          <CloudCard
+            key={cloud.id}
+            cloud={cloud}
+          />
+        ))}
+      </div>
     </div>  
     </>  
   );

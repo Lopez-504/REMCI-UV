@@ -25,25 +25,25 @@
 
 .tab-btn {
   background: rgba(255, 0, 0, 0);
-  border: 2.4px solid #b417d07c;
+  border: 0px solid #b417d07c;          /*2.4*/
   border-radius: 8px;
   padding: 5px 14px;
   cursor: pointer;
   font-weight: 570;
-  font-size: 1.1rem;
-  color: #e9e6e6;
+  font-size: 1.3rem;
+  color: #f8f9fa;
   transition: 0.3s ease-in-out;
 }
 
 .tab-btn:hover {
   color: white;
-  background-color: rgba(195, 6, 186, 0.754);
+  background-color: #08acaccd;
   transform: translateY(-3px);
 }
 
 .tab-btn.active {                                           
   color: white;
-  background-color: rgba(195, 6, 186, 0.754);
+  background-color: #08acaccd;      /*#c306bac0*/
 }
 
 .dropdown-menu {

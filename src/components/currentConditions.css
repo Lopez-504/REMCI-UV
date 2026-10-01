@@ -22,8 +22,6 @@ body {
   width: 100%;
 }
 
-
-
 /* Opt-in to full styling for both the button and the dropdown picker     
 .dashboard-controls select, ::picker(select) {            Experimental, don't use in production !!!
   appearance: base-select;
@@ -47,8 +45,8 @@ body {
 
   background-color: #e8e8e8ed;
   border: 2px solid #333;
-  padding: 10px 1px 10px 10px;
-  border-radius: 14px;
+  padding: 0px 2px 0px;
+  border-radius: 10px;
 
   color: black;
   font-size: 1.05rem;

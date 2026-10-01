@@ -1,11 +1,10 @@
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 //COMPONENTS
-import HelpTooltip from "./HelpTooltip"
+//import HelpTooltip from "./HelpTooltip"
 
 // Static data
-import { VAR_LABELS } from '../constants/variables';
+//import { VAR_LABELS } from '../constants/variables';
 
 //CSS
 import './exportPanel.css'
@@ -16,7 +15,6 @@ import { useTranslation } from "react-i18next";
 
 const ExportPanel = ({
   isOpen,
-  setIsOpen,
   exportVars,
   handleCheckboxChange,
   dateRange,

@@ -52,8 +52,8 @@ const Navbar = ({ setActiveSection }) => {
                     setActiveSection('landing-page');
                     playSound(); 
           }}
-          style={{ width: '70px', height: '64px', objectFit: 'contain' }}/>
-        <h1> REMCI-UV ⛅ </h1>
+          style={{ width: '103px', height: '160px', objectFit: 'contain' }}/>
+        {/*<h1> REMCI-UV ⛅ </h1>*/}
       </div>
 
       <div style={{ display: 'flex', gap: '10px' ,alignItems: 'center'}}>

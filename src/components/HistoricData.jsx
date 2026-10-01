@@ -21,7 +21,7 @@ import '@mantine/dates/styles.css';
 import './historicData.css';
 
 //STATIC
-import { STATIONS } from '../constants/stations';
+import { STATIONS } from '../constants/stations-ghp';
 import { VARIABLE_OPTIONS } from '../constants/variables-options'
 
 //Translations

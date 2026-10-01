@@ -17,10 +17,11 @@ html, body, #root {
   max-width: 100%;
   padding: 0;
   background: var(--card-bg);           /*#d7d3d364*/
+  scrollbar-width: thin;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--card-bg);
   overflow-x: hidden;
   overflow-y: scroll;

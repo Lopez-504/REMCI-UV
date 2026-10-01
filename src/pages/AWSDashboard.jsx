@@ -26,7 +26,6 @@ import Clouds from '../components/Clouds';
 import { RAW_WEATHER_DATA } from '../data/weatherData';
 import { STATIONS } from '../constants/stations';
 import team from '../../public/images/construction.jpg'
-import cluodgif from '../../public/images/weatherconditions.gif'
 
 // --  CSS  -- //
 import './awsDashboard.css'

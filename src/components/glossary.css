@@ -1,11 +1,11 @@
 .glossary-header{
     text-align:center;
     margin-bottom:40px;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .glossary-header h1{
-    font-size:2.5rem;
+    font-size:2.9rem;
     margin-bottom:1px;
     margin-top: 0rem;
     color:#1e3a5f;
@@ -20,7 +20,9 @@
     max-width:750px;
     margin:auto;
     line-height:1.7;
-}
+    font-size: 1.2rem;
+    white-space: pre-line;
+  }
 
 /* Glossary */
 
@@ -32,8 +34,8 @@
 
 .glossary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   padding: 10px;
 }
 

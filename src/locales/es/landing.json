@@ -48,7 +48,7 @@
             "items": {
                 "0": "CSV y TXT",
                 "1": "Filtra for fecha",
-                "2": "Selecciona estación y variables de interés",
+                "2": "Estación y variables de interés",
                 "3": "Construye y exporta tu propias gráficas!"
             }
         },

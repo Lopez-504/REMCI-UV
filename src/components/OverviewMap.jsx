@@ -37,7 +37,6 @@ const OverviewMap = () => {
 
   return (
     <section className="overview-map-gallery">
-
       <div className="omg-map-card">
         <div className="omg-card-header">
           <h3>

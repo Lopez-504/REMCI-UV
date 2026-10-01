@@ -21,29 +21,23 @@
 
 .clouds-header p{
     color:#666;
-    max-width:750px;
+    max-width:900px;
     margin:auto;
-    line-height:1.7;
+    line-height:1.9;
     white-space: pre-line;
+    font-size: 1.32rem;   
 }
 
-.clouds-grid {
+.cloud-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-  gap: 2rem;
-  margin-top: 10px;
-  margin-bottom: 24px;
-  padding: 10px;
+  /*grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));*/
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 30px;
 }
 
-/*
-.clouds-cards:nth-child(even) .flip-cloud-front {
-  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
-  color: rgb(18, 18, 18);
+.cloud-card-wrapper:nth-child(4n)
+  .cloud-card-description-wrapper {
+  left: auto;
+  right: calc(100% + 15px);
 }
-
-.clouds-cards:nth-child(even) .flip-cloud-back {
-  background: linear-gradient(45deg, rgb(227, 225, 225), rgb(178, 180, 178));
-  color: rgb(18, 18, 18);
-}
-*/

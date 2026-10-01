@@ -19,5 +19,7 @@
     "wg": "Ráfagas de Viento",
     "press": "Presión Atmosférica",
     "solarRad": "Radiación Solar",
-    "accRain": "Precipitación"    
+    "accRain": "Precipitación",
+    "stationsOverview": "Nuestras Estaciones Meteorológicas",
+    "stationsOverviewDescription": "Explora las estaciones de REMCI-UV y sus instrumentos"    
 }

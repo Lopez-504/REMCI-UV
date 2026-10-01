@@ -9,6 +9,10 @@ import './stationGallery.css'
 //import { STATIONS } from '../constants/stations';
 import { STATIONS } from '../constants/stations-ghp';
 
+//Test
+const StationOverviewCard = ({ station }) => { const [index, setIndex] = useState(0); const images = station.images || []; const next = () => { setIndex((index + 1) % images.length); }; const prev = () => { setIndex((index - 1 + images.length) % images.length); }; return ( <div className="station-overview-card"> {/* IMAGE */} <div className="station-overview-image"> {images.length > 0 ? ( <img src={images[index]} alt={station.name} /> ) : ( <div className="station-no-image"> No image available </div> )} {/* ARROWS */} {images.length > 1 && ( <> <button className="station-overview-arrow left" onClick={prev} aria-label="Previous image" > ‹ </button> <button className="station-overview-arrow right" onClick={next} aria-label="Next image" > › </button> </> )} {/* DOTS */} {images.length > 1 && ( <div className="station-overview-dots"> {images.map((_, i) => ( <button key={i} className={i === index ? "overview-dot active" : "overview-dot"} onClick={() => setIndex(i)} aria-label={`Image ${i + 1}`} /> ))} </div> )} </div> {/* STATION NAME */} <div className="station-overview-info"> <h3>{station.name}</h3> {station.loc && ( <span>{station.loc}</span> )} </div> </div> ); };
+
+
 const StationGallery = () => {
   const { t } = useTranslation(["gallery","common"]);
 
@@ -30,10 +34,23 @@ const StationGallery = () => {
   if (images.length === 0) return <div>No images</div>;
 
   return (
-    <div className="station-gallery">
-      <div className="gallery-card">
-      {/*<div className="card-header">Station Gallery</div>*/}   
+    <>
+    <section className="station-overview"> 
       
+      <div className="station-overview-header"> 
+        <h2>
+          {t("stationsOverview", { defaultValue: "Our Weather Stations" })}
+        </h2> 
+        <p> 
+          {t("stationsOverviewDescription", { defaultValue: "Explore the REMCI-UV stations" })} 
+        </p> 
+        </div>
+        <div className="station-overview-grid"> 
+          {STATIONS.map((station) => ( <StationOverviewCard key={station.id} station={station} /> ))} 
+        </div> 
+      </section> 
+    <div className="station-gallery">
+      <div className="gallery-card">      
           <div className='title-select'>
             <h3>{t('selectStation')}: </h3>
             <select
@@ -161,6 +178,7 @@ const StationGallery = () => {
 
       </div>
     </div>
+    </>
   );
 };
 

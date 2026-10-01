@@ -4,18 +4,18 @@ nav {
   position: sticky;   
   top: 0px;
   z-index: 1000;
-  height: 75px;
+  height: 115px;
   background: var(--primary-color);
   color: rgb(255, 255, 255);
-  background: url('/images/Rotating_earth.gif'),linear-gradient(90deg, rgb(0, 0, 63), rgb(184, 1, 181));
-  /*background-image: ;*/
+  background: url('/images/logo-name.png'),linear-gradient(90deg, rgb(0, 0, 63),#e1faf8, rgb(244, 244, 244));
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 nav img {
@@ -32,7 +32,7 @@ nav img:hover {
   color: #129219;         /*#239228*/
   padding: 4px 6px; 
   border-radius: 9px; 
-  font-size: 26px;   
+  font-size: 1.8rem;   
   font-weight: 610;
   align-items: center;
   animation: pulse 3s infinite; 
@@ -51,7 +51,7 @@ nav img:hover {
     z-index: 1;
 }
 
-.dash-tooltip .tooltip-inner{
+.dash-tooltip .tooltip-inner{   /*not working here*/
     background: #1f2937;
     color: white;
     font-size: 1.1rem;
@@ -65,16 +65,16 @@ nav img:hover {
 }
 
 @keyframes shadow {
-  from {box-shadow: 0 0px 10px 10px rgba(255, 255, 255, 0.582);
+  from {box-shadow: 0 0px 10px 10px #0f244e94;
         transform: scale(1.1)
   }
-  to {box-shadow: 0 0px 0px 0px rgb(255, 255, 255);
+  to {box-shadow: 0 0px 0px 0px #ffffff;
       transform: scale(1);   
   }
-  to {box-shadow: 0 0px 60px 0px rgba(255, 255, 255, 0.901);
+  to {box-shadow: 0 0px 60px 0px #ffffffe6;
       transform: scale(1);
   }
-  to {box-shadow: 0 0px 0px 0px rgba(199, 238, 197, 0.398);}
+  to {box-shadow: 0 0px 0px 0px #c7eec565;}
 }
 
 @keyframes pulse {
@@ -91,5 +91,7 @@ nav img:hover {
 }
 
 nav span {
-  font-size: 20px;
+  font-size: 22px;
+  color: #161718;
+  font-weight: 700;
 }

@@ -8,8 +8,6 @@ import FormattedText from "./FormattedText";
 import "./glossary.css";
 import { glossaryData } from '../constants/glossaryData'
 
-
-
 export default function Glossary() {
     const { t } = useTranslation("glossary");
 

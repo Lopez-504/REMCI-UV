@@ -7,7 +7,7 @@
 
 /* HERO */
 .hero{
-    height:530px;
+    height:610px;
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.20),rgba(0, 0, 0, 0.558)),
         url("/images/torresPaine.jpg");
@@ -20,18 +20,16 @@
 
 }
 
-
 .hero::after {                     
   position: absolute;              
   content: '';
   left: 0;
-  top: 660px;
+  top: 780px;
   width: 100%;
   height: 14px;
   background: #000000;
   filter: blur(6px);
 }
-
 
 .hero-overlay{
     max-width:900px;
@@ -41,33 +39,36 @@
 }
 
 .hero h1{
-  font-size:3.2rem;
+  font-size: 3.5rem;
   margin-bottom:-14px;
   font-family: "Times New Roman", Times, serif;
+  background-color: #11001200;
+  color: #fbfbfb;
 }
 
 .hero h2 {
-  font-size: 19px;
-  /*font-family: "Times New Roman", Times, serif;*/
-  color: #d8d8d8;
+  font-size: 0rem;
+  color: #e30909;
   margin-top: -10px;
   margin-bottom: 26px;
   font-weight: 500;
 }
 
 .hero p{
-  font-size:1.25rem;
-  line-height:1.7;
-  margin-bottom:35px;
+  font-size: 1.35rem;
+  line-height: 1.7;
+  margin-bottom: 5rem;
 }
 
-.hero-button{
+.hero-button {
   background:#287fe9;
   color:white;
   border:none;
-  padding:15px 36px;
   border-radius:10px;
-  font-size:1.1rem;
+
+  padding:15px 36px;
+  
+  font-size:1.2rem;
   cursor:pointer;
   transition:.25s;
 }
@@ -79,10 +80,10 @@
 /* GRID */
 .landing-grid{
     width:min(1400px,95%);
-    margin:60px auto;
+    margin: 90px auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-    gap:30px;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
 }
 
 .landing-card{
@@ -125,8 +126,8 @@
     color:#555;
     line-height: 1.6;
     margin-bottom: 20px;
-    margin-top: 5px;
-    font-size: 1.1rem;
+    margin-top: -2px;
+    font-size: 1.15rem;
 }
 
 .landing-card ul{
@@ -134,7 +135,7 @@
     margin-bottom:25px;
     line-height:1.8;
     flex:1;
-    font-size: 1.05rem;
+    font-size: 1.09rem;
     list-style-type: "🌱   ";  /* 🍁 🌳 ༄ ༄.° */
 }
 
@@ -158,21 +159,24 @@
 
 /* ABOUT */
 .about{
-    max-width:900px;
+    max-width:1200px;
     margin:80px auto;
-    text-align:center;
     padding:20px;
-    background: linear-gradient(0deg, #68686819, #cececc20);
+
+    text-align:center;
+    
+    background: transparent;
     border-radius: 20px;
 }
 
-
 .about h2{
     margin-bottom:20px;
+    font-size: 2.1rem;
 }
 
 .about p{
     line-height:1.8;
+    font-size: 1.2rem;
     color:#555;
     text-align: justify;
 }

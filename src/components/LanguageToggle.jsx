@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import React from 'react';
-import clickSound from '../../public/chords-0210.wav'; 
+import clickSound from '../../public/click.mp3'; 
 
 //CSS
 import "./languageToggle.css"

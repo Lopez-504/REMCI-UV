@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function FormattedText({ text='' }) {
   const parts = text.split(/(<b>.*?<\/b>|<i>.*?<\/i>)/g);
 

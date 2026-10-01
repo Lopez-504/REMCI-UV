@@ -32,7 +32,7 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
               setOpenMenu(openMenu === section.key ? null : section.key)
             }
           >{/* took out onMouseOut, onClick and onMouseLeave */}
-            {t(section.labelKey)} ⌄
+            {t(section.labelKey)} 
           </button>
 
 
@@ -59,7 +59,7 @@ const SectionTabs = ({ activeSection, setActiveSection }) => {
 
         </div>
       ))}
-      <span>{t("language")} </span> <LanguageToggle/>
+      <span></span> <LanguageToggle/>
     </div>
     </>
   );

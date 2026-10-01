@@ -1,6 +1,6 @@
 .card-frame {
   background: var(--card-bg);
-  border: 3px solid var(--primary-color);
+  border: 0px solid var(--primary-color);
   border-radius: 12px;
   overflow: hidden;
 
@@ -11,7 +11,7 @@
 }
 
 .about-card {
-  width: 98.6vw;        /* to have a margin on the right*/
+  width: 99.6vw;        /* to have a margin on the right*/
   position: relative;
   left: 0%;
   right: 0%; 
@@ -47,8 +47,8 @@
   color: #e1e2e4;
   text-wrap: balance;
   margin-bottom: 1.5rem;   
-  font-size: 1.135rem;
-  padding-top: 20px;
+  font-size: 1.4rem;
+  padding-top: 2rem;
 }
 
 .about-content p ol {
@@ -73,7 +73,8 @@
   display: inline-block;
   transition: 0.2s ease-in;
   font-size: 1.26rem;
-  color: rgb(3, 5, 84);
+  line-height: 2.2;
+  color: rgb(109, 236, 215);
 }
 
 .about-content a:hover {

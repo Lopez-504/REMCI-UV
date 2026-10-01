@@ -9,7 +9,7 @@ import HelpTooltip from "./HelpTooltip"
 import { useTranslation } from "react-i18next";
 
 //STATIC
-import { STATIONS } from '../constants/stations';
+import { STATIONS } from '../constants/stations-ghp';
 import { VAR_LABELS } from '../constants/variables';
 
 //CSS

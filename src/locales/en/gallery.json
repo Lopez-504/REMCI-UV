@@ -19,5 +19,7 @@
     "wg": "Wind Gusts",
     "press": "Atmospheric Pressure",
     "solarRad": "Solar Radiation",
-    "accRain": "Accumulated Rain"
+    "accRain": "Accumulated Rain",
+    "stationsOverview": "Our Weather Stations",
+    "stationsOverviewDescription": "Explore the REMCI-UV stations"
 }

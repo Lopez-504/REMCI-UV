@@ -3,6 +3,7 @@ import "./landing.css";
 
 //STATIC
 import { SECTIONS } from '../constants/sectionsLanding'
+import logo_circle from "/remci_logo.png"
 
 //Translations
 import { useTranslation } from "react-i18next";

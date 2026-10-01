@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 
 //STATIC
-import { STATIONS } from '../constants/stations';
+import { STATIONS } from '../constants/stations-ghp';
 import earth from '/images/stations_google_earth.png'
 
 //CSS

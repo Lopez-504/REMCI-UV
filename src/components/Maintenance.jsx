@@ -3,11 +3,11 @@ import React, { useState } from "react";
 // CSS
 import "./maintenance.css";
 
-import { STATIONS } from '../constants/stations';
+import { STATIONS } from '../constants/stations-ghp';
 import logo from "/remci_logo.png"
 
 // COMPONENTS
-import HelpTooltip from "./HelpTooltip";
+//import HelpTooltip from "./HelpTooltip";
 
 // Translations
 import { useTranslation } from "react-i18next";

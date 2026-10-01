@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import './meteogram.css'
 
 //STATIC
-import { STATIONS } from "../constants/stations";
+import { STATIONS } from "../constants/stations-ghp";
 
 // Self-contained SVG meteogram for React.
 // It fetches hourly Open-Meteo data and draws:

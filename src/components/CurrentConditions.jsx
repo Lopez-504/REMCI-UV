@@ -32,7 +32,7 @@ import {
 import './currentConditions.css'
 
 //STATIC
-import { STATIONS } from '../constants/stations.js'
+import { STATIONS } from '../constants/stations-ghp'
 import cloudgif from '../../public/images/weatherconditions2.gif'
 
 //COMPONENTS
