@@ -161,6 +161,83 @@ function Maintenance() {
       }
     );
 
+    //Photographs
+    if (photos.length > 0) {
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      photos.forEach((photo, index) => {
+
+        // Each photograph starts on a new page
+        doc.addPage();
+
+        doc.setFontSize(16);
+        doc.setTextColor(30, 58, 95);
+
+        doc.text(
+          t("photos.reportTitle"),
+          14,
+          20
+        );
+
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+
+        doc.text(
+          `${t("photos.image")} ${index + 1}: ${photo.name}`,
+          14,
+          30
+        );
+
+        // Load image dimensions
+        const img = new Image();
+        img.src = photo.data;
+
+        const maxWidth = pageWidth - 28;
+        const maxHeight = pageHeight - 65;
+
+        const ratio = Math.min(
+          maxWidth / img.width,
+          maxHeight / img.height
+        );
+
+        const imgWidth = img.width * ratio;
+        const imgHeight = img.height * ratio;
+
+        const x = (pageWidth - imgWidth) / 2;
+        const y = 42 + (maxHeight - imgHeight) / 2;
+
+        doc.addImage(
+          photo.data,
+          photo.type,
+          x,
+          y,
+          imgWidth,
+          imgHeight
+        );
+
+        // Footer for photograph page
+        doc.setDrawColor(180);
+
+        doc.line(
+          14,
+          pageHeight - 18,
+          pageWidth - 14,
+          pageHeight - 18
+        );
+
+        doc.setFontSize(9);
+        doc.setTextColor(120);
+
+        doc.text(
+          `REMCI-UV | ${selectedStation.name}`,
+          14,
+          pageHeight - 10
+        );
+      });
+    }
+
     //Footer
     const pageHeight = doc.internal.pageSize.height;
     doc.setDrawColor(180);
@@ -190,6 +267,39 @@ function Maintenance() {
 
     doc.save(filename);
   };
+
+  //test
+  const [photos, setPhotos] = useState([]);
+
+  //test handler  
+    const handlePhotoUpload = (e) => {
+      const files = Array.from(e.target.files);
+  
+      files.forEach((file) => {
+        if (!["image/jpeg", "image/png"].includes(file.type)) {
+          return;
+        }
+  
+        const reader = new FileReader();
+  
+        reader.onload = () => {
+          setPhotos((prev) => [
+            ...prev,
+            {
+              name: file.name,
+              data: reader.result,
+              type: file.type === "image/png" ? "PNG" : "JPEG",
+            },
+          ]);
+        };
+  
+        reader.readAsDataURL(file);
+      });
+  
+      // Allows selecting the same file again
+      e.target.value = "";
+    };
+
 
   return (
     <section className="maintenance-container">
@@ -253,6 +363,7 @@ function Maintenance() {
             onChange={(e) => setTechnician(e.target.value)}
           />
 
+          {/* Checklist */}      
           <div className="checklist">
             {checklist.map((item) => (
               <label key={item} className="check-item">
@@ -267,6 +378,8 @@ function Maintenance() {
             ))}
           </div>
 
+          {/* Notes */}    
+          <div className="notes-and-photo">  
           <textarea
             className="maintenance-notes"
             rows={4}
@@ -275,6 +388,45 @@ function Maintenance() {
             onChange={(e) => setNotes(e.target.value)}
           />
 
+          {/* Photo */}    
+          <div className="maintenance-photo-section">
+            <label className="photo-upload-label">
+              {t("attachPicture")} 
+              <input
+                type="file"
+                accept="image/jpeg,image/png"
+                multiple
+                onChange={handlePhotoUpload}
+              />
+            </label>
+            {photos.length > 0 && (
+              <div className="maintenance-photo-grid">
+                {photos.map((photo, index) => (
+                  <div className="maintenance-photo" key={index}>
+                    <img
+                      src={photo.data}
+                      alt={photo.name}
+                    />
+                    <span>{photo.name}</span>
+                    <button
+                      type="button"
+                      className="remove-photo-btn"
+                      onClick={() =>
+                        setPhotos((prev) =>
+                          prev.filter((_, i) => i !== index)
+                        )
+                      }
+                      aria-label={t("photos.remove")}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          </div>
+
           <button
             className="maintenance-btn"
             onClick={generatePDF}
@@ -282,7 +434,6 @@ function Maintenance() {
             {t("saveReport")}
           </button>
         </div>
-
       </div>
     </section>
   );

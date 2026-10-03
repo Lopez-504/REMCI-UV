@@ -89,7 +89,7 @@ const SummaryItem = ({ icon, label, value, unit }) => {
 
 // ACTUAL COMPONENT
 export default function CurrentConditions() {
-   const { t } = useTranslation("currentCond");
+  const { t } = useTranslation("currentCond");
   
   const [selectedStation, setSelectedStation] = useState(STATIONS[0])
   const [days, setDays] = useState(3)
@@ -200,9 +200,8 @@ export default function CurrentConditions() {
       ).time
     : null;
 
-  
 
-  {/* Visuals */}
+  {/* VISUALS */}
   return (
     <div className="dashboard-wrapper">
       {/* GRID */}

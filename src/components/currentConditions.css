@@ -20,24 +20,10 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100%;
+
 }
 
-/* Opt-in to full styling for both the button and the dropdown picker     
-.dashboard-controls select, ::picker(select) {            Experimental, don't use in production !!!
-  appearance: base-select;
-}*/
-
-/* style the dropdown list (picker) like a regular div 
-::picker(select) {
-  background-color: #e8e8e8ed;
-  border: 2px solid #333;
-  padding: 10px;
-  border-radius: 14px;
-  top: -230px;
-}*/
-
 /* safer alternatives */
-
 .dashboard-controls select {
   appearance: none;
   -webkit-appearance: none;
@@ -47,6 +33,8 @@ body {
   border: 2px solid #333;
   padding: 0px 2px 0px;
   border-radius: 10px;
+
+  text-align: center;
 
   color: black;
   font-size: 1.05rem;
@@ -242,29 +230,3 @@ body {
     min-height: 300px;
   }
 }
-
-
-/*
-//control card
-.weather-card:first-child {
-  background: rgba(190, 192, 209, 0.244);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.232);
-  display: flex;
-  background-image: url('/images/weatherconditions.gif');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  filter: blur(20px);
-} 
-
-.dashboard-controls img {
-  position: relative;
-  width: 40px;
-  height: auto;
-  border-radius: 6px;
-  left: 20px;
-}
-
-*/

@@ -34,6 +34,7 @@
         }
     },
     "saveReport":"Save Maintenance Report",
+    "attachPicture":"AWS picture",
     "lastMaintenance":"From last maintenance",
     "MainChecklist":"Maintenance checklist",
     "station":"Station",
