@@ -45,9 +45,10 @@ export const STATIONS = [
     brand: 'Hobo RX3000', 
     status: 'online',
     images: [
-      "images/pocuro1.jpg",                   /*Work on ghpages !!*/
-      "images/pocuro2.gif",
+      "images/pocuro1.jpg",                   /*Works on ghpages !!*/
+      "images/pocuro4.jpeg",
       "images/pocuro3.jpg",
+      "images/pocuro2.gif",
     ],
     variables: [
       "temp",
