@@ -1,5 +1,5 @@
 .learning-container{
-    max-width:1400px;
+    max-width:1600px;
     margin:auto;
     padding:10px 20px 10px;
     margin-top: 1rem;
@@ -12,7 +12,7 @@
 }
 
 .learning-header h1{
-    font-size:2.5rem;
+    font-size:2.9rem;
     margin-bottom:1px;
     color:#1e3a5f;
 }
@@ -26,7 +26,7 @@
 
 .article-card{
     display:grid;
-    grid-template-columns:1fr 520px;
+    grid-template-columns:1fr 590px;
     gap:60px;
     align-items:top;
     margin-bottom:70px;
@@ -37,14 +37,14 @@
 .article-meta{
     display:flex;
     gap:12px;
-    font-size:.9rem;
+    font-size:1.2rem;           /* nothing */
     color:#5f8db6;
     font-weight:600;
     margin-bottom:12px;
 }
 
 .article-info h2{
-    font-size:2rem;
+    font-size:2.3rem;
     margin-bottom:6px;
     color:#222;
 }

@@ -20,6 +20,7 @@ const Footer = ({ setActiveSection }) => {
         <strong>REMCI-UV</strong>
         <p>Red de Estaciones Meteorológicas Ciencias UV</p>
       </div>
+      
 
       <div className="footer-center">
         <a href="https://www.uv.cl" target="_blank" rel="noreferrer" >

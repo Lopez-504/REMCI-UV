@@ -18,6 +18,8 @@ nav {
   padding: 0 20px;
 }
 
+/* shrinking navbar: https://share.gemini.google/G2r6cv1nth0A */
+
 nav img {
   transition: 0.3s ease-in-out;
 }

@@ -43,6 +43,19 @@ const Navbar = ({ setActiveSection }) => {
     </>
   );
 
+  //SHRINK LISTENER (not ready yet)
+  /*
+  const navbar = document.querySelector('nav');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+  */
+ 
   return (
     <nav>
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

@@ -101,6 +101,6 @@ export const SECTIONS = [
         "Forecast interpretation",
         "Educational resources"
         ],
-        key: "about-glossary"
+        key: "learning-clouds"
     }
 ];

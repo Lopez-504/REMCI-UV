@@ -229,7 +229,7 @@ const AWSDashboard = () => {
         )}
 
 {/* Data -> availability */}
-
+{/* disabled oct 07 */}
         {activeSection === 'data-availability' && (
           <>
             {/*<AvailabilityPrologue/>*/}

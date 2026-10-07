@@ -1,5 +1,8 @@
-import "./articles.css";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./articles.css";
+
+import Article from "./Article";
 
 //import {articles} from "../constants/articles"
 import { articles } from "../constants/articles-ghp"
@@ -7,6 +10,17 @@ import { otherResources } from "../constants/otherResources";
 
 export default function Articles() {
     const { t } = useTranslation("learning");
+
+    const [selectedArticle, setSelectedArticle] = useState(null);
+
+    if (selectedArticle) {
+      return (
+        <Article
+          article={selectedArticle}
+          onBack={() => setSelectedArticle(null)}
+        />
+      );
+    }
 
     return (
       <>
@@ -25,9 +39,11 @@ export default function Articles() {
                 </div>
                 <h2>{t('articles.'+article.title)}</h2>
                 <p>{t('articles.'+article.summary)}</p>
-                <button className="read-btn">
+
+                <button className="read-btn" onClick={() => setSelectedArticle(article)}>
                     {t("articles.readMore")}
                 </button>
+              
               </div>
               <div className="article-images">
                 <img

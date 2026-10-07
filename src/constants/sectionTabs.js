@@ -47,10 +47,10 @@ export const NAV_ITEMS = [
         key: "data-download",
         labelKey: "nav.download",
       },
-      {
-        key: "data-availability",
-        labelKey: "nav.availability",
-      },
+      //{
+      //  key: "data-availability",
+      //  labelKey: "nav.availability",
+      //},
       {
         key: "data-satellite",
         labelKey: "nav.satellite",
