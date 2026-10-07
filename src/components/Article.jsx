@@ -1,9 +1,17 @@
 import "./article.css";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 export default function Article({ article, onBack }) {
  
   const { t } = useTranslation();
+
+  useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+      }, [article]);
 
   if (!article) {
     return null;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./articles.css";
 
@@ -12,6 +12,13 @@ export default function Articles() {
     const { t } = useTranslation("learning");
 
     const [selectedArticle, setSelectedArticle] = useState(null);
+
+    useEffect(() => {
+      window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+      });
+    }, [selectedArticle]);
 
     if (selectedArticle) {
       return (
