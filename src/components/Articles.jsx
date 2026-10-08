@@ -13,6 +13,7 @@ export default function Articles() {
 
     const [selectedArticle, setSelectedArticle] = useState(null);
 
+    //SCROLL TO TOP   
     useEffect(() => {
       window.scrollTo({
           top: 0,

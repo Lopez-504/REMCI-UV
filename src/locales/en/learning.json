@@ -11,7 +11,13 @@
         "goesSummary":"GOES article summary",
         "lightPoll":"Light Pollution",
         "light":"Light",
-        "lpSummary":"Light pollution article summary"
+        "lpSummary":"Light pollution article summary",
+        "Clouds": "Clouds ☁️",
+        "Reading Satellite Images": "Reading Satellite Images",
+        "Light Pollution": "Light Pollution",
+        "Learn what clouds are, how they form, and why their appearance can tell us so much about the atmosphere.": "Learn what clouds are, how they form, and why their appearance can tell us so much about the atmosphere.",
+        "Learn how meteorological satellites allow us to observe clouds, storms, water vapor, and atmospheric structure from space.": "Learn how meteorological satellites allow us to observe clouds, storms, water vapor, and atmospheric structure from space.",
+        "Discover how artificial light interacts with the atmosphere and why dark skies are important for astronomy.": "Discover how artificial light interacts with the atmosphere and why dark skies are important for astronomy."
     },
     "otherRes":{
         "title":"Other Resources",
@@ -22,5 +28,8 @@
         "subtitle":"<b>High clouds</b>: Cirrus (Ci), cirrocumulus (Cc), and cirrostratus (Cs)\n<b>Mid-level clouds</b>: Altocumulus (Ac), altostratus (As), and nimbostratus (Ns)\n<b>Low-level clouds</b>: Cumulus (Cu), stratocumulus (Sc), stratus (St), and cumulonimbus (Cb)",
         "help":"Flip the cards to know more! ☁️",      
         "read-more": "Read description"  
-    }
+    },
+    "basics": "Basics",
+    "satellites": "Satellites",
+    "atmosphere": "Atmosphere"
 }

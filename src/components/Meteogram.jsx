@@ -425,8 +425,9 @@ function Meteogram({ refreshMinutes = 2 }) {
             </span>
           </h2>
           <p>
-            {t("openMeteoData")} · {selectedLocation.name} - {loc} · lat {lat}, lon {lng}
+            {t("openMeteoData")} · {selectedLocation.name} - {loc} 
           </p>
+          {/* · lat {lat}, lon {lng} */}
         </div>
 
         <label className="station-selector">
@@ -522,7 +523,7 @@ function Meteogram({ refreshMinutes = 2 }) {
       </div>
       <p><strong>↑</strong>: Viento Norte.</p>
       <p> ➜: Viento Oeste.</p>
-      <p>* Desde Open-Meteo se obtiene la variable <strong>visibilidad</strong>. Ver <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">OpenMeteo-Doc</a> para más información</p>
+      <p>* Desde Open-Meteo se obtiene la variable <strong>visibilidad</strong>. </p>
       <p>Gráfica inspirada en <a href="https://ifa.uv.cl/pronostico/valpo/es/costa/valparaiso" target="_blank" rel="noopener noreferrer">PronosticoIFA</a></p>
     </div>
   );

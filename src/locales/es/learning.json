@@ -1,7 +1,7 @@
 {
     "articles": {
         "title":"Sección de Aprendizaje",
-        "subtitle":"Sumérgete en el fascinante mundo de las Ciencias Atmosféricas. Aprende acercac de las nubes, nuestra atmósfera, imágenes satelitales, contaminación lumínica y mucho más!",
+        "subtitle":"Sumérgete en el fascinante mundo de las Ciencias Atmosféricas. Aprende acerca de las nubes, nuestra atmósfera, imágenes satelitales, contaminación lumínica y mucho más!",
         "readMore":"Leer más",
         "cloud":"Formación de Nubes",
         "basics":"Básico",
@@ -11,7 +11,15 @@
         "goesSummary":"Resumen artículo GOES",
         "lightPoll":"Contamminación lumínica",
         "light":"Luz",
-        "lpSummary":"Resumen artículo contamminación lumínica"
+        "lpSummary":"Resumen artículo contamminación lumínica",
+        "Clouds": "Nubes ☁️",
+        "Reading Satellite Images": "Leer imágenes satelitales",
+        "Light Pollution": "Contaminación Lumínica",
+        "Learn what clouds are, how they form, and why their appearance can tell us so much about the atmosphere.": "Aprende qué son las nubes, cómo se forman, y qué nos pueden decir acerca de la atmósfera.",
+        "Learn how meteorological satellites allow us to observe clouds, storms, water vapor, and atmospheric structure from space.": "Aprender cómo los satélites nos permiten observar las nubes, tormentas, vapor de agua y estructuras atmosféricas desde el espacio.",
+        "Discover how artificial light interacts with the atmosphere and why dark skies are important for astronomy.": "Descubre cómo la luz artificial interactua con la atmósfera y porqué los cielos oscuros son muy importantes para la astronomía."
+
+
     },
     "otherRes":{
         "title":"Otros Recursos",
@@ -22,6 +30,10 @@
         "subtitle":"<b>Nubes altas</b>: Cirrus (Ci), cirrocumulus (Cc) y cirrostratus (Cs)\n<b>Nubes medias</b>: Altocumulus (Ac), altostratus (As) y nimbostratus (Ns)\n<b>Nubes bajas</b>: Cumulus (Cu), stratocumulus (Sc), stratus (St), y cumulonimbus (Cb) ",
         "help":"Gira las cartas para saber más! ☁️",
         "read-more": "Leer descripción"         
-    }
+    },
+    "basics": "Elemental",
+    "satellites": "Satélites",
+    "atmosphere": "Atmósfera"
+
 }
 
