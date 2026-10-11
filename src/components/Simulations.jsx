@@ -5,17 +5,17 @@ export default function Simulations() {
     <>
       <div>
         <iframe
-            src="../src/constants/ideal-gas-simulator.html"
+            src="../constants/ideal-gas-simulator.html"
             title="Ideal Gas simulation"
             className="simulation-frame"
         />
         <iframe
-            src="../src/constants/atmospheric_cloud_simulator.html"
+            src="../constants/atmospheric_cloud_simulator.html"
             title="Cloud Formation simulation"
             className="simulation-frame"
         />
          <iframe
-            src="../src/constants/light_pollution_atmospheric_simulator.html"
+            src="../constants/light_pollution_atmospheric_simulator.html"
             title="Light Pollution simulation"
             className="simulation-frame"
         />
