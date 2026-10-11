@@ -208,7 +208,7 @@ function Meteogram({ refreshMinutes = 2 }) {
     const yTempMax = Math.max(25, niceCeil(tempMax, 5));
 
     const windMax = Math.max(50, niceCeil(Math.max(...vals("wind")), 10));
-    const precipMax = Math.max(20, niceCeil(Math.max(...vals("precip")), 2));
+    const precipMax = Math.max(10, niceCeil(Math.max(...vals("precip")), 2));
 
     const pMin = niceFloor(Math.min(...vals("pressure")) - 2, 5);
     const pMax = niceCeil(Math.max(...vals("pressure")) + 2, 5);
@@ -471,7 +471,7 @@ function Meteogram({ refreshMinutes = 2 }) {
           <text x={margin.left + innerW + 60} y={row1Y + rowH - 10} transform={`rotate(-90 ${margin.left + innerW + 60} ${row1Y + rowH - 10})`} fill="gray" fontSize={FONTS.var_label-3}>{t("variables2.fog")}*</text>
 
           {/* Row 2: Wind, arrows, precipitation */}
-          <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 4)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
+          <Grid top={row2Y} leftTicks={yTicks(0, windMax, 10)} rightTicks={yTicks(0, precipMax, 2)} leftMin={0} leftMax={windMax} rightMin={0} rightMax={precipMax} />
           {barPlot("precip", 0, precipMax, row2Y, COLORS.precip)}
           <path d={linePath("wind", 0, windMax, row2Y)} fill='none' stroke={COLORS.wind2} strokeWidth="2.8" />
           {rows.map((d, i) => {

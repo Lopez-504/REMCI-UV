@@ -81,6 +81,10 @@ export const NAV_ITEMS = [
         key: "learning-clouds",
         labelKey: "nav.clouds",
       },
+      {
+        key: "learning-simulations",
+        labelKey: "nav.simulations",
+      },
     ]
   },
   {

@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atmospheric Physics & Cloud Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    /* Custom glass panel */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Range slider customizations */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      height: 6px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #38bdf8;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col p-2 md:p-4 gap-3 bg-slate-950 text-slate-100 antialiased">
+
+  <header class="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl glass-panel">
+    <div class="flex items-center gap-3">
+      <div class="p-2 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/30">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-sky-300 via-indigo-200 to-amber-200 bg-clip-text text-transparent">
+          Atmospheric Cloud & Synoptic Dynamics Simulator
+        </h1>
+        <p class="text-xs text-slate-400">Thermodynamics (DALR / MALR), Tetens Vapor Pressure, Orographic Lift & Synoptic Systems</p>
+      </div>
+    </div>
+
+    <!-- Quick State Badges -->
+    <div class="flex items-center gap-2 flex-wrap font-mono-code text-xs">
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">Solar Flux:</span>
+        <span id="badge-solar" class="text-amber-400 font-bold">750 W/m²</span>
+      </div>
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">LCL Altitude:</span>
+        <span id="badge-lcl" class="text-sky-400 font-bold">1,820 m</span>
+      </div>
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">Cloud State:</span>
+        <span id="badge-cloud-state" class="text-emerald-400 font-bold">Condensing</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid grid-cols-1 lg:grid-cols-4 gap-3 flex-1 min-h-0">
+    
+    <!-- Controls Sidebar -->
+    <aside class="lg:col-span-1 flex flex-col gap-3 overflow-y-auto max-h-[85vh] lg:max-h-none pr-1">
+      
+      <!-- Terrain Presets -->
+      <section class="glass-panel rounded-xl p-3.5 flex flex-col gap-2.5">
+        <label class="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>Terrain Environment</span>
+          <span class="text-[10px] text-sky-400 font-mono-code" id="lbl-terrain-albedo">Albedo: 0.15</span>
+        </label>
+        <div class="grid grid-cols-2 gap-2 text-xs font-medium">
+          <button data-terrain="forest" class="terrain-btn active-terrain px-3 py-2 rounded-lg border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 flex items-center justify-center gap-1.5 transition">
+            ⛰️ Forest / Ridge
+          </button>
+          <button data-terrain="ocean" class="terrain-btn px-3 py-2 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 flex items-center justify-center gap-1.5 transition">
+            🌊 Open Ocean
+          </button>
+          <button data-terrain="desert" class="terrain-btn px-3 py-2 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 flex items-center justify-center gap-1.5 transition">
+            🏜️ Arid Desert
+          </button>
+          <button data-terrain="plains" class="terrain-btn px-3 py-2 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 flex items-center justify-center gap-1.5 transition">
+            🌾 Plains / Grass
+          </button>
+        </div>
+      </section>
+
+      <!-- Environmental Inputs -->
+      <section class="glass-panel rounded-xl p-3.5 flex flex-col gap-3">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-300">Thermodynamic Forcing</h2>
+        
+        <!-- Solar Radiation -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300 flex items-center gap-1">☀️ Solar Radiation <span class="text-slate-500">(GHI)</span></span>
+            <span id="val-solar" class="font-mono-code text-amber-300 font-semibold">750 W/m²</span>
+          </div>
+          <input id="slider-solar" type="range" min="0" max="1200" step="10" value="750">
+          <div class="flex justify-between text-[10px] text-slate-500">
+            <span>0 (Night)</span>
+            <span>600 (Overcast)</span>
+            <span>1200 (Noon)</span>
+          </div>
+        </div>
+
+        <!-- Ambient Moisture / Surface Relative Humidity -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">💧 Surface Moisture (q)</span>
+            <span id="val-humidity" class="font-mono-code text-sky-300 font-semibold">68%</span>
+          </div>
+          <input id="slider-humidity" type="range" min="10" max="100" step="1" value="68">
+        </div>
+
+        <!-- Condensation Nuclei (Aerosols) -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">🌫️ Aerosols / Nuclei Density</span>
+            <span id="val-aerosols" class="font-mono-code text-orange-300 font-semibold">75%</span>
+          </div>
+          <input id="slider-aerosols" type="range" min="0" max="200" step="5" value="75">
+        </div>
+
+        <!-- Ambient Horizontal Wind -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">💨 Ambient Wind (U)</span>
+            <span id="val-wind" class="font-mono-code text-teal-300 font-semibold">8.0 m/s</span>
+          </div>
+          <input id="slider-wind" type="range" min="0" max="25" step="0.5" value="8">
+        </div>
+      </section>
+
+      <!-- Synoptic Pressure Systems Toggle -->
+      <section class="glass-panel rounded-xl p-3.5 flex flex-col gap-2.5">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>Draggable Synoptic Centers</span>
+          <span class="text-[10px] text-slate-400">Drag in Sky 👆</span>
+        </h2>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <button id="toggle-low" class="px-2.5 py-1.5 rounded-lg border border-rose-500/40 bg-rose-950/40 text-rose-300 font-medium flex items-center justify-between transition hover:bg-rose-900/50">
+            <span>🌀 Low ("L")</span>
+            <span id="status-low" class="w-2 h-2 rounded-full bg-rose-400 inline-block shadow-sm shadow-rose-400"></span>
+          </button>
+          <button id="toggle-high" class="px-2.5 py-1.5 rounded-lg border border-blue-500/40 bg-blue-950/40 text-blue-300 font-medium flex items-center justify-between transition hover:bg-blue-900/50">
+            <span>🛡️ High ("H")</span>
+            <span id="status-high" class="w-2 h-2 rounded-full bg-blue-400 inline-block shadow-sm shadow-blue-400"></span>
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-tight">
+          • <strong class="text-rose-300">Low (L):</strong> Strong convergence & updraft, adiabatic expansion cooling, storm formation.<br>
+          • <strong class="text-blue-300">High (H):</strong> Subsidence & downward divergence, adiabatic compression, dissolves clouds.
+        </p>
+      </section>
+
+      <!-- Interactive Actions & Overlays -->
+      <section class="glass-panel rounded-xl p-3.5 flex flex-col gap-2">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-300">Events & Overlays</h2>
+        <div class="grid grid-cols-2 gap-1.5 text-xs font-medium">
+          <button id="btn-wildfire" class="px-2.5 py-1.5 rounded-lg bg-amber-900/30 hover:bg-amber-800/40 border border-amber-600/40 text-amber-200 transition">
+            🔥 Wildfire Smoke
+          </button>
+          <button id="btn-coldfront" class="px-2.5 py-1.5 rounded-lg bg-indigo-900/30 hover:bg-indigo-800/40 border border-indigo-600/40 text-indigo-200 transition">
+            ❄️ Cold Surge
+          </button>
+        </div>
+        
+        <div class="flex flex-col gap-1.5 pt-1 text-xs">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+            <input id="chk-vectors" type="checkbox" checked class="rounded border-slate-700 text-sky-500 focus:ring-0">
+            <span>Show Streamlines / Vector Field</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+            <input id="chk-lcl" type="checkbox" checked class="rounded border-slate-700 text-sky-500 focus:ring-0">
+            <span>Show Lifting Condensation Level (LCL)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+            <input id="chk-lapse" type="checkbox" checked class="rounded border-slate-700 text-sky-500 focus:ring-0">
+            <span>Show Temperature Lapse Contours</span>
+          </label>
+        </div>
+
+        <button id="btn-reset" class="mt-1 w-full py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium transition">
+          ↺ Reset System Equilibrium
+        </button>
+      </section>
+
+    </aside>
+
+    <div class="lg:col-span-3 flex flex-col gap-3 min-h-[500px]">
+      
+      <!-- Primary Atmospheric Cross-Section Canvas -->
+      <div class="relative flex-1 rounded-xl overflow-hidden border border-slate-800/80 glass-panel shadow-2xl flex flex-col min-h-[380px]">
+        <canvas id="simCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+        
+        <!-- On-canvas dynamic tooltip / interactive instructions -->
+        <div class="absolute top-3 left-3 pointer-events-none flex flex-col gap-1 text-[11px] font-mono-code bg-slate-950/75 p-2 rounded-lg border border-slate-800/80 backdrop-blur-sm">
+          <div class="text-sky-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Cross-Section: 0 to 10,000m Altitude (z)
+          </div>
+          <div class="text-slate-400">
+            Click & drag <span class="text-rose-400 font-bold">L</span> or <span class="text-blue-400 font-bold">H</span> synoptic centers across the domain.
+          </div>
+        </div>
+
+        <!-- Live Microphysics HUD Overlay (Top Right) -->
+        <div class="absolute top-3 right-3 pointer-events-none flex flex-col items-end gap-1 text-[11px] font-mono-code bg-slate-950/75 p-2.5 rounded-lg border border-slate-800/80 backdrop-blur-sm">
+          <div class="flex items-center gap-2 text-amber-300">
+            <span>Ground Temp:</span>
+            <span id="hud-tground" class="font-bold text-xs">28.4 °C</span>
+          </div>
+          <div class="flex items-center gap-2 text-sky-300">
+            <span>Max Updraft (w):</span>
+            <span id="hud-updraft" class="font-bold text-xs">+4.2 m/s</span>
+          </div>
+          <div class="flex items-center gap-2 text-indigo-300">
+            <span>Supersaturation:</span>
+            <span id="hud-rh-peak" class="font-bold text-xs">104.2%</span>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-300">
+            <span>Rainfall Rate:</span>
+            <span id="hud-rain" class="font-bold text-xs">0.0 mm/hr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-xl p-3 flex flex-col gap-2 h-44">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Atmospheric Telemetry Timeseries</h3>
+            <span class="text-[10px] text-slate-500 font-mono-code">(Rolling 60-Second Epoch)</span>
+          </div>
+          
+          <!-- Legend -->
+          <div class="flex items-center gap-3 text-[11px] font-mono-code">
+            <span class="flex items-center gap-1 text-amber-400"><span class="w-2.5 h-0.5 bg-amber-400 inline-block"></span> T_g (°C)</span>
+            <span class="flex items-center gap-1 text-sky-400"><span class="w-2.5 h-0.5 bg-sky-400 inline-block"></span> Updraft w (m/s × 10)</span>
+            <span class="flex items-center gap-1 text-indigo-400"><span class="w-2.5 h-0.5 bg-indigo-400 inline-block"></span> RH Max (%)</span>
+            <span class="flex items-center gap-1 text-slate-200"><span class="w-2.5 h-0.5 bg-slate-200 inline-block"></span> Cloud Cover (%)</span>
+            <span class="flex items-center gap-1 text-emerald-400"><span class="w-2.5 h-0.5 bg-emerald-400 inline-block"></span> Rain (mm/h × 5)</span>
+          </div>
+        </div>
+        
+        <div class="relative flex-1 w-full min-h-0">
+          <canvas id="chartCanvas" class="w-full h-full block"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // --- Physical and Thermodynamic Constants ---
+    const R_SPECIFIC_AIR = 287.05; // J/(kg*K)
+    const G_ACCEL = 9.806;         // m/s^2
+    const DALR = 0.0098;           // Dry Adiabatic Lapse Rate: 9.8 K/km -> K/m
+    const MALR = 0.0055;           // Moist Adiabatic Lapse Rate: ~5.5 K/m
+    const MAX_ALTITUDE_M = 10000;  // 10 km domain top
+    const SCALE_HEIGHT_H = 8400;   // Barometric scale height (m)
+
+    // Terrain profiles
+    const TERRAINS = {
+      forest: {
+        name: "Forest / Ridge",
+        albedo: 0.15,
+        baseMoisture: 68,
+        aerosolRate: 80,
+        heightProfile: (x, w) => {
+          // Prominent mountain ridge in the center-right
+          const normX = x / w;
+          const peak = Math.exp(-Math.pow((normX - 0.65) / 0.16, 2));
+          const foothill = 0.25 * Math.sin(normX * Math.PI * 3);
+          return Math.max(0, peak * 2600 + Math.max(0, foothill) * 600 + 400);
+        },
+        roughness: 0.04
+      },
+      ocean: {
+        name: "Open Ocean",
+        albedo: 0.06,
+        baseMoisture: 88,
+        aerosolRate: 40, // sea salt
+        heightProfile: (x, w) => 50, // sea level
+        roughness: 0.01
+      },
+      desert: {
+        name: "Arid Desert",
+        albedo: 0.40,
+        baseMoisture: 18,
+        aerosolRate: 110, // mineral dust
+        heightProfile: (x, w) => {
+          const normX = x / w;
+          return 300 + 150 * Math.sin(normX * 6); // low sand dunes
+        },
+        roughness: 0.02
+      },
+      plains: {
+        name: "Plains / Grassland",
+        albedo: 0.22,
+        baseMoisture: 52,
+        aerosolRate: 60,
+        heightProfile: (x, w) => {
+          const normX = x / w;
+          return 200 + 100 * Math.sin(normX * 3);
+        },
+        roughness: 0.03
+      }
+    };
+
+    // Global Interactive State
+    const state = {
+      terrainKey: 'forest',
+      solarRadiation: 750,      // W/m^2
+      ambientWind: 8.0,         // m/s
+      surfaceMoisturePct: 68,   // %
+      aerosolDensityPct: 75,    // %
+      
+      // Synoptic Systems
+      lowSystem: {
+        active: true,
+        xRatio: 0.72,
+        yRatio: 0.35, // in sky (0 = top, 1 = bottom)
+        strength: 1.0,
+        radius: 200,
+        dragging: false
+      },
+      highSystem: {
+        active: true,
+        xRatio: 0.28,
+        yRatio: 0.38,
+        strength: 1.0,
+        radius: 200,
+        dragging: false
+      },
+
+      // Overlays
+      showVectors: true,
+      showLCL: true,
+      showLapse: true,
+
+      // Live Telemetry calculated
+      telemetry: {
+        groundTempC: 28.5,
+        maxUpdraft: 4.2,
+        peakRH: 96,
+        cloudCoverPct: 45,
+        precipitationRate: 0.0,
+        lclAltitudeM: 1800
+      }
+    };
+
+    // Timeseries Data History (60 samples ~ 60s)
+    const historyData = [];
+    const MAX_HISTORY = 60;
+    for (let i = 0; i < MAX_HISTORY; i++) {
+      historyData.push({
+        tg: 28,
+        updraft: 3.5,
+        rh: 90,
+        cloud: 40,
+        rain: 0
+      });
+    }
+
+    // Canvas references
+    const simCanvas = document.getElementById('simCanvas');
+    const simCtx = simCanvas.getContext('2d');
+    const chartCanvas = document.getElementById('chartCanvas');
+    const chartCtx = chartCanvas.getContext('2d');
+
+    // Particle System Arrays
+    const particles = [];
+    const rainParticles = [];
+    const MAX_PARTICLES = 450;
+    const MAX_RAIN = 180;
+
+    // Particle class representing water vapor, aerosols, and cloud droplets
+    class AtmosphericParcel {
+      constructor(w, h) {
+        this.reset(w, h, true);
+      }
+
+      reset(w, h, randomY = false) {
+        this.x = Math.random() * w;
+        const terrainH_m = getTerrainHeightAt(this.x, w);
+        const groundY = h - (terrainH_m / MAX_ALTITUDE_M) * h;
+        
+        if (randomY) {
+          this.y = groundY - Math.random() * (groundY * 0.95);
+        } else {
+          // Spawn near ground
+          this.y = groundY - (Math.random() * 20 + 2);
+        }
+
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        
+        // Microphysical properties
+        this.isAerosol = Math.random() < (state.aerosolDensityPct / 180);
+        this.isCondensed = false;
+        this.condensedAge = 0;
+        this.radius = Math.random() * 2 + 1.5;
+        this.baseOpacity = Math.random() * 0.4 + 0.3;
+      }
+    }
+
+    class RainDroplet {
+      constructor() {
+        this.active = false;
+        this.x = 0;
+        this.y = 0;
+        this.vy = 6 + Math.random() * 5;
+        this.vx = 0;
+        this.len = 10 + Math.random() * 10;
+      }
+    }
+
+    /**
+     * Tetens equation for saturation vapor pressure of water e_s in hPa
+     * T in Celsius
+     */
+    function tetensSatVaporPressure(tempC) {
+      if (tempC >= 0) {
+        return 6.1078 * Math.exp((17.27 * tempC) / (tempC + 237.3));
+      } else {
+        // Saturation over ice
+        return 6.1078 * Math.exp((21.875 * tempC) / (tempC + 265.5));
+      }
+    }
+
+    /**
+     * Calculate Lifting Condensation Level (LCL) in meters via Lawrence approximation:
+     * LCL ≈ 125 * (T_ground - T_dew)
+     */
+    function computeLCL(tempGroundC, rhPercent) {
+      // Magnus-Tetens approximation for dew point
+      const a = 17.27;
+      const b = 237.3;
+      const alpha = ((a * tempGroundC) / (b + tempGroundC)) + Math.log(Math.max(0.01, rhPercent / 100));
+      const tDew = (b * alpha) / (a - alpha);
+      const depression = Math.max(0.5, tempGroundC - tDew);
+      return Math.min(MAX_ALTITUDE_M * 0.9, Math.max(400, 125 * depression));
+    }
+
+    /**
+     * Atmospheric temperature at altitude z (m) given surface parcel
+     */
+    function computeTemperatureAtZ(zM, tGroundC, lclM) {
+      if (zM <= lclM) {
+        // Dry adiabatic cooling
+        return tGroundC - zM * DALR;
+      } else {
+        // Moist adiabatic cooling above LCL
+        const tAtLCL = tGroundC - lclM * DALR;
+        return tAtLCL - (zM - lclM) * MALR;
+      }
+    }
+
+    function getTerrainHeightAt(x, w) {
+      const terrain = TERRAINS[state.terrainKey];
+      return terrain.heightProfile(x, w);
+    }
+
+    /**
+     * Returns total atmospheric velocity [u (horizontal m/s), w (vertical m/s)] at domain coordinate (x, y)
+     */
+    function getAtmosphericVelocity(x, y, w, h) {
+      const altM = ((h - y) / h) * MAX_ALTITUDE_M;
+      const terrainHM = getTerrainHeightAt(x, w);
+      
+      // Below ground check
+      if (altM < terrainHM) {
+        return { u: 0, w: 0 };
+      }
+
+      // 1. Ambient Horizontal Wind with Boundary Layer Friction
+      const zAboveGround = Math.max(1, altM - terrainHM);
+      const frictionFactor = Math.min(1.0, Math.pow(zAboveGround / 1500, 0.25));
+      let u = state.ambientWind * frictionFactor;
+      let w_up = 0;
+
+      // 2. Orographic Lift: slope-induced vertical displacement
+      const dx = 12;
+      const hRight = getTerrainHeightAt(x + dx, w);
+      const hLeft = getTerrainHeightAt(x - dx, w);
+      const slope = (hRight - hLeft) / (2 * dx * 10); // terrain derivative
+      const orographicLift = u * slope * Math.exp(-zAboveGround / 2200) * 1.8;
+      w_up += orographicLift;
+
+      // 3. Solar Convective Updrafts (Thermal Plumes)
+      // Buoyancy is stronger with higher solar radiation and lower albedo
+      const terrain = TERRAINS[state.terrainKey];
+      const heatFlux = (state.solarRadiation / 1000) * (1 - terrain.albedo);
+      const thermalBuoyancy = heatFlux * 4.5 * Math.exp(-zAboveGround / 3500);
+      
+      // Convective bubbling noise across terrain
+      const plumePhase = Math.sin((x / w) * Math.PI * 6 + Date.now() * 0.002);
+      w_up += thermalBuoyancy * Math.max(0, plumePhase);
+
+      // 4. Draggable Synoptic Systems Influence
+      // Low Pressure System ('L'): Cyclonic convergence + strong core updraft
+      if (state.lowSystem.active) {
+        const lx = state.lowSystem.xRatio * w;
+        const ly = state.lowSystem.yRatio * h;
+        const distL = Math.hypot(x - lx, y - ly);
+        const radiusL = state.lowSystem.radius;
+
+        if (distL < radiusL * 2.2) {
+          const factor = Math.exp(-Math.pow(distL / (radiusL * 0.9), 2));
+          // Horizontal cyclonic flow & convergence
+          const angle = Math.atan2(y - ly, x - lx);
+          // Cyclonic rotation (tangential) + Convergence (inward)
+          const rotSpeed = 9.0 * factor;
+          const convSpeed = 5.0 * factor;
+          
+          u += -Math.sin(angle) * rotSpeed - Math.cos(angle) * convSpeed;
+          // Vigorous vertical updraft at center of Low
+          w_up += 6.5 * factor;
+        }
+      }
+
+      // High Pressure System ('H'): Anticyclonic divergence + Subsidence (sinking air)
+      if (state.highSystem.active) {
+        const hx = state.highSystem.xRatio * w;
+        const hy = state.highSystem.yRatio * h;
+        const distH = Math.hypot(x - hx, y - hy);
+        const radiusH = state.highSystem.radius;
+
+        if (distH < radiusH * 2.2) {
+          const factor = Math.exp(-Math.pow(distH / (radiusH * 0.9), 2));
+          const angle = Math.atan2(y - hy, x - hx);
+          // Anticyclonic rotation + Outward divergence
+          const rotSpeed = 7.0 * factor;
+          const divSpeed = 6.0 * factor;
+          
+          u += Math.sin(angle) * rotSpeed + Math.cos(angle) * divSpeed;
+          // Downward subsidence (cooling dissolution)
+          w_up -= 5.8 * factor;
+        }
+      }
+
+      return { u, w: w_up };
+    }
+
+    function resizeCanvases() {
+      const simRect = simCanvas.parentElement.getBoundingClientRect();
+      simCanvas.width = simRect.width;
+      simCanvas.height = simRect.height;
+
+      const chartRect = chartCanvas.parentElement.getBoundingClientRect();
+      chartCanvas.width = chartRect.width;
+      chartCanvas.height = chartRect.height;
+    }
+    window.addEventListener('resize', resizeCanvases);
+
+    // Populate Initial Particles
+    for (let i = 0; i < MAX_PARTICLES; i++) {
+      particles.push(new AtmosphericParcel(window.innerWidth, window.innerHeight));
+    }
+    for (let i = 0; i < MAX_RAIN; i++) {
+      rainParticles.push(new RainDroplet());
+    }
+
+    let activeDragSystem = null;
+
+    function getPointerPos(e) {
+      const rect = simCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function checkHitSystem(pos, system, w, h) {
+      if (!system.active) return false;
+      const sx = system.xRatio * w;
+      const sy = system.yRatio * h;
+      return Math.hypot(pos.x - sx, pos.y - sy) < 42;
+    }
+
+    simCanvas.addEventListener('mousedown', (e) => {
+      const pos = getPointerPos(e);
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+
+      if (checkHitSystem(pos, state.lowSystem, w, h)) {
+        activeDragSystem = state.lowSystem;
+      } else if (checkHitSystem(pos, state.highSystem, w, h)) {
+        activeDragSystem = state.highSystem;
+      }
+    });
+
+    simCanvas.addEventListener('mousemove', (e) => {
+      if (!activeDragSystem) return;
+      const pos = getPointerPos(e);
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+
+      // Restrict dragging to sky domain above average terrain
+      activeDragSystem.xRatio = Math.max(0.08, Math.min(0.92, pos.x / w));
+      activeDragSystem.yRatio = Math.max(0.12, Math.min(0.75, pos.y / h));
+    });
+
+    window.addEventListener('mouseup', () => {
+      activeDragSystem = null;
+    });
+
+    // Touch Support
+    simCanvas.addEventListener('touchstart', (e) => {
+      const pos = getPointerPos(e);
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+      if (checkHitSystem(pos, state.lowSystem, w, h)) {
+        activeDragSystem = state.lowSystem;
+      } else if (checkHitSystem(pos, state.highSystem, w, h)) {
+        activeDragSystem = state.highSystem;
+      }
+    }, { passive: true });
+
+    simCanvas.addEventListener('touchmove', (e) => {
+      if (!activeDragSystem) return;
+      const pos = getPointerPos(e);
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+      activeDragSystem.xRatio = Math.max(0.08, Math.min(0.92, pos.x / w));
+      activeDragSystem.yRatio = Math.max(0.12, Math.min(0.75, pos.y / h));
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      activeDragSystem = null;
+    });
+
+    function renderEnvironment(ctx, w, h, tGroundC, lclM) {
+      // 1. Sky Gradient based on Solar Radiation (Night dark slate -> Noon brilliant cyan)
+      const solarNorm = Math.min(1.0, state.solarRadiation / 1100);
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, h);
+      
+      const skyTopR = Math.round(5 + solarNorm * 18);
+      const skyTopG = Math.round(12 + solarNorm * 75);
+      const skyTopB = Math.round(30 + solarNorm * 160);
+
+      const skyBotR = Math.round(15 + solarNorm * 135);
+      const skyBotG = Math.round(28 + solarNorm * 180);
+      const skyBotB = Math.round(55 + solarNorm * 220);
+
+      skyGrad.addColorStop(0, `rgb(${skyTopR}, ${skyTopG}, ${skyTopB})`);
+      skyGrad.addColorStop(1, `rgb(${skyBotR}, ${skyBotG}, ${skyBotB})`);
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Solar Orb & Glare
+      if (state.solarRadiation > 60) {
+        const sunX = w * 0.48;
+        const sunY = h * 0.14;
+        const sunRadius = 24 + solarNorm * 18;
+
+        const sunGlow = ctx.createRadialGradient(sunX, sunY, 4, sunX, sunY, sunRadius * 4.5);
+        sunGlow.addColorStop(0, `rgba(255, 248, 210, ${0.85 * solarNorm})`);
+        sunGlow.addColorStop(0.3, `rgba(253, 224, 71, ${0.4 * solarNorm})`);
+        sunGlow.addColorStop(1, 'rgba(253, 224, 71, 0)');
+
+        ctx.fillStyle = sunGlow;
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, sunRadius * 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 3. Temperature Lapse Contours
+      if (state.showLapse) {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(226, 232, 240, 0.45)';
+
+        for (let alt = 2000; alt < MAX_ALTITUDE_M; alt += 2000) {
+          const y = h - (alt / MAX_ALTITUDE_M) * h;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+
+          const tempAtAlt = computeTemperatureAtZ(alt, tGroundC, lclM);
+          ctx.fillText(`${alt / 1000}km (${tempAtAlt.toFixed(1)}°C)`, 10, y - 4);
+        }
+        ctx.setLineDash([]);
+      }
+
+      // 4. Lifting Condensation Level (LCL) Threshold Line
+      if (state.showLCL) {
+        const lclY = h - (lclM / MAX_ALTITUDE_M) * h;
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+        ctx.lineWidth = 1.8;
+        ctx.setLineDash([6, 6]);
+        ctx.beginPath();
+        ctx.moveTo(0, lclY);
+        ctx.lineTo(w, lclY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillText(`LCL: ${Math.round(lclM)}m (Cloud Base Condensation Level)`, w - 320, lclY - 6);
+      }
+
+      // 5. Render Terrain Mesh & Geological Strata
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      for (let x = 0; x <= w; x += 10) {
+        const altM = getTerrainHeightAt(x, w);
+        const y = h - (altM / MAX_ALTITUDE_M) * h;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w, h);
+      ctx.closePath();
+
+      // Terrain style depending on type
+      let terrainGrad;
+      if (state.terrainKey === 'forest') {
+        terrainGrad = ctx.createLinearGradient(0, h * 0.6, 0, h);
+        terrainGrad.addColorStop(0, '#1b4332');
+        terrainGrad.addColorStop(0.3, '#2d6a4f');
+        terrainGrad.addColorStop(1, '#081c15');
+      } else if (state.terrainKey === 'ocean') {
+        terrainGrad = ctx.createLinearGradient(0, h * 0.9, 0, h);
+        terrainGrad.addColorStop(0, '#0369a1');
+        terrainGrad.addColorStop(1, '#082f49');
+      } else if (state.terrainKey === 'desert') {
+        terrainGrad = ctx.createLinearGradient(0, h * 0.7, 0, h);
+        terrainGrad.addColorStop(0, '#d97706');
+        terrainGrad.addColorStop(1, '#78350f');
+      } else {
+        terrainGrad = ctx.createLinearGradient(0, h * 0.7, 0, h);
+        terrainGrad.addColorStop(0, '#4d7c0f');
+        terrainGrad.addColorStop(1, '#1c1917');
+      }
+      ctx.fillStyle = terrainGrad;
+      ctx.fill();
+
+      // Top ridge highlight
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function renderVectorField(ctx, w, h) {
+      if (!state.showVectors) return;
+
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+      ctx.lineWidth = 1.2;
+
+      const stepX = 55;
+      const stepY = 48;
+
+      for (let x = stepX * 0.6; x < w; x += stepX) {
+        for (let y = stepY * 0.8; y < h - 40; y += stepY) {
+          const vel = getAtmosphericVelocity(x, y, w, h);
+          const speed = Math.hypot(vel.u, vel.w);
+          if (speed < 0.2) continue;
+
+          const angle = Math.atan2(-vel.w, vel.u);
+          const arrowLen = Math.min(22, 5 + speed * 1.5);
+
+          const endX = x + Math.cos(angle) * arrowLen;
+          const endY = y + Math.sin(angle) * arrowLen;
+
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(endX, endY);
+          ctx.stroke();
+
+          // Tiny arrow tip
+          const tipAngle = 0.45;
+          ctx.beginPath();
+          ctx.moveTo(endX, endY);
+          ctx.lineTo(endX - Math.cos(angle - tipAngle) * 4, endY - Math.sin(angle - tipAngle) * 4);
+          ctx.lineTo(endX - Math.cos(angle + tipAngle) * 4, endY - Math.sin(angle + tipAngle) * 4);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    function renderPressureSystems(ctx, w, h) {
+      // --- Low Pressure ('L') ---
+      if (state.lowSystem.active) {
+        const lx = state.lowSystem.xRatio * w;
+        const ly = state.lowSystem.yRatio * h;
+        const time = Date.now() * 0.003;
+
+        // Outer cyclonic spiral rings
+        ctx.save();
+        ctx.strokeStyle = 'rgba(244, 63, 94, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 12]);
+        ctx.beginPath();
+        ctx.arc(lx, ly, 48, time, time + Math.PI * 1.7);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(lx, ly, 72, -time, -time + Math.PI * 1.6);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Glow badge
+        const gradL = ctx.createRadialGradient(lx, ly, 0, lx, ly, 32);
+        gradL.addColorStop(0, '#e11d48');
+        gradL.addColorStop(0.7, '#be123c');
+        gradL.addColorStop(1, 'rgba(159, 18, 57, 0.4)');
+
+        ctx.fillStyle = gradL;
+        ctx.shadowColor = '#f43f5e';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.arc(lx, ly, 26, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Letter "L"
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 22px "Inter", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('L', lx, ly);
+
+        // Subtitle
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#fda4af';
+        ctx.fillText('CYCLONIC LIFT', lx, ly + 38);
+        ctx.restore();
+      }
+
+      // --- High Pressure ('H') ---
+      if (state.highSystem.active) {
+        const hx = state.highSystem.xRatio * w;
+        const hy = state.highSystem.yRatio * h;
+        const time = Date.now() * 0.002;
+
+        ctx.save();
+        ctx.strokeStyle = 'rgba(59, 130, 246, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 12]);
+        ctx.beginPath();
+        ctx.arc(hx, hy, 48, -time, -time + Math.PI * 1.7);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(hx, hy, 72, time, time + Math.PI * 1.6);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Glow badge
+        const gradH = ctx.createRadialGradient(hx, hy, 0, hx, hy, 32);
+        gradH.addColorStop(0, '#2563eb');
+        gradH.addColorStop(0.7, '#1d4ed8');
+        gradH.addColorStop(1, 'rgba(29, 78, 216, 0.4)');
+
+        ctx.fillStyle = gradH;
+        ctx.shadowColor = '#60a5fa';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.arc(hx, hy, 26, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Letter "H"
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 22px "Inter", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('H', hx, hy);
+
+        // Subtitle
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#93c5fd';
+        ctx.fillText('SUBSIDENCE SINK', hx, hy + 38);
+        ctx.restore();
+      }
+    }
+
+    let lastTime = performance.now();
+    let accumulatedCondensedPuffs = 0;
+    let currentPrecipRate = 0;
+
+    function updateSimulationAndRenderParticles(ctx, w, h, tGroundC, lclM) {
+      const dt = 0.016;
+      accumulatedCondensedPuffs = 0;
+      let maxUpdraftDetected = 0;
+      let peakCalculatedRH = 0;
+
+      // 1. Update Atmospheric Microphysics Parcels
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Velocity from wind field
+        const vel = getAtmosphericVelocity(p.x, p.y, w, h);
+        if (Math.abs(vel.w) > maxUpdraftDetected) maxUpdraftDetected = Math.abs(vel.w);
+
+        // Physical displacement (scaling m/s to pixel space)
+        p.x += (vel.u * 3.5) * dt;
+        p.y -= (vel.w * 3.5) * dt;
+
+        // Brownian perturbation
+        p.x += (Math.random() - 0.5) * 0.4;
+        p.y += (Math.random() - 0.5) * 0.4;
+
+        // Wrap around horizontally
+        if (p.x > w + 20) p.x = -15;
+        if (p.x < -20) p.x = w + 15;
+
+        // Altitude in meters
+        const altM = ((h - p.y) / h) * MAX_ALTITUDE_M;
+        const terrainHM = getTerrainHeightAt(p.x, w);
+
+        // Ground collision reset
+        if (altM <= terrainHM || p.y > h || p.y < 10) {
+          p.reset(w, h, false);
+          continue;
+        }
+
+        // Relative Humidity at Parcel Altitude:
+        // RH increases with altitude due to adiabatic cooling lowering e_s(T)
+        const parcelTempC = computeTemperatureAtZ(altM, tGroundC, lclM);
+        const satVaporPress = tetensSatVaporPressure(parcelTempC);
+        
+        // Surface vapor pressure e_0 derived from surface moisture %
+        const surfaceSat = tetensSatVaporPressure(tGroundC);
+        const actualVaporPress = surfaceSat * (state.surfaceMoisturePct / 100);
+        
+        const localRH = (actualVaporPress / satVaporPress) * 100;
+        if (localRH > peakCalculatedRH) peakCalculatedRH = localRH;
+
+        // Condensation Criteria:
+        // Must be above LCL (or RH >= 100%) AND requires Condensation Nuclei / Aerosols
+        const hasAerosolNuclei = p.isAerosol || (state.aerosolDensityPct > 30);
+        const isSupersaturated = (altM >= lclM) || (localRH >= 100);
+
+        if (isSupersaturated && hasAerosolNuclei) {
+          p.isCondensed = true;
+          p.condensedAge = Math.min(1.0, p.condensedAge + dt * 0.8);
+          accumulatedCondensedPuffs++;
+        } else {
+          // Evaporation / Dissolution
+          p.isCondensed = false;
+          p.condensedAge = Math.max(0.0, p.condensedAge - dt * 1.5);
+        }
+
+        // Render Particle / Cloud Droplet
+        if (p.condensedAge > 0.05) {
+          // Cloud Volumetric Droplet (Soft White / Silvery Mist Puff)
+          const puffRadius = 14 + p.condensedAge * 22;
+          const cloudAlpha = p.condensedAge * 0.28;
+
+          const cloudGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, puffRadius);
+          cloudGrad.addColorStop(0, `rgba(255, 255, 255, ${cloudAlpha})`);
+          cloudGrad.addColorStop(0.5, `rgba(240, 249, 255, ${cloudAlpha * 0.6})`);
+          cloudGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+          ctx.fillStyle = cloudGrad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, puffRadius, 0, Math.PI * 2);
+          ctx.fill();
+
+        } else if (p.isAerosol) {
+          // Aerosol / Condensation Nucleus (warm amber / smoke speck)
+          ctx.fillStyle = 'rgba(251, 146, 60, 0.65)';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+          ctx.fill();
+
+        } else {
+          // Invisible / Water Vapor Spec (Subtle Cyan Glimmer)
+          ctx.fillStyle = 'rgba(125, 211, 252, 0.35)';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // 2. Precipitation Simulation:
+      // Trigger rain if cloud condensation density is sufficiently high (supersaturated storm)
+      const cloudFraction = accumulatedCondensedPuffs / particles.length;
+      const rainThreshold = 0.28;
+      
+      if (cloudFraction > rainThreshold) {
+        currentPrecipRate = (cloudFraction - rainThreshold) * 22.0;
+        
+        ctx.strokeStyle = 'rgba(186, 230, 253, 0.6)';
+        ctx.lineWidth = 1.2;
+
+        for (let r = 0; r < rainParticles.length; r++) {
+          const drop = rainParticles[r];
+          if (!drop.active) {
+            // Spawn rain beneath cloud layer
+            if (Math.random() < currentPrecipRate * 0.05) {
+              drop.active = true;
+              drop.x = Math.random() * w;
+              const lclY = h - (lclM / MAX_ALTITUDE_M) * h;
+              drop.y = lclY + Math.random() * 40;
+            }
+          } else {
+            // Fall physics
+            const vel = getAtmosphericVelocity(drop.x, drop.y, w, h);
+            drop.x += vel.u * 1.8 * dt;
+            drop.y += (drop.vy + 18) * 1.8 * dt;
+
+            const dropAltM = ((h - drop.y) / h) * MAX_ALTITUDE_M;
+            const terrainHM = getTerrainHeightAt(drop.x, w);
+
+            if (dropAltM <= terrainHM || drop.y > h) {
+              drop.active = false; // Splash on terrain
+            } else {
+              ctx.beginPath();
+              ctx.moveTo(drop.x, drop.y);
+              ctx.lineTo(drop.x + vel.u * 0.4, drop.y + drop.len);
+              ctx.stroke();
+            }
+          }
+        }
+      } else {
+        currentPrecipRate = Math.max(0, currentPrecipRate - dt * 2);
+      }
+
+      // Update state telemetry object
+      state.telemetry.groundTempC = tGroundC;
+      state.telemetry.maxUpdraft = maxUpdraftDetected;
+      state.telemetry.peakRH = peakCalculatedRH;
+      state.telemetry.cloudCoverPct = Math.min(100, Math.round(cloudFraction * 140));
+      state.telemetry.precipitationRate = currentPrecipRate;
+      state.telemetry.lclAltitudeM = lclM;
+    }
+
+    let lastChartTick = performance.now();
+
+    function updateTelemetryHistory() {
+      const now = performance.now();
+      if (now - lastChartTick >= 1000) {
+        lastChartTick = now;
+        historyData.shift();
+        historyData.push({
+          tg: state.telemetry.groundTempC,
+          updraft: state.telemetry.maxUpdraft,
+          rh: Math.min(120, state.telemetry.peakRH),
+          cloud: state.telemetry.cloudCoverPct,
+          rain: state.telemetry.precipitationRate
+        });
+      }
+    }
+
+    function renderTelemetryChart(ctx, w, h) {
+      ctx.clearRect(0, 0, w, h);
+
+      // Grid background
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let y = 0; y < h; y += h / 4) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      // Helper for polyline plotting
+      function plotMetric(values, color, minVal, maxVal, lineWidth = 2) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        const dx = w / (values.length - 1);
+
+        for (let i = 0; i < values.length; i++) {
+          const val = values[i];
+          const normY = (val - minVal) / (maxVal - minVal);
+          const py = h - Math.max(0, Math.min(1, normY)) * (h - 8) - 4;
+          const px = i * dx;
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+      }
+
+      // 1. Ground Temp Tg: range [10, 45]
+      plotMetric(historyData.map(d => d.tg), '#f59e0b', 10, 45);
+
+      // 2. Updraft w: range [0, 10]
+      plotMetric(historyData.map(d => d.updraft), '#38bdf8', 0, 10);
+
+      // 3. Peak RH: range [20, 110]
+      plotMetric(historyData.map(d => d.rh), '#818cf8', 20, 110);
+
+      // 4. Cloud Cover %: range [0, 100]
+      plotMetric(historyData.map(d => d.cloud), '#e2e8f0', 0, 100);
+
+      // 5. Rain Rate: range [0, 20]
+      plotMetric(historyData.map(d => d.rain), '#34d399', 0, 20);
+    }
+
+    function updateHUDText() {
+      document.getElementById('hud-tground').textContent = `${state.telemetry.groundTempC.toFixed(1)} °C`;
+      document.getElementById('hud-updraft').textContent = `${state.telemetry.maxUpdraft >= 0 ? '+' : ''}${state.telemetry.maxUpdraft.toFixed(1)} m/s`;
+      document.getElementById('hud-rh-peak').textContent = `${state.telemetry.peakRH.toFixed(1)}%`;
+      document.getElementById('hud-rain').textContent = `${state.telemetry.precipitationRate.toFixed(1)} mm/hr`;
+
+      document.getElementById('badge-solar').textContent = `${state.solarRadiation} W/m²`;
+      document.getElementById('badge-lcl').textContent = `${Math.round(state.telemetry.lclAltitudeM)} m`;
+      
+      const badgeCloud = document.getElementById('badge-cloud-state');
+      if (state.telemetry.precipitationRate > 0.5) {
+        badgeCloud.textContent = 'Precipitating Rain';
+        badgeCloud.className = 'text-emerald-400 font-bold';
+      } else if (state.telemetry.cloudCoverPct > 20) {
+        badgeCloud.textContent = 'Forming Clouds';
+        badgeCloud.className = 'text-sky-300 font-bold';
+      } else {
+        badgeCloud.textContent = 'Clear / Sinking';
+        badgeCloud.className = 'text-amber-300 font-bold';
+      }
+    }
+
+    function animate() {
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+
+      // 1. Calculate Ground Surface Heating:
+      // T_ground = T_base + sensible heat flux (f(Solar, Albedo))
+      const terrain = TERRAINS[state.terrainKey];
+      const absorbedSolar = state.solarRadiation * (1 - terrain.albedo);
+      const sensibleHeating = (absorbedSolar / 1200) * 26.0; // up to +26°C above base
+      const tGroundC = 12.0 + sensibleHeating;
+
+      // 2. Compute LCL Height
+      const lclM = computeLCL(tGroundC, state.surfaceMoisturePct);
+
+      // 3. Render Sim Canvas
+      simCtx.clearRect(0, 0, w, h);
+      renderEnvironment(simCtx, w, h, tGroundC, lclM);
+      renderVectorField(simCtx, w, h);
+      updateSimulationAndRenderParticles(simCtx, w, h, tGroundC, lclM);
+      renderPressureSystems(simCtx, w, h);
+
+      // 4. Render Telemetry Charts and HUD
+      updateTelemetryHistory();
+      renderTelemetryChart(chartCtx, chartCanvas.width, chartCanvas.height);
+      updateHUDText();
+
+      requestAnimationFrame(animate);
+    }
+
+    // Sliders
+    const sliderSolar = document.getElementById('slider-solar');
+    const sliderHumidity = document.getElementById('slider-humidity');
+    const sliderAerosols = document.getElementById('slider-aerosols');
+    const sliderWind = document.getElementById('slider-wind');
+
+    sliderSolar.addEventListener('input', (e) => {
+      state.solarRadiation = parseFloat(e.target.value);
+      document.getElementById('val-solar').textContent = `${state.solarRadiation} W/m²`;
+    });
+
+    sliderHumidity.addEventListener('input', (e) => {
+      state.surfaceMoisturePct = parseFloat(e.target.value);
+      document.getElementById('val-humidity').textContent = `${state.surfaceMoisturePct}%`;
+    });
+
+    sliderAerosols.addEventListener('input', (e) => {
+      state.aerosolDensityPct = parseFloat(e.target.value);
+      document.getElementById('val-aerosols').textContent = `${state.aerosolDensityPct}%`;
+      // Re-tag particles
+      particles.forEach(p => p.isAerosol = Math.random() < (state.aerosolDensityPct / 180));
+    });
+
+    sliderWind.addEventListener('input', (e) => {
+      state.ambientWind = parseFloat(e.target.value);
+      document.getElementById('val-wind').textContent = `${state.ambientWind.toFixed(1)} m/s`;
+    });
+
+    // Terrain Selection
+    const terrainBtns = document.querySelectorAll('.terrain-btn');
+    terrainBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        terrainBtns.forEach(b => {
+          b.classList.remove('active-terrain', 'border-emerald-500/50', 'bg-emerald-950/40', 'text-emerald-300');
+          b.classList.add('border-slate-700/70', 'bg-slate-900/40', 'text-slate-300');
+        });
+        btn.classList.add('active-terrain', 'border-emerald-500/50', 'bg-emerald-950/40', 'text-emerald-300');
+        btn.classList.remove('border-slate-700/70', 'bg-slate-900/40', 'text-slate-300');
+
+        const key = btn.dataset.terrain;
+        state.terrainKey = key;
+        const conf = TERRAINS[key];
+
+        // Apply terrain typical profiles
+        document.getElementById('lbl-terrain-albedo').textContent = `Albedo: ${conf.albedo.toFixed(2)}`;
+        state.surfaceMoisturePct = conf.baseMoisture;
+        sliderHumidity.value = conf.baseMoisture;
+        document.getElementById('val-humidity').textContent = `${conf.baseMoisture}%`;
+
+        state.aerosolDensityPct = conf.aerosolRate;
+        sliderAerosols.value = conf.aerosolRate;
+        document.getElementById('val-aerosols').textContent = `${conf.aerosolRate}%`;
+        particles.forEach(p => p.isAerosol = Math.random() < (conf.aerosolRate / 180));
+      });
+    });
+
+    // Draggable Synoptic System Toggles
+    const toggleLow = document.getElementById('toggle-low');
+    const toggleHigh = document.getElementById('toggle-high');
+    const statusLow = document.getElementById('status-low');
+    const statusHigh = document.getElementById('status-high');
+
+    toggleLow.addEventListener('click', () => {
+      state.lowSystem.active = !state.lowSystem.active;
+      statusLow.className = state.lowSystem.active 
+        ? 'w-2 h-2 rounded-full bg-rose-400 inline-block shadow-sm shadow-rose-400' 
+        : 'w-2 h-2 rounded-full bg-slate-600 inline-block';
+    });
+
+    toggleHigh.addEventListener('click', () => {
+      state.highSystem.active = !state.highSystem.active;
+      statusHigh.className = state.highSystem.active 
+        ? 'w-2 h-2 rounded-full bg-blue-400 inline-block shadow-sm shadow-blue-400' 
+        : 'w-2 h-2 rounded-full bg-slate-600 inline-block';
+    });
+
+    // Overlays
+    document.getElementById('chk-vectors').addEventListener('change', (e) => state.showVectors = e.target.checked);
+    document.getElementById('chk-lcl').addEventListener('change', (e) => state.showLCL = e.target.checked);
+    document.getElementById('chk-lapse').addEventListener('change', (e) => state.showLapse = e.target.checked);
+
+    // Events Buttons
+    document.getElementById('btn-wildfire').addEventListener('click', () => {
+      state.aerosolDensityPct = 190;
+      sliderAerosols.value = 190;
+      document.getElementById('val-aerosols').textContent = '190%';
+      particles.forEach(p => p.isAerosol = Math.random() < 0.9);
+    });
+
+    document.getElementById('btn-coldfront').addEventListener('click', () => {
+      state.solarRadiation = 150;
+      sliderSolar.value = 150;
+      document.getElementById('val-solar').textContent = '150 W/m²';
+      state.ambientWind = 22.0;
+      sliderWind.value = 22;
+      document.getElementById('val-wind').textContent = '22.0 m/s';
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      state.solarRadiation = 750;
+      sliderSolar.value = 750;
+      document.getElementById('val-solar').textContent = '750 W/m²';
+
+      state.ambientWind = 8.0;
+      sliderWind.value = 8;
+      document.getElementById('val-wind').textContent = '8.0 m/s';
+
+      state.surfaceMoisturePct = 68;
+      sliderHumidity.value = 68;
+      document.getElementById('val-humidity').textContent = '68%';
+
+      state.aerosolDensityPct = 75;
+      sliderAerosols.value = 75;
+      document.getElementById('val-aerosols').textContent = '75%';
+
+      state.lowSystem.active = true;
+      state.lowSystem.xRatio = 0.72;
+      state.lowSystem.yRatio = 0.35;
+
+      state.highSystem.active = true;
+      state.highSystem.xRatio = 0.28;
+      state.highSystem.yRatio = 0.38;
+
+      statusLow.className = 'w-2 h-2 rounded-full bg-rose-400 inline-block shadow-sm shadow-rose-400';
+      statusHigh.className = 'w-2 h-2 rounded-full bg-blue-400 inline-block shadow-sm shadow-blue-400';
+
+      particles.forEach(p => p.reset(simCanvas.width, simCanvas.height, true));
+    });
+
+    // Start Simulation Loop on Window Load
+    window.addEventListener('load', () => {
+      resizeCanvases();
+      requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>

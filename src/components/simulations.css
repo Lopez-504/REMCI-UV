@@ -1,0 +1,6 @@
+.simulation-frame {
+  width: 100%;
+  min-height: 800px;
+  border: none;
+  display: block;
+}

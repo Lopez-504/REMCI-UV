@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atmospheric Light Pollution Monte Carlo Simulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050811;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .glass-card {
+      background: rgba(11, 17, 33, 0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      height: 5px;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      background: #38bdf8;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(5, 8, 17, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col p-2 md:p-3 gap-2.5 bg-slate-950 text-slate-100 antialiased">
+
+  <header class="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl glass-card">
+    <div class="flex items-center gap-3">
+      <div class="p-2 rounded-lg bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-sky-300 via-indigo-200 to-amber-200 bg-clip-text text-transparent">
+          Atmospheric Light Pollution Monte Carlo Radiative Transfer
+        </h1>
+        <p class="text-xs text-slate-400">Rayleigh & Mie Scattering, Henyey-Greenstein Phase Function, AOD Extinction & Sky Glow Flux</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 flex-wrap font-mono-code text-xs">
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">Sky Brightness:</span>
+        <span id="badge-sky-bright" class="text-sky-300 font-bold">21.84 mag/arcsec²</span>
+      </div>
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">Bortle Scale:</span>
+        <span id="badge-bortle" class="text-emerald-400 font-bold">Class 2 (Dark Sky)</span>
+      </div>
+      <div class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="text-slate-400">Active Photons:</span>
+        <span id="badge-photons" class="text-amber-400 font-bold">0 / 0 hit</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid grid-cols-1 lg:grid-cols-4 gap-2.5 flex-1 min-h-0">
+    
+    <aside class="lg:col-span-1 flex flex-col gap-2.5 overflow-y-auto max-h-[85vh] lg:max-h-[calc(100vh-140px)] pr-1">
+      
+      <!-- Preset Atmospheric Environments -->
+      <section class="glass-card rounded-xl p-3 flex flex-col gap-2">
+        <label class="text-[11px] font-semibold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>Atmospheric Environment Preset</span>
+        </label>
+        <div class="grid grid-cols-2 gap-1.5 text-xs font-medium">
+          <button data-preset="pristine" class="preset-btn px-2.5 py-1.5 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 transition text-left">
+            🔭 High-Alt. Paranal
+          </button>
+          <button data-preset="rural" class="preset-btn active-preset px-2.5 py-1.5 rounded-lg border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 transition text-left">
+            🌲 Rural Clean Sky
+          </button>
+          <button data-preset="suburban" class="preset-btn px-2.5 py-1.5 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 transition text-left">
+            🏡 Suburban Haze
+          </button>
+          <button data-preset="urban" class="preset-btn px-2.5 py-1.5 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 transition text-left">
+            🏙️ Urban Smog (AOD 0.8)
+          </button>
+          <button data-preset="cloudy" class="preset-btn col-span-2 px-2.5 py-1.5 rounded-lg border border-slate-700/70 bg-slate-900/40 text-slate-300 hover:border-slate-500 transition text-center">
+            ☁️ Overcast Low Stratus Deck
+          </button>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-xl p-3 flex flex-col gap-2.5">
+        <h2 class="text-[11px] font-semibold uppercase tracking-wider text-slate-300">City Emission Source</h2>
+        
+        <!-- Spectral Presets -->
+        <div class="grid grid-cols-2 gap-1 text-[11px]">
+          <button class="spec-btn px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-amber-300" data-wl="589">
+            HPS / LPS (589nm)
+          </button>
+          <button class="spec-btn px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-sky-200" data-wl="450">
+            Cool LED (450nm)
+          </button>
+          <button class="spec-btn px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-orange-400" data-wl="610">
+            Amber LED (610nm)
+          </button>
+          <button class="spec-btn px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-emerald-300" data-wl="532">
+            Green Sky Laser (532nm)
+          </button>
+        </div>
+
+        <!-- Wavelength Slider -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Photon Wavelength λ</span>
+            <span id="lbl-wavelength" class="font-mono-code font-bold text-amber-400">589 nm</span>
+          </div>
+          <input id="slider-wl" type="range" min="380" max="750" value="589">
+          <div class="h-1.5 w-full rounded-full" style="background: linear-gradient(to right, #7e22ce, #3b82f6, #06b6d4, #10b981, #eab308, #f97316, #ef4444);"></div>
+        </div>
+
+        <!-- Beam Zenith & Shielding -->
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Emission Angle / Tilt</span>
+            <span id="lbl-angle" class="font-mono-code text-sky-300 font-semibold">45° from Zenith</span>
+          </div>
+          <input id="slider-angle" type="range" min="0" max="85" value="45">
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Shielding / Cutoff Spread</span>
+            <span id="lbl-cutoff" class="font-mono-code text-teal-300 font-semibold">120° (Semi-Cutoff)</span>
+          </div>
+          <input id="slider-cutoff" type="range" min="20" max="180" value="120">
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Luminous Radiant Flux</span>
+            <span id="lbl-power" class="font-mono-code text-orange-300 font-semibold">80 klm</span>
+          </div>
+          <input id="slider-power" type="range" min="10" max="300" step="10" value="80">
+        </div>
+      </section>
+
+      <section class="glass-card rounded-xl p-3 flex flex-col gap-2.5">
+        <h2 class="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Atmospheric Profile</h2>
+        
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Aerosol Optical Depth (AOD τ_a)</span>
+            <span id="lbl-aod" class="font-mono-code text-indigo-300 font-semibold">0.08</span>
+          </div>
+          <input id="slider-aod" type="range" min="0.01" max="1.20" step="0.01" value="0.08">
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Henyey-Greenstein Asymmetry (g)</span>
+            <span id="lbl-g" class="font-mono-code text-indigo-300 font-semibold">0.70 (Forward)</span>
+          </div>
+          <input id="slider-g" type="range" min="0.00" max="0.95" step="0.02" value="0.70">
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Ångström Exponent (α)</span>
+            <span id="lbl-angstrom" class="font-mono-code text-indigo-300 font-semibold">1.30</span>
+          </div>
+          <input id="slider-angstrom" type="range" min="0.2" max="2.2" step="0.05" value="1.30">
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-slate-300">
+            <input id="chk-cloud" type="checkbox" class="rounded border-slate-700 text-sky-500 focus:ring-0">
+            <span>Low Cloud Deck (Stratus)</span>
+          </label>
+          <span id="lbl-cloud-alt" class="font-mono-code text-slate-400 text-[11px]">2.2 km</span>
+        </div>
+      </section>
+
+      <section class="glass-card rounded-xl p-3 flex flex-col gap-2">
+        <h2 class="text-[11px] font-semibold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>Observatory / Detector</span>
+          <span class="text-[10px] text-sky-400">Drag on Canvas 👆</span>
+        </h2>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div>
+            <span class="text-slate-400 text-[11px]">Distance:</span>
+            <div id="lbl-det-x" class="font-mono-code font-bold text-sky-300">28.4 km</div>
+          </div>
+          <div>
+            <span class="text-slate-400 text-[11px]">Elevation:</span>
+            <div id="lbl-det-alt" class="font-mono-code font-bold text-emerald-300">1,200 m</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Pointing Zenith Angle</span>
+            <span id="lbl-det-zenith" class="font-mono-code text-sky-300 font-semibold">15° (Near Zenith)</span>
+          </div>
+          <input id="slider-det-zenith" type="range" min="-60" max="60" value="15">
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between text-xs">
+            <span class="text-slate-300">Detector Field of View (FOV)</span>
+            <span id="lbl-det-fov" class="font-mono-code text-sky-300 font-semibold">25°</span>
+          </div>
+          <input id="slider-det-fov" type="range" min="5" max="60" value="25">
+        </div>
+
+        <div class="flex gap-2 pt-1">
+          <button id="btn-pause" class="flex-1 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium transition">
+            ⏸ Pause Sim
+          </button>
+          <button id="btn-clear-buffer" class="flex-1 py-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 text-xs font-medium transition">
+            ↺ Flush Hits
+          </button>
+        </div>
+      </section>
+
+    </aside>
+
+    <div class="lg:col-span-3 flex flex-col gap-2.5 min-h-0">
+      
+      <!-- Primary Monte Carlo Canvas -->
+      <div class="relative flex-1 rounded-xl overflow-hidden border border-slate-800/80 glass-card shadow-2xl min-h-[420px] flex flex-col">
+        <canvas id="simCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+
+        <!-- Top Left Info Legend -->
+        <div class="absolute top-2.5 left-2.5 pointer-events-none flex flex-col gap-1 text-[11px] font-mono-code bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 backdrop-blur-md">
+          <div class="text-sky-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            Monte Carlo Domain: 0 to 50 km Distance × 0 to 18 km Altitude
+          </div>
+          <div class="text-slate-400 flex items-center gap-3 text-[10px]">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span> Rayleigh Dipole</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span> Mie Forward Halo</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> Detected Photon</span>
+          </div>
+        </div>
+
+        <!-- Top Right Microphysics Readout HUD -->
+        <div class="absolute top-2.5 right-2.5 pointer-events-none flex flex-col items-end gap-1 text-[11px] font-mono-code bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 backdrop-blur-md">
+          <div class="flex items-center gap-2 text-sky-300">
+            <span>Collected Flux:</span>
+            <span id="hud-flux" class="font-bold text-xs">1.42 nW/m²</span>
+          </div>
+          <div class="flex items-center gap-2 text-indigo-300">
+            <span>Total Optical Depth τ:</span>
+            <span id="hud-tau" class="font-bold text-xs">0.145</span>
+          </div>
+          <div class="flex items-center gap-2 text-amber-300">
+            <span>Zenith Transmittance T:</span>
+            <span id="hud-trans" class="font-bold text-xs">86.5%</span>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-400">
+            <span>Hit Efficiency:</span>
+            <span id="hud-eff" class="font-bold text-xs">2.84%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 h-48">
+        
+        <!-- Cross-section Rayleigh vs Mie Spectral Curve -->
+        <div class="glass-card rounded-xl p-2.5 flex flex-col gap-1">
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="font-bold text-slate-300">Scattering Cross-Section σ(λ)</span>
+            <div class="flex gap-2 text-[10px]">
+              <span class="text-sky-400">■ Rayleigh (λ⁻⁴)</span>
+              <span class="text-amber-400">■ Mie (λ⁻ᵅ)</span>
+              <span class="text-white">● Current λ</span>
+            </div>
+          </div>
+          <div class="relative flex-1 w-full min-h-0">
+            <canvas id="specCanvas" class="w-full h-full block"></canvas>
+          </div>
+        </div>
+
+        <!-- Real-time Detected Sky Radiance History Chart -->
+        <div class="glass-card rounded-xl p-2.5 flex flex-col gap-1">
+          <div class="flex items-center justify-between text-xs font-mono-code">
+            <span class="font-bold text-slate-300">Detected Radiance & Flux History</span>
+            <div class="flex gap-2 text-[10px]">
+              <span class="text-emerald-400">■ Flux (nW/m²)</span>
+              <span class="text-indigo-400">■ Sky Mag (mag/□")</span>
+            </div>
+          </div>
+          <div class="relative flex-1 w-full min-h-0">
+            <canvas id="timeCanvas" class="w-full h-full block"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // --- Atmospheric & Radiative Physical Constants ---
+    const DOMAIN_WIDTH_KM = 50.0;   // 50 km horizontal ground distance
+    const DOMAIN_ALT_KM = 18.0;     // 18 km vertical stratosphere top
+    const SCALE_HEIGHT_RAYLEIGH_KM = 8.0; // Rayleigh barometric scale height
+    const SCALE_HEIGHT_AEROSOL_KM = 1.4;  // Aerosol boundary scale height
+    const RAYLEIGH_SIGMA_550 = 0.098;     // Optical depth ref at 550nm for pure molecular air
+
+    // Global Simulator Physics State
+    const sim = {
+      paused: false,
+      
+      // Light source
+      source: {
+        xKm: 6.0,                  // City located 6 km from left
+        yKm: 0.15,
+        wavelengthNm: 589,         // Sodium / amber default
+        beamZenithDeg: 45,         // Aimed angle
+        beamSpreadDeg: 120,        // Semi-cutoff shielding spread
+        powerKlm: 80,              // Radiant flux (klm)
+      },
+
+      // Atmosphere
+      atmos: {
+        aod550: 0.08,              // Aerosol optical depth at 550nm
+        gAsymmetry: 0.70,          // Henyey-Greenstein forward factor
+        angstromAlpha: 1.30,       // Ångström exponent
+        hasCloud: false,
+        cloudAltKm: 2.2,
+        cloudThicknessKm: 0.6,
+        cloudOpticalDepth: 8.0,
+      },
+
+      // Observatory Detector
+      detector: {
+        xKm: 34.0,                 // 34 km from origin (28 km from city)
+        altKm: 1.2,                // Observatory on ridge at 1200m
+        zenithDeg: 15,             // Pointing angle
+        fovDeg: 25,                // Field of view cone
+        apertureDiamM: 1.0,        // 1m telescope
+        isDragging: false,
+      },
+
+      // Monte Carlo Run Metrics
+      metrics: {
+        photonsEmitted: 0,
+        photonsScattered: 0,
+        photonsDetected: 0,
+        detectedFluxNanoWatts: 1.4,
+        skyBrightnessMag: 21.84,
+        bortleClass: 2,
+        tauRayleigh: 0.09,
+        tauAerosol: 0.08,
+        tauTotal: 0.17,
+        zenithTransmittance: 0.84,
+      }
+    };
+
+    // Color conversion from wavelength λ (380 to 750 nm) to RGB string
+    function wavelengthToRGB(wavelength, alpha = 1.0) {
+      let r = 0, g = 0, b = 0;
+      const wl = Number(wavelength);
+
+      if (wl >= 380 && wl < 440) {
+        r = -(wl - 440) / (440 - 380);
+        b = 1.0;
+      } else if (wl >= 440 && wl < 490) {
+        g = (wl - 440) / (490 - 440);
+        b = 1.0;
+      } else if (wl >= 490 && wl < 510) {
+        g = 1.0;
+        b = -(wl - 510) / (510 - 490);
+      } else if (wl >= 510 && wl < 580) {
+        r = (wl - 510) / (580 - 510);
+        g = 1.0;
+      } else if (wl >= 580 && wl < 645) {
+        r = 1.0;
+        g = -(wl - 645) / (645 - 580);
+      } else if (wl >= 645 && wl <= 750) {
+        r = 1.0;
+      }
+
+      // Edge intensity falloff
+      let factor = 1.0;
+      if (wl < 420) factor = 0.3 + 0.7 * (wl - 380) / (420 - 380);
+      else if (wl > 700) factor = 0.3 + 0.7 * (750 - wl) / (750 - 700);
+
+      const R = Math.round(Math.max(0, r * factor) * 255);
+      const G = Math.round(Math.max(0, g * factor) * 255);
+      const B = Math.round(Math.max(0, b * factor) * 255);
+
+      return {
+        r: R, g: G, b: B,
+        css: `rgba(${R}, ${G}, ${B}, ${alpha})`
+      };
+    }
+
+    /**
+     * Rayleigh phase function sampling: P(θ) ∝ 1 + cos²(θ)
+     */
+    function sampleRayleighAngle() {
+      // Rejection sampling for 1 + cos²(theta)
+      while (true) {
+        const theta = (Math.random() - 0.5) * 2 * Math.PI;
+        const test = Math.random() * 2.0;
+        if (test <= (1 + Math.pow(Math.cos(theta), 2))) {
+          return theta;
+        }
+      }
+    }
+
+    /**
+     * Henyey-Greenstein phase function inversion sampling:
+     * cos(θ) = 1/(2g) * [ 1 + g² - ((1 - g²) / (1 - g + 2g*ξ))² ]
+     */
+    function sampleHenyeyGreensteinAngle(g) {
+      if (Math.abs(g) < 0.001) {
+        return (Math.random() - 0.5) * 2 * Math.PI;
+      }
+      const xi = Math.random();
+      const term = (1 - g * g) / (1 - g + 2 * g * xi);
+      const cosTheta = (1 + g * g - term * term) / (2 * g);
+      const clampedCos = Math.max(-1, Math.min(1, cosTheta));
+      const theta = Math.acos(clampedCos);
+      // Randomize deflection sign left or right
+      return Math.random() < 0.5 ? theta : -theta;
+    }
+
+    /**
+     * Optical cross sections & atmospheric extinction calculation
+     */
+    function computeAtmosphericOptics() {
+      const lambda = sim.source.wavelengthNm;
+      const lambdaRatio = 550.0 / lambda;
+
+      // Rayleigh optical depth scales as lambda^-4
+      const tauR = RAYLEIGH_SIGMA_550 * Math.pow(lambdaRatio, 4.0);
+      
+      // Mie aerosol optical depth scales as lambda^-alpha
+      const tauA = sim.atmos.aod550 * Math.pow(lambdaRatio, sim.atmos.angstromAlpha);
+
+      const tauTot = tauR + tauA;
+      const zenithT = Math.exp(-tauTot);
+
+      sim.metrics.tauRayleigh = tauR;
+      sim.metrics.tauAerosol = tauA;
+      sim.metrics.tauTotal = tauTot;
+      sim.metrics.zenithTransmittance = zenithT;
+    }
+
+    // Monte Carlo Photon Bundle Particle
+    class PhotonPacket {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.alive = true;
+        this.xKm = sim.source.xKm;
+        this.yKm = sim.source.yKm;
+        
+        // Sample emission angle from source beam distribution
+        const centralRad = (sim.source.beamZenithDeg - 90) * (Math.PI / 180);
+        const spreadRad = (sim.source.beamSpreadDeg * 0.5) * (Math.PI / 180);
+        const angle = centralRad + (Math.random() - 0.5) * 2 * spreadRad;
+
+        // Velocity vector in km per simulation tick
+        const speed = 0.42; 
+        this.vx = Math.cos(angle) * speed;
+        this.vy = -Math.sin(angle) * speed; // upward in altitude
+
+        this.weight = 1.0;
+        this.scatterCount = 0;
+        this.path = [{ x: this.xKm, y: this.yKm }];
+        this.historyLength = 16;
+        this.hitDetector = false;
+        this.scatterType = 'none'; // 'rayleigh' | 'mie' | 'cloud'
+      }
+
+      step() {
+        if (!this.alive) return;
+
+        // Current altitude in km
+        const z = this.yKm;
+
+        // Stratified molecular & aerosol density factors
+        const rhoRayleigh = Math.exp(-Math.max(0, z) / SCALE_HEIGHT_RAYLEIGH_KM);
+        const rhoAerosol = Math.exp(-Math.max(0, z) / SCALE_HEIGHT_AEROSOL_KM);
+
+        // Instantaneous scattering probability per step
+        const pScatRayleigh = sim.metrics.tauRayleigh * 0.045 * rhoRayleigh;
+        const pScatAerosol = sim.metrics.tauAerosol * 0.080 * rhoAerosol;
+
+        // Cloud deck interaction
+        let inCloud = false;
+        if (sim.atmos.hasCloud && z >= sim.atmos.cloudAltKm && z <= (sim.atmos.cloudAltKm + sim.atmos.cloudThicknessKm)) {
+          inCloud = true;
+        }
+
+        const pScatCloud = inCloud ? 0.35 : 0.0;
+        const pTotal = pScatRayleigh + pScatAerosol + pScatCloud;
+
+        if (Math.random() < pTotal) {
+          // Scattering collision occurs!
+          this.scatterCount++;
+          sim.metrics.photonsScattered++;
+
+          let scatterDeflection = 0;
+          const choice = Math.random() * pTotal;
+
+          if (choice < pScatRayleigh) {
+            // Rayleigh molecular dipole
+            scatterDeflection = sampleRayleighAngle();
+            this.scatterType = 'rayleigh';
+          } else if (choice < pScatRayleigh + pScatAerosol) {
+            // Mie forward aerosol
+            scatterDeflection = sampleHenyeyGreensteinAngle(sim.atmos.gAsymmetry);
+            this.scatterType = 'mie';
+          } else {
+            // Dense cloud multiple scattering
+            scatterDeflection = (Math.random() - 0.5) * Math.PI * 1.8;
+            this.scatterType = 'cloud';
+            this.weight *= 0.96; // slight cloud extinction
+          }
+
+          // Rotate current velocity vector
+          const currAngle = Math.atan2(this.vy, this.vx);
+          const newAngle = currAngle + scatterDeflection;
+          const speed = Math.hypot(this.vx, this.vy);
+          this.vx = Math.cos(newAngle) * speed;
+          this.vy = Math.sin(newAngle) * speed;
+        }
+
+        // Advance position
+        this.xKm += this.vx;
+        this.yKm += this.vy;
+
+        this.path.push({ x: this.xKm, y: this.yKm });
+        if (this.path.length > this.historyLength) {
+          this.path.shift();
+        }
+
+        // Boundary checks (escape to space, absorbed in ground, out of horizontal range)
+        if (this.xKm < 0 || this.xKm > DOMAIN_WIDTH_KM || this.yKm > DOMAIN_ALT_KM || this.yKm < 0) {
+          this.alive = false;
+          return;
+        }
+
+        // Intersection check with Observatory Detector acceptance cone
+        this.checkDetectorIntersection();
+      }
+
+      checkDetectorIntersection() {
+        const det = sim.detector;
+        const dx = this.xKm - det.xKm;
+        const dy = this.yKm - det.altKm;
+        const distToDet = Math.hypot(dx, dy);
+
+        // Detection interaction capture radius in km
+        const captureRadiusKm = 1.2;
+
+        if (distToDet < captureRadiusKm) {
+          // Check if direction enters telescope acceptance FOV cone
+          // Detector points at angle pointingRad from horizontal ground
+          const pointingZenithRad = det.zenithDeg * (Math.PI / 180);
+          const coneBoresightRad = (Math.PI * 0.5) - pointingZenithRad; // pointing upward
+          const incomingPhotonDirRad = Math.atan2(-this.vy, -this.vx); // direction pointing into telescope
+          
+          let angleDiff = Math.abs(incomingPhotonDirRad - coneBoresightRad);
+          while (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
+          angleDiff = Math.abs(angleDiff);
+
+          const maxAcceptanceRad = (det.fovDeg * 0.5) * (Math.PI / 180);
+
+          if (angleDiff <= maxAcceptanceRad && this.scatterCount > 0) {
+            // Registered photon hit!
+            this.hitDetector = true;
+            this.alive = false;
+            sim.metrics.photonsDetected++;
+            onPhotonRegistered(this);
+          }
+        }
+      }
+    }
+
+    const MAX_PHOTONS = 650;
+    const photonPool = [];
+    for (let i = 0; i < MAX_PHOTONS; i++) {
+      photonPool.push(new PhotonPacket());
+    }
+
+    // Detector hits accumulator
+    let recentHits = 0;
+    let hitDecayTimer = 0;
+    const historyTimeseries = [];
+    const MAX_HISTORY = 50;
+    for (let i = 0; i < MAX_HISTORY; i++) {
+      historyTimeseries.push({ flux: 1.4, mag: 21.8 });
+    }
+
+    function onPhotonRegistered(p) {
+      recentHits += p.weight;
+    }
+
+    function updatePhysicsCalculations(dt) {
+      computeAtmosphericOptics();
+
+      hitDecayTimer += dt;
+      if (hitDecayTimer >= 0.5) {
+        hitDecayTimer = 0;
+
+        // Radiative transfer flux estimate:
+        // Source power (klm) + distance decay + scattering density into detector solid angle
+        const distKm = Math.hypot(sim.detector.xKm - sim.source.xKm, sim.detector.altKm - sim.source.yKm);
+        const geoSpread = 1.0 / (4 * Math.PI * Math.pow(Math.max(1.0, distKm), 2));
+        
+        // Multiplier from registered hits and atmospheric AOD
+        const aodScatterBoost = (sim.atmos.aod550 * 2.8) + (sim.atmos.hasCloud ? 6.5 : 0.0);
+        const rawFlux = (sim.source.powerKlm * 0.04) * geoSpread * (recentHits * 0.4 + aodScatterBoost);
+        
+        sim.metrics.detectedFluxNanoWatts = Math.max(0.05, Math.min(185.0, rawFlux));
+
+        // Convert artificial radiance to Astronomical Sky Brightness (mag / arcsec^2)
+        // Natural dark sky baseline ~ 22.0 mag/arcsec^2
+        // Radiance L (nW/m^2/sr): m = 22.0 - 2.5 * log10( 1 + L / L_natural )
+        const naturalSkyFloor = 0.22; // nW baseline
+        const artificialRatio = (sim.metrics.detectedFluxNanoWatts) / naturalSkyFloor;
+        const mag = 22.0 - 2.5 * Math.log10(1.0 + artificialRatio);
+        sim.metrics.skyBrightnessMag = Math.max(14.0, Math.min(22.0, mag));
+
+        // Evaluate Bortle Scale
+        if (mag > 21.7) sim.metrics.bortleClass = 1;
+        else if (mag > 21.3) sim.metrics.bortleClass = 2;
+        else if (mag > 20.8) sim.metrics.bortleClass = 3;
+        else if (mag > 20.0) sim.metrics.bortleClass = 4;
+        else if (mag > 19.1) sim.metrics.bortleClass = 5;
+        else if (mag > 18.0) sim.metrics.bortleClass = 6;
+        else if (mag > 16.8) sim.metrics.bortleClass = 7;
+        else if (mag > 15.5) sim.metrics.bortleClass = 8;
+        else sim.metrics.bortleClass = 9;
+
+        // Push history
+        historyTimeseries.shift();
+        historyTimeseries.push({
+          flux: sim.metrics.detectedFluxNanoWatts,
+          mag: sim.metrics.skyBrightnessMag
+        });
+
+        recentHits = recentHits * 0.35; // smooth rolling decay
+      }
+    }
+
+    const simCanvas = document.getElementById('simCanvas');
+    const simCtx = simCanvas.getContext('2d');
+    const specCanvas = document.getElementById('specCanvas');
+    const specCtx = specCanvas.getContext('2d');
+    const timeCanvas = document.getElementById('timeCanvas');
+    const timeCtx = timeCanvas.getContext('2d');
+
+    function kmToCanvas(xKm, yKm, w, h) {
+      const cx = (xKm / DOMAIN_WIDTH_KM) * w;
+      const cy = h - (yKm / DOMAIN_ALT_KM) * h;
+      return { cx, cy };
+    }
+
+    function canvasToKm(cx, cy, w, h) {
+      const xKm = (cx / w) * DOMAIN_WIDTH_KM;
+      const yKm = ((h - cy) / h) * DOMAIN_ALT_KM;
+      return { xKm, yKm };
+    }
+
+    function renderSimulationFrame() {
+      const w = simCanvas.width;
+      const h = simCanvas.height;
+      simCtx.clearRect(0, 0, w, h);
+
+      // 1. Atmosphere Background Density Gradient
+      const skyGrad = simCtx.createLinearGradient(0, h, 0, 0);
+      skyGrad.addColorStop(0, '#0a1024');   // dense boundary layer
+      skyGrad.addColorStop(0.35, '#060a17');
+      skyGrad.addColorStop(1, '#020307');   // space vacuum
+      simCtx.fillStyle = skyGrad;
+      simCtx.fillRect(0, 0, w, h);
+
+      // Atmospheric Haze Layer based on AOD
+      if (sim.atmos.aod550 > 0.05) {
+        const hazeHeightPx = (SCALE_HEIGHT_AEROSOL_KM * 2.5 / DOMAIN_ALT_KM) * h;
+        const hazeGrad = simCtx.createLinearGradient(0, h, 0, h - hazeHeightPx);
+        const hazeAlpha = Math.min(0.45, sim.atmos.aod550 * 0.38);
+        hazeGrad.addColorStop(0, `rgba(180, 160, 120, ${hazeAlpha})`);
+        hazeGrad.addColorStop(1, 'rgba(180, 160, 120, 0)');
+        simCtx.fillStyle = hazeGrad;
+        simCtx.fillRect(0, h - hazeHeightPx, w, hazeHeightPx);
+      }
+
+      // 2. Cloud Deck Layer
+      if (sim.atmos.hasCloud) {
+        const cloudTop = kmToCanvas(0, sim.atmos.cloudAltKm + sim.atmos.cloudThicknessKm, w, h);
+        const cloudBot = kmToCanvas(0, sim.atmos.cloudAltKm, w, h);
+        const cloudH = cloudBot.cy - cloudTop.cy;
+
+        const cloudGrad = simCtx.createLinearGradient(0, cloudTop.cy, 0, cloudBot.cy);
+        cloudGrad.addColorStop(0, 'rgba(148, 163, 184, 0.35)');
+        cloudGrad.addColorStop(0.5, 'rgba(203, 213, 225, 0.75)');
+        cloudGrad.addColorStop(1, 'rgba(148, 163, 184, 0.40)');
+
+        simCtx.fillStyle = cloudGrad;
+        simCtx.fillRect(0, cloudTop.cy, w, cloudH);
+
+        simCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        simCtx.lineWidth = 1;
+        simCtx.strokeRect(0, cloudTop.cy, w, cloudH);
+
+        simCtx.fillStyle = 'rgba(241, 245, 249, 0.85)';
+        simCtx.font = '10px "JetBrains Mono", monospace';
+        simCtx.fillText(`Stratus Cloud Deck (τ = ${sim.atmos.cloudOpticalDepth.toFixed(1)})`, 20, cloudTop.cy + 14);
+      }
+
+      // 3. Altitude Scale Grid Lines
+      simCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+      simCtx.lineWidth = 1;
+      simCtx.setLineDash([4, 6]);
+      simCtx.font = '10px "JetBrains Mono", monospace';
+      simCtx.fillStyle = 'rgba(148, 163, 184, 0.4)';
+
+      for (let alt = 3; alt <= DOMAIN_ALT_KM; alt += 3) {
+        const pt = kmToCanvas(0, alt, w, h);
+        simCtx.beginPath();
+        simCtx.moveTo(0, pt.cy);
+        simCtx.lineTo(w, pt.cy);
+        simCtx.stroke();
+        simCtx.fillText(`${alt} km`, 8, pt.cy - 4);
+      }
+      simCtx.setLineDash([]);
+
+      // 4. Terrain & Observatory Ridge
+      simCtx.beginPath();
+      const terrainP1 = kmToCanvas(0, 0, w, h);
+      simCtx.moveTo(0, h);
+      simCtx.lineTo(0, terrainP1.cy);
+
+      // Flat plain leading up to observatory mountain ridge
+      const cityPt = kmToCanvas(sim.source.xKm, sim.source.yKm, w, h);
+      const detPt = kmToCanvas(sim.detector.xKm, sim.detector.altKm, w, h);
+
+      simCtx.lineTo(cityPt.cx, cityPt.cy);
+      simCtx.quadraticCurveTo(
+        (cityPt.cx + detPt.cx) * 0.5, h - 20,
+        detPt.cx, detPt.cy
+      );
+      simCtx.lineTo(w, detPt.cy - 20);
+      simCtx.lineTo(w, h);
+      simCtx.closePath();
+
+      const terrainGrad = simCtx.createLinearGradient(0, h * 0.7, 0, h);
+      terrainGrad.addColorStop(0, '#111827');
+      terrainGrad.addColorStop(1, '#030712');
+      simCtx.fillStyle = terrainGrad;
+      simCtx.fill();
+      simCtx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+      simCtx.lineWidth = 1.5;
+      simCtx.stroke();
+
+      // 5. Render City Luminaire Source
+      const lum = kmToCanvas(sim.source.xKm, sim.source.yKm, w, h);
+      const col = wavelengthToRGB(sim.source.wavelengthNm);
+
+      // Ground emission cone illumination wedge
+      simCtx.save();
+      const beamZenithRad = (sim.source.beamZenithDeg - 90) * (Math.PI / 180);
+      const beamSpreadRad = (sim.source.beamSpreadDeg * 0.5) * (Math.PI / 180);
+      
+      const coneGrad = simCtx.createRadialGradient(lum.cx, lum.cy, 5, lum.cx, lum.cy, 220);
+      coneGrad.addColorStop(0, `rgba(${col.r}, ${col.g}, ${col.b}, 0.45)`);
+      coneGrad.addColorStop(0.5, `rgba(${col.r}, ${col.g}, ${col.b}, 0.15)`);
+      coneGrad.addColorStop(1, 'rgba(0,0,0,0)');
+
+      simCtx.fillStyle = coneGrad;
+      simCtx.beginPath();
+      simCtx.moveTo(lum.cx, lum.cy);
+      simCtx.arc(lum.cx, lum.cy, 220, beamZenithRad - beamSpreadRad, beamZenithRad + beamSpreadRad);
+      simCtx.closePath();
+      simCtx.fill();
+      simCtx.restore();
+
+      // City light fixture icon
+      simCtx.fillStyle = col.css;
+      simCtx.shadowColor = col.css;
+      simCtx.shadowBlur = 15;
+      simCtx.beginPath();
+      simCtx.arc(lum.cx, lum.cy, 7, 0, Math.PI * 2);
+      simCtx.fill();
+      simCtx.shadowBlur = 0;
+
+      simCtx.fillStyle = '#f8fafc';
+      simCtx.font = 'bold 11px "Inter", sans-serif';
+      simCtx.fillText(`City Luminaire (${sim.source.powerKlm} klm)`, lum.cx - 50, lum.cy + 22);
+
+      // 6. Render Observatory Detector / Telescope
+      const obs = kmToCanvas(sim.detector.xKm, sim.detector.altKm, w, h);
+      
+      // Telescope Acceptance FOV Cone
+      simCtx.save();
+      const detZenithRad = sim.detector.zenithDeg * (Math.PI / 180);
+      const boresightRad = -(Math.PI * 0.5) + detZenithRad; // pointing upward into the sky
+      const halfFovRad = (sim.detector.fovDeg * 0.5) * (Math.PI / 180);
+
+      const fovConeGrad = simCtx.createRadialGradient(obs.cx, obs.cy, 10, obs.cx, obs.cy, 260);
+      fovConeGrad.addColorStop(0, 'rgba(56, 189, 248, 0.35)');
+      fovConeGrad.addColorStop(0.7, 'rgba(56, 189, 248, 0.08)');
+      fovConeGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+      simCtx.fillStyle = fovConeGrad;
+      simCtx.beginPath();
+      simCtx.moveTo(obs.cx, obs.cy);
+      simCtx.arc(obs.cx, obs.cy, 260, boresightRad - halfFovRad, boresightRad + halfFovRad);
+      simCtx.closePath();
+      simCtx.fill();
+
+      // Cone outline
+      simCtx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+      simCtx.lineWidth = 1.2;
+      simCtx.beginPath();
+      simCtx.moveTo(obs.cx, obs.cy);
+      simCtx.lineTo(obs.cx + Math.cos(boresightRad - halfFovRad) * 260, obs.cy + Math.sin(boresightRad - halfFovRad) * 260);
+      simCtx.moveTo(obs.cx, obs.cy);
+      simCtx.lineTo(obs.cx + Math.cos(boresightRad + halfFovRad) * 260, obs.cy + Math.sin(boresightRad + halfFovRad) * 260);
+      simCtx.stroke();
+      simCtx.restore();
+
+      // Observatory Dome & Telescope barrel
+      simCtx.fillStyle = '#e2e8f0';
+      simCtx.beginPath();
+      simCtx.arc(obs.cx, obs.cy, 10, Math.PI, 0); // dome half circle
+      simCtx.fill();
+
+      simCtx.strokeStyle = '#38bdf8';
+      simCtx.lineWidth = 3;
+      simCtx.beginPath();
+      simCtx.moveTo(obs.cx, obs.cy - 3);
+      simCtx.lineTo(obs.cx + Math.sin(detZenithRad) * 16, obs.cy - Math.cos(detZenithRad) * 16);
+      simCtx.stroke();
+
+      simCtx.fillStyle = '#38bdf8';
+      simCtx.font = 'bold 11px "Inter", sans-serif';
+      simCtx.fillText(`Observatory (${(sim.detector.altKm * 1000).toFixed(0)}m)`, obs.cx - 45, obs.cy + 22);
+
+      // 7. Update & Draw Photon Packets
+      const photonCol = wavelengthToRGB(sim.source.wavelengthNm, 0.85);
+
+      for (let i = 0; i < photonPool.length; i++) {
+        const p = photonPool[i];
+        if (!sim.paused) {
+          p.step();
+          if (!p.alive) {
+            p.reset();
+            sim.metrics.photonsEmitted++;
+          }
+        }
+
+        // Render photon packet trail
+        if (p.path.length > 1) {
+          simCtx.beginPath();
+          const pStart = kmToCanvas(p.path[0].x, p.path[0].y, w, h);
+          simCtx.moveTo(pStart.cx, pStart.cy);
+
+          for (let k = 1; k < p.path.length; k++) {
+            const pNext = kmToCanvas(p.path[k].x, p.path[k].y, w, h);
+            simCtx.lineTo(pNext.cx, pNext.cy);
+          }
+
+          // Trail coloring by scattering type
+          if (p.scatterType === 'rayleigh') {
+            simCtx.strokeStyle = 'rgba(96, 165, 250, 0.55)'; // Rayleigh blueish tint
+          } else if (p.scatterType === 'mie') {
+            simCtx.strokeStyle = 'rgba(251, 191, 36, 0.65)'; // Mie forward halo
+          } else {
+            simCtx.strokeStyle = photonCol.css;
+          }
+          simCtx.lineWidth = 1.3;
+          simCtx.stroke();
+        }
+
+        // Photon head spark
+        const head = kmToCanvas(p.xKm, p.yKm, w, h);
+        simCtx.fillStyle = p.scatterCount > 0 ? '#fef08a' : photonCol.css;
+        simCtx.beginPath();
+        simCtx.arc(head.cx, head.cy, 1.6, 0, Math.PI * 2);
+        simCtx.fill();
+      }
+    }
+
+    function renderSpectralCrossSectionChart() {
+      const w = specCanvas.width;
+      const h = specCanvas.height;
+      specCtx.clearRect(0, 0, w, h);
+
+      // Axes grid
+      specCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+      specCtx.lineWidth = 1;
+      for (let y = h / 4; y < h; y += h / 4) {
+        specCtx.beginPath();
+        specCtx.moveTo(0, y);
+        specCtx.lineTo(w, y);
+        specCtx.stroke();
+      }
+
+      // Plot Rayleigh σ_R(λ) ∝ λ^-4
+      specCtx.beginPath();
+      specCtx.strokeStyle = '#38bdf8';
+      specCtx.lineWidth = 2;
+      for (let px = 0; px < w; px++) {
+        const wl = 380 + (px / w) * (750 - 380);
+        const normSigma = Math.pow(550 / wl, 4.0); // normalized at 550nm
+        const py = h - (normSigma / 4.5) * (h - 10) - 5;
+        if (px === 0) specCtx.moveTo(px, py);
+        else specCtx.lineTo(px, py);
+      }
+      specCtx.stroke();
+
+      // Plot Mie σ_M(λ) ∝ λ^-α
+      specCtx.beginPath();
+      specCtx.strokeStyle = '#fbbf24';
+      specCtx.lineWidth = 2;
+      for (let px = 0; px < w; px++) {
+        const wl = 380 + (px / w) * (750 - 380);
+        const normMie = Math.pow(550 / wl, sim.atmos.angstromAlpha);
+        const py = h - (normMie / 2.2) * (h - 10) - 5;
+        if (px === 0) specCtx.moveTo(px, py);
+        else specCtx.lineTo(px, py);
+      }
+      specCtx.stroke();
+
+      // Mark current selected wavelength
+      const currentX = ((sim.source.wavelengthNm - 380) / (750 - 380)) * w;
+      specCtx.strokeStyle = '#ffffff';
+      specCtx.setLineDash([3, 3]);
+      specCtx.beginPath();
+      specCtx.moveTo(currentX, 0);
+      specCtx.lineTo(currentX, h);
+      specCtx.stroke();
+      specCtx.setLineDash([]);
+
+      specCtx.fillStyle = '#ffffff';
+      specCtx.beginPath();
+      specCtx.arc(currentX, 16, 4, 0, Math.PI * 2);
+      specCtx.fill();
+    }
+
+    function renderTimeseriesTelemetryChart() {
+      const w = timeCanvas.width;
+      const h = timeCanvas.height;
+      timeCtx.clearRect(0, 0, w, h);
+
+      // Axes lines
+      timeCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+      timeCtx.lineWidth = 1;
+      for (let y = h / 4; y < h; y += h / 4) {
+        timeCtx.beginPath();
+        timeCtx.moveTo(0, y);
+        timeCtx.lineTo(w, y);
+        timeCtx.stroke();
+      }
+
+      const dx = w / (historyTimeseries.length - 1);
+
+      // 1. Detected Flux Curve (Green)
+      timeCtx.beginPath();
+      timeCtx.strokeStyle = '#34d399';
+      timeCtx.lineWidth = 2;
+      for (let i = 0; i < historyTimeseries.length; i++) {
+        const d = historyTimeseries[i];
+        // Flux normalize [0 to 25 nW/m^2]
+        const normY = Math.min(1.0, d.flux / 25.0);
+        const py = h - normY * (h - 12) - 6;
+        const px = i * dx;
+        if (i === 0) timeCtx.moveTo(px, py);
+        else timeCtx.lineTo(px, py);
+      }
+      timeCtx.stroke();
+
+      // 2. Sky Brightness (Indigo) [16 to 22 mag]
+      timeCtx.beginPath();
+      timeCtx.strokeStyle = '#818cf8';
+      timeCtx.lineWidth = 2;
+      for (let i = 0; i < historyTimeseries.length; i++) {
+        const d = historyTimeseries[i];
+        const normY = (d.mag - 16.0) / (22.0 - 16.0); // 1 = pristine dark (top)
+        const py = h - Math.max(0, Math.min(1, normY)) * (h - 12) - 6;
+        const px = i * dx;
+        if (i === 0) timeCtx.moveTo(px, py);
+        else timeCtx.lineTo(px, py);
+      }
+      timeCtx.stroke();
+    }
+
+    function updateHUDAndBadges() {
+      // Badges
+      const bBright = document.getElementById('badge-sky-bright');
+      bBright.textContent = `${sim.metrics.skyBrightnessMag.toFixed(2)} mag/arcsec²`;
+
+      const bBortle = document.getElementById('badge-bortle');
+      const bClass = sim.metrics.bortleClass;
+      bBortle.textContent = `Class ${bClass} (${getBortleName(bClass)})`;
+      bBortle.className = bClass <= 3 ? 'text-emerald-400 font-bold' : (bClass <= 6 ? 'text-amber-400 font-bold' : 'text-rose-400 font-bold');
+
+      const bPhotons = document.getElementById('badge-photons');
+      bPhotons.textContent = `${sim.metrics.photonsEmitted} / ${sim.metrics.photonsDetected} hit`;
+
+      // Readouts
+      document.getElementById('hud-flux').textContent = `${sim.metrics.detectedFluxNanoWatts.toFixed(2)} nW/m²`;
+      document.getElementById('hud-tau').textContent = sim.metrics.tauTotal.toFixed(3);
+      document.getElementById('hud-trans').textContent = `${(sim.metrics.zenithTransmittance * 100).toFixed(1)}%`;
+      
+      const eff = (sim.metrics.photonsDetected / Math.max(1, sim.metrics.photonsEmitted)) * 100;
+      document.getElementById('hud-eff').textContent = `${eff.toFixed(2)}%`;
+
+      document.getElementById('lbl-det-x').textContent = `${sim.detector.xKm.toFixed(1)} km`;
+      document.getElementById('lbl-det-alt').textContent = `${(sim.detector.altKm * 1000).toFixed(0)} m`;
+    }
+
+    function getBortleName(c) {
+      switch (c) {
+        case 1: return 'Truly Dark Sky';
+        case 2: return 'Typical Dark Site';
+        case 3: return 'Rural Sky';
+        case 4: return 'Rural / Suburban Transition';
+        case 5: return 'Suburban Sky';
+        case 6: return 'Bright Suburban';
+        case 7: return 'Suburban / Urban Transition';
+        case 8: return 'City Sky';
+        case 9: return 'Inner-City Sky';
+        default: return 'Mixed';
+      }
+    }
+
+    function resizeCanvases() {
+      const sRect = simCanvas.parentElement.getBoundingClientRect();
+      simCanvas.width = sRect.width;
+      simCanvas.height = sRect.height;
+
+      const spRect = specCanvas.parentElement.getBoundingClientRect();
+      specCanvas.width = spRect.width;
+      specCanvas.height = spRect.height;
+
+      const tRect = timeCanvas.parentElement.getBoundingClientRect();
+      timeCanvas.width = tRect.width;
+      timeCanvas.height = tRect.height;
+    }
+    window.addEventListener('resize', resizeCanvases);
+
+    // Draggable Detector interaction
+    function getCanvasCoords(e) {
+      const rect = simCanvas.getBoundingClientRect();
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top };
+    }
+
+    simCanvas.addEventListener('mousedown', (e) => {
+      const pos = getCanvasCoords(e);
+      const obs = kmToCanvas(sim.detector.xKm, sim.detector.altKm, simCanvas.width, simCanvas.height);
+      if (Math.hypot(pos.x - obs.cx, pos.y - obs.cy) < 28) {
+        sim.detector.isDragging = true;
+      }
+    });
+
+    simCanvas.addEventListener('mousemove', (e) => {
+      if (!sim.detector.isDragging) return;
+      const pos = getCanvasCoords(e);
+      const km = canvasToKm(pos.x, pos.y, simCanvas.width, simCanvas.height);
+      sim.detector.xKm = Math.max(12.0, Math.min(DOMAIN_WIDTH_KM - 2.0, km.xKm));
+      sim.detector.altKm = Math.max(0.1, Math.min(5.0, km.yKm));
+    });
+
+    window.addEventListener('mouseup', () => sim.detector.isDragging = false);
+
+    // Touch support for dragging detector
+    simCanvas.addEventListener('touchstart', (e) => {
+      const pos = getCanvasCoords(e);
+      const obs = kmToCanvas(sim.detector.xKm, sim.detector.altKm, simCanvas.width, simCanvas.height);
+      if (Math.hypot(pos.x - obs.cx, pos.y - obs.cy) < 32) {
+        sim.detector.isDragging = true;
+      }
+    }, { passive: true });
+
+    simCanvas.addEventListener('touchmove', (e) => {
+      if (!sim.detector.isDragging) return;
+      const pos = getCanvasCoords(e);
+      const km = canvasToKm(pos.x, pos.y, simCanvas.width, simCanvas.height);
+      sim.detector.xKm = Math.max(12.0, Math.min(DOMAIN_WIDTH_KM - 2.0, km.xKm));
+      sim.detector.altKm = Math.max(0.1, Math.min(5.0, km.yKm));
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => sim.detector.isDragging = false);
+
+    // Emission Controls
+    const sliderWl = document.getElementById('slider-wl');
+    const lblWl = document.getElementById('lbl-wavelength');
+    sliderWl.addEventListener('input', (e) => {
+      sim.source.wavelengthNm = Number(e.target.value);
+      lblWl.textContent = `${sim.source.wavelengthNm} nm`;
+      lblWl.style.color = wavelengthToRGB(sim.source.wavelengthNm).css;
+    });
+
+    const sliderAngle = document.getElementById('slider-angle');
+    sliderAngle.addEventListener('input', (e) => {
+      sim.source.beamZenithDeg = Number(e.target.value);
+      document.getElementById('lbl-angle').textContent = `${sim.source.beamZenithDeg}° from Zenith`;
+    });
+
+    const sliderCutoff = document.getElementById('slider-cutoff');
+    sliderCutoff.addEventListener('input', (e) => {
+      sim.source.beamSpreadDeg = Number(e.target.value);
+      const type = sim.source.beamSpreadDeg < 60 ? 'Full-Cutoff' : (sim.source.beamSpreadDeg < 130 ? 'Semi-Cutoff' : 'Non-Cutoff Globe');
+      document.getElementById('lbl-cutoff').textContent = `${sim.source.beamSpreadDeg}° (${type})`;
+    });
+
+    const sliderPower = document.getElementById('slider-power');
+    sliderPower.addEventListener('input', (e) => {
+      sim.source.powerKlm = Number(e.target.value);
+      document.getElementById('lbl-power').textContent = `${sim.source.powerKlm} klm`;
+    });
+
+    // Atmospheric Sliders
+    const sliderAod = document.getElementById('slider-aod');
+    sliderAod.addEventListener('input', (e) => {
+      sim.atmos.aod550 = parseFloat(e.target.value);
+      document.getElementById('lbl-aod').textContent = sim.atmos.aod550.toFixed(2);
+    });
+
+    const sliderG = document.getElementById('slider-g');
+    sliderG.addEventListener('input', (e) => {
+      sim.atmos.gAsymmetry = parseFloat(e.target.value);
+      document.getElementById('lbl-g').textContent = `${sim.atmos.gAsymmetry.toFixed(2)} (${sim.atmos.gAsymmetry > 0.5 ? 'Forward' : 'Isotropic'})`;
+    });
+
+    const sliderAngstrom = document.getElementById('slider-angstrom');
+    sliderAngstrom.addEventListener('input', (e) => {
+      sim.atmos.angstromAlpha = parseFloat(e.target.value);
+      document.getElementById('lbl-angstrom').textContent = sim.atmos.angstromAlpha.toFixed(2);
+    });
+
+    const chkCloud = document.getElementById('chk-cloud');
+    chkCloud.addEventListener('change', (e) => {
+      sim.atmos.hasCloud = e.target.checked;
+    });
+
+    // Detector Sliders
+    const sliderDetZenith = document.getElementById('slider-det-zenith');
+    sliderDetZenith.addEventListener('input', (e) => {
+      sim.detector.zenithDeg = Number(e.target.value);
+      document.getElementById('lbl-det-zenith').textContent = `${sim.detector.zenithDeg}°`;
+    });
+
+    const sliderDetFov = document.getElementById('slider-det-fov');
+    sliderDetFov.addEventListener('input', (e) => {
+      sim.detector.fovDeg = Number(e.target.value);
+      document.getElementById('lbl-det-fov').textContent = `${sim.detector.fovDeg}°`;
+    });
+
+    // Buttons
+    document.getElementById('btn-pause').addEventListener('click', (e) => {
+      sim.paused = !sim.paused;
+      e.target.textContent = sim.paused ? '▶ Resume Sim' : '⏸ Pause Sim';
+    });
+
+    document.getElementById('btn-clear-buffer').addEventListener('click', () => {
+      sim.metrics.photonsEmitted = 0;
+      sim.metrics.photonsDetected = 0;
+      sim.metrics.photonsScattered = 0;
+      recentHits = 0;
+      photonPool.forEach(p => p.reset());
+    });
+
+    // Spectral Buttons
+    document.querySelectorAll('.spec-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wl = Number(btn.dataset.wl);
+        sim.source.wavelengthNm = wl;
+        sliderWl.value = wl;
+        lblWl.textContent = `${wl} nm`;
+        lblWl.style.color = wavelengthToRGB(wl).css;
+      });
+    });
+
+    // Presets
+    const presetConfigs = {
+      pristine: { aod: 0.02, g: 0.65, ang: 1.45, cloud: false, alt: 2.6, x: 42.0 },
+      rural:    { aod: 0.08, g: 0.70, ang: 1.30, cloud: false, alt: 1.2, x: 34.0 },
+      suburban: { aod: 0.25, g: 0.74, ang: 1.15, cloud: false, alt: 0.4, x: 22.0 },
+      urban:    { aod: 0.85, g: 0.82, ang: 0.90, cloud: false, alt: 0.15, x: 16.0 },
+      cloudy:   { aod: 0.35, g: 0.85, ang: 0.40, cloud: true,  alt: 0.3, x: 26.0 },
+    };
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => {
+          b.classList.remove('active-preset', 'border-emerald-500/50', 'bg-emerald-950/40', 'text-emerald-300');
+          b.classList.add('border-slate-700/70', 'bg-slate-900/40', 'text-slate-300');
+        });
+        btn.classList.add('active-preset', 'border-emerald-500/50', 'bg-emerald-950/40', 'text-emerald-300');
+        btn.classList.remove('border-slate-700/70', 'bg-slate-900/40', 'text-slate-300');
+
+        const key = btn.dataset.preset;
+        const cfg = presetConfigs[key];
+        if (cfg) {
+          sim.atmos.aod550 = cfg.aod;
+          sliderAod.value = cfg.aod;
+          document.getElementById('lbl-aod').textContent = cfg.aod.toFixed(2);
+
+          sim.atmos.gAsymmetry = cfg.g;
+          sliderG.value = cfg.g;
+          document.getElementById('lbl-g').textContent = cfg.g.toFixed(2);
+
+          sim.atmos.angstromAlpha = cfg.ang;
+          sliderAngstrom.value = cfg.ang;
+          document.getElementById('lbl-angstrom').textContent = cfg.ang.toFixed(2);
+
+          sim.atmos.hasCloud = cfg.cloud;
+          chkCloud.checked = cfg.cloud;
+
+          sim.detector.altKm = cfg.alt;
+          sim.detector.xKm = cfg.x;
+        }
+      });
+    });
+
+    let lastTick = performance.now();
+
+    function mainLoop(timestamp) {
+      const dt = (timestamp - lastTick) * 0.001;
+      lastTick = timestamp;
+
+      updatePhysicsCalculations(dt);
+      renderSimulationFrame();
+      renderSpectralCrossSectionChart();
+      renderTimeseriesTelemetryChart();
+      updateHUDAndBadges();
+
+      requestAnimationFrame(mainLoop);
+    }
+
+    window.addEventListener('load', () => {
+      resizeCanvases();
+      requestAnimationFrame(mainLoop);
+    });
+  </script>
+</body>
+</html>

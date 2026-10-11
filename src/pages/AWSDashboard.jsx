@@ -7,7 +7,6 @@ import OverviewMap from '../components/OverviewMap';
 import MapView from '../components/MapView';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import AvailabilityDashboard from '../components/AvailabilityDashboard';
-import AvailabilityPrologue from '../components/AvailabilityPrologue';
 import GoesSatellite from '../components/GoesSatellite';
 import ForecastPanel from '../components/ForecastPanel';
 import StationGallery from '../components/StationGallery';
@@ -16,11 +15,11 @@ import CurrentConditions from '../components/CurrentConditions';
 import Footer from '../components/Footer';
 import LightPollution from "../components/LightPollution";
 import About from '../components/About';
-import LanguageToggle from '../components/LanguageToggle';
 import HelpTooltip from '../components/HelpTooltip';
 import Articles from '../components/Articles';
 import Glossary from '../components/Glossary';
 import Clouds from '../components/Clouds';
+import Simulations from '../components/Simulations';
 
 // --   Constants  --  //
 import { RAW_WEATHER_DATA } from '../data/weatherData';
@@ -280,7 +279,10 @@ const AWSDashboard = () => {
 
         {activeSection === 'data-forecast' && (
           <>
-             <ForecastPanel />
+             <ForecastPanel
+               stationId={selectedStation}
+               setStationId={setSelectedStation} 
+             />
           </>
         )}
 
@@ -344,6 +346,14 @@ const AWSDashboard = () => {
             <Clouds/>
           </>
         )}        
+
+{/* Learning -> simulations */}
+
+        {activeSection === 'learning-simulations' && (
+          <>
+            <Simulations/>
+          </>
+        )} 
 
 {/* About -> team */}
 

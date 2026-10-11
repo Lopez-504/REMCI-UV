@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
-import ReactECharts from 'echarts-for-react';
 import Meteogram from './Meteogram';
+import WeatherSummaryCard from './WeatherSummaryCard';
 
 //Translations
 import { useTranslation } from "react-i18next";
@@ -8,12 +7,18 @@ import { useTranslation } from "react-i18next";
 //CSS
 import './forecastPanel.css'
 
-const ForecastPanel = () => {
+const ForecastPanel = ({ stationId, setStationId }) => {
   const { t } = useTranslation("common");
   
   return (
     <>  
-      <div className="card-header">{t("forecast")}</div>
+      <div className="card-header">
+        {t("forecast")}
+      </div>
+      <WeatherSummaryCard 
+        stationId={stationId} 
+        onStationChange={setStationId}
+      />
       <Meteogram/>
     </>
   )    
