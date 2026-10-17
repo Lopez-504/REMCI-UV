@@ -1,24 +1,18 @@
 import "./simulations.css"
+import { simLinks } from "../constants/simulationsLinks";
 
 export default function Simulations() {
   return (
     <>
-      <div>
-        <iframe
-            src="../constants/ideal-gas-simulator.html"
-            title="Ideal Gas simulation"
-            className="simulation-frame"
-        />
-        <iframe
-            src="../constants/atmospheric_cloud_simulator.html"
-            title="Cloud Formation simulation"
-            className="simulation-frame"
-        />
-         <iframe
-            src="../constants/light_pollution_atmospheric_simulator.html"
-            title="Light Pollution simulation"
-            className="simulation-frame"
-        />
+      <div className="simulations-links">
+        <h1>Simulators (by Gemini 4 Argon)</h1>
+        {simLinks.map(sim => (
+          <a key={sim.key} href={sim.link} target="_blank" rel="noopener noreferrer">
+            <div className="sim-link">
+              <h3>{sim.name} {sim.icon}</h3>
+            </div>
+          </a>
+        ))}
       </div>
     </>
   );

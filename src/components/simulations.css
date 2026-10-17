@@ -1,6 +1,20 @@
 .simulation-frame {
   width: 100%;
-  min-height: 800px;
+  min-height: 1800px;
   border: none;
   display: block;
+}
+
+.simulations-links {
+  margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0px;
+  margin-top: 10px;
+}
+
+.simulations-links a {
+  text-decoration: none;
 }
