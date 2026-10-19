@@ -46,6 +46,7 @@
     "helpMeteogram":"Representación gráfica de variables meteorológicas respecto al tiempo, ya sean observadas o pronosticadas, para una ubicación particular",
     "openMeteoData":"Datos horarios desde Open-Meteo",
     "station":"Estación Meteorológica",
+    "stations":"Estaciones",
     "forecast":"Pronóstico",
     "controls":"Controles",
     "resolution":"Resolución",
@@ -66,6 +67,9 @@
         "selectVar":"Selecciona variables. Añade o elimina variables usando los botones"
     },
     "about":"Acerca de",
+    "FundedBy":"Financiamiento",
+    "OurTeam":"Nuestro Equipo",
+    "MeetTheMinds":"Conoce a las personas detrás de este proyecto",
     "historic":{
         "title":"Datos Históricos",
         "subtitle":"desde la API de Open-Meteo",

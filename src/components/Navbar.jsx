@@ -7,9 +7,8 @@ import clickSound from '../../public/chords-0236.wav';
 import LanguageToggle from "./LanguageToggle";
 
 //STATIC
-import { NAV_ITEMS } from '../constants/sectionTabs'
 import { STATIONS } from '../constants/stations'
-import logo from "/remci_logo.png"
+import logo from "/remci_logo3.png"
 
 //CSS
 import './navbar.css'

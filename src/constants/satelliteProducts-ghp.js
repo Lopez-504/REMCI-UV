@@ -33,22 +33,22 @@ export const SATELLITE_PRODUCTS = [
     url: "https://archivos.meteochile.gob.cl/portaldmc/data/imgsat/loop/rgb_masa_de_aire_2500.gif",
     colorbar: "images/colorbar-airmass.png",
   },
-  {
+  /*{
     title: "meteochile-Test",
     description: "click to zoom-in",
     help:"",
     time:"",
     url: "https://archivos.meteochile.gob.cl/portaldmc/data/imgsat/loop/ir_loop_2500.gif",
-  }
+  }*/
   
-  //{
-    //title: "geocolor.title",
-    //description: "geocolor.desc",
-    //help:"geocolor.help",
-    //time:"geocolor.time",
-    //url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/GEOCOLOR/GOES19-SSA-GEOCOLOR-900x540.gif",
-    //colorbar: "",
-  //},
+  /*{
+    title: "geocolor.title",
+    description: "geocolor.desc",
+    help:"geocolor.help",
+    time:"geocolor.time",
+    url: "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/ssa/GEOCOLOR/GOES19-SSA-GEOCOLOR-900x540.gif",
+    colorbar: "",
+  },*/
 ];
 
 

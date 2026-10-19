@@ -1,16 +1,16 @@
 .overview-map-gallery {
-  width: min(1400px, 97%);
-  margin: 30px auto;
+  width: min(1700px, 97%);
+  margin: 1.5rem auto 4rem;
   display: flex;
   gap: 20px;
   align-items: stretch;
-  min-height: 76vh;
+  min-height: 79vh;
 }
 
 .omg-map-card,
 .omg-gallery-card {
   background: white;
-  border: 3px solid #2c3e50;
+  border: 2px solid #2c3e50;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
@@ -44,7 +44,7 @@
 }
 
 .omg-card-header span {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: #667085;
 }
 
@@ -90,17 +90,20 @@
 
 .omg-gallery-controls button {
   border: none;
-  background: #3498db;
+  background: #38516b;
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 6px 12px;
   cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .omg-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
+  margin-top: -8px;
 }
 
 .omg-dot {
@@ -115,7 +118,7 @@
 }
 
 .omg-dot.active {
-  background: #3498db;
+  background: #163e58;
   width: 18px;
   border-radius: 6px;
 }

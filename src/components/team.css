@@ -1,0 +1,165 @@
+.team-container {
+  max-width: 1800px;
+  margin: 1rem 10rem 5rem;
+  padding: 3rem 1.5rem;
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.team-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 0.5rem;
+}
+
+.team-header .subtitle {
+  font-size: 1.1rem;
+  color: #4b5563;
+}
+
+/* Responsive Grid Layout */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.7rem;
+}
+
+/* Team Card Base */
+.team-card {
+  position: relative;
+  background: #111827;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 390px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* Portrait Background Image */
+.team-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  transition: transform 0.5s ease;
+  z-index: 1;
+}
+
+.team-card:hover .team-bg {
+  transform: scale(1.0); 
+}
+
+/* Gradient Overlay (Darkens towards the bottom for text contrast) */
+.team-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 24, 39, 0.1) 0%,
+    rgba(17, 24, 39, 0.431) 50%,
+    rgba(17, 24, 39, 0.95) 100%
+  );
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.team-card:hover .team-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 24, 39, 0.3) 0%,
+    rgba(17, 24, 39, 0.8) 40%,
+    rgba(17, 24, 39, 0.95) 100%
+  );
+}
+
+/* Content Layout */
+.team-content {
+  position: relative;
+  z-index: 3;
+  padding: 1.75rem;
+  width: 100%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-info-top h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+.team-role {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #93c5fd; 
+  margin-bottom: 0.75rem;
+}
+
+/* Hover Description Reveal Animation */
+.team-bio-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.team-card:hover .team-bio-wrapper {
+  max-height: 180px; /* Adjust if your bios are longer */
+  opacity: 1;
+}
+
+.team-bio {
+  font-size: 0.95rem;
+  color: #d1d5db;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+/* Optional Profile Button Styling */
+.team-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease;
+}
+
+.team-link-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.arrow-icon {
+  transition: transform 0.15s ease;
+}
+
+.team-link-btn:hover .arrow-icon {
+  transform: translate(2px, -2px);
+}

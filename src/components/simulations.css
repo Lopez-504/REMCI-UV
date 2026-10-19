@@ -1,20 +1,106 @@
-.simulation-frame {
-  width: 100%;
-  min-height: 1800px;
-  border: none;
-  display: block;
+.simulations-container {
+  max-width: 1900px;
+  margin: 0rem 10rem 3rem;
+  padding: 2rem 1.5rem;
 }
 
-.simulations-links {
-  margin-left: 4rem;
+.simulations-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.simulations-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 0.5rem;
+}
+
+.simulations-header .subtitle {
+  font-size: 1.1rem;
+  color: #4b5563;
+}
+
+/* Responsive Grid Layout */
+.simulations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Modern Card Styling */
+.sim-card {
+  background: #ffffff;
+  border: 1px solid #068896;
+  border-radius: 12px;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0px;
-  margin-top: 10px;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
-.simulations-links a {
+.sim-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.sim-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sim-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.sim-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.sim-card p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+/* Button Styling */
+.sim-card-footer {
+  margin-top: auto;
+}
+
+.sim-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
   text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.sim-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.arrow-icon {
+  transition: transform 0.15s ease;
+}
+
+.sim-btn:hover .arrow-icon {
+  transform: translate(2px, -2px);
 }

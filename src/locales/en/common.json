@@ -46,6 +46,7 @@
     "helpMeteogram":"Graphical presentation of meteorological variables with respect to time, whether observed or forecasted, for a particular location",
     "openMeteoData":"Hourly data from Open-Meteo",
     "station":"Weather Station",
+    "stations":"Weather Stations",
     "forecast":"Forecast",
     "controls":"Controls",
     "resolution":"Resolution",
@@ -66,6 +67,9 @@
         "selectVar":"Select variables. Add or remove variables using the buttons below" 
     },
     "about":"About",
+    "FundedBy":"Supported & Funded by",
+    "OurTeam":"Our Team",
+    "MeetTheMinds":"Meet the minds behind the project",
     "historic":{
         "title":"Historic Meteorological Data",
         "subtitle":"Open-Meteo Archive API",

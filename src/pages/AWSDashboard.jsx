@@ -20,6 +20,7 @@ import Articles from '../components/Articles';
 import Glossary from '../components/Glossary';
 import Clouds from '../components/Clouds';
 import Simulations from '../components/Simulations';
+import Team from '../components/Team';
 
 // --   Constants  --  //
 import { RAW_WEATHER_DATA } from '../data/weatherData';
@@ -315,14 +316,6 @@ const AWSDashboard = () => {
           </>
         )}
 
-{/* About -> project */}
-
-        {activeSection === 'about-project' && (
-          <>
-            <About/>
-          </>
-        )}
-
 {/* Learning -> Articles */}
 
         {activeSection === 'learning-articles' && (
@@ -359,29 +352,17 @@ const AWSDashboard = () => {
 
         {activeSection === 'about-team' && (
           <>
-          <div className='under-construction'>
-            <h2>Site under construction: {activeSection}</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur 
-              adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
-              Eveniet excepturi eius at fuga asperiores!</p>
-            <img src={team} alt="construction" width={'400px'}/>
-          </div>
+            <Team/>
           </>
         )}
 
-{/* About -> links */}
+{/* About -> project */}
 
-        {activeSection === 'about-links' && (
+        {activeSection === 'about-project' && (
           <>
-          <div className='under-construction'>
-            <h2>Site under construction: {activeSection}</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur 
-              adipisicing elit. Voluptatibus doloremque ratione adipisci incidunt dicta! 
-              Eveniet excepturi eius at fuga asperiores!</p>
-            <img src={team} alt="construction" width={'400px'}/>
-          </div>
+            <About/>
           </>
-        )}        
+        )}     
 
 {/* Close main and Footer */}
 

@@ -1,95 +1,160 @@
-.card-frame {
-  background: var(--card-bg);
-  border: 0px solid var(--primary-color);
-  border-radius: 12px;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.about-card {
-  width: 99.6vw;        /* to have a margin on the right*/
-  position: relative;
-  left: 0%;
-  right: 0%; 
-  padding: 0px;
-}
-
-.card-header {
-  background: #f1f3f5;
-  padding: 10px 15px;
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-  font-size: 17px;
-}
-
-.about-content {
-  padding: 20px;
-  line-height: 1.6;
-  display: flex;
-  justify-content: center;      /* Centers horizontally */
-  align-items: top;          /* Centers vertically */
-  height: auto;
-  background: linear-gradient(180deg, rgba(17, 16, 16, 0.396),rgba(12, 12, 12, 0.077)),url('/images/earth3.png');
+.about-container {
+  width: 100%;
+  min-height: 100dvh;
+  background: linear-gradient(180deg, rgba(17, 16, 16, 0), rgba(12, 12, 12, 0.407)), url('/images/earth3.png');
   background-size: cover;
   background-position: center;
-  height: 100dvh;
-}
-
-.about-content p {
-  position: relative;
-  max-width: 80ch;
-  line-height: 1.6;
-  color: #e1e2e4;
-  text-wrap: balance;
-  margin-bottom: 1.5rem;   
-  font-size: 1.4rem;
-  padding-top: 2rem;
-}
-
-.about-content p ol {
-  background-color: rgba(12, 12, 12, 0.14);
-  backdrop-filter: blur(16px);
-  border-radius: 10px;  
-  padding: 14px;
-  padding-top: 2px;
-}
-
-.about-content p ol li {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  box-sizing: border-box;
 }
 
-.about-content p ol li:first-child {
-  color: rgb(223, 223, 222);
+.about-hero {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
 }
 
-.about-content a {
-  position: relative;
-  display: inline-block;
-  transition: 0.2s ease-in;
-  font-size: 1.26rem;
-  line-height: 2.2;
-  color: rgb(109, 236, 215);
+/* Sponsors Section Styling */
+.sponsors-banner {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
 }
 
-.about-content a:hover {
-  transform: scale(1.0);
+.sponsors-label {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #cbd1db;
   font-weight: 600;
 }
 
-/* test this */
-.about-card .mapview-bottom {
-  position: relative;
-  flex: 1;
-  min-height: 100px;
-  width: 100%;
-  border-radius: 18px;
-  overflow: hidden;
-  top: 2px;
-  bottom: 0px;                 
+.sponsors-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sponsor-item {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.sponsor-item:hover {
+  transform: scale(1.01);
+}
+
+.sponsor-logo {
+  max-height: 46rem;
+  object-fit: contain;
+  margin: 10px;
+}
+
+.sponsor-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Main Content Card Styling */
+.about-card-content {
+  background: rgba(18, 20, 26, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: #e1e2e4;
+}
+
+.about-card-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.about-lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+  text-wrap: pretty;
+}
+
+/* Stations List Styling */
+.stations-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #93c5fd;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.stations-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.station-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.85rem 1.15rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s ease;
+}
+
+.station-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.station-link {
+  color: #6decd7;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.station-link:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.station-loc {
+  color: #9ca3af;
+  font-weight: normal;
+  font-size: 1.15rem;
+}
+
+.station-status {
+  font-size: 1.0rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
 }
